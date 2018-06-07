@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="陈日天的技术博客"/>
+        <meta property="og:title" content="传输速率计算问题"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>归档 - 陈日天的技术博客</title>
+    <title>传输速率计算问题 - 陈日天的技术博客</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -138,168 +138,80 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>归档</h1>
+                <div class="post-heading">
+                    <h1>传输速率计算问题</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-08-07
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
+                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
+                        返回目录
+                </a>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/30/npm-operation-not-permitted-solution/">
-        <h1 class="post-title archive">
-            npm operation not permitted解决方案集合
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-30
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="由一道题开始说起"><a href="#由一道题开始说起" class="headerlink" title="由一道题开始说起"></a>由一道题开始说起</h2><p><strong>使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送<em>__</em>块硬盘才能使速率超过1000G bit/s?</strong></p>
+<p>解：<br>这就是关于传输速率和传输介质的问题，例题来源于阿里的《技术之瞳》。<br>要解决这样的题，我们首先要清晰其中的单位关系。</p>
+<p>首先计算总时间：t = s &divide; v = 1000 km &divide; 80 km / h = 12 .5 h<br>然后计算总时间内可以传输的数据量：<br>s2 GB = v2 × t = 1000 G b/s &divide; 8b/B × 12.5 h × 3600 s/h<br>         =  5625000 GB<br>(其中s2为总数据量，v2为传输速率)<br>(注意单位要一致，12.5小时要转为秒，1000G b/s 是bit每秒，而最后数据量的单位是byte，因为1 byte = 8 bit，所以要除上 8b/B)<br>最后用总的数据量除以每块硬盘的size就可以知道至少运送多少块了：<br>n = s2 GB &divide; 1024 GB/块 = 562500 GB &divide; 1024 GB/块 = 5494 块</p>
+<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>这类题目公式其实就是s=vt，主要要留意单位要一致。</p>
+<h2 id="再来一题"><a href="#再来一题" class="headerlink" title="再来一题"></a>再来一题</h2><p><strong>有以下数据传输方法，请按照速率排序：</strong><br><strong>1.从一台计算机的A硬盘复制数据到B硬盘</strong><br><strong>2.通过10Gbit/s的局域网访问一台机器的内存</strong><br><strong>3.通过10Mbit/s的ADSL下载互联网资源</strong><br><strong>4.通过快递邮寄1TB硬盘，24小时内送达</strong></p>
+<p>解：<br>首先我们可以确认的是四个答案的速率差距应该都是清晰。<br>1.硬盘的速度大概是60 MB/s<br>2.10G bit/s =&gt; 10 &divide; 8 b/s = 1.25GB/s = 1280 MB/s<br>3.10M bit/s =&gt; 10 &divide; 8 b/s = 1.25B /s ≈ 0.00125MB/s<br>4.1TB &divide; 24h =&gt; 1024 GB &divide; 8 b/s &divide; 24 × 3600 s/h =&gt; 19200 B/s ≈ 19.2 MB/s<br>所以 2&gt;1&gt;4&gt;3</p>
+<h2 id="大总结"><a href="#大总结" class="headerlink" title="大总结"></a>大总结</h2><p>就这样子了</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/17/mgh-add-task-queue/">
-        <h1 class="post-title archive">
-            项目加入PHP任务队列过程
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-17
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+    <hr />
+    <h3>留言:</h3>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/16/learn-es2015-relect/">
-        <h1 class="post-title archive">
-            认识一下JS的反射机制
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-16
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/14/cms-base-on-mevn-1/">
-        <h1 class="post-title archive">
-            基于MEVNS微服务架构CMS开发历程(1)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/10/18/regex-lazy-mode/">
-        <h1 class="post-title archive">
-            正则表达式的懒惰模式多懒惰
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-10-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/26/how-javascript-works-engine-runtime-call-stack/">
-        <h1 class="post-title archive">
-            JS工作原理：引擎，运行时和调用堆栈
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-26
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/25/how-javascript-works-memory-management/">
-        <h1 class="post-title archive">
-            JS工作原理：內存管理与常见内存泄露分析
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/30/wechat-js-sdk-getinfo/">
-        <h1 class="post-title archive">
-            基于Vue微信公众号JS SDK实现
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-30
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/avoid-resubmit/">
-        <h1 class="post-title archive">
-            防止表单重复提交，你我有责
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/deep-learning-lol/">
-        <h1 class="post-title archive">
-            deep-learning-lol
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-        <li class="next"><a href="/studyforinterview/archives/page/2/">上一页  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
@@ -375,7 +287,7 @@
         var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>

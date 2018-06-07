@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="A Plan of preparing for the Interview">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SevensChan">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="最熟悉的陌生人 - access log"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="A Plan of preparing for the Interview" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="陈日天的技术博客"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>最熟悉的陌生人 - access log - 陈日天的技术博客</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/studyforinterview/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+	
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/studyforinterview/">Sevens Chan</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="http://enter.chenhaotaishuaile.com">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://my.oschina.net/u/203607">
+                            
+                                OldBlog
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/superhos/studyfortencent">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>最熟悉的陌生人 - access log</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-07-28
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
+                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
+                        返回目录
+                </a>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。</p>
+<h2 id="什么是access-log"><a href="#什么是access-log" class="headerlink" title="什么是access log"></a>什么是access log</h2><p>顾名思义，access log就是用来记录用户的请求日志。可通过nginx的配置文件来配置他的保存位置和输出的日志格式。</p>
+<h2 id="日志告诉了我们什么信息"><a href="#日志告诉了我们什么信息" class="headerlink" title="日志告诉了我们什么信息"></a>日志告诉了我们什么信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">176.51.166.239 - - [28/Jul/2017:15:41:30 +0800] &quot;POST /wp-login.php HTTP/1.1&quot; 200 2644 &quot;http://awesomesevens.com/wp-login.php&quot; &quot;Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0&quot;</div></pre></td></tr></table></figure>
+<p>这是一条默认的日志，具体的内容我们参照官网给的默认格式来看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">log_format main &apos;$remote_addr - $remote_user [$time_local] &apos;</div><div class="line">                           &apos;&quot;$request&quot; $status $body_bytes_sent &apos;</div><div class="line">                           &apos;&quot;$http_referer&quot; &quot;$http_user_agent&quot;;</div></pre></td></tr></table></figure>
+<ol>
+<li><p>176.51.166.239<br>$remote_addr : 客户端(用户)的请求IP</p>
+</li>
+<li><p>-<br>$remote_user : 已经经过Auth Basic Module验证的用户名。”-“就是没有记录到。</p>
+</li>
+<li><p>[28/Jul/2017:15:41:30 +0800]<br>$time_local  : 记录的时间</p>
+</li>
+<li><p>“POST /wp-login.php HTTP/1.1”<br>$request : 请求的url，POST 为请求的方法，HTTP/1.1为请求的协议</p>
+</li>
+<li><p>200<br>$status : 请求的状态，具体的状态代表的意义可以看我的另一篇文章 <a href="https://superhos.github.io/studyforinterview/2017/07/28/dev-code/">开发时候常会遇到的状态码</a></p>
+</li>
+<li><p>2644<br>$body_bytes_sent : 传送页面的字节数</p>
+</li>
+<li><p><a href="http://awesomesevens.com/wp-login.php" target="_blank" rel="external">http://awesomesevens.com/wp-login.php</a><br>$http_referer : 来源页面，即从哪个页面转到本页</p>
+</li>
+<li><p>Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0<br>$http_user_agent : 用户的浏览器信息，终端，版本等</p>
+</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置也很简单，在nginx config的server配置中加入下面一句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">access_log  /var/log/nginx/access.log  main;</div></pre></td></tr></table></figure>
+<p>中间是要放置的log的地址，后面的main对应的是上一节设定的格式。</p>
+<h2 id="access太大怎么办"><a href="#access太大怎么办" class="headerlink" title="access太大怎么办"></a>access太大怎么办</h2><p>我的建议是如果访问量大得夸张的话，最好把日志一块交给应用层去做，抽出来做一个日志系统，方便后续的分析。<br>如果访问量还没到夸张的层次的时候，也要考虑日志的占用空间问题。所以对每天的日志进行压缩和转存就很有必要了。网上的有人用的是写shell+crontab来做，但其实linux本来已经提供了一个很好的工具给我们去做这件事情，叫logrotate。<br>一般logrotate的配置文件会放置在 <em>/etc/logrotate.d</em> 路径下，下面是我的一个logrotate对于nginx日志的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/var/log/nginx/*.log &#123;</div><div class="line">        daily</div><div class="line">        missingok</div><div class="line">        rotate 14</div><div class="line">        compress</div><div class="line">        delaycompress</div><div class="line">        notifempty</div><div class="line">        create 0640 www-data adm</div><div class="line">        sharedscripts</div><div class="line">        prerotate</div><div class="line">                if [ -d /etc/logrotate.d/httpd-prerotate ]; then \</div><div class="line">                        run-parts /etc/logrotate.d/httpd-prerotate; \</div><div class="line">                fi \</div><div class="line">        endscript</div><div class="line">        postrotate</div><div class="line">                invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1</div><div class="line">        endscript</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参数 功能<br>compress 通过gzip 压缩转储以后的日志<br>nocompress 不需要压缩时，用这个参数<br>copytruncate 用于还在打开中的日志文件，把当前日志备份并截断<br>nocopytruncate 备份日志文件但是不截断<br>create mode owner group 转储文件，使用指定的文件模式创建新的日志文件<br>nocreate 不建立新的日志文件<br>delaycompress 和 compress 一起使用时，转储的日志文件到下一次转储时才压缩<br>nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。<br>errors address 专储时的错误信息发送到指定的Email 地址<br>ifempty 即使是空文件也转储，这个是 logrotate 的缺省选项。<br>notifempty 如果是空文件的话，不转储<br>mail address 把转储的日志文件发送到指定的E-mail 地址<br>nomail 转储时不发送日志文件<br>olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统<br>noolddir 转储后的日志文件和当前日志文件放在同一个目录下<br>prerotate/endscript 在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>postrotate/endscript 在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>daily 指定转储周期为每天<br>weekly 指定转储周期为每周<br>monthly 指定转储周期为每月<br>rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份<br>tabootext [+] list 让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~<br>size size 当日志文件到达指定的大小时才转储，Size 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p>[1] <a href="http://blog.csdn.net/cjwid/article/details/1690101" target="_blank" rel="external">linux下logrotate 配置和理解</a></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+    <hr />
+    <h3>留言:</h3>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/superhos/studyfortencent" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 SevensChan<br></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+  _paq.push(["setCookieDomain", "*.superhos.github.io"]);
+  _paq.push(["setDomains", ["*.superhos.github.io/studyfortencent"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.chenhaotaishuaile.com/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'sevens-tecblog';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>

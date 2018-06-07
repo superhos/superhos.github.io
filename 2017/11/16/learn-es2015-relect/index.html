@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="陈日天的技术博客"/>
+        <meta property="og:title" content="认识一下JS的反射机制"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>归档 - 陈日天的技术博客</title>
+    <title>认识一下JS的反射机制 - 陈日天的技术博客</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -138,168 +138,82 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>归档</h1>
+                <div class="post-heading">
+                    <h1>认识一下JS的反射机制</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2017-11-16
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
+                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
+                        返回目录
+                </a>
+            </div>
+        </div>
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/30/npm-operation-not-permitted-solution/">
-        <h1 class="post-title archive">
-            npm operation not permitted解决方案集合
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-30
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>早在ES5标准的时候JS已经有部分反射机制的函数，例如<code>Array.isArray</code>之类的函数，不过由于ES5标准下类的概念尚未规范化，大部分类的<br>实现都是基于函数，因此反射其实不过是遍历这个函数下的属性罢了。在ES6标准出台后，类的定义有了它自己的标准，因此反射就显得重要了。</p>
+<h2 id="Why-Reflect"><a href="#Why-Reflect" class="headerlink" title="Why Reflect"></a>Why Reflect</h2><p>在JAVA或者PHP转过来的后端应该对反射的概念很熟悉，因为在大部分框架的设计底层实现上，反射能够帮助解决很多问题。</p>
+<p>MDN文档上介绍，<code>Reflect</code>是一个JS的内置对象，提供了可拦截Javascript操作的方法，这些方法和代理控制者相同。<code>Reflect</code>不是一个函数对象，所以它不能被构造化。</p>
+<p>和大部分的全局对象不同，<code>Reflect</code>没有构造器函数。我们不能对它进行<code>new</code>操作或者作为一个函数调用它。<code>Reflect</code>所有的属性和方法都是静态的（跟Math对象一样）。</p>
+<h2 id="通过Reflect获取和修改对象的属性"><a href="#通过Reflect获取和修改对象的属性" class="headerlink" title="通过Reflect获取和修改对象的属性"></a>通过Reflect获取和修改对象的属性</h2><p>先定义一个测试类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>()&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'invoke'</span>);</div><div class="line">		<span class="keyword">this</span>.name = <span class="string">'brown'</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	say()&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'hello'</span>,<span class="keyword">this</span>.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Test();</div><div class="line">test.say();</div></pre></td></tr></table></figure></p>
+<p>正常输出是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">invoke</div><div class="line">hello brown</div></pre></td></tr></table></figure></p>
+<p>接下来，我们要用<code>Reflect.get(object,property[,this])</code>方法来获取<code>test</code>对象的属性name。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="built_in">Reflect</span>.get(test,<span class="string">"name"</span>);</div><div class="line"><span class="built_in">console</span>.log(name);</div></pre></td></tr></table></figure></p>
+<p>自然可以看到输出的<code>brown</code>，要通过<code>Reflect</code>来修改这个属性也是很简单的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Reflect</span>.set(test,<span class="string">"name"</span>,<span class="string">"Sevens"</span>);</div></pre></td></tr></table></figure></p>
+<p>##</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/17/mgh-add-task-queue/">
-        <h1 class="post-title archive">
-            项目加入PHP任务队列过程
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-17
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+    <hr />
+    <h3>留言:</h3>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/16/learn-es2015-relect/">
-        <h1 class="post-title archive">
-            认识一下JS的反射机制
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-16
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/14/cms-base-on-mevn-1/">
-        <h1 class="post-title archive">
-            基于MEVNS微服务架构CMS开发历程(1)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/10/18/regex-lazy-mode/">
-        <h1 class="post-title archive">
-            正则表达式的懒惰模式多懒惰
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-10-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/26/how-javascript-works-engine-runtime-call-stack/">
-        <h1 class="post-title archive">
-            JS工作原理：引擎，运行时和调用堆栈
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-26
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/25/how-javascript-works-memory-management/">
-        <h1 class="post-title archive">
-            JS工作原理：內存管理与常见内存泄露分析
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/30/wechat-js-sdk-getinfo/">
-        <h1 class="post-title archive">
-            基于Vue微信公众号JS SDK实现
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-30
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/avoid-resubmit/">
-        <h1 class="post-title archive">
-            防止表单重复提交，你我有责
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/deep-learning-lol/">
-        <h1 class="post-title archive">
-            deep-learning-lol
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-        <li class="next"><a href="/studyforinterview/archives/page/2/">上一页  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
@@ -375,7 +289,7 @@
         var dsq = document.createElement('script');
         dsq.type = 'text/javascript';
         dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     }());
 </script>
