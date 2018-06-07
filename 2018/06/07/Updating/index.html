@@ -1,37 +1,125 @@
-extends includes/layout
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>博客更新中.. | Sevens Chan blog | 陈日天技术博客</title>
 
-block content
+  
+  <meta name="author" content="SevensChan">
+  
 
-    section#wrapper.post
-        article
-            header
-                h1!=page.title
-                h2.headline!=date(page.date, 'MMM DD, YYYY h:mm')
-                    |·
-                    |#{wordcount(page.content)} words
-                    |·
-                    |#{min2read(page.content)} minutes read
-                    span.tags
+  
+  <meta name="description" content="由于之前2017年的POST source丢失，现在在升级整合。
+也找到hexo一个问题。。迁移麻烦。。">
+  
 
-            if toc(page.content)
-                div#toc!=toc(page.content,{list_number:false})
+  
+  
+  <meta name="keywords" content="">
+  
 
-            section#post-body!=page.content
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav#post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
+  <meta property="og:title" content="博客更新中.."/>
 
+  <meta property="og:site_name" content="Sevens Chan blog"/>
+
+  
+  <meta property="og:image" content="/studyforinterview/favicon.ico"/>
+  
+
+  <link href="/studyforinterview/favicon.ico" rel="icon">
+  <link rel="alternate" href="/studyforinterview/atom.xml" title="Sevens Chan blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/studyforinterview/css/style.css" media="screen" type="text/css">
+</head>
 
 
+<body>
+<div class="blog">
+  <div class="content">
 
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/studyforinterview/">Sevens Chan blog</a>
+    </h1>
+    <p class="site-description">陈日天技术博客</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/studyforinterview/">Home</a></li>
+      
+        <li><a href="/studyforinterview/archives">Archives</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>博客更新中..</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2018/06/07/Updating/" rel="bookmark">
+        <time class="entry-date published" datetime="2018-06-07T08:26:56.000Z">
+          2018-06-07
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>由于之前2017年的POST source丢失，现在在升级整合。</p>
+<p>也找到hexo一个问题。。迁移麻烦。。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2018 SevensChan
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
