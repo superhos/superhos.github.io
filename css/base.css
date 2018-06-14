@@ -163,6 +163,13 @@ hr.small {
   background-attachment: scroll;
   margin-bottom: 50px;
 }
+.intro-header .banquan {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  font-size: 13px;
+  color: #fff;
+}
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
