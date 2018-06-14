@@ -1,319 +1,144 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
+  <meta charset="utf-8">
+  
+  <title>Javascript时间的准确性 | Sevens Chan blog | 陈日天技术博客</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="SevensChan">
+  
 
-    <!--Description-->
-    
-        <meta name="description" content="A Plan of preparing for the Interview">
-    
+  
+  <meta name="description" content="返回目录
+                
+#Javascript
+【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】
+现在有两个问题我觉得需要好好考虑的。
+第一，我看了一些 Dromaeo 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="SevensChan">
-    
+  
+  
+  <meta name="keywords" content="">
+  
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Javascript时间的准确性"/>
-    
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="A Plan of preparing for the Interview" />
-    
+  <meta property="og:title" content="Javascript时间的准确性"/>
 
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="陈日天的技术博客"/>
+  <meta property="og:site_name" content="Sevens Chan blog"/>
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
+  
+  <meta property="og:image" content="/studyforinterview/favicon.ico"/>
+  
 
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>Javascript时间的准确性 - 陈日天的技术博客</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/studyforinterview/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Google Analytics -->
-    
-
-
-    <!-- favicon -->
-    
-	
+  <link href="/studyforinterview/favicon.ico" rel="icon">
+  <link rel="alternate" href="/studyforinterview/atom.xml" title="Sevens Chan blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/studyforinterview/css/style.css" media="screen" type="text/css">
 </head>
 
 
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/studyforinterview/">Sevens Chan</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="http://enter.chenhaotaishuaile.com">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/studyforinterview/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://my.oschina.net/u/203607">
-                            
-                                OldBlog
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/superhos/studyfortencent">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Javascript时间的准确性</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2017-08-16
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/studyforinterview/">Sevens Chan blog</a>
+    </h1>
+    <p class="site-description">陈日天技术博客</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/studyforinterview/">Home</a></li>
+      
+        <li><a href="/studyforinterview/archives">Archives</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
-                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
-                        返回目录
-                </a>
-            </div>
-        </div>
-        <div class="row">
+    <main class="site-main posts-loop">
+    <article>
 
-            <!-- Tags and categories -->
-           
-                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
-                    
-                        
+  
+    
+    <h3 class="article-title"><span>Javascript时间的准确性</span></h3>
+    
+  
 
-
-<a href="/studyforinterview/tags/Javascript/">#Javascript</a>
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/08/16/accuracy-of-javascript-time/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-15T16:00:00.000Z">
+          2017-08-16
+        </time>
+      </a>
+    </span>
+  </div>
 
 
-                    
-                </div>
-                <div class="col-lg-4 col-md-5 post-categories">
-                    
-                </div>
-            
+  
 
-            <!-- Gallery -->
-            
-
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】</p>
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyforinterview/tags/Javascript/">#Javascript</a></p>
+<p>【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】</p>
 <p>现在有两个问题我觉得需要好好考虑的。</p>
-<p>第一，我看了一些 <a href="http://dromaeo.com/" target="_blank" rel="external">Dromaeo</a> 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的，因为测试应该至少运行几毫秒，只得到一致的“0”结果是不可行的，特别是对于非平凡的代码。</p>
-<p>第二，我运行过一些关于性能方面的测试，在IE浏览器上，在<a href="http://mootools.net/slickspeed/" target="_blank" rel="external">SlickSpeed</a> 选择套件测试上实验结果时间有着剧烈的波动。 当你想知道自己的修改时候有好处的时候，这是很难让每一个页面重新加载15-60毫秒的时间。</p>
-<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> start = (<span class="keyword">new</span> <span class="built_in">Date</span>).getTime();</div><div class="line"><span class="comment">/* Run a test. */</span></div><div class="line"><span class="keyword">var</span> diff = (<span class="keyword">new</span> <span class="built_in">Date</span>).getTime() - start;</div></pre></td></tr></table></figure>
+<p>第一，我看了一些 <a href="http://dromaeo.com/" target="_blank" rel="noopener">Dromaeo</a> 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的，因为测试应该至少运行几毫秒，只得到一致的“0”结果是不可行的，特别是对于非平凡的代码。</p>
+<p>第二，我运行过一些关于性能方面的测试，在IE浏览器上，在<a href="http://mootools.net/slickspeed/" target="_blank" rel="noopener">SlickSpeed</a> 选择套件测试上实验结果时间有着剧烈的波动。 当你想知道自己的修改时候有好处的时候，这是很难让每一个页面重新加载15-60毫秒的时间。</p>
+<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start = (newDate).getTime();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Run a test. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> diff = (newDate).getTime() - start;</span><br></pre></td></tr></table></figure></p>
 <p>确切的写法可能有所不同不过核心都是一样的，通过获得执行前的Date对象和执行后的Date对象之间的时间差来作为测试的总运行时间。</p>
-<p>每次运行一段代码都会有很多地方有高有低的。这可能是因为在别的线程上有其他东西在执行，或者其他的进程占用了更多的进程。因此，实验的结果是波动的。测试波动的多少是一致的，沿着 <a href="http://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="external">正态分布</a> 的某个部分：</p>
+<p>每次运行一段代码都会有很多地方有高有低的。这可能是因为在别的线程上有其他东西在执行，或者其他的进程占用了更多的进程。因此，实验的结果是波动的。测试波动的多少是一致的，沿着 <a href="http://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">正态分布</a> 的某个部分：</p>
 <p><img src="https://johnresig.com/files/standard.png" alt="image_1"></p>
-<p>(很多测试套件在测试的时候例如 SunSpider 和 Dromaeo 都会使用 <a href="http://en.wikipedia.org/wiki/T-distribution" target="_blank" rel="external">T 分布</a> 来获得更好的分布图)<br>为了更好的了解结果，我写了一个<a href="https://johnresig.com/files/bugs/timer/" target="_blank" rel="external">小工具</a>用来运行下面的测试：运行一个空的函数，循环10,000次，查找和循环几千个divs，最后循环修改这些divs。我连续跑了这些测试并生成了下面的直方结果图。<br>这是在OS X系统上主要浏览器的结果：</p>
+<p>(很多测试套件在测试的时候例如 SunSpider 和 Dromaeo 都会使用 <a href="http://en.wikipedia.org/wiki/T-distribution" target="_blank" rel="noopener">T 分布</a> 来获得更好的分布图)<br>为了更好的了解结果，我写了一个<a href="https://johnresig.com/files/bugs/timer/" target="_blank" rel="noopener">小工具</a>用来运行下面的测试：运行一个空的函数，循环10,000次，查找和循环几千个divs，最后循环修改这些divs。我连续跑了这些测试并生成了下面的直方结果图。<br>这是在OS X系统上主要浏览器的结果：</p>
 <p><img src="https://johnresig.com/files/gettime-osx.sm.png" alt="OS X"></p>
 <p>这个结果是很棒的：在0ms附近有很多不同的结果（有一些结果到达了1-4ms，这是符合预期的），每个浏览器都会跟随正态分布的结果达到了7ms,13ms和22ms。这都是我们期待的结果，没什么惊喜。</p>
 <p>【翻译到这里，发现这篇实在没有翻译的价值了，后面的东西都有点过时了。】<br>PEACE!</p>
+<hr>
+<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-    <hr />
-    <h3>留言:</h3>
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      
     </div>
 
+  </div>
 
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
+    
 
+    
 
-                </div>
-            
-        </div>
     </div>
+
+    
+  </div>
 </article>
 
-    <!-- Footer -->
-    <hr />
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
+    </main>
 
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/superhos/studyfortencent" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2017 SevensChan<br></p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-  _paq.push(["setCookieDomain", "*.superhos.github.io"]);
-  _paq.push(["setDomains", ["*.superhos.github.io/studyfortencent"]]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//piwik.chenhaotaishuaile.com/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '4']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
-
-    <!-- After footer scripts -->
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
     
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'sevens-tecblog';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
+    &copy; 2018 SevensChan
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
 </body>
-
 </html>

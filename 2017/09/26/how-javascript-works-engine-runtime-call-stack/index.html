@@ -1,187 +1,94 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
+  <meta charset="utf-8">
+  
+  <title>JS工作原理：引擎，运行时和调用堆栈 | Sevens Chan blog | 陈日天技术博客</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="SevensChan">
+  
 
-    <!--Description-->
-    
-        <meta name="description" content="A Plan of preparing for the Interview">
-    
+  
+  <meta name="description" content="返回目录
+                
+翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack
+今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="SevensChan">
-    
+  
+  
+  <meta name="keywords" content="">
+  
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="JS工作原理：引擎，运行时和调用堆栈"/>
-    
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="A Plan of preparing for the Interview" />
-    
+  <meta property="og:title" content="JS工作原理：引擎，运行时和调用堆栈"/>
 
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="陈日天的技术博客"/>
+  <meta property="og:site_name" content="Sevens Chan blog"/>
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
+  
+  <meta property="og:image" content="/studyforinterview/favicon.ico"/>
+  
 
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>JS工作原理：引擎，运行时和调用堆栈 - 陈日天的技术博客</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/studyforinterview/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Google Analytics -->
-    
-
-
-    <!-- favicon -->
-    
-	
+  <link href="/studyforinterview/favicon.ico" rel="icon">
+  <link rel="alternate" href="/studyforinterview/atom.xml" title="Sevens Chan blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/studyforinterview/css/style.css" media="screen" type="text/css">
 </head>
 
 
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/studyforinterview/">Sevens Chan</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="http://enter.chenhaotaishuaile.com">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/studyforinterview/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://my.oschina.net/u/203607">
-                            
-                                OldBlog
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/superhos/studyfortencent">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>JS工作原理：引擎，运行时和调用堆栈</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2017-09-26
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/studyforinterview/">Sevens Chan blog</a>
+    </h1>
+    <p class="site-description">陈日天技术博客</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/studyforinterview/">Home</a></li>
+      
+        <li><a href="/studyforinterview/archives">Archives</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
-                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
-                        返回目录
-                </a>
-            </div>
-        </div>
-        <div class="row">
+    <main class="site-main posts-loop">
+    <article>
 
-            <!-- Tags and categories -->
-           
+  
+    
+    <h3 class="article-title"><span>JS工作原理：引擎，运行时和调用堆栈</span></h3>
+    
+  
 
-            <!-- Gallery -->
-            
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/09/26/how-javascript-works-engine-runtime-call-stack/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-09-25T16:00:00.000Z">
+          2017-09-26
+        </time>
+      </a>
+    </span>
+  </div>
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>翻译自： <a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="external">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p>翻译自： <a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="noopener">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
 <p>今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服务端，Hybird应用，嵌入设备等等等等。</p>
 <p>这一系列文章主要针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。</p>
 <p>在GitHub的统计可以看得出，JavaScript在很多地方都领先其他语言。<br><img src="https://cdn-images-1.medium.com/max/1400/1*Zf4reZZJ9DCKsXf5CSXghg.png" alt="GitHit Range"></p>
@@ -204,13 +111,14 @@
 <p>所以，我们仅仅有引擎是不够的。我们还需要由浏览器提供的Web APIs，例如DOM操作，AJAX，setTimeout等等等等。</p>
 <p>然后，我们就能拥有有名的<strong>事件循环</strong>和<strong>回调队列</strong>。</p>
 <h2 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h2><p>JavaScript是一个单线程的语言，这意味着它只有一个调用栈。因为它在一个时间内只做一件事。<br>调用堆栈是一个数据结构，它里面存储的记录是来源于我们的程序。当我们进入一个函数的时候，这个函数就会放置到栈的最顶端。当我们从函数return的时候，我们会把这个函数从栈中pop出来。这就是栈所做的事。</p>
-<p>来看一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">x, y</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> x * y;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">printSquare</span>(<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> s = multiply(x, x);</div><div class="line">    <span class="built_in">console</span>.log(s);</div><div class="line">&#125;</div><div class="line">printSquare(<span class="number">5</span>);</div></pre></td></tr></table></figure></p>
+<p>来看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">functionmultiply(x, y) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> x * y;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">functionprintSquare(x) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s = multiply(x, x);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printSquare(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
 <p>当引擎开始执行这段代码，调用栈是空的，之后的步骤如下图：<br><img src="https://cdn-images-1.medium.com/max/800/1*Yp1KOt_UJ47HChmS9y7KXw.png" alt="例子（1）"></p>
 <p>调用栈中的每个条目会成为栈帧。</p>
-<p>这正是抛出异常时构造堆栈跟踪的方式 —— 当异常发生时，它基本上是调用堆栈的状态。 看看下面的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'SessionStack will help you resolve crashes :)'</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    foo();</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    bar();</div><div class="line">&#125;</div><div class="line">start();</div></pre></td></tr></table></figure></p>
+<p>这正是抛出异常时构造堆栈跟踪的方式 —— 当异常发生时，它基本上是调用堆栈的状态。 看看下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">functionfoo() &#123;</span><br><span class="line"></span><br><span class="line">thrownewError(<span class="string">'SessionStack will help you resolve crashes :)'</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">functionbar() &#123;</span><br><span class="line"></span><br><span class="line">    foo();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">functionstart() &#123;</span><br><span class="line"></span><br><span class="line">    bar();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">start();</span><br></pre></td></tr></table></figure>
 <p>通过Chrome来调试会得到下面结果：<br><img src="https://cdn-images-1.medium.com/max/800/1*T-W_ihvl-9rG4dn18kP3Qw.png" alt="例子（2）结果"></p>
-<p><strong>栈溢出</strong> —— 这会发生在当我们达到了调用栈的最大容量的时候。这其实是很容易发生的，特别是在不对代码进行测试的情况下使用递归，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    foo();</div><div class="line">&#125;</div><div class="line">foo();</div></pre></td></tr></table></figure>
+<p><strong>栈溢出</strong> —— 这会发生在当我们达到了调用栈的最大容量的时候。这其实是很容易发生的，特别是在不对代码进行测试的情况下使用递归，例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">functionfoo() &#123;</span><br><span class="line"></span><br><span class="line">    foo();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure></p>
 <p>当引擎开始执行这段代码，它会调用一个叫“foo”的函数。然后这个函数同样会调用它自己并且没有结束条件。因此在每个执行步骤都会不断加入同样的函数。调用栈会变成这样：<br><img src="https://cdn-images-1.medium.com/max/1200/1*AycFMDy9tlDmNoc5LXd9-g.png" alt="Overflowing"></p>
 <p>对于浏览器来说，调用栈中的函数调用次数超过了调用栈的实际大小的时候，浏览器就会抛出一个错误，看起来像这样：<br><img src="https://cdn-images-1.medium.com/max/800/1*e0nEd59RPKz9coyY8FX-uw.png" alt="Overflowing2"></p>
 <p>在单线程开发会感觉更简单，因为你不需要去了解一些多线程环境下才会发生的问题，例如死锁。</p>
@@ -220,112 +128,42 @@
 <p>而且这不是仅有的问题。当你的浏览器开始在调用栈中处理大量的任务的时候，它可能会长时间的停止响应。而对于大部分浏览器来说面对这种情况都会采取行动，主动询问你是否要关掉这个页面。<br><img src="https://cdn-images-1.medium.com/max/800/1*WlMXK3rs_scqKTRV41au7g.jpeg" alt="Close"></p>
 <p>这个绝对不是好的用户体验。</p>
 <p>那么，如何在不阻塞UI使得浏览器无响应的情况下执行繁重的代码呢？ 是的，解决方案就是异步回调。</p>
+<hr>
+<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-    <hr />
-    <h3>留言:</h3>
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      
     </div>
 
+  </div>
 
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
+    
 
+    
 
-                </div>
-            
-        </div>
     </div>
+
+    
+  </div>
 </article>
 
-    <!-- Footer -->
-    <hr />
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
+    </main>
 
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/superhos/studyfortencent" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2017 SevensChan<br></p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-  _paq.push(["setCookieDomain", "*.superhos.github.io"]);
-  _paq.push(["setDomains", ["*.superhos.github.io/studyfortencent"]]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//piwik.chenhaotaishuaile.com/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '4']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
-
-    <!-- After footer scripts -->
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
     
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'sevens-tecblog';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
+    &copy; 2018 SevensChan
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
 </body>
-
 </html>

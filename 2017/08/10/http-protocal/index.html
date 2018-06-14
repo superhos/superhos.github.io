@@ -1,233 +1,98 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<!-- Head tag -->
+<!DOCTYPE HTML>
+<html>
 <head>
+  <meta charset="utf-8">
+  
+  <title>关于HTTP协议的一切 | Sevens Chan blog | 陈日天技术博客</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="SevensChan">
+  
 
-    <!--Description-->
-    
-        <meta name="description" content="A Plan of preparing for the Interview">
-    
+  
+  <meta name="description" content="返回目录
+                
+怎么理解协议在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。
+HTTP协议简介HTTP是Hyper ">
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="SevensChan">
-    
+  
+  
+  <meta name="keywords" content="">
+  
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="关于HTTP协议的一切"/>
-    
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="A Plan of preparing for the Interview" />
-    
+  <meta property="og:title" content="关于HTTP协议的一切"/>
 
-    <!--Open Graph Site Name-->
-    <meta property="og:site_name" content="陈日天的技术博客"/>
+  <meta property="og:site_name" content="Sevens Chan blog"/>
 
-    <!--Type page-->
-    
-        <meta property="og:type" content="article" />
-    
+  
+  <meta property="og:image" content="/studyforinterview/favicon.ico"/>
+  
 
-    <!--Page Cover-->
-    
-
-        <meta name="twitter:card" content="summary" />
-    
-
-    <!-- Title -->
-    
-    <title>关于HTTP协议的一切 - 陈日天的技术博客</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/studyforinterview/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
-
-    <!-- Google Analytics -->
-    
-
-
-    <!-- favicon -->
-    
-	
+  <link href="/studyforinterview/favicon.ico" rel="icon">
+  <link rel="alternate" href="/studyforinterview/atom.xml" title="Sevens Chan blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/studyforinterview/css/style.css" media="screen" type="text/css">
 </head>
 
 
 <body>
+<div class="blog">
+  <div class="content">
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/studyforinterview/">Sevens Chan</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="http://enter.chenhaotaishuaile.com">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/studyforinterview/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://my.oschina.net/u/203607">
-                            
-                                OldBlog
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/superhos/studyfortencent">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
-
-<header class="intro-header">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>关于HTTP协议的一切</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2017-08-10
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/studyforinterview/">Sevens Chan blog</a>
+    </h1>
+    <p class="site-description">陈日天技术博客</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/studyforinterview/">Home</a></li>
+      
+        <li><a href="/studyforinterview/archives">Archives</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 ">
-                <a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" style="font-size:14px;border-bottom:1px solid #DDD;">
-                        返回目录
-                </a>
-            </div>
-        </div>
-        <div class="row">
+    <main class="site-main posts-loop">
+    <article>
 
-            <!-- Tags and categories -->
-           
+  
+    
+    <h3 class="article-title"><span>关于HTTP协议的一切</span></h3>
+    
+  
 
-            <!-- Gallery -->
-            
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/08/10/http-protocal/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-09T16:00:00.000Z">
+          2017-08-10
+        </time>
+      </a>
+    </span>
+  </div>
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h2 id="怎么理解协议"><a href="#怎么理解协议" class="headerlink" title="怎么理解协议"></a>怎么理解协议</h2><p>在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。</p>
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<h2 id="怎么理解协议"><a href="#怎么理解协议" class="headerlink" title="怎么理解协议"></a>怎么理解协议</h2><p>在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。</p>
 <h2 id="HTTP协议简介"><a href="#HTTP协议简介" class="headerlink" title="HTTP协议简介"></a>HTTP协议简介</h2><p>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium）和Internet工作小组IETF（Internet Engineering Task Force）合作的结果，（他们）最终发布了一系 列的RFC，RFC 1945定义了HTTP/1.0版本。其中最著名的就是RFC 2616。RFC 2616定义了今天普遍使用的一个版本——HTTP 1.1。<br>HTTP协议（HyperText Transfer Protocol，超文本传输协议）是用于从WWW服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算 机正确快速地传输超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。<br>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。HTTP是一个无状态的协议。</p>
 <p>关键词： 应用层协议，无状态协议<br>无状态协议的意思可以理解成请求之间是独立不影响的，因此服务端开发的时候需要引用session的概念来保持会话的持续性。</p>
 <h2 id="HTTP协议的格式-Request"><a href="#HTTP协议的格式-Request" class="headerlink" title="HTTP协议的格式 - Request"></a>HTTP协议的格式 - Request</h2><p>HTTP Request由三个部分组成： 请求行，消息报头（Header），请求正文（body）</p>
-<h2 id="HTTP-Request-的-Header-信息"><a href="#HTTP-Request-的-Header-信息" class="headerlink" title="HTTP Request 的 Header 信息"></a>HTTP Request 的 Header 信息</h2><h3 id="HTTP-Request-请求行-请求方式"><a href="#HTTP-Request-请求行-请求方式" class="headerlink" title="HTTP Request 请求行 (请求方式)"></a>HTTP Request 请求行 (请求方式)</h3><table>
-<thead>
-<tr>
-<th>方式</th>
-<th style="text-align:center">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Get</td>
-<td style="text-align:center">向Web服务器请求一个文件</td>
-</tr>
-<tr>
-<td>Post</td>
-<td style="text-align:center">向Web服务器发送数据让Web服务器进行处理</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td style="text-align:center">向Web服务器发送数据并存储在Web服务器内部</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td style="text-align:center">检查一个对象是否存在</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td style="text-align:center">从Web服务器删除一个文件</td>
-</tr>
-<tr>
-<td>CONNECT</td>
-<td style="text-align:center">对通道提供支持</td>
-</tr>
-<tr>
-<td>TRACE</td>
-<td style="text-align:center">跟踪到服务器的路径</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td style="text-align:center">查询Web服务器的性能</td>
-</tr>
-</tbody>
-</table>
-<h4 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h4><p>POST /test/test/index HTTP/1.1</p>
+<h2 id="HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"><a href="#HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能" class="headerlink" title="HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"></a>HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能</h2><h4 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h4><p>POST /test/test/index HTTP/1.1</p>
 <ul>
 <li>POST： HTTP的请求方式</li>
 <li>/test/test/index: 请求Web服务器的目录地址</li>
@@ -248,13 +113,13 @@
 <li>存有该资源的主机IP地址(有时也包括端口号)</li>
 <li>主机资源的具体地址。如目录和文件名等</li>
 </ul>
-<h3 id="HTTP-Request-消息报头请求的参数"><a href="#HTTP-Request-消息报头请求的参数" class="headerlink" title="HTTP Request 消息报头请求的参数"></a>HTTP Request 消息报头请求的参数</h3><h4 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h4><p>请求的Web服务器域名地址</p>
+<h3 id="Host"><a href="#Host" class="headerlink" title="Host"></a>Host</h3><p>请求的Web服务器域名地址</p>
 <h4 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h4><p>HTTP客户端运行的浏览器类型的详细信息。通过该头部信息，Web服务器可以判断当前HTTP请求的客户端的浏览器类型。</p>
 <p>例子：<br>User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11</p>
 <h4 id="Accept"><a href="#Accept" class="headerlink" title="Accept"></a>Accept</h4><p>指定客户端能够接受的内容类型，内容类型中的先后次序表示客户端接收的先后次序。</p>
 <p>例子：<br>Accept:text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,/;q=0.5<br>备注：<br>在Prototyp（1.5）的Ajax代码封装中，将Accept默认设置为“text/JavaScript, text/html, application/xml, text/xml, /”。这是因为Ajax默认获取服务器返回的Json数据模式。<br>在Ajax代码中，可以使用XMLHttpRequest 对象中setRequestHeader函数方法来动态设置这些Header信息。</p>
 <blockquote>
-<p>注意：很多参数后面都会有’q’参数，根据HTTP协议的<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="external">14.1章</a>，这个’q’参数可以理解喜好参数。例如上面q=0.9为最高，会优先选择text/plain类型,然后再到0.8最后0.5为空。</p>
+<p>注意：很多参数后面都会有’q’参数，根据HTTP协议的<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="noopener">14.1章</a>，这个’q’参数可以理解喜好参数。例如上面q=0.9为最高，会优先选择text/plain类型,然后再到0.8最后0.5为空。</p>
 </blockquote>
 <h4 id="Accept-Language"><a href="#Accept-Language" class="headerlink" title="Accept-Language"></a>Accept-Language</h4><p>指定HTTP客户端浏览器用来展示返回信息所优先选择的语言</p>
 <p>例子：<br>Accept-Language: zh-cn,zh;q=0.5<br>这里默认为中文。</p>
@@ -284,7 +149,7 @@
 <h4 id="Pragma"><a href="#Pragma" class="headerlink" title="Pragma"></a>Pragma</h4><p>包括实现特定的指令，它可应用到响应链上的任何接收方</p>
 <p>例子：<br>Pragma: no-cache</p>
 <h2 id="HTTP-Response"><a href="#HTTP-Response" class="headerlink" title="HTTP Response"></a>HTTP Response</h2><p>Response组成部分也有三部分：状态行，Header,Body</p>
-<h3 id="HTTP-Response-的状态行信息"><a href="#HTTP-Response-的状态行信息" class="headerlink" title="HTTP Response 的状态行信息"></a>HTTP Response 的状态行信息</h3><p>状态行信息包括协议及版本号，状态码，状态码文本的描述信息：<br>HTTP/1.1 200 OK<br>具体常用状态码请看我的另一篇文章<a href="https://superhos.github.io/studyfortencent/2017/07/28/dev-code/">开发时候常会遇到的HTTP状态码</a></p>
+<p>### </p>
 <h3 id="HTTP-Response-Header"><a href="#HTTP-Response-Header" class="headerlink" title="HTTP Response Header"></a>HTTP Response Header</h3><p>Response的Header参数跟Request很多类似，重复的在此省略</p>
 <h4 id="Status"><a href="#Status" class="headerlink" title="Status"></a>Status</h4><p>状态码</p>
 <h4 id="Set-Cookie"><a href="#Set-Cookie" class="headerlink" title="Set-Cookie"></a>Set-Cookie</h4><p>服务端设置客户端cookie。设置格式是name=value，设置多个参数时中间分号隔开。Set-Cookie时还会用到几个参数：PATH设置有效路径，DOMAIN设置cookie生效的域名，Expire设置cookie的有效时间，0表示关闭浏览器就失效。</p>
@@ -292,113 +157,43 @@
 <h4 id="Content-Length"><a href="#Content-Length" class="headerlink" title="Content-Length"></a>Content-Length</h4><p>附属体（数据实体）的长度</p>
 <h2 id="常见例题"><a href="#常见例题" class="headerlink" title="常见例题"></a>常见例题</h2><p>1.下面HTTP头中<strong>_</strong>不是和浏览器缓存相关<br>A. Expires<br>B. Cache-Control<br>C. ETag<br>D. Date</p>
 <p>解析：Expires表示缓存过期的时间，Cache-Control表示缓存的规则(不保留或者或留多久)，ETag和Last-Modified配合使用查看是否读取缓存，Date是发送request的当前时间。所以答案选<strong>D</strong>。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0] <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" target="_blank" rel="external">HTTP Protocol</a>,W3C<br>[1] <a href="http://blog.csdn.net/gueter/archive/2007/03/08/1524447.aspx" target="_blank" rel="external">HTTP协议详解</a>,null<br>[2] <a href="http://www.studyofnet.com/news/166.html" target="_blank" rel="external">HTTP消息中header头部信息的讲解</a>,null<br>[3] <a href="https://www.zhihu.com/question/21950864/answer/66779836" target="_blank" rel="external">HTTP 协议中 URI 和 URL 有什么区别？</a>,郭无心<br>[4]《技术之瞳》,阿里巴巴集团校园招聘笔试项目组</p>
+<h2 id="郭无心"><a href="#郭无心" class="headerlink" title=",郭无心"></a>,郭无心</h2><p>[4]《技术之瞳》,阿里巴巴集团校园招聘笔试项目组</p>
+<hr>
+<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-    <hr />
-    <h3>留言:</h3>
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      
     </div>
 
+  </div>
 
+  <div class="article-footer">
+    <div class="article-meta pull-left">
 
+    
 
+    
 
-                </div>
-            
-        </div>
     </div>
+
+    
+  </div>
 </article>
 
-    <!-- Footer -->
-    <hr />
 
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
+    </main>
 
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/superhos/studyfortencent" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2017 SevensChan<br></p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
-  _paq.push(["setCookieDomain", "*.superhos.github.io"]);
-  _paq.push(["setDomains", ["*.superhos.github.io/studyfortencent"]]);
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//piwik.chenhaotaishuaile.com/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', '4']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Piwik Code -->
-
-    <!-- After footer scripts -->
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
     
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
-
-<!-- Disqus Comments -->
-
-<script type="text/javascript">
-    var disqus_shortname = 'sevens-tecblog';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
+    &copy; 2018 SevensChan
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
 </body>
-
 </html>
