@@ -10,9 +10,11 @@
   
 
   
-  <meta name="description" content="返回目录
+  <meta name="description" content="项目加入PHP任务队列过程          2017-11-17
+        
+                        返回目录
                 
-项目本来是有基于redis的任务队列系统的，但是被离职的同事移除掉了，移除的原因没有交代下来，因此我也不敢牟然重新启用。缺失任务队列的最直接影响就是系统遇到占时间操作的时候，用户就会陷入漫长的等待。例如发邮件的操作，因为一般连接邮件服务器的耗时就需要5-1">
+项目本来是有基于redis的任务队列系统的，但是被离职的同事移除掉了，移除的原因没有交代下来，因此我也不敢牟然重新启用。缺">
   
 
   
@@ -85,13 +87,14 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="项目加入PHP任务队列过程"><a href="#项目加入PHP任务队列过程" class="headerlink" title="项目加入PHP任务队列过程"></a>项目加入PHP任务队列过程</h3><p><a href="/studyforinterview/2017/11/17/mgh-add-task-queue/"><br>          2017-11-17
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>项目本来是有基于redis的任务队列系统的，但是被离职的同事移除掉了，移除的原因没有交代下来，因此我也不敢牟然重新启用。缺失任务队列的最直接影响就是系统遇到占时间操作的时候，用户就会陷入漫长的等待。例如发邮件的操作，因为一般连接邮件服务器的耗时就需要5-10秒。。因此在这样的背景下，为系统加回任务队列的任务就交给我了。</p>
 <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>首先要确定任务队列要做的事情。最基础的目的就是把占用时间的任务都交给任务队列去control，目前，嗯，其实就是发邮件了。。<br>其次为了确认任务队列的工作进度，要对它进行监控，并且提供可行的监控接口，为了方便交给24小时监控团队帮我们监控。。</p>
 <h2 id="PHP-resque"><a href="#PHP-resque" class="headerlink" title="PHP-resque"></a>PHP-resque</h2><p>PHP-resque是呼声比较高的技术方案，</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>

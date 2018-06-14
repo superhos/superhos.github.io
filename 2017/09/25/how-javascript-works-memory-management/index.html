@@ -10,10 +10,11 @@
   
 
   
-  <meta name="description" content="返回目录
+  <meta name="description" content="JS工作原理：內存管理与常见内存泄露分析          2017-09-25
+        
+                        返回目录
                 
-翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks
-在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识Jav">
+翻译自： How JavaScript works: memory management + how to ">
   
 
   
@@ -86,7 +87,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="JS工作原理：內存管理与常见内存泄露分析"><a href="#JS工作原理：內存管理与常见内存泄露分析" class="headerlink" title="JS工作原理：內存管理与常见内存泄露分析"></a>JS工作原理：內存管理与常见内存泄露分析</h3><p><a href="/studyforinterview/2017/09/25/how-javascript-works-memory-management/"><br>          2017-09-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>翻译自： <a href="https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec" target="_blank" rel="noopener">How JavaScript works: memory management + how to handle 4 common memory leaks</a></p>
 <p>在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。</p>
@@ -108,15 +111,13 @@
 <p>自从作为人类，我们并不善于进行基于位的思考和算术。我们将它们组织成更大的组，使得它们可以一起组合用于表示数字。8位表示1字节。除了字节以外，还有字（有时是16位，有时是32位，当然还有64位）。</p>
 <p>许多东西都会存在这个内存中：<br>1.所有的变量以及被程序使用的其他数据。<br>2.程序的代码，包含操作系统的。</p>
 <p>编译器和操作系统共同为你管理内存，但是我们建议你还是可以去看看底层的东西。</p>
-<p>当在编译你的代码的时候，编译器可以检查原始数据类型，并提前计算出需要多少内存。然后按照将所需的数量分配给调用栈空间中的程序。这些变量被分配的空间称为堆栈空间，它们的内存会加到现有内存的顶部。当它们结束的时候，它们会通过LIFO（后进先出）的顺序移除栈空间。例如下面的声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n; <span class="comment">// 4 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x[<span class="number">4</span>]; <span class="comment">// array of 4 elements, each 4 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> m; <span class="comment">// 8 bytes</span></span><br></pre></td></tr></table></figure>
+<p>当在编译你的代码的时候，编译器可以检查原始数据类型，并提前计算出需要多少内存。然后按照将所需的数量分配给调用栈空间中的程序。这些变量被分配的空间称为堆栈空间，它们的内存会加到现有内存的顶部。当它们结束的时候，它们会通过LIFO（后进先出）的顺序移除栈空间。例如下面的声明：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n; <span class="comment">// 4 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x[<span class="number">4</span>]; <span class="comment">// array of 4 elements, each 4 bytes</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> m; <span class="comment">// 8 bytes</span></span><br></pre></td></tr></table></figure></p>
 <p>编译器可以立即看到这段代码需要的空间为：<br>4 + 4 %uD7 4 + 8 = 28 bytes.</p>
 <blockquote>
 <p>这是当前可行的integers和doubles的大小。在20年前的时候，integers是2bytes，double是4bytes。你的代码永远不要依赖目前的数据类型的大小。</p>
 </blockquote>
 <p>编译器会</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>

@@ -79,7 +79,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="一起了解Javascript定时器"><a href="#一起了解Javascript定时器" class="headerlink" title="一起了解Javascript定时器"></a>一起了解Javascript定时器</h3><p><a href="/studyforinterview/2017/08/16/how-javascript-timers-work/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p><a href="/studyforinterview/tags/Javascript/">#Javascript</a></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>这篇文章会聊聊关于Javascript的定时器以及它的执行机制，首先会先翻译一篇比较好的定时器和事件队列的文章，然后会根据一些经典的例题来更深入了解。</p>
@@ -99,8 +101,7 @@
 <p>注意，当鼠标点击事件回调在执行的时候，第一个 interval 事件回调到达时间点执行，它会跟 timeout 的回调事件一样进入队列等待稍后执行。但是请注意，当 interval 再次被触发（当 timeout 的回调事件还在执行）的时候，这个 interval 的回调执行会被放弃。假如在执行大块代码块的时候对所有的 interval 回调进行排队，那么这一系列的回调之间将不会有延迟。但相反，浏览器事实上往往只是等待，在更多的其他的事件入队之前不会再有其他的 interval 回调事件(指相同ID interval衍生出来的回调事件) 会被放入队列。【译者补充：就是说，当一个占用时间较长的事件在执行的时候，如果队列中已经有一个相同ID interval产生的且还没执行的回调事件在，即使到达了再下一个得interval触发时间也不会有新的interval回调事件入队。】</p>
 <p>事实上我们可以看到案例中第三个 interval 回调事件被触发的时候， 前一个 interval 回调事件正在执行。这告诉了我们一个事实：interval 回调事件不会在意什么当前执行的内容，它们会不加区分地进入队伍，即使回调事件之间的时间会被浪费掉。</p>
 <p>最后在第二个 interval 回调事件执行完后，我们可以看到在javascipt引擎的队列里面已经没有东西可以执行了。这意味着浏览器现在会等待新的异步事件的发生。在 interval 回调事件再次触发的时候时间线已经到达50ms了，这一次，因为没有其他代码块在执行，所以这个 interval 回调事件会马上执行。</p>
-<p>来看一个例子去更好地区分 <code>setTimeout</code> 和 <code>setInterval</code> ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Some long block of code... */</span></span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="built_in">arguments</span>.callee, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Some long block of code... */</span></span><br><span class="line"></span><br><span class="line">&#125;, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>来看一个例子去更好地区分 <code>setTimeout</code> 和 <code>setInterval</code> ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Some long block of code... */</span></span><br><span class="line"></span><br><span class="line">  setTimeout(<span class="built_in">arguments</span>.callee, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">&#125;, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Some long block of code... */</span></span><br><span class="line"></span><br><span class="line">&#125;, <span class="number">10</span>);</span><br></pre></td></tr></table></figure></p>
 <p>乍看之下，这两个代码片段似乎实现的功能是一致的，但仔细看其实不同。值得注意的是， 在前一个回调执行之后，setTimeout 的代码至少会有10ms的延迟才会执行（可能会更多，但不会更少）。 setInterval 则在每10ms的时间里都会尝试去执行回调，而不会管前一个回调执行的完成时间。</p>
 <p>今天学习了很多，我们来回顾一下：</p>
 <ul>
@@ -110,24 +111,72 @@
 <li>如果 Interval 的回调事件需要花费足够长的时间执行，那么它们将可以无延迟的背靠背(连续)执行。</li>
 </ul>
 <p>这些都是重要的基础知识。了解Javascript引擎的工作原理，特别是遇到大量异步事件的情况下，可以在构建高级应用程序代码的基础层面上做好准备。</p>
-<h2 id="经典例题"><a href="#经典例题" class="headerlink" title="经典例题"></a>经典例题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第一题就是基础的不能再基础了顺序输出0 1 2 3 4<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">	&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第二题就有我们上一节提到的知识了，javascript会先把for循环执行完，把setTimeout的回调事件都放到事件队列中，等初始块代码执行完后再去处理事件队列里的回调事件，而这个时候，for局部里面的变量 i 已经一早递加为 5 了（注意，for循环是先执行语句3再去判断能不能执行内部语句的，所以 i 已经是 5 了）。因此结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">		&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">	&#125;)(i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第三题用了一个匿名函数和马上执行的传参来包住了setTimeout，就是说setTimeout 的 i 这个时候用的是闭包里面的局部变量 i，因为匿名函数的 i 传参不是引用传值而是数值传值，所以匿名函数里的 i 不会根据外面for循环的变量 i 的改变而改变。因此结果是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">		&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">	&#125;)(i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第四题考察的就是闭包的知识了，因为没有值传入，所以setTimeout读的还是已经跑完for循环的 i。因此结果是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第五题setTimeout里面的回调函数被立即匿名调用了，所以先会跟正常输出一样，不会延迟执行。同时因为匿名函数没有返回值，所以 setTimeout 的回调函数是 undefined。输出结果是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//无延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">returnfunction()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>根据第五题的变形另外加一题，这题跟第五题的区别就是匿名函数有返回值，就是 setTimeout的回调函数就不再是undefined了，所以输出结果是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h2 id="经典例题"><a href="#经典例题" class="headerlink" title="经典例题"></a>经典例题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一题就是基础的不能再基础了顺序输出0 1 2 3 4</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">	&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二题就有我们上一节提到的知识了，javascript会先把for循环执行完，把setTimeout的回调事件都放到事件队列中，等初始块代码执行完后再去处理事件队列里的回调事件，而这个时候，for局部里面的变量 i 已经一早递加为 5 了（注意，for循环是先执行语句3再去判断能不能执行内部语句的，所以 i 已经是 5 了）。因此结果是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">		&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">	&#125;)(i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第三题用了一个匿名函数和马上执行的传参来包住了setTimeout，就是说setTimeout 的 i 这个时候用的是闭包里面的局部变量 i，因为匿名函数的 i 传参不是引用传值而是数值传值，所以匿名函数里的 i 不会根据外面for循环的变量 i 的改变而改变。因此结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">		setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">		&#125;, <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">	&#125;)(i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第四题考察的就是闭包的知识了，因为没有值传入，所以setTimeout读的还是已经跑完for循环的 i。因此结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i)</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span> * i);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第五题setTimeout里面的回调函数被立即匿名调用了，所以先会跟正常输出一样，不会延迟执行。同时因为匿名函数没有返回值，所以 setTimeout 的回调函数是 undefined。输出结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//无延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">returnfunction()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据第五题的变形另外加一题，这题跟第五题的区别就是匿名函数有返回值，就是 setTimeout的回调函数就不再是undefined了，所以输出结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0] 例题来源，小芋头君知乎live（如禁止发布请告知删除）</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><span>分析定时器的性能问题</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/08/16/analyzing-timer-performance/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-15T16:00:00.000Z">
+          2017-08-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="分析定时器的性能问题"><a href="#分析定时器的性能问题" class="headerlink" title="分析定时器的性能问题"></a>分析定时器的性能问题</h3><p><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
+<hr>
 
       
     </div>
@@ -173,14 +222,17 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="Javascript时间的准确性"><a href="#Javascript时间的准确性" class="headerlink" title="Javascript时间的准确性"></a>Javascript时间的准确性</h3><p><a href="/studyforinterview/2017/08/16/accuracy-of-javascript-time/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p><a href="/studyforinterview/tags/Javascript/">#Javascript</a></p>
 <p>【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】</p>
 <p>现在有两个问题我觉得需要好好考虑的。</p>
 <p>第一，我看了一些 <a href="http://dromaeo.com/" target="_blank" rel="noopener">Dromaeo</a> 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的，因为测试应该至少运行几毫秒，只得到一致的“0”结果是不可行的，特别是对于非平凡的代码。</p>
 <p>第二，我运行过一些关于性能方面的测试，在IE浏览器上，在<a href="http://mootools.net/slickspeed/" target="_blank" rel="noopener">SlickSpeed</a> 选择套件测试上实验结果时间有着剧烈的波动。 当你想知道自己的修改时候有好处的时候，这是很难让每一个页面重新加载15-60毫秒的时间。</p>
-<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start = (newDate).getTime();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Run a test. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> diff = (newDate).getTime() - start;</span><br></pre></td></tr></table></figure></p>
+<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start = (newDate).getTime();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Run a test. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> diff = (newDate).getTime() - start;</span><br></pre></td></tr></table></figure>
 <p>确切的写法可能有所不同不过核心都是一样的，通过获得执行前的Date对象和执行后的Date对象之间的时间差来作为测试的总运行时间。</p>
 <p>每次运行一段代码都会有很多地方有高有低的。这可能是因为在别的线程上有其他东西在执行，或者其他的进程占用了更多的进程。因此，实验的结果是波动的。测试波动的多少是一致的，沿着 <a href="http://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">正态分布</a> 的某个部分：</p>
 <p><img src="https://johnresig.com/files/standard.png" alt="image_1"></p>
@@ -189,7 +241,6 @@
 <p>这个结果是很棒的：在0ms附近有很多不同的结果（有一些结果到达了1-4ms，这是符合预期的），每个浏览器都会跟随正态分布的结果达到了7ms,13ms和22ms。这都是我们期待的结果，没什么惊喜。</p>
 <p>【翻译到这里，发现这篇实在没有翻译的价值了，后面的东西都有点过时了。】<br>PEACE!</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -235,13 +286,15 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="关于HTTP协议的一切"><a href="#关于HTTP协议的一切" class="headerlink" title="关于HTTP协议的一切"></a>关于HTTP协议的一切</h3><p><a href="/studyforinterview/2017/08/10/http-protocal/"><br>          2017-08-10
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="怎么理解协议"><a href="#怎么理解协议" class="headerlink" title="怎么理解协议"></a>怎么理解协议</h2><p>在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。</p>
 <h2 id="HTTP协议简介"><a href="#HTTP协议简介" class="headerlink" title="HTTP协议简介"></a>HTTP协议简介</h2><p>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium）和Internet工作小组IETF（Internet Engineering Task Force）合作的结果，（他们）最终发布了一系 列的RFC，RFC 1945定义了HTTP/1.0版本。其中最著名的就是RFC 2616。RFC 2616定义了今天普遍使用的一个版本——HTTP 1.1。<br>HTTP协议（HyperText Transfer Protocol，超文本传输协议）是用于从WWW服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算 机正确快速地传输超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。<br>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。HTTP是一个无状态的协议。</p>
 <p>关键词： 应用层协议，无状态协议<br>无状态协议的意思可以理解成请求之间是独立不影响的，因此服务端开发的时候需要引用session的概念来保持会话的持续性。</p>
 <h2 id="HTTP协议的格式-Request"><a href="#HTTP协议的格式-Request" class="headerlink" title="HTTP协议的格式 - Request"></a>HTTP协议的格式 - Request</h2><p>HTTP Request由三个部分组成： 请求行，消息报头（Header），请求正文（body）</p>
-<h2 id="HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"><a href="#HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能" class="headerlink" title="HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"></a>HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能</h2><h4 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h4><p>POST /test/test/index HTTP/1.1</p>
+<h2 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h2><p>POST /test/test/index HTTP/1.1</p>
 <ul>
 <li>POST： HTTP的请求方式</li>
 <li>/test/test/index: 请求Web服务器的目录地址</li>
@@ -308,7 +361,6 @@
 <p>解析：Expires表示缓存过期的时间，Cache-Control表示缓存的规则(不保留或者或留多久)，ETag和Last-Modified配合使用查看是否读取缓存，Date是发送request的当前时间。所以答案选<strong>D</strong>。</p>
 <h2 id="郭无心"><a href="#郭无心" class="headerlink" title=",郭无心"></a>,郭无心</h2><p>[4]《技术之瞳》,阿里巴巴集团校园招聘笔试项目组</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -354,30 +406,32 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="全家一起来开发一个Jquery插件"><a href="#全家一起来开发一个Jquery插件" class="headerlink" title="全家一起来开发一个Jquery插件"></a>全家一起来开发一个Jquery插件</h3><p><a href="/studyforinterview/2017/08/08/jquery-plugin-develop/"><br>          2017-08-08
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="小梦想"><a href="#小梦想" class="headerlink" title="小梦想"></a>小梦想</h2><p>我相信每个用过Jquery的人都有一个小梦想，就是写一个自己的Jquery插件——然后放上github，收获nk+星星，登上人生巅峰迎娶白富美。。我也不例外，在爱上vue.js以后回头来写Jquery有很多感觉都不一样了，JS的面向对象感觉理解更深了。</p>
 <p>P.S:虽然Jquery已经不再是很多人的首选了，但作为曾经的绝对霸主级JS库，还是很多地方值得我们学习参考的。</p>
 <h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><p>要放上github的话肯定又有“高颜值”啦，指的是整个项目的架构要规范。这里就直接使用grunt的脚手架来搭建项目：</p>
-<p>当然，grunt的模板是需要自己下的。具体命令是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">git clone https://github.com/gruntjs/grunt-init-jquery.git ~/.grunt-init/jquery</span><br></pre></td></tr></table></figure>
-<p>模板下好以后就可以去到我们的插件目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">grunt-int jquery</span><br></pre></td></tr></table></figure>
-<p>然后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>当然，grunt的模板是需要自己下的。具体命令是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git clone https://github.com/gruntjs/grunt-init-jquery.git ~/.grunt-init/jquery</span><br></pre></td></tr></table></figure></p>
+<p>模板下好以后就可以去到我们的插件目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">grunt-int jquery</span><br></pre></td></tr></table></figure></p>
+<p>然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
 <p>装好依赖包之后，看看我们的项目架构，好爽。。连README都有了。</p>
 <h2 id="插件结构"><a href="#插件结构" class="headerlink" title="插件结构"></a>插件结构</h2><p>grunt模板里面给的插件结构也很漂亮，不过我还是个人的结构。</p>
-<p>首先用闭包包着我们的插件，目的是防止$符号污染，因为$是很多库的宠儿，这里使用闭包确保我们闭包内的$是jquery对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure></p>
-<p>然后放入jquery扩展函数定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">	$.fn.extend(&#123;</span><br><span class="line"></span><br><span class="line">		tagSelect: function (option)&#123;</span><br><span class="line"></span><br><span class="line">			var plugin = new TagSelect(this, option);</span><br><span class="line"></span><br><span class="line">			return plugin.init();</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	//TagSelect 类</span><br><span class="line"></span><br><span class="line">	var TagSelect = function (ele, opt)&#123;</span><br><span class="line"></span><br><span class="line">		//私有变量</span><br><span class="line"></span><br><span class="line">		this.$element = ele;</span><br><span class="line"></span><br><span class="line">		this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br><span class="line"></span><br><span class="line">		//私有函数</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//公有函数</span><br><span class="line"></span><br><span class="line">	TagSelect.prototype = &#123;</span><br><span class="line"></span><br><span class="line">		init: function()&#123;	</span><br><span class="line"></span><br><span class="line">			return this.$element;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure></p>
+<p>首先用闭包包着我们的插件，目的是防止$符号污染，因为$是很多库的宠儿，这里使用闭包确保我们闭包内的$是jquery对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure>
+<p>然后放入jquery扩展函数定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">	$.fn.extend(&#123;</span><br><span class="line"></span><br><span class="line">		tagSelect: function (option)&#123;</span><br><span class="line"></span><br><span class="line">			var plugin = new TagSelect(this, option);</span><br><span class="line"></span><br><span class="line">			return plugin.init();</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	//TagSelect 类</span><br><span class="line"></span><br><span class="line">	var TagSelect = function (ele, opt)&#123;</span><br><span class="line"></span><br><span class="line">		//私有变量</span><br><span class="line"></span><br><span class="line">		this.$element = ele;</span><br><span class="line"></span><br><span class="line">		this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br><span class="line"></span><br><span class="line">		//私有函数</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//公有函数</span><br><span class="line"></span><br><span class="line">	TagSelect.prototype = &#123;</span><br><span class="line"></span><br><span class="line">		init: function()&#123;	</span><br><span class="line"></span><br><span class="line">			return this.$element;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure>
 <p>tagSelect 是我们的插件名称，插件的定义和实现可以直接写在这个函数中，不过为了开发规范，我把这部分抽象出来。</p>
-<p>再下面就是TagSelect类，插件的实际内容都在这里了，留意这一部分：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br></pre></td></tr></table></figure></p>
+<p>再下面就是TagSelect类，插件的实际内容都在这里了，留意这一部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br></pre></td></tr></table></figure>
 <p>defaultSetting就是我们插件默认设置的设定，通过 $.extend() 函数把defaultSetting和opt合并在一起，重复部分使用后者的内容。</p>
 <p>这个就是我们插件的整体结构了。</p>
-<h2 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h2><p>因为直接用的是 $.fn.extend jquery的插件扩展机制，所以使用也是一句话的事情啦~~<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">$(&apos;#target&apos;).tagSelect(&#123;</span><br><span class="line"></span><br><span class="line">	maxNum : 10</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h2><p>因为直接用的是 $.fn.extend jquery的插件扩展机制，所以使用也是一句话的事情啦~~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$(&apos;#target&apos;).tagSelect(&#123;</span><br><span class="line"></span><br><span class="line">	maxNum : 10</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>参数传的是设置，这样调用就把我们的maxNum设成了10了。</p>
 <p>写到这里啦，有缺失部分再补充~</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -423,7 +477,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="传输速率计算问题"><a href="#传输速率计算问题" class="headerlink" title="传输速率计算问题"></a>传输速率计算问题</h3><p><a href="/studyforinterview/2017/08/07/trans-rate/"><br>          2017-08-07
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="由一道题开始说起"><a href="#由一道题开始说起" class="headerlink" title="由一道题开始说起"></a>由一道题开始说起</h2><p><strong>使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送<em>__</em>块硬盘才能使速率超过1000G bit/s?</strong></p>
 <p>解：<br>这就是关于传输速率和传输介质的问题，例题来源于阿里的《技术之瞳》。<br>要解决这样的题，我们首先要清晰其中的单位关系。</p>
@@ -433,7 +489,6 @@
 <p>解：<br>首先我们可以确认的是四个答案的速率差距应该都是清晰。<br>1.硬盘的速度大概是60 MB/s<br>2.10G bit/s =&gt; 10 %uF7 8 b/s = 1.25GB/s = 1280 MB/s<br>3.10M bit/s =&gt; 10 %uF7 8 b/s = 1.25B /s ≈ 0.00125MB/s<br>4.1TB %uF7 24h =&gt; 1024 GB %uF7 8 b/s %uF7 24 %uD7 3600 s/h =&gt; 19200 B/s ≈ 19.2 MB/s<br>所以 2&gt;1&gt;4&gt;3</p>
 <h2 id="大总结"><a href="#大总结" class="headerlink" title="大总结"></a>大总结</h2><p>就这样子了</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -479,158 +534,12 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="/studyfortencent/tags/日志/">#日志</a></p>
+        <h3 id="项目日志系统设计和搭建"><a href="#项目日志系统设计和搭建" class="headerlink" title="项目日志系统设计和搭建"></a>项目日志系统设计和搭建</h3><p><a href="/studyforinterview/2017/07/31/log-system-build/"><br>          2017-07-31
+        </a></p>
+<p><a href="/studyfortencent/tags/日志/">#日志</a></p>
 <h2 id="缺少的Log"><a href="#缺少的Log" class="headerlink" title="缺少的Log"></a>缺少的Log</h2><p>个人负责的商城平台遇到一件事件，具体内容不方便公开，不过从中发现了一个比较重要的问题，就是系统中可以查找的log太少了。我们的平台基于的是shopnc商城，有些重要的位置没有记录用户的操作日志和用户IP信息之类，造成责任归属困难。所以上级要求我在重要的地方加添更多的Log点。</p>
 <h2 id="当前系统"><a href="#当前系统" class="headerlink" title="当前系统"></a>当前系统</h2><p>当前系统用得较多的log就是member表里面记录的两次用户登录IP</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/studyforinterview/2017/07/28/nginx-accesslog/"><span>最熟悉的陌生人 - access log</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/studyforinterview/2017/07/28/nginx-accesslog/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-07-27T16:00:00.000Z">
-          2017-07-28
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。</p>
-<h2 id="什么是access-log"><a href="#什么是access-log" class="headerlink" title="什么是access log"></a>什么是access log</h2><p>顾名思义，access log就是用来记录用户的请求日志。可通过nginx的配置文件来配置他的保存位置和输出的日志格式。</p>
-<h2 id="日志告诉了我们什么信息"><a href="#日志告诉了我们什么信息" class="headerlink" title="日志告诉了我们什么信息"></a>日志告诉了我们什么信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">176.51.166.239 - - [28/Jul/2017:15:41:30 +0800] &quot;POST /wp-login.php HTTP/1.1&quot; 200 2644 &quot;http://awesomesevens.com/wp-login.php&quot; &quot;Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0&quot;</span><br></pre></td></tr></table></figure>
-<p>这是一条默认的日志，具体的内容我们参照官网给的默认格式来看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">log_format main &apos;$remote_addr - $remote_user [$time_local] &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$request&quot; $status $body_bytes_sent &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$http_referer&quot; &quot;$http_user_agent&quot;;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><p>176.51.166.239<br>$remote_addr : 客户端(用户)的请求IP</p>
-</li>
-<li><p>-<br>$remote_user : 已经经过Auth Basic Module验证的用户名。”-“就是没有记录到。</p>
-</li>
-<li><p>[28/Jul/2017:15:41:30 +0800]<br>$time_local  : 记录的时间</p>
-</li>
-<li><p>“POST /wp-login.php HTTP/1.1”<br>$request : 请求的url，POST 为请求的方法，HTTP/1.1为请求的协议</p>
-</li>
-<li><p>200<br>$status : 请求的状态，具体的状态代表的意义可以看我的另一篇文章 <a href="https://superhos.github.io/studyforinterview/2017/07/28/dev-code/">开发时候常会遇到的状态码</a></p>
-</li>
-<li><p>2644<br>$body_bytes_sent : 传送页面的字节数</p>
-</li>
-<li><p><a href="http://awesomesevens.com/wp-login.php" target="_blank" rel="noopener">http://awesomesevens.com/wp-login.php</a><br>$http_referer : 来源页面，即从哪个页面转到本页</p>
-</li>
-<li><p>Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0<br>$http_user_agent : 用户的浏览器信息，终端，版本等</p>
-</li>
-</ol>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置也很简单，在nginx config的server配置中加入下面一句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">access_log  /var/log/nginx/access.log  main;</span><br></pre></td></tr></table></figure></p>
-<p>中间是要放置的log的地址，后面的main对应的是上一节设定的格式。</p>
-<h2 id="access太大怎么办"><a href="#access太大怎么办" class="headerlink" title="access太大怎么办"></a>access太大怎么办</h2><p>我的建议是如果访问量大得夸张的话，最好把日志一块交给应用层去做，抽出来做一个日志系统，方便后续的分析。<br>如果访问量还没到夸张的层次的时候，也要考虑日志的占用空间问题。所以对每天的日志进行压缩和转存就很有必要了。网上的有人用的是写shell+crontab来做，但其实linux本来已经提供了一个很好的工具给我们去做这件事情，叫logrotate。<br>一般logrotate的配置文件会放置在 <em>/etc/logrotate.d</em> 路径下，下面是我的一个logrotate对于nginx日志的配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">/var/log/nginx/*.log &#123;</span><br><span class="line"></span><br><span class="line">        daily</span><br><span class="line"></span><br><span class="line">        missingok</span><br><span class="line"></span><br><span class="line">        rotate 14</span><br><span class="line"></span><br><span class="line">        compress</span><br><span class="line"></span><br><span class="line">        delaycompress</span><br><span class="line"></span><br><span class="line">        notifempty</span><br><span class="line"></span><br><span class="line">        create 0640 www-data adm</span><br><span class="line"></span><br><span class="line">        sharedscripts</span><br><span class="line"></span><br><span class="line">        prerotate</span><br><span class="line"></span><br><span class="line">                if [ -d /etc/logrotate.d/httpd-prerotate ]; then \</span><br><span class="line"></span><br><span class="line">                        run-parts /etc/logrotate.d/httpd-prerotate; \</span><br><span class="line"></span><br><span class="line">                fi \</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">        postrotate</span><br><span class="line"></span><br><span class="line">                invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>参数 功能<br>compress 通过gzip 压缩转储以后的日志<br>nocompress 不需要压缩时，用这个参数<br>copytruncate 用于还在打开中的日志文件，把当前日志备份并截断<br>nocopytruncate 备份日志文件但是不截断<br>create mode owner group 转储文件，使用指定的文件模式创建新的日志文件<br>nocreate 不建立新的日志文件<br>delaycompress 和 compress 一起使用时，转储的日志文件到下一次转储时才压缩<br>nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。<br>errors address 专储时的错误信息发送到指定的Email 地址<br>ifempty 即使是空文件也转储，这个是 logrotate 的缺省选项。<br>notifempty 如果是空文件的话，不转储<br>mail address 把转储的日志文件发送到指定的E-mail 地址<br>nomail 转储时不发送日志文件<br>olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统<br>noolddir 转储后的日志文件和当前日志文件放在同一个目录下<br>prerotate/endscript 在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>postrotate/endscript 在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>daily 指定转储周期为每天<br>weekly 指定转储周期为每周<br>monthly 指定转储周期为每月<br>rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份<br>tabootext [+] list 让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~<br>size size 当日志文件到达指定的大小时才转储，Size 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</p>
-<hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/studyforinterview/2017/07/28/git-branch-strategy/"><span>关于git项目管理分支策略的一点思考</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/studyforinterview/2017/07/28/git-branch-strategy/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-07-27T16:00:00.000Z">
-          2017-07-28
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<h2 id="00"><a href="#00" class="headerlink" title="00"></a>00</h2><p>作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。</p>
-<p>然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vincent Driessen的文章。毕竟经验不多，在这里只能留一下自己当前的想法，以后随时更新。</p>
-<h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><p>我们项目的当前git分支策略是采用一人一条分支的策略，是由之前的同事制定的。示意图如下：</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0712/145304_AFtO_203607.jpg" alt="当前分支策略示意图"><br>Figure 1. 当前分支策略示意图</p>
-<p>这种策略的优点：</p>
-<ol>
-<li>责任明确。master中的代码都可以较简单的追踪到分支上。</li>
-<li>分支清晰。在人员少的时候，可以保持分支明朗。</li>
-</ol>
-<p>但是作为组员，我认为这种分支策略是缺点远远大于优点的，主要缺點如下：</p>
-<ol>
-<li><p>不适应高频需求团队。因为需求不断砸来，缺少里程碑版本的确定，导致每个新需求来都需要马上上线，导致组员缺少同步远程库和本地库代码的时机，我有位同事开发了三个月竟然都没同步过线上的代码，可想而知一旦更新代码冲突会多严重。</p>
-</li>
-<li><p>需求必须线性合并到master上。因为每个组员只有一条自己的分支，必然会有需求先后次序的冲突，例如：开发的时候a，b，c三个需求依次开发，却被要求先要上线c需求，那么c需求就可能有代码耦合在a，b需求中，导致功能缺失。</p>
-</li>
-</ol>
-<p>因此，我开始寻找另外更好的分支策略</p>
-<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>然后参考了A successful Git branching model [0] 的模型，开始搭建自己的branch模型。</p>
-<p>主要就是master，development branch 和 issue-<em> branch。 先说issue-</em> branch，我另外搭建了一個issue系统（bug追踪系统），所有的需求开发，bug修改都需要在系统中先report。之后开发人员就可以根据issue系统給的issue id去创建分支，由于和issue系统的结合，就可以把一个大的需求切分不同部分给不同的开发人员去做。之后要合并上线的话只需要根据issue id号合并就行，最后删掉分支。</p>
-<p>由于时间关系准备开会，第二部分先简略说下，之後再補充</p>
-<p>Refference</p>
-<p>[0] Vincent Driessen,A successful Git branching model . <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
-<p>[1] 阮一峰, <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a>. <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
-<hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -676,7 +585,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="开发时候常会遇到的HTTP状态码"><a href="#开发时候常会遇到的HTTP状态码" class="headerlink" title="开发时候常会遇到的HTTP状态码"></a>开发时候常会遇到的HTTP状态码</h3><p><a href="/studyforinterview/2017/07/28/dev-code/"><br>          2017-07-28
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>关于HTTP协议，可以看我的而另一篇文章：<a href="https://superhos.github.io/studyforinterview/2017/08/10/http-protocal/">关于HTTP协议的一切</a></p>
 <p>这篇查询用[0]</p>
@@ -684,7 +595,6 @@
 <h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3><p>200 (成功)<br>304 (未修改) 自上次请求后，请求的网页未修改过。服务器返回此响应时，不返回网页请求，客户端可以一般读取缓存。<br>401 (未授权) 请求要求身份验证。<br>403 (禁止) 服务器拒绝请求。<br>404 (未找到) 服务器找不到请求的网页<br>500 (服务器出错) 要看log找错了<br>504 (服务响应超时)</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -710,15 +620,15 @@
 
   
     
-    <h3 class="article-title"><a href="/studyforinterview/2017/07/25/参考书籍/"><span>参考书籍</span></a></h3>
+    <h3 class="article-title"><a href="/studyforinterview/2017/07/28/git-branch-strategy/"><span>关于git项目管理分支策略的一点思考</span></a></h3>
     
   
 
   <div class="article-top-meta">
     <span class="posted-on">
-      <a href="/studyforinterview/2017/07/25/参考书籍/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-07-24T16:00:00.000Z">
-          2017-07-25
+      <a href="/studyforinterview/2017/07/28/git-branch-strategy/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-07-27T16:00:00.000Z">
+          2017-07-28
         </time>
       </a>
     </span>
@@ -730,12 +640,113 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="关于git项目管理分支策略的一点思考"><a href="#关于git项目管理分支策略的一点思考" class="headerlink" title="关于git项目管理分支策略的一点思考"></a>关于git项目管理分支策略的一点思考</h3><p><a href="/studyforinterview/2017/07/28/git-branch-strategy/"><br>          2017-07-28
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
-<p><a href="/studyforinterview/tags/参考/">#参考</a></p>
-<h3 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h3><p>[1]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组<br>[2]《Vue.js权威指南》，张耀春，黄轶，王静，苏伟等著<br>[3]《你不知道的JavaScript 上卷/中卷》，[美] Kyle Simpson</p>
+<h2 id="00"><a href="#00" class="headerlink" title="00"></a>00</h2><p>作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。</p>
+<p>然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vincent Driessen的文章。毕竟经验不多，在这里只能留一下自己当前的想法，以后随时更新。</p>
+<h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><p>我们项目的当前git分支策略是采用一人一条分支的策略，是由之前的同事制定的。示意图如下：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0712/145304_AFtO_203607.jpg" alt="当前分支策略示意图"><br>Figure 1. 当前分支策略示意图</p>
+<p>这种策略的优点：</p>
+<ol>
+<li>责任明确。master中的代码都可以较简单的追踪到分支上。</li>
+<li>分支清晰。在人员少的时候，可以保持分支明朗。</li>
+</ol>
+<p>但是作为组员，我认为这种分支策略是缺点远远大于优点的，主要缺點如下：</p>
+<ol>
+<li><p>不适应高频需求团队。因为需求不断砸来，缺少里程碑版本的确定，导致每个新需求来都需要马上上线，导致组员缺少同步远程库和本地库代码的时机，我有位同事开发了三个月竟然都没同步过线上的代码，可想而知一旦更新代码冲突会多严重。</p>
+</li>
+<li><p>需求必须线性合并到master上。因为每个组员只有一条自己的分支，必然会有需求先后次序的冲突，例如：开发的时候a，b，c三个需求依次开发，却被要求先要上线c需求，那么c需求就可能有代码耦合在a，b需求中，导致功能缺失。</p>
+</li>
+</ol>
+<p>因此，我开始寻找另外更好的分支策略</p>
+<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>然后参考了A successful Git branching model [0] 的模型，开始搭建自己的branch模型。</p>
+<p>主要就是master，development branch 和 issue-<em> branch。 先说issue-</em> branch，我另外搭建了一個issue系统（bug追踪系统），所有的需求开发，bug修改都需要在系统中先report。之后开发人员就可以根据issue系统給的issue id去创建分支，由于和issue系统的结合，就可以把一个大的需求切分不同部分给不同的开发人员去做。之后要合并上线的话只需要根据issue id号合并就行，最后删掉分支。</p>
+<p>由于时间关系准备开会，第二部分先简略说下，之後再補充</p>
+<p>Refference</p>
+<p>[0] Vincent Driessen,A successful Git branching model . <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p>[1] 阮一峰, <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a>. <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/studyforinterview/2017/07/28/nginx-accesslog/"><span>最熟悉的陌生人 - access log</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/07/28/nginx-accesslog/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-07-27T16:00:00.000Z">
+          2017-07-28
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="最熟悉的陌生人-access-log"><a href="#最熟悉的陌生人-access-log" class="headerlink" title="最熟悉的陌生人 - access log"></a>最熟悉的陌生人 - access log</h3><p><a href="/studyforinterview/2017/07/28/nginx-accesslog/"><br>          2017-07-28
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。</p>
+<h2 id="什么是access-log"><a href="#什么是access-log" class="headerlink" title="什么是access log"></a>什么是access log</h2><p>顾名思义，access log就是用来记录用户的请求日志。可通过nginx的配置文件来配置他的保存位置和输出的日志格式。</p>
+<h2 id="日志告诉了我们什么信息"><a href="#日志告诉了我们什么信息" class="headerlink" title="日志告诉了我们什么信息"></a>日志告诉了我们什么信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">176.51.166.239 - - [28/Jul/2017:15:41:30 +0800] &quot;POST /wp-login.php HTTP/1.1&quot; 200 2644 &quot;http://awesomesevens.com/wp-login.php&quot; &quot;Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0&quot;</span><br></pre></td></tr></table></figure>
+<p>这是一条默认的日志，具体的内容我们参照官网给的默认格式来看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log_format main &apos;$remote_addr - $remote_user [$time_local] &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$request&quot; $status $body_bytes_sent &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$http_referer&quot; &quot;$http_user_agent&quot;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>176.51.166.239<br>$remote_addr : 客户端(用户)的请求IP</p>
+</li>
+<li><p>-<br>$remote_user : 已经经过Auth Basic Module验证的用户名。”-“就是没有记录到。</p>
+</li>
+<li><p>[28/Jul/2017:15:41:30 +0800]<br>$time_local  : 记录的时间</p>
+</li>
+<li><p>“POST /wp-login.php HTTP/1.1”<br>$request : 请求的url，POST 为请求的方法，HTTP/1.1为请求的协议</p>
+</li>
+<li><p>200<br>$status : 请求的状态，具体的状态代表的意义可以看我的另一篇文章 <a href="https://superhos.github.io/studyforinterview/2017/07/28/dev-code/">开发时候常会遇到的状态码</a></p>
+</li>
+<li><p>2644<br>$body_bytes_sent : 传送页面的字节数</p>
+</li>
+<li><p><a href="http://awesomesevens.com/wp-login.php" target="_blank" rel="noopener">http://awesomesevens.com/wp-login.php</a><br>$http_referer : 来源页面，即从哪个页面转到本页</p>
+</li>
+<li><p>Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0<br>$http_user_agent : 用户的浏览器信息，终端，版本等</p>
+</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置也很简单，在nginx config的server配置中加入下面一句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">access_log  /var/log/nginx/access.log  main;</span><br></pre></td></tr></table></figure>
+<p>中间是要放置的log的地址，后面的main对应的是上一节设定的格式。</p>
+<h2 id="access太大怎么办"><a href="#access太大怎么办" class="headerlink" title="access太大怎么办"></a>access太大怎么办</h2><p>我的建议是如果访问量大得夸张的话，最好把日志一块交给应用层去做，抽出来做一个日志系统，方便后续的分析。<br>如果访问量还没到夸张的层次的时候，也要考虑日志的占用空间问题。所以对每天的日志进行压缩和转存就很有必要了。网上的有人用的是写shell+crontab来做，但其实linux本来已经提供了一个很好的工具给我们去做这件事情，叫logrotate。<br>一般logrotate的配置文件会放置在 <em>/etc/logrotate.d</em> 路径下，下面是我的一个logrotate对于nginx日志的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/var/log/nginx/*.log &#123;</span><br><span class="line"></span><br><span class="line">        daily</span><br><span class="line"></span><br><span class="line">        missingok</span><br><span class="line"></span><br><span class="line">        rotate 14</span><br><span class="line"></span><br><span class="line">        compress</span><br><span class="line"></span><br><span class="line">        delaycompress</span><br><span class="line"></span><br><span class="line">        notifempty</span><br><span class="line"></span><br><span class="line">        create 0640 www-data adm</span><br><span class="line"></span><br><span class="line">        sharedscripts</span><br><span class="line"></span><br><span class="line">        prerotate</span><br><span class="line"></span><br><span class="line">                if [ -d /etc/logrotate.d/httpd-prerotate ]; then \</span><br><span class="line"></span><br><span class="line">                        run-parts /etc/logrotate.d/httpd-prerotate; \</span><br><span class="line"></span><br><span class="line">                fi \</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">        postrotate</span><br><span class="line"></span><br><span class="line">                invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数 功能<br>compress 通过gzip 压缩转储以后的日志<br>nocompress 不需要压缩时，用这个参数<br>copytruncate 用于还在打开中的日志文件，把当前日志备份并截断<br>nocopytruncate 备份日志文件但是不截断<br>create mode owner group 转储文件，使用指定的文件模式创建新的日志文件<br>nocreate 不建立新的日志文件<br>delaycompress 和 compress 一起使用时，转储的日志文件到下一次转储时才压缩<br>nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。<br>errors address 专储时的错误信息发送到指定的Email 地址<br>ifempty 即使是空文件也转储，这个是 logrotate 的缺省选项。<br>notifempty 如果是空文件的话，不转储<br>mail address 把转储的日志文件发送到指定的E-mail 地址<br>nomail 转储时不发送日志文件<br>olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统<br>noolddir 转储后的日志文件和当前日志文件放在同一个目录下<br>prerotate/endscript 在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>postrotate/endscript 在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>daily 指定转储周期为每天<br>weekly 指定转储周期为每周<br>monthly 指定转储周期为每月<br>rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份<br>tabootext [+] list 让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~<br>size size 当日志文件到达指定的大小时才转储，Size 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</p>
+<hr>
 
       
     </div>

@@ -79,10 +79,68 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="deep-learning-lol"><a href="#deep-learning-lol" class="headerlink" title="deep-learning-lol"></a>deep-learning-lol</h3><p><a href="/studyforinterview/2017/08/25/deep-learning-lol/"><br>          2017-08-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/studyforinterview/2017/08/25/avoid-resubmit/"><span>防止表单重复提交，你我有责</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/08/25/avoid-resubmit/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-24T16:00:00.000Z">
+          2017-08-25
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="防止表单重复提交，你我有责"><a href="#防止表单重复提交，你我有责" class="headerlink" title="防止表单重复提交，你我有责"></a>防止表单重复提交，你我有责</h3><p><a href="/studyforinterview/2017/08/25/avoid-resubmit/"><br>          2017-08-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<h2 id="什么是重复提交"><a href="#什么是重复提交" class="headerlink" title="什么是重复提交"></a>什么是重复提交</h2><p>表单重复提交是开发中常遇到的一个问题，根据用户行为来划分的话主要分为无意重复提交和恶意重复提交两种。无意重复提交的原因很可能是网路问题，用户点击第一次的时候没有马上得到应有的反馈，所以用户再次或多次点击（毕竟大多数人局的催促是最能提高效率的）。恶意的话就可能会绕过前端的防止重复机制，直接向服务端提交多次表单以达到某种目的。</p>
+<h2 id="前端用户体验防止机制"><a href="#前端用户体验防止机制" class="headerlink" title="前端用户体验防止机制"></a>前端用户体验防止机制</h2><p>单从用户体验上来说，要避免无意的重复提交，就要<strong>明确地</strong>告诉用户：服务端已经正在处理你的请求了，请好好等待。</p>
+<p>因此在需要一定时间处理的请求上面（主要是ajax），更应该加上一些提示的信息。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">functionlogin ()&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//blablabla</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//显示loading动画</span></span><br><span class="line"></span><br><span class="line">	$.showPreloader(<span class="string">'登錄中..'</span>); </span><br><span class="line"></span><br><span class="line">	$.ajax(url,data,<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到结果，无论成功还是失败都要把loading关掉</span></span><br><span class="line"></span><br><span class="line">		$.hidePreloader();</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然了，提交后直接disable掉submit按钮也是可以的，不过感觉上没那么亲切。</p>
+<h2 id="cookie防止机制"><a href="#cookie防止机制" class="headerlink" title="cookie防止机制"></a>cookie防止机制</h2><p>利用cookie也是可行的，设置一个key当提交的时候就设为有效值，当再提交的时候如果是有效值的话就拒绝提交。</p>
+<h2 id="session防止机制"><a href="#session防止机制" class="headerlink" title="session防止机制"></a>session防止机制</h2><p>1.生成表单的时候产生一个唯一的标识，分别保存在服务端session中，和客户端的hidden input里面。<br>2.客户端提交表单的时候检查标识是否存在session中，存在的话就是第一次提交，处理请求并删除session中该表单的标识。如果不存在的话就是非第一次提交，拒绝处理。</p>
+<p>当然了，session只是其中一个载体，用db或者缓存层在做都是可以的。</p>
+<hr>
 
       
     </div>
@@ -128,7 +186,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="跨域问题的产生和解决方案"><a href="#跨域问题的产生和解决方案" class="headerlink" title="跨域问题的产生和解决方案"></a>跨域问题的产生和解决方案</h3><p><a href="/studyforinterview/2017/08/24/crossdomain-solution/"><br>          2017-08-24
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
 <h2 id="什么是同源"><a href="#什么是同源" class="headerlink" title="什么是同源"></a>什么是同源</h2><p>同源必须是：<strong>协议</strong>，<strong>域名</strong>和<strong>端口</strong>均相同，任何一项不同则视为非同源。</p>
@@ -138,23 +198,19 @@
 <h2 id="JSONP的实现"><a href="#JSONP的实现" class="headerlink" title="JSONP的实现"></a>JSONP的实现</h2><p>理解了原理要实现就不难了。</p>
 <ol>
 <li><p>在调用数据的时候添加一个回调的函数名作为参数：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如果是JSON正常模式返回的会是下面的格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>如果是JSONP模式的话就会返回下面的格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>如果是JSONP模式的话就会返回下面的格式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>对于服务端来说，只是在原有结果多输出几个字符罢了，相当简单。</p>
-<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure></p>
 <p>注意如果想其他所有域名都能访问的话就可以把第一行里面的<code>http://testbb.com</code>换成<code>*</code>。</p>
 <p>如果对数据安全性有强要求的话，第二种解决方案无疑更适合。</p>
 <h2 id="小小蔡芽"><a href="#小小蔡芽" class="headerlink" title=",小小蔡芽"></a>,小小蔡芽</h2><hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -200,62 +256,12 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="不同进制之间的故事"><a href="#不同进制之间的故事" class="headerlink" title="不同进制之间的故事"></a>不同进制之间的故事</h3><p><a href="/studyforinterview/2017/08/24/ary-story/"><br>          2017-08-24
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="了解下进制"><a href="#了解下进制" class="headerlink" title="了解下进制"></a>了解下进制</h2><p>进制也叫进位制，是人们规定的一种计数方式。</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/studyforinterview/2017/08/22/ajax-page-to-static/"><span>异步页面渲染成静态页面</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/studyforinterview/2017/08/22/ajax-page-to-static/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-08-21T16:00:00.000Z">
-          2017-08-22
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p>原有项目使用了artTemplate模板引擎，引擎虽好，但是对SEO来说实在不佳。按理说模板引擎也没什么，但最要命的是数据都是ajax拉回来的，因此又多了一关。</p>
-<p>最佳的思路就是整个页面拉回来，让js都跑一遍然后得出最后的结果页面。但是不是dom环境下，window/dom等等的object都缺少了。</p>
-<hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -301,7 +307,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><p><a href="/studyforinterview/2017/08/22/session-and-cookie/"><br>          2017-08-22
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
 <ol>
@@ -312,7 +320,58 @@
 <h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
 <h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/studyforinterview/2017/08/22/ajax-page-to-static/"><span>异步页面渲染成静态页面</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/studyforinterview/2017/08/22/ajax-page-to-static/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-08-21T16:00:00.000Z">
+          2017-08-22
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h3 id="异步页面渲染成静态页面"><a href="#异步页面渲染成静态页面" class="headerlink" title="异步页面渲染成静态页面"></a>异步页面渲染成静态页面</h3><p><a href="/studyforinterview/2017/08/22/ajax-page-to-static/"><br>          2017-08-22
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p>原有项目使用了artTemplate模板引擎，引擎虽好，但是对SEO来说实在不佳。按理说模板引擎也没什么，但最要命的是数据都是ajax拉回来的，因此又多了一关。</p>
+<p>最佳的思路就是整个页面拉回来，让js都跑一遍然后得出最后的结果页面。但是不是dom环境下，window/dom等等的object都缺少了。</p>
+<hr>
 
       
     </div>
@@ -358,12 +417,13 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="深入JS原型链"><a href="#深入JS原型链" class="headerlink" title="深入JS原型链"></a>深入JS原型链</h3><p><a href="/studyforinterview/2017/08/22/javascript-prototype/"><br>          2017-08-22
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>最近有点太忙了，趁着现在有点时间继续写文章。</p>
 <p>## </p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -409,10 +469,11 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="ajax的工作原理"><a href="#ajax的工作原理" class="headerlink" title="ajax的工作原理"></a>ajax的工作原理</h3><p><a href="/studyforinterview/2017/08/21/ajax-introduction/"><br>          2017-08-21
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -458,11 +519,14 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="在Webkit里如何不触发重布局"><a href="#在Webkit里如何不触发重布局" class="headerlink" title="在Webkit里如何不触发重布局"></a>在Webkit里如何不触发重布局</h3><p><a href="/studyforinterview/2017/08/17/how-not-to-trigger-a-layout-in-webkit/"><br>          2017-08-17
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>本文翻译自<a href="http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html" target="_blank" rel="noopener">原文</a></p>
 <p>大部分的Web开发者都知道，一个脚本的执行时间可能更多的花在了DOM的操作上面而不是这段JS代码的本身。其中一个潜在的高消耗操作就是布局（又称回流）：从DOM树构建呈现树(render tree)的过程。越大和复杂的DOM，就可能会带来越高的操作消耗。</p>
-<p>保持页面敏捷的一个重要的技术就是把操作DOM的操作都放在一起处理。例如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Suboptimal, causes layout twice.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Better, only one layout.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br></pre></td></tr></table></figure></p>
+<p>保持页面敏捷的一个重要的技术就是把操作DOM的操作都放在一起处理。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Suboptimal, causes layout twice.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Better, only one layout.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br></pre></td></tr></table></figure>
 <p>Stoyan Stefanov的 <a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, relayout and restyle provides</a> 很好的解释了这个问题。<br>【翻译请看:<a href="https://superhos.github.io/studyforinterview/2017/08/17/rendering-repaint-reflowrelayout-restyle/">前端渲染：重绘，重布局和样式重塑</a>】</p>
 <p>这通常会留给开发者一个问题：什么触发了布局？我在下面总结了一些属性和方法：</p>
 <h4 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h4><p>clientHeight, clientLeft, clientTop, clientWidth, focus(), getBoundingClientRect(), getClientRects(), innerText, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, outerText, scrollByLines(), scrollByPages(), scrollHeight, scrollIntoView(), scrollIntoViewIfNeeded(), scrollLeft, scrollTop, scrollWidth</p>
@@ -473,7 +537,6 @@
 <h4 id="window"><a href="#window" class="headerlink" title="window"></a>window</h4><p>getComputedStyle(), scrollBy(), scrollTo(), scrollX, scrollY, webkitConvertPointFromNodeToPage(), webkitConvertPointFromPageToNode()</p>
 <p>这个列表可能不完整，但是是一个很好的开始。</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
@@ -519,60 +582,11 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="前端渲染：重绘，重布局和样式重塑"><a href="#前端渲染：重绘，重布局和样式重塑" class="headerlink" title="前端渲染：重绘，重布局和样式重塑"></a>前端渲染：重绘，重布局和样式重塑</h3><p><a href="/studyforinterview/2017/08/17/rendering-repaint-reflowrelayout-restyle/"><br>          2017-08-17
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><span>分析定时器的性能问题</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/studyforinterview/2017/08/16/analyzing-timer-performance/" rel="bookmark">
-        <time class="entry-date published" datetime="2017-08-15T16:00:00.000Z">
-          2017-08-16
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
-<hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>

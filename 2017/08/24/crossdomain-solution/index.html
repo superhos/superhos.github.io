@@ -10,11 +10,11 @@
   
 
   
-  <meta name="description" content="返回目录
+  <meta name="description" content="跨域问题的产生和解决方案          2017-08-24
+        
+                        返回目录
                 
-什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。
-什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。
-例子：http://www.test.">
+什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScrip">
   
 
   
@@ -87,7 +87,9 @@
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="跨域问题的产生和解决方案"><a href="#跨域问题的产生和解决方案" class="headerlink" title="跨域问题的产生和解决方案"></a>跨域问题的产生和解决方案</h3><p><a href="/studyforinterview/2017/08/24/crossdomain-solution/"><br>          2017-08-24
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
 <h2 id="什么是同源"><a href="#什么是同源" class="headerlink" title="什么是同源"></a>什么是同源</h2><p>同源必须是：<strong>协议</strong>，<strong>域名</strong>和<strong>端口</strong>均相同，任何一项不同则视为非同源。</p>
@@ -97,23 +99,19 @@
 <h2 id="JSONP的实现"><a href="#JSONP的实现" class="headerlink" title="JSONP的实现"></a>JSONP的实现</h2><p>理解了原理要实现就不难了。</p>
 <ol>
 <li><p>在调用数据的时候添加一个回调的函数名作为参数：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如果是JSON正常模式返回的会是下面的格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>如果是JSONP模式的话就会返回下面的格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure>
-<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>如果是JSONP模式的话就会返回下面的格式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>对于服务端来说，只是在原有结果多输出几个字符罢了，相当简单。</p>
-<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure></p>
 <p>注意如果想其他所有域名都能访问的话就可以把第一行里面的<code>http://testbb.com</code>换成<code>*</code>。</p>
 <p>如果对数据安全性有强要求的话，第二种解决方案无疑更适合。</p>
 <h2 id="小小蔡芽"><a href="#小小蔡芽" class="headerlink" title=",小小蔡芽"></a>,小小蔡芽</h2><hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>

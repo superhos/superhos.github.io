@@ -10,10 +10,11 @@
   
 
   
-  <meta name="description" content="返回目录
+  <meta name="description" content="关于HTTP协议的一切          2017-08-10
+        
+                        返回目录
                 
-怎么理解协议在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。
-HTTP协议简介HTTP是Hyper ">
+怎么理解协议在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规">
   
 
   
@@ -86,13 +87,15 @@ HTTP协议简介HTTP是Hyper ">
   <div class="article-content">
     <div class="entry">
       
-        <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+        <h3 id="关于HTTP协议的一切"><a href="#关于HTTP协议的一切" class="headerlink" title="关于HTTP协议的一切"></a>关于HTTP协议的一切</h3><p><a href="/studyforinterview/2017/08/10/http-protocal/"><br>          2017-08-10
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <h2 id="怎么理解协议"><a href="#怎么理解协议" class="headerlink" title="怎么理解协议"></a>怎么理解协议</h2><p>在总结HTTP协议之前，先来讲讲什么是协议。做过游戏行业的人应该对此理解比较深刻，因为游戏的通信协议没有太通用的规范，都是框架制定时候来约定的。按我理解，协议就是服务端和客户端通信时候所采用的规范和格式。</p>
 <h2 id="HTTP协议简介"><a href="#HTTP协议简介" class="headerlink" title="HTTP协议简介"></a>HTTP协议简介</h2><p>HTTP是Hyper Text Transfer Protocol（超文本传输协议）的缩写。它的发展是万维网协会（World Wide Web Consortium）和Internet工作小组IETF（Internet Engineering Task Force）合作的结果，（他们）最终发布了一系 列的RFC，RFC 1945定义了HTTP/1.0版本。其中最著名的就是RFC 2616。RFC 2616定义了今天普遍使用的一个版本——HTTP 1.1。<br>HTTP协议（HyperText Transfer Protocol，超文本传输协议）是用于从WWW服务器传输超文本到本地浏览器的传送协议。它可以使浏览器更加高效，使网络传输减少。它不仅保证计算 机正确快速地传输超文本文档，还确定传输文档中的哪一部分，以及哪部分内容首先显示(如文本先于图形)等。<br>HTTP是一个应用层协议，由请求和响应构成，是一个标准的客户端服务器模型。HTTP是一个无状态的协议。</p>
 <p>关键词： 应用层协议，无状态协议<br>无状态协议的意思可以理解成请求之间是独立不影响的，因此服务端开发的时候需要引用session的概念来保持会话的持续性。</p>
 <h2 id="HTTP协议的格式-Request"><a href="#HTTP协议的格式-Request" class="headerlink" title="HTTP协议的格式 - Request"></a>HTTP协议的格式 - Request</h2><p>HTTP Request由三个部分组成： 请求行，消息报头（Header），请求正文（body）</p>
-<h2 id="HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"><a href="#HTTP-Request-请求行-请求方式-方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能" class="headerlink" title="HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能"></a>HTTP Request 请求行 (请求方式)方式作用Get向Web服务器请求一个文件Post向Web服务器发送数据让Web服务器进行处理PUT向Web服务器发送数据并存储在Web服务器内部HEAD检查一个对象是否存在DELETE从Web服务器删除一个文件CONNECT对通道提供支持TRACE跟踪到服务器的路径OPTIONS查询Web服务器的性能</h2><h4 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h4><p>POST /test/test/index HTTP/1.1</p>
+<h2 id="格式实例"><a href="#格式实例" class="headerlink" title="格式实例"></a>格式实例</h2><p>POST /test/test/index HTTP/1.1</p>
 <ul>
 <li>POST： HTTP的请求方式</li>
 <li>/test/test/index: 请求Web服务器的目录地址</li>
@@ -159,7 +162,6 @@ HTTP协议简介HTTP是Hyper ">
 <p>解析：Expires表示缓存过期的时间，Cache-Control表示缓存的规则(不保留或者或留多久)，ETag和Last-Modified配合使用查看是否读取缓存，Date是发送request的当前时间。所以答案选<strong>D</strong>。</p>
 <h2 id="郭无心"><a href="#郭无心" class="headerlink" title=",郭无心"></a>,郭无心</h2><p>[4]《技术之瞳》,阿里巴巴集团校园招聘笔试项目组</p>
 <hr>
-<h3 id="留言"><a href="#留言" class="headerlink" title="留言:"></a>留言:</h3><p>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
 
       
     </div>
