@@ -13,11 +13,8 @@
     
 
     
-        <meta name="description" content="传输速率计算问题          2017-08-07
-        
-                        返回目录
-                
-由一道题开始说起使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送__块硬盘才"/>
+        <meta name="description" content="传输速率计算问题由一道题开始说起使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送__块硬盘才能使速率超过1000G bit/s?
+解：这就是关于传输速率和传输介质的问题，例题来源于阿里的《技术之瞳》。要解决这样的题，我们首先要清晰其中的单位关系"/>
     
 
     <!--Author-->
@@ -32,11 +29,8 @@
 
     <!--Open Graph Description-->
     
-        <meta property="og:description" content="传输速率计算问题          2017-08-07
-        
-                        返回目录
-                
-由一道题开始说起使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送__块硬盘才"/>
+        <meta property="og:description" content="传输速率计算问题由一道题开始说起使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送__块硬盘才能使速率超过1000G bit/s?
+解：这就是关于传输速率和传输介质的问题，例题来源于阿里的《技术之瞳》。要解决这样的题，我们首先要清晰其中的单位关系"/>
     
 
     <!--Open Graph Site Name-->
@@ -209,11 +203,7 @@
 
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <h3 id="传输速率计算问题"><a href="#传输速率计算问题" class="headerlink" title="传输速率计算问题"></a>传输速率计算问题</h3><p><a href="/studyforinterview/2017/08/07/trans-rate/"><br>          2017-08-07
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<h2 id="由一道题开始说起"><a href="#由一道题开始说起" class="headerlink" title="由一道题开始说起"></a>由一道题开始说起</h2><p><strong>使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送<em>__</em>块硬盘才能使速率超过1000G bit/s?</strong></p>
+                <h3 id="传输速率计算问题"><a href="#传输速率计算问题" class="headerlink" title="传输速率计算问题"></a>传输速率计算问题</h3><h2 id="由一道题开始说起"><a href="#由一道题开始说起" class="headerlink" title="由一道题开始说起"></a>由一道题开始说起</h2><p><strong>使用一辆卡车运输n块装满数据的1TB硬盘，以80km/h行驶1000km将数据运送到目的地，卡车至少运送<em>__</em>块硬盘才能使速率超过1000G bit/s?</strong></p>
 <p>解：<br>这就是关于传输速率和传输介质的问题，例题来源于阿里的《技术之瞳》。<br>要解决这样的题，我们首先要清晰其中的单位关系。</p>
 <p>首先计算总时间：t = s %uF7 v = 1000 km %uF7 80 km / h = 12 .5 h<br>然后计算总时间内可以传输的数据量：<br>s2 GB = v2 %uD7 t = 1000 G b/s %uF7 8b/B %uD7 12.5 h %uD7 3600 s/h<br>         =  5625000 GB<br>(其中s2为总数据量，v2为传输速率)<br>(注意单位要一致，12.5小时要转为秒，1000G b/s 是bit每秒，而最后数据量的单位是byte，因为1 byte = 8 bit，所以要除上 8b/B)<br>最后用总的数据量除以每块硬盘的size就可以知道至少运送多少块了：<br>n = s2 GB %uF7 1024 GB/块 = 562500 GB %uF7 1024 GB/块 = 5494 块</p>
 <h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>这类题目公式其实就是s=vt，主要要留意单位要一致。</p>
