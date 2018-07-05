@@ -13,6 +13,9 @@
     
 
     
+        <meta name="description" content="Description给定一个字符串所表示的括号序列，包含以下字符： ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’， 判定是否是有效的括号序列。
+Example括号必须依照 “()” 顺序表示， “()[]{}” 是有效的括号，但 “([)]”则是无效的括号。O(n)的时间，n为括"/>
+    
 
     <!--Author-->
     
@@ -21,10 +24,13 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="423. 有效的括号序列"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Description给定一个字符串所表示的括号序列，包含以下字符： ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’， 判定是否是有效的括号序列。
+Example括号必须依照 “()” 顺序表示， “()[]{}” 是有效的括号，但 “([)]”则是无效的括号。O(n)的时间，n为括"/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +38,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +57,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2017 - Sevens Chan blog</title>
+    <title>423. 有效的括号序列 - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,168 +167,62 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2017</h1>
+                <div class="post-heading">
+                    <h1>423. 有效的括号序列</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-07-05
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/30/npm-operation-not-permitted-solution/">
-        <h1 class="post-title archive">
-            npm operation not permitted解决方案集合
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-30
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给定一个字符串所表示的括号序列，包含以下字符： ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’， 判定是否是有效的括号序列。</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>括号必须依照 “()” 顺序表示， “()[]{}” 是有效的括号，但 “([)]”则是无效的括号。<br>O(n)的时间，n为括号的个数</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>这类题目也不用多想，用栈。两个栈比较。O(n).</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param s: A string</span></span><br><span class="line"><span class="comment"> * @return: whether the string is a valid parentheses</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> isValidParentheses = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> stack = s.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">if</span> (stack.length % <span class="number">2</span> !==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> dic = &#123;</span><br><span class="line">        <span class="string">')'</span>:<span class="string">'('</span>,</span><br><span class="line">        <span class="string">'&#125;'</span>:<span class="string">'&#123;'</span>,</span><br><span class="line">        <span class="string">']'</span>:<span class="string">'['</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> outstack = [];</span><br><span class="line">    <span class="keyword">while</span>(stack.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> now = stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (dic[now])&#123;</span><br><span class="line">            outstack.push(now);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> check = outstack.pop();</span><br><span class="line">            <span class="keyword">if</span> (dic[check] !== now)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> outstack.length&gt;<span class="number">0</span>?<span class="literal">false</span>:<span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/16/learn-es2015-relect/">
-        <h1 class="post-title archive">
-            认识一下JS的反射机制
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-16
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/11/14/cms-base-on-mevn-1/">
-        <h1 class="post-title archive">
-            基于MEVNS微服务架构CMS开发历程(1)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/10/18/regex-lazy-mode/">
-        <h1 class="post-title archive">
-            正则表达式的懒惰模式多懒惰
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-10-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/26/how-javascript-works-engine-runtime-call-stack/">
-        <h1 class="post-title archive">
-            JS工作原理：引擎，运行时和调用堆栈
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-26
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/09/25/how-javascript-works-memory-management/">
-        <h1 class="post-title archive">
-            JS工作原理：內存管理与常见内存泄露分析
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-09-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/30/wechat-js-sdk-getinfo/">
-        <h1 class="post-title archive">
-            基于Vue微信公众号JS SDK实现
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-30
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/avoid-resubmit/">
-        <h1 class="post-title archive">
-            防止表单重复提交，你我有责
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/25/deep-learning-lol/">
-        <h1 class="post-title archive">
-            deep-learning-lol
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/08/24/ary-story/">
-        <h1 class="post-title archive">
-            不同进制之间的故事
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-24
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-        <li class="next"><a href="/studyforinterview/archives/2017/page/2/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
