@@ -13,6 +13,11 @@
     
 
     
+        <meta name="description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer.
+ExampleExample 1:
+Input: [1,2,0]Output: 3Example 2:
+Input: [3,4"/>
+    
 
     <!--Author-->
     
@@ -21,10 +26,15 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="41. First Missing Positive"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer.
+ExampleExample 1:
+Input: [1,2,0]Output: 3Example 2:
+Input: [3,4"/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +42,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +61,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2018/7 - Sevens Chan blog</title>
+    <title>41. First Missing Positive - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,168 +171,64 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2018/7</h1>
+                <div class="post-heading">
+                    <h1>41. First Missing Positive</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-07-10
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/10/coding-first-issing-positive/">
-        <h1 class="post-title archive">
-            41. First Missing Positive
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="Desription"><a href="#Desription" class="headerlink" title="Desription"></a>Desription</h3><p>Given an unsorted integer array, find the smallest missing positive integer.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
+<p>Input: [1,2,0]<br>Output: 3<br>Example 2:</p>
+<p>Input: [3,4,-1,1]<br>Output: 2<br>Example 3:</p>
+<p>Input: [7,8,9,11,12]<br>Output: 1<br>Note:</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>用了map来做，空间换时间。不过这题的难度为什么是Hard。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var firstMissingPositive = function(nums) &#123;</span><br><span class="line">    let re = &#123;&#125;;</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">        re[nums[i]] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (let i=1; i &lt;  Number.MAX_VALUE; i++)&#123;</span><br><span class="line">        if (!re[i])</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/10/fullpage-develop-1/">
-        <h1 class="post-title archive">
-            开发一个fullpage插件(1)
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-10
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/10/coding-generate-parentheses/">
-        <h1 class="post-title archive">
-            22. Generate Parentheses
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-10
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/coding-array-plus-one/">
-        <h1 class="post-title archive">
-            407. 加一
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/coding-valid-kuo/">
-        <h1 class="post-title archive">
-            423. 有效的括号序列
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/html5-data-attribute/">
-        <h1 class="post-title archive">
-            所有关于HTML5 data-*属性你需要知道的事
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/algorithm-dynamic-planning/">
-        <h1 class="post-title archive">
-            基础算法 - 动态规划
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/coding-add-strings/">
-        <h1 class="post-title archive">
-            655. Add Strings
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/coding-color-bar/">
-        <h1 class="post-title archive">
-            514. 栅栏染色
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/javascript-prototype/">
-        <h1 class="post-title archive">
-            深入JS原型链[Writing]
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-        <li class="next"><a href="/studyforinterview/archives/2018/07/page/2/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
