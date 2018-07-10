@@ -13,6 +13,9 @@
     
 
     
+        <meta name="description" content="DescriptionGiven n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+ExampleFor example, given n = 3, a "/>
+    
 
     <!--Author-->
     
@@ -21,10 +24,13 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="22. Generate Parentheses"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="DescriptionGiven n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+ExampleFor example, given n = 3, a "/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +38,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +57,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2018/7 - Sevens Chan blog</title>
+    <title>22. Generate Parentheses - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,168 +167,61 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2018/7</h1>
+                <div class="post-heading">
+                    <h1>22. Generate Parentheses</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-07-10
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/10/coding-generate-parentheses/">
-        <h1 class="post-title archive">
-            22. Generate Parentheses
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-10
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>For example, given n = 3, a solution set is:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">"((()))"</span>,</span><br><span class="line">  <span class="string">"(()())"</span>,</span><br><span class="line">  <span class="string">"(())()"</span>,</span><br><span class="line">  <span class="string">"()(())"</span>,</span><br><span class="line">  <span class="string">"()()()"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>最直接是递归然后剪枝，因为需要成对判断合法性，所以如果left &gt; right的时候就可以剪掉了。<br>同时如果left == 0 的时候都可以直接把right的括号补全了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;string[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">1</span>) <span class="keyword">return</span> [<span class="string">'()'</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> result = [];</span><br><span class="line">    search(n,n,<span class="string">''</span>,result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">left,right,cur,result</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; <span class="number">0</span> || right &lt; <span class="number">0</span> || left &gt; right)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (left == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = right; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">            cur += <span class="string">')'</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">        result.push(cur);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    search(left - <span class="number">1</span>, right, cur + <span class="string">'('</span>, result);</span><br><span class="line">    search(left, right - <span class="number">1</span>, cur + <span class="string">')'</span>, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/coding-array-plus-one/">
-        <h1 class="post-title archive">
-            407. 加一
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/coding-valid-kuo/">
-        <h1 class="post-title archive">
-            423. 有效的括号序列
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/html5-data-attribute/">
-        <h1 class="post-title archive">
-            所有关于HTML5 data-*属性你需要知道的事
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/05/algorithm-dynamic-planning/">
-        <h1 class="post-title archive">
-            基础算法 - 动态规划
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-05
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/coding-add-strings/">
-        <h1 class="post-title archive">
-            655. Add Strings
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/coding-color-bar/">
-        <h1 class="post-title archive">
-            514. 栅栏染色
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/04/javascript-prototype/">
-        <h1 class="post-title archive">
-            深入JS原型链[Writing]
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/03/coding-letter-square/">
-        <h1 class="post-title archive">
-            888. 有效单词词广场
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-03
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2018/07/03/coding-flip-game/">
-        <h1 class="post-title archive">
-            914.翻转游戏
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-03
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-        <li class="next"><a href="/studyforinterview/archives/2018/07/page/2/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
