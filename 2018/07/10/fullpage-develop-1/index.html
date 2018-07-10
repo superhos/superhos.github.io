@@ -13,6 +13,11 @@
     
 
     
+        <meta name="description" content="Introduction这两天在写一个fullpage的插件，参考学习了fullpage.js的代码，有些部分挺精妙。
+问题(1) - 要使用滚动条吗?首先要实现的基本功能就是几个页面，然后滚动到下一个页面。
+听起来很简单，但是要以页面转换衔接流畅为目的就要花点功夫了。
+第一我们不能用滚动条去做，也"/>
+    
 
     <!--Author-->
     
@@ -21,10 +26,15 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="开发一个fullpage插件(1)"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Introduction这两天在写一个fullpage的插件，参考学习了fullpage.js的代码，有些部分挺精妙。
+问题(1) - 要使用滚动条吗?首先要实现的基本功能就是几个页面，然后滚动到下一个页面。
+听起来很简单，但是要以页面转换衔接流畅为目的就要花点功夫了。
+第一我们不能用滚动条去做，也"/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +42,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +61,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2017/7 - Sevens Chan blog</title>
+    <title>开发一个fullpage插件(1) - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,140 +171,71 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2017/7</h1>
+                <div class="post-heading">
+                    <h1>开发一个fullpage插件(1)</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-07-10
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/31/log-system-build/">
-        <h1 class="post-title archive">
-            项目日志系统设计和搭建
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-31
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>这两天在写一个fullpage的插件，参考学习了<a href="https://github.com/alvarotrigo/fullPage.js" target="_blank" rel="noopener">fullpage.js</a>的代码，有些部分挺精妙。</p>
+<h2 id="问题-1-要使用滚动条吗"><a href="#问题-1-要使用滚动条吗" class="headerlink" title="问题(1) - 要使用滚动条吗?"></a>问题(1) - 要使用滚动条吗?</h2><p>首先要实现的基本功能就是几个页面，然后滚动到下一个页面。</p>
+<p>听起来很简单，但是要以页面转换衔接流畅为目的就要花点功夫了。</p>
+<p>第一我们不能用滚动条去做，也不是说不能，只是会遇到几何倍的问题。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 会与滚动条原本事件冲突，要停止事件冒泡。</span><br><span class="line">2. 衔接页面缓动需要另外去写。</span><br></pre></td></tr></table></figure></p>
+<p>而我这里选择操作 <code>transform:translate3d(0,0,0)</code> 来控制整体的滚动。好处在于:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 不会与滚动条冲突，overflow:hidden 了就好。</span><br><span class="line">2. 可以直接只用 CSS3动画(transition: all 1s ease) 来达到目的。</span><br></pre></td></tr></table></figure></p>
+<p>针对transition，我们可以通过监听<code>transitionend</code> 来标记滚动结束。</p>
+<h2 id="问题-2-停不住的滚动条wheel事件"><a href="#问题-2-停不住的滚动条wheel事件" class="headerlink" title="问题(2) - 停不住的滚动条wheel事件"></a>问题(2) - 停不住的滚动条wheel事件</h2><p>要控制页面，必然要监听 wheel/onwheel 事件了(兼容性这里暂时不表)。<br>但是有个问题很严峻，就是滚动是有惯性的，同时它每滚动一次就会触发一次事件。<br>假如我们用了一个 <code>isMoving</code> 来标记页面是否在动画，第一次监听到滚动事件的时候设为<code>true</code>,在最后监听到 <code>transitionend</code> 来设 <code>isMoving</code> 为 <code>false</code>。看起来很完美，但是问题是页面动画结束以后，滚动未必也已经结束了，可能还在惯性滚动，就是说动画停止了就会触发下一轮的动画，页面就又翻到下一个页面了。</p>
+<p>针对这个问题，要从两个方面来判断：</p>
+<ol>
+<li>时间差。一般一次滚动操作(包含惯性)在200-300毫秒间就能完成，如果超过这个时间差，则判断为下一次滚动。</li>
+<li>加速度。整个滚动事件速度成高斯函数，前面加速，到后面是减速。但是，速度可能有起伏，所以我们需要用中段的平均速度和尾端的平均速度来判断整体趋势是不是在减速，如果在加速的话，就是可以执行我们的页面动画，减速的话就可以跳过了（因为前面必然已经执行过一次了）。</li>
+</ol>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>目前在开发中，所以源码暂时不放上来了。</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/28/nginx-accesslog/">
-        <h1 class="post-title archive">
-            最熟悉的陌生人 - access log
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-28
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/28/git-branch-strategy/">
-        <h1 class="post-title archive">
-            关于git项目管理分支策略的一点思考
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/28/dev-code/">
-        <h1 class="post-title archive">
-            开发时候常会遇到的HTTP状态码
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/25/basic-character/">
-        <h1 class="post-title archive">
-            【翻译】每个程序员都需要了解的Unicode和字符集知识
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/25/参考书籍/">
-        <h1 class="post-title archive">
-            参考书籍
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/25/语言的选择/">
-        <h1 class="post-title archive">
-            语言的选择
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-25
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/studyforinterview/2017/07/24/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-07-24
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
