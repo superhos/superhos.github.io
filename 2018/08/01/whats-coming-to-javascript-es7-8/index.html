@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="翻译至 这里
+一些JS的新特性已经揭开了神秘的面纱，但是对于大多数开发者来说，了解一部分特性，一部分还是云里雾里的。所以在这里让我们来看一下这些新的特性。
+Object.values/Object.entries:从Object提取values和key-values的方法对于JS来说不是新东西，在E"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SevensChan"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Javascript (ES7 + ES8) 有什么新东东"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="翻译至 这里
+一些JS的新特性已经揭开了神秘的面纱，但是对于大多数开发者来说，了解一部分特性，一部分还是云里雾里的。所以在这里让我们来看一下这些新的特性。
+Object.values/Object.entries:从Object提取values和key-values的方法对于JS来说不是新东西，在E"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Sevens Chan blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+    <!-- Title -->
+    
+    <title>Javascript (ES7 + ES8) 有什么新东东 - Sevens Chan blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/studyforinterview/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/studyforinterview/">Sevens Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/studyforinterview/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://my.oschina.net/u/203607">
+                            
+                                Old_Blog
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Javascript (ES7 + ES8) 有什么新东东</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-08-01
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/studyforinterview/tags/es7-es8/">#es7,es8</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>翻译至 <a href="https://medium.com/@Murcul/whats-coming-to-javascript-es7-es8-8ce73c9a8ec9" target="_blank" rel="noopener">这里</a></p>
+<p>一些JS的新特性已经揭开了神秘的面纱，但是对于大多数开发者来说，了解一部分特性，一部分还是云里雾里的。所以在这里让我们来看一下这些新的特性。</p>
+<h2 id="Object-values-Object-entries"><a href="#Object-values-Object-entries" class="headerlink" title="Object.values/Object.entries:"></a>Object.values/Object.entries:</h2><p>从Object提取values和key-values的方法对于JS来说不是新东西，在ES2015里我们已经有了Object.keys用来返回对应一个对象拥有的可枚举的属性。但是，如果你为该对象属性提取对应的值，你就不得不执行下面的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span> &#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(obj).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`prop <span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;obj[key]&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/* == RESULTS</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">  prop a :  foo</span></span><br><span class="line"><span class="comment">  prop b :  bar</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>感谢的是，随着ES2017的到来，我们有了两个更轻松更有利于代码阅读的新的方法去迭代一个Object以及去提取Object.values的值或者Object的条目。</p>
+<p><code>Object.values</code> 返回的是一个数组，包含了可枚举的属性值。因此我们可以使用<code>Array.prototype</code>的方法去迭代这个数据，就像使用<code>.filter()</code>结合ES2015的箭头函数一样，它有一个隐藏的返回函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">Object</span>.values(obj)</span><br><span class="line">.filter(<span class="function"><span class="params">val</span> =&gt;</span> <span class="keyword">typeof</span> val != <span class="string">'string'</span>) <span class="comment">// returns: [1, [1, 2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
+<p>另外<code>Object.entries</code>会返回一个包含各个可枚举属性的key-value数据。记住，每个结果项目都是数组格式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="built_in">Object</span>.entries(obj)) </span><br><span class="line"><span class="comment">// returns: "[["a", "foo"],["b", "bar"],["c", 1],["d", [1,2,3,4]]]"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Asynchronous-Iteration"><a href="#Asynchronous-Iteration" class="headerlink" title="Asynchronous Iteration"></a>Asynchronous Iteration</h2><p>在ES2015里面介绍过迭代器(Iterators)，如果你不知道关于迭代器的东东，你可以去看一下<a href="https://jakearchibald.com/2014/iterators-gonna-iterate/" target="_blank" rel="noopener">这篇文章</a>，但当时它是不能迭代异步数据的，直到现在…</p>
+<p>在ES2018里面，它成为了可能！这个改变主要是因为现在迭代器的<code>.next()</code>方法会返回一个<code>Promise</code>。在这个例子里面假设我们通过一个通用的端点来接受一组的数字：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span>* <span class="title">generateAsyncIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arrayOfPromises = [</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1000</span>, <span class="string">'foo'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1500</span>, <span class="string">'bar'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">2000</span>, <span class="string">'lol'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> nextIndex = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> (nextIndex &lt; arrayOfPromises.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> arrayOfPromises[nextIndex]</span><br><span class="line">    nextIndex++</span><br><span class="line">    <span class="keyword">yield</span> response</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncIteratorFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> asyncIterator = generateAsyncIterator()</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "foo", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "bar", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "lol", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: undefined, done: true&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里我们用一个异步<code>generator</code>去创建一个异步的迭代器工厂，要记住的是这种异步迭代器最适合用在流，generators以及web socket上。为了更好理解这个主题，可以去看一下<a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md#iterating-generators-asynchronously" target="_blank" rel="noopener">这篇文章</a>,还有<a href="https://github.com/tc39/proposal-async-iteration#async-generator-functions" target="_blank" rel="noopener">这篇</a>。</p>
+<h2 id="Promise-Prototype-finally"><a href="#Promise-Prototype-finally" class="headerlink" title="Promise.Prototype.finally()"></a>Promise.Prototype.finally()</h2><p>Promises自ES2015以后一直存在，这是JS异步开发的一大进步。现在它在很多第三方库上都会实现一个<code>.finally()</code>的方法，主要是当Promise完成或者Rejected以后调用的一个回调函数。我们可以理解为<code>try/catch/finally</code>，finally是绝对会被执行的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise</span><br><span class="line">.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;···&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在JS语言拥有了大量的新特性，加油吧孩子！</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/superhos" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 SevensChan<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
