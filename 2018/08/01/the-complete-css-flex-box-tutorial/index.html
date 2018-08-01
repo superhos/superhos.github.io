@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="翻译自The Complete CSS Flex Box Tutorial
+关于这篇文章的图片来源于作者的新书，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。
+【译者注：有几段关于作者新书的介绍这里就跳过了】
+跟CSS Grid很一样，Flex Box 是一个相当复杂的布局模型，因为它考虑了"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SevensChan"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="完整的CSS Flex 盒子教程"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="翻译自The Complete CSS Flex Box Tutorial
+关于这篇文章的图片来源于作者的新书，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。
+【译者注：有几段关于作者新书的介绍这里就跳过了】
+跟CSS Grid很一样，Flex Box 是一个相当复杂的布局模型，因为它考虑了"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Sevens Chan blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+    <!-- Title -->
+    
+    <title>完整的CSS Flex 盒子教程 - Sevens Chan blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/studyforinterview/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/studyforinterview/">Sevens Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/studyforinterview/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://my.oschina.net/u/203607">
+                            
+                                Old_Blog
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/studyforinterview/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>完整的CSS Flex 盒子教程</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-08-01
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>翻译自<a href="https://medium.com/@js_tut/the-complete-css-flex-box-tutorial-d17971950bdc" target="_blank" rel="noopener">The Complete CSS Flex Box Tutorial</a></p>
+<p>关于这篇文章的图片来源于作者的<a href="https://www.amazon.com/dp/1983065633/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=sl1&amp;tag=medium02-20&amp;linkId=b0eddcc81938503d94ba431d29f074c6" target="_blank" rel="noopener">新书</a>，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。</p>
+<p>【译者注：有几段关于作者新书的介绍这里就跳过了】</p>
+<p>跟<a href="https://medium.com/@js_tut/css-grid-tutorial-filling-in-the-gaps-c596c9534611" target="_blank" rel="noopener">CSS Grid</a>很一样，<em>Flex Box</em> 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(<em>container</em>)和项目元素(<em>items</em>)。</p>
+<p>当我开始学习Flex，我想先看看它所有的能力。但是，我没有找到可以看到所有Flex属性例子的教程。所以我以鸟瞰图的形式为大家展示一下Flex的能力。</p>
+<p>【译者注：因为前面预览图过多，这里放到最后以免影响阅读】</p>
+<p>这一大堆就是Flex的能力。但是。。还是让我们来每张图讲解一次吧。在教程结束的时候你应该能够快速且清晰的脑海中对Flex有一定的概念。</p>
+<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><p>Flex是一组自动拉伸父容器内容行列的规则。</p>
+<h2 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h2><p>跟其他CSS属性不一样的是，在Flex里面你需要有一个主要的容器和一些嵌套在里面的项目元素(items)。很多CSS Flex的属性是只用在容器上，一部分是用在元素上。<br><img src="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="img"></p>
+<p>你可以把一个设置了<code>display:flex</code>的flex元素看作是父容器。在这个容器里面的元素就是项目元素(items)。每个容器都有如上图所示的一个 <em>flex-start</em> 点和一个 <em>flex-end</em> 点。</p>
+<h2 id="主轴和竖轴"><a href="#主轴和竖轴" class="headerlink" title="主轴和竖轴"></a>主轴和竖轴</h2><p>虽然项目元素是以线性方向排列，但是Flex要求你要注意行和列的概念。出于这个原因，它有两个坐标轴。横向的坐标轴称为主轴，竖向的坐标轴称为竖轴(Cross-Axis)。</p>
+<p>想要在主轴上控制内容的宽度以及间隙，你需要使用<code>justify</code>的相关属性。要在竖轴上控制项目元素，你需要使用<code>align</code>的相关属性。</p>
+<p>如果你有3列和6个项目元素，Flex会自动创建第二行来容纳剩余的项目元素。<br><img src="https://cdn-images-1.medium.com/max/800/1*T1x2OolGzQWb2GZB688_Vw.png" alt="img"><br><img src="https://cdn-images-1.medium.com/max/800/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="你可以确定列的数量]"></p>
+<p>行和列在父元素里面怎么分布调整是由CSS Flex的属性<code>flex-direction</code>,<code>flex-wrap</code>和一些其他的属性决定的，将会在后面的内容演示。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="这里可以看到有n个项目元素放置在容器里面。默认情况下，这些元素会从左到右排列，当然了，开始的原始点是可以反转的"></p>
+<h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>完全可以把项目元素的放置方向反过来。<br><img src="https://cdn-images-1.medium.com/max/800/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="img"><br>设置<code>flex-direction:row-reverse</code> 就可以将方向反过来。默认值是row，意味着流向是从左向右</p>
+<h2 id="Wrap"><a href="#Wrap" class="headerlink" title="Wrap"></a>Wrap</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="img"><br>如果设置了<code>flex-wrap:wrap</code>的话，当容器内部项目元素超出长度的话会自动断行，创建新的一行放置元素。该属性默认值是<code>nowrap</code>，如果超出长度会溢出容器。</p>
+<h2 id="Flex-能力鸟瞰图"><a href="#Flex-能力鸟瞰图" class="headerlink" title="Flex 能力鸟瞰图"></a>Flex 能力鸟瞰图</h2><p><img src="https://cdn-images-1.medium.com/max/1400/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="01"><br><img src="https://cdn-images-1.medium.com/max/600/1*T1x2OolGzQWb2GZB688_Vw.png" alt="02"><br><img src="https://cdn-images-1.medium.com/max/1400/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="03"><br><img src="https://cdn-images-1.medium.com/max/1400/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="04"><br><img src="https://cdn-images-1.medium.com/max/1400/1*pJwqDgFAv-jBwy9m8jbrxQ.png" alt="05"><br><img src="https://cdn-images-1.medium.com/max/1400/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="06"><br><img src="https://cdn-images-1.medium.com/max/1400/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="07"><br><img src="https://cdn-images-1.medium.com/max/1400/1*JwdJjzh906U62y5ryUBPBA.png" alt="08"><br><img src="https://cdn-images-1.medium.com/max/1400/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="09"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="10"><br><img src="https://cdn-images-1.medium.com/max/1400/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="11"><br><img src="https://cdn-images-1.medium.com/max/1400/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="12"><br><img src="https://cdn-images-1.medium.com/max/1400/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="13"><br><img src="https://cdn-images-1.medium.com/max/1400/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="14"><br><img src="https://cdn-images-1.medium.com/max/1200/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="15"><br><img src="https://cdn-images-1.medium.com/max/1400/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="16"><br><img src="https://cdn-images-1.medium.com/max/1200/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="17"><br><img src="https://cdn-images-1.medium.com/max/1200/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="18"><br><img src="https://cdn-images-1.medium.com/max/1200/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="19"><br><img src="https://cdn-images-1.medium.com/max/1200/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="20"><br><img src="https://cdn-images-1.medium.com/max/800/1*ClFep05U_OkI3uA4fcDibQ.png" alt="21"><br><img src="https://cdn-images-1.medium.com/max/1000/1*JgkuJjc2Ile0Hkef1pMyfQ.png" alt="22"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AbZAF6lmrm7jOkOKnbas4w.png" alt="23"><br><img src="https://cdn-images-1.medium.com/max/1400/1*Lr8yGIA_nPAF1Ay5MraXlw.png" alt="24"><br><img src="https://cdn-images-1.medium.com/max/800/1*BdoGsWOIFJ3IGW7j193W2Q.png" alt="25"><br><img src="https://cdn-images-1.medium.com/max/1400/1*nd0NlLxeeatSX1j4dfFblQ.png" alt="26"></p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/superhos" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 SevensChan<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
