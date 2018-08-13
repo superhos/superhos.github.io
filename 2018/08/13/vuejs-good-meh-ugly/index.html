@@ -14,8 +14,8 @@
 
     
         <meta name="description" content="本篇翻译自Vue.js:the good,the meh and the ugly
-译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#x34;&amp;#x39;&amp;#x35;&amp;#49;&amp;#54;&amp;#53;&amp;#64;&amp;#x71;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109;
-使用一"/>
+译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#52;&amp;#x39;&amp;#53;&amp;#49;&amp;#54;&amp;#x35;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;
+使用"/>
     
 
     <!--Author-->
@@ -31,8 +31,8 @@
     <!--Open Graph Description-->
     
         <meta property="og:description" content="本篇翻译自Vue.js:the good,the meh and the ugly
-译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#x34;&amp;#x39;&amp;#x35;&amp;#49;&amp;#54;&amp;#53;&amp;#64;&amp;#x71;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109;
-使用一"/>
+译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#52;&amp;#x39;&amp;#53;&amp;#49;&amp;#54;&amp;#x35;&amp;#64;&amp;#113;&amp;#113;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;
+使用"/>
     
 
     <!--Open Graph Site Name-->
@@ -206,7 +206,7 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
-<p>译者: SevensChan <a href="mailto:&#50;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#54;&#53;&#64;&#x71;&#113;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#54;&#53;&#64;&#x71;&#113;&#46;&#99;&#111;&#109;</a></p>
+<p>译者: SevensChan <a href="mailto:&#50;&#x39;&#x37;&#52;&#x39;&#53;&#49;&#54;&#x35;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#x6d;" target="_blank" rel="noopener">&#50;&#x39;&#x37;&#52;&#x39;&#53;&#49;&#54;&#x35;&#64;&#113;&#113;&#x2e;&#x63;&#111;&#x6d;</a></p>
 <p>使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。</p>
 <p>经过了和Vue.js大概2年的蜜月期，我终于可以客观地从不同角度来评价一下这个框架了。</p>
 <h2 id="优点部分"><a href="#优点部分" class="headerlink" title="优点部分"></a>优点部分</h2><h3 id="响应式-Reactivity"><a href="#响应式-Reactivity" class="headerlink" title="响应式(Reactivity)"></a>响应式(Reactivity)</h3><p>数据绑定是前端世界里的一个大命题。跟JQuery对DOM微观管理不一样，我们的关注点在于数据。Vue通过双向响应数据绑定系统来巧妙地处理这个问题。</p>
@@ -236,7 +236,7 @@
 <h3 id="并非那么神奇"><a href="#并非那么神奇" class="headerlink" title="并非那么神奇"></a>并非那么神奇</h3><p>如果你没有偏离黄金路径的话那么所有事情都会正常，但事实上经过一段时间的开发，你会发现许多Vue的小<code>ifs</code>和<code>buts</code>。</p>
 <p>举些例子：</p>
 <ul>
-<li>响应系统只追踪了某些条件约束下的改变，你不能什么都期望它去解决。事实上，你需要经常的平整数据来避免一些头痛的问题。当然，这些都在<a href="https://vuejs.org/v2/guide/reactivity.html" target="_blank" rel="noopener">这篇文章</a>中有解释到。</li>
+<li>响应系统只追踪了某些条件约束下的改变，你不能什么都期望它去解决。事实上，你需要经常的平整数据来避免一些头痛的问题。当然，这些都在<a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="noopener">这篇文章</a>中有解释到。</li>
 <li>过度系统 <code>vue-transition</code> 似乎对列表(lists)无效。你需要使用<code>transition-group</code>，它的工作原理稍微不同并且会注入新的元素进DOM。这是一个被期望解决的问题，但是你需要自己实现。</li>
 <li>如果你需要在组件中定义不响应的状态(non-reactive state)，你就需要<a href="https://github.com/vuejs/vue/issues/1988" target="_blank" rel="noopener">这样做了</a>。</li>
 </ul>
