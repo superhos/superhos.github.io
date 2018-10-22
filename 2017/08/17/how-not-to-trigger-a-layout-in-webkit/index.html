@@ -52,7 +52,7 @@
     <!--Page Cover-->
     
     
-        <meta property="og:image" content="https://blog.chenhaotaishuaile.comhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+        <meta property="og:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
     
 
         <meta name="twitter:card" content="summary_large_image"/>
@@ -60,7 +60,7 @@
     
 
     
-        <meta name="twitter:image" content="https://blog.chenhaotaishuaile.comhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+        <meta name="twitter:image" content="https://superhos.github.io/studyforinterviewhttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
     
 
     <!-- Title -->
@@ -71,7 +71,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/studyforinterview/css/style.css">
 
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
@@ -112,7 +112,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Sevens Blog</a>
+            <a class="navbar-brand" href="/studyforinterview/">Sevens Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -120,7 +120,7 @@
             <ul class="nav navbar-nav navbar-right">
                 
                     <li>
-                        <a href="/">
+                        <a href="/studyforinterview/">
                             
                                 Home
                             
@@ -136,7 +136,7 @@
                     </li>
                 
                     <li>
-                        <a href="/archives">
+                        <a href="/studyforinterview/archives">
                             
                                 Archives
                             
@@ -144,7 +144,7 @@
                     </li>
                 
                     <li>
-                        <a href="/tags">
+                        <a href="/studyforinterview/tags">
                             
                                 Tags
                             
@@ -152,7 +152,7 @@
                     </li>
                 
                     <li>
-                        <a href="/categories">
+                        <a href="/studyforinterview/categories">
                             
                                 Categories
                             
@@ -213,13 +213,13 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h3 id="在Webkit里如何不触发重布局"><a href="#在Webkit里如何不触发重布局" class="headerlink" title="在Webkit里如何不触发重布局"></a>在Webkit里如何不触发重布局</h3><p><a href="/studyforinterview/2017/08/17/how-not-to-trigger-a-layout-in-webkit/"><br>          2017-08-17
         </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/" target="_blank" rel="noopener"><br>                        返回目录
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
 <p>本文翻译自<a href="http://gent.ilcore.com/2011/03/how-not-to-trigger-layout-in-webkit.html" target="_blank" rel="noopener">原文</a></p>
 <p>大部分的Web开发者都知道，一个脚本的执行时间可能更多的花在了DOM的操作上面而不是这段JS代码的本身。其中一个潜在的高消耗操作就是布局（又称回流）：从DOM树构建呈现树(render tree)的过程。越大和复杂的DOM，就可能会带来越高的操作消耗。</p>
 <p>保持页面敏捷的一个重要的技术就是把操作DOM的操作都放在一起处理。例如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Suboptimal, causes layout twice.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Better, only one layout.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newWidth = aDiv.offsetWidth + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newHeight = aDiv.offsetHeight + <span class="number">10</span>; <span class="comment">// Read</span></span><br><span class="line"></span><br><span class="line">aDiv.style.width = newWidth + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br><span class="line"></span><br><span class="line">aDiv.style.height = newHeight + <span class="string">'px'</span>; <span class="comment">// Write</span></span><br></pre></td></tr></table></figure>
-<p>Stoyan Stefanov的 <a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, relayout and restyle provides</a> 很好的解释了这个问题。<br>【翻译请看:<a href="https://superhos.github.io/studyforinterview/2017/08/17/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">前端渲染：重绘，重布局和样式重塑</a>】</p>
+<p>Stoyan Stefanov的 <a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, relayout and restyle provides</a> 很好的解释了这个问题。<br>【翻译请看:<a href="https://superhos.github.io/studyforinterview/2017/08/17/rendering-repaint-reflowrelayout-restyle/">前端渲染：重绘，重布局和样式重塑</a>】</p>
 <p>这通常会留给开发者一个问题：什么触发了布局？我在下面总结了一些属性和方法：</p>
 <h4 id="Element"><a href="#Element" class="headerlink" title="Element"></a>Element</h4><p>clientHeight, clientLeft, clientTop, clientWidth, focus(), getBoundingClientRect(), getClientRects(), innerText, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, outerText, scrollByLines(), scrollByPages(), scrollHeight, scrollIntoView(), scrollIntoViewIfNeeded(), scrollLeft, scrollTop, scrollWidth</p>
 <h4 id="Frame-Image"><a href="#Frame-Image" class="headerlink" title="Frame, Image"></a>Frame, Image</h4><p>height, width</p>
