@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="关于git项目管理分支策略的一点思考2017-07-28
+返回目录
+00作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。
+然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vi"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SevensChan"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="关于git项目管理分支策略的一点思考"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="关于git项目管理分支策略的一点思考2017-07-28
+返回目录
+00作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。
+然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vi"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Sevens Chan blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+    <!-- Title -->
+    
+    <title>关于git项目管理分支策略的一点思考 - Sevens Chan blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Sevens Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://my.oschina.net/u/203607">
+                            
+                                Old_Blog
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>关于git项目管理分支策略的一点思考</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-10-12
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="关于git项目管理分支策略的一点思考"><a href="#关于git项目管理分支策略的一点思考" class="headerlink" title="关于git项目管理分支策略的一点思考"></a>关于git项目管理分支策略的一点思考</h3><p><a href="/studyforinterview/2017/07/28/git-branch-strategy/">2017-07-28</a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/">返回目录</a></p>
+<h2 id="00"><a href="#00" class="headerlink" title="00"></a>00</h2><p>作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。</p>
+<p>然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vincent Driessen的文章。毕竟经验不多，在这里只能留一下自己当前的想法，以后随时更新。</p>
+<h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><p>我们项目的当前git分支策略是采用一人一条分支的策略，是由之前的同事制定的。示意图如下：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0712/145304_AFtO_203607.jpg" alt="当前分支策略示意图"><br>Figure 1. 当前分支策略示意图</p>
+<p>这种策略的优点：</p>
+<ol>
+<li>责任明确。master中的代码都可以较简单的追踪到分支上。</li>
+<li>分支清晰。在人员少的时候，可以保持分支明朗。</li>
+</ol>
+<p>但是作为组员，我认为这种分支策略是缺点远远大于优点的，主要缺點如下：</p>
+<ol>
+<li><p>不适应高频需求团队。因为需求不断砸来，缺少里程碑版本的确定，导致每个新需求来都需要马上上线，导致组员缺少同步远程库和本地库代码的时机，我有位同事开发了三个月竟然都没同步过线上的代码，可想而知一旦更新代码冲突会多严重。</p>
+</li>
+<li><p>需求必须线性合并到master上。因为每个组员只有一条自己的分支，必然会有需求先后次序的冲突，例如：开发的时候a，b，c三个需求依次开发，却被要求先要上线c需求，那么c需求就可能有代码耦合在a，b需求中，导致功能缺失。</p>
+</li>
+</ol>
+<p>因此，我开始寻找另外更好的分支策略</p>
+<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>然后参考了A successful Git branching model [0] 的模型，开始搭建自己的branch模型。</p>
+<p>主要就是master，development branch 和 issue-<em> branch。 先说issue-</em> branch，我另外搭建了一個issue系统（bug追踪系统），所有的需求开发，bug修改都需要在系统中先report。之后开发人员就可以根据issue系统給的issue id去创建分支，由于和issue系统的结合，就可以把一个大的需求切分不同部分给不同的开发人员去做。之后要合并上线的话只需要根据issue id号合并就行，最后删掉分支。</p>
+<p>由于时间关系准备开会，第二部分先简略说下，之後再補充</p>
+<p>Refference</p>
+<p>[0] Vincent Driessen,A successful Git branching model . <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p>[1] 阮一峰, <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a>. <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
+<hr>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/superhos" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 SevensChan<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
