@@ -13,6 +13,12 @@
     
 
     
+        <meta name="description" content="翻译自：I never understood JavaScript closures
+闭包对很多JS初学者乃至有经验者来说都是很容易混淆的概念，在这篇文章整理下相关的概念和例子。
+基础概念在深入来讲闭包以前，有一些基础的概念我们首先要了解一下，其中一个就是 上下文
+ 。
+ 关于上下文这篇文章讲得不错"/>
+    
 
     <!--Author-->
     
@@ -21,10 +27,16 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="一篇文章看懂Javascript闭包"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="翻译自：I never understood JavaScript closures
+闭包对很多JS初学者乃至有经验者来说都是很容易混淆的概念，在这篇文章整理下相关的概念和例子。
+基础概念在深入来讲闭包以前，有一些基础的概念我们首先要了解一下，其中一个就是 上下文
+ 。
+ 关于上下文这篇文章讲得不错"/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +44,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +63,7 @@
 
     <!-- Title -->
     
-    <title>page - Archives: 2017 - Sevens Chan blog</title>
+    <title>一篇文章看懂Javascript闭包 - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,170 +173,91 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2017</h1>
+                <div class="post-heading">
+                    <h1>一篇文章看懂Javascript闭包</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-11-12
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/JS-闭包/">#JS,闭包</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2017/08/24/crossdomain-solution/">
-        <h1 class="post-title archive">
-            跨域问题的产生和解决方案
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-24
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2017/08/22/ajax-page-to-static/">
-        <h1 class="post-title archive">
-            异步页面渲染成静态页面
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-22
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>翻译自：<a href="https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8" target="_blank" rel="noopener">I never understood JavaScript closures</a></p>
+<p>闭包对很多JS初学者乃至有经验者来说都是很容易混淆的概念，在这篇文章整理下相关的概念和例子。</p>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>在深入来讲闭包以前，有一些基础的概念我们首先要了解一下，其中一个就是<em> 上下文
+ </em>。</p>
+<p> 关于上下文<a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/" target="_blank" rel="noopener">这篇文章</a>讲得不错，引用一下这篇文章：</p>
+<blockquote>
+<p>当代码在JS中执行的时候，它所正在执行的环境是很重要的，可以归纳为下面的其中一种：<br><strong>Global code</strong> —— 你的代码在最开始默认执行的环境<br><strong>Function code</strong> —— 每当执行流程进入到一个函数体内部<br>(…), 我们可以把<code>执行上下文</code>看作是当前代码运行的环境/范围</p>
+</blockquote>
+<p> 换种说法，当我们开始一个程序，我们是在全局执行上下文里开始。一些定义在全局执行上下文里的变量，我们把它们叫做<code>全局变量</code>。当程序调用一个函数的时候，发生了什么呢？<br> 一些简单的步骤：</p>
+<ol>
+<li>Javascript 创建一个新的执行上下文，一个本地的执行上下文</li>
+<li>这个本地的执行上下文会管理它自己的变量集，这些变量就是这个执行上下文的<code>本地变量</code></li>
+<li>新的执行上下文会被抛到执行堆栈上。可以把执行堆栈看作一个机制，用于跟踪程序执行的位置</li>
+</ol>
+<p>那么函数什么时候结束呢？当遇到return语句或遇到结束括号<code>}</code>时就会结束。 函数结束时的时候，会发生以下情况：</p>
+<ol>
+<li><code>本地变量</code>会被pop出执行堆栈</li>
+<li></li>
+</ol>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2017/08/22/session-and-cookie/">
-        <h1 class="post-title archive">
-            Session和Cookie不能不说的秘密
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-22
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2017/08/21/ajax-introduction/">
-        <h1 class="post-title archive">
-            ajax的工作原理
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-21
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/17/how-not-to-trigger-a-layout-in-webkit/">
-        <h1 class="post-title archive">
-            在Webkit里如何不触发重布局
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-17
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/17/rendering-repaint-reflowrelayout-restyle/">
-        <h1 class="post-title archive">
-            前端渲染：重绘，重布局和样式重塑
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-17
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/16/how-javascript-timers-work/">
-        <h1 class="post-title archive">
-            一起了解Javascript定时器
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-16
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/16/analyzing-timer-performance/">
-        <h1 class="post-title archive">
-            分析定时器的性能问题
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-16
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/10/http-protocal/">
-        <h1 class="post-title archive">
-            关于HTTP协议的一切
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-10
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2017/08/08/jquery-plugin-develop/">
-        <h1 class="post-title archive">
-            全家一起来开发一个Jquery插件
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2017-08-08
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/2017/">&larr;  Newer Posts</a></li>
-    
-    
-        <li class="next"><a href="/archives/2017/page/3/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
