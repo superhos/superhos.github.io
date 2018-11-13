@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Description-->
+
+    
+
+    
+        <meta name="description" content="最近在做前端的excel导入导出需求，顺便整理下
+Libraryxlsxopen-file-dialogfile-saverxlsx是xlsx格式文件的JS处理库，两个字：优秀。open-file-dialog是选择文件弹框，当然用原生都是可以的。file-saver是文件输出的包。
+读取Exc"/>
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="SevensChan"/>
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="JS读写Excel文件"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="最近在做前端的excel导入导出需求，顺便整理下
+Libraryxlsxopen-file-dialogfile-saverxlsx是xlsx格式文件的JS处理库，两个字：优秀。open-file-dialog是选择文件弹框，当然用原生都是可以的。file-saver是文件输出的包。
+读取Exc"/>
+    
+
+    <!--Open Graph Site Name-->
+        <meta property="og:site_name" content="Sevens Chan blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article"/>
+    
+
+    <!--Page Cover-->
+    
+    
+        <meta property="og:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+        <meta name="twitter:card" content="summary_large_image"/>
+
+    
+
+    
+        <meta name="twitter:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
+    
+
+    <!-- Title -->
+    
+    <title>JS读写Excel文件 - Sevens Chan blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
+
+    <!-- Google Analytics -->
+    
+
+
+    <!-- favicon -->
+    
+
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Sevens Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://my.oschina.net/u/203607">
+                            
+                                Old_Blog
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>JS读写Excel文件</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-11-13
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/JS/">#JS</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>最近在做前端的excel导入导出需求，顺便整理下</p>
+<h3 id="Library"><a href="#Library" class="headerlink" title="Library"></a>Library</h3><p><a href="https://www.npmjs.com/package/xlsx" target="_blank" rel="noopener">xlsx</a><br><a href="https://www.npmjs.com/package/open-file-dialog" target="_blank" rel="noopener">open-file-dialog</a><br><a href="https://www.npmjs.com/package/file-saver" target="_blank" rel="noopener">file-saver</a><br>xlsx是xlsx格式文件的JS处理库，两个字：优秀。open-file-dialog是选择文件弹框，当然用原生都是可以的。<br>file-saver是文件输出的包。</p>
+<h3 id="读取Excel"><a href="#读取Excel" class="headerlink" title="读取Excel"></a>读取Excel</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">dialog(&#123;</span><br><span class="line">    multiple: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 指定 .xlsx 格式</span></span><br><span class="line">    accept: <span class="string">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></span><br><span class="line">  &#125;, (json) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> file = json[<span class="number">0</span>] <span class="comment">//单选一个文件</span></span><br><span class="line">    cosnt reader = <span class="keyword">new</span> FileReader()</span><br><span class="line">    <span class="comment">// 读取完成后执行 onload</span></span><br><span class="line">    reader.onload = <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> data = e.target.result;</span><br><span class="line">      <span class="keyword">const</span> workbook = XLSX.read(data, &#123;</span><br><span class="line">        type: <span class="string">'binary'</span> <span class="comment">// 设置二进制格式</span></span><br><span class="line">      &#125;)</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 遍历所有工作表</span></span><br><span class="line">      workbook.SheetNames.forEach(<span class="function"><span class="params">sheetName</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 将表内容转换成object数组</span></span><br><span class="line">        <span class="keyword">let</span> XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])</span><br><span class="line">        <span class="keyword">let</span> json_object = XL_row_object</span><br><span class="line">        <span class="built_in">console</span>.log(json_object)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 异常处理</span></span><br><span class="line">    reader.onerror = <span class="function">(<span class="params">ex</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(ex)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 二进制格式读取文件</span></span><br><span class="line">    reader.readAsBinaryString(file) </span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>具体看注释，主要原理就是二进制格式读取Excel文件，然后XLSX对数据进行解析，得到我们想要的object数组。</p>
+<h3 id="写入Excel"><a href="#写入Excel" class="headerlink" title="写入Excel"></a>写入Excel</h3><p>读取就更简单了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wb = XLSX.utils.book_new();</span><br><span class="line"><span class="keyword">const</span> head = &#123;<span class="string">'a'</span>:<span class="string">'第一列'</span>,<span class="string">'b'</span>:<span class="string">'第二列'</span>&#125;</span><br><span class="line"><span class="keyword">const</span> result = [&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'11'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'12'</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'21'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'22'</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">result.unshift(head)</span><br><span class="line"><span class="comment">// JSON转为Sheet</span></span><br><span class="line"><span class="keyword">var</span> ws = XLSX.utils.json_to_sheet(result[, &#123;<span class="attr">skipHeader</span>: <span class="number">1</span>&#125;);</span><br><span class="line"><span class="comment">// Sheet加入到book中</span></span><br><span class="line">XLSX.utils.book_append_sheet(wb, ws, <span class="string">`sheet1`</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wbout = XLSX.write(wb, &#123;<span class="attr">bookType</span>:<span class="string">'xlsx'</span>, <span class="attr">type</span>:<span class="string">'array'</span>&#125;);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    FileSaver.saveAs(<span class="keyword">new</span> Blob([wbout], &#123; <span class="attr">type</span>: <span class="string">'application/octet-stream'</span> &#125;), onlyHead ? <span class="string">`导入模板.xlsx`</span> : <span class="string">`<span class="subst">$&#123;moment().format(<span class="string">'YYYY-MM-DD'</span>)&#125;</span>_nikki资料导出.xlsx`</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">console</span> !== <span class="string">'undefined'</span>)             <span class="built_in">console</span>.log(e, wbout) </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> wbout</span><br></pre></td></tr></table></figure>
+<p>看代码应该没难度，但是这个库有个问题，在issue看到它的header好像有BUG，而且单纯用header设置的话就做不了key映射（因为它header的设置只支持数组），所以我这里就用了一行数据作为我们的head，把head当做普通的数据来处理</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/superhos" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2018 SevensChan<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

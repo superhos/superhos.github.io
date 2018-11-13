@@ -13,6 +13,10 @@
     
 
     
+        <meta name="description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。
+展现形式
+如上图，现在主流的"/>
+    
 
     <!--Author-->
     
@@ -21,10 +25,14 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Sevens Chan blog"/>
+        <meta property="og:title" content="【Vue-Baberrage弹幕插件重制(1)】插件产品设计"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。
+展现形式
+如上图，现在主流的"/>
     
 
     <!--Open Graph Site Name-->
@@ -32,7 +40,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website"/>
+        <meta property="og:type" content="article"/>
     
 
     <!--Page Cover-->
@@ -51,7 +59,7 @@
 
     <!-- Title -->
     
-    <title>page - Archives - Sevens Chan blog</title>
+    <title>【Vue-Baberrage弹幕插件重制(1)】插件产品设计 - Sevens Chan blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -161,170 +169,83 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archives</h1>
+                <div class="post-heading">
+                    <h1>【Vue-Baberrage弹幕插件重制(1)】插件产品设计</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        
+                            2018-11-13
+                        
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/弹幕-vue/">#弹幕,vue</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
             
-                <div class="post-preview">
-    <a href="/2018/09/18/git-cant-rollback/">
-        <h1 class="post-title archive">
-            git-cant-rollback
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-09-18
-    </p>
-</div>
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2018/09/18/which-framework/">
-        <h1 class="post-title archive">
-            框架说
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-09-18
-    </p>
-</div>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
+<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
+<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>定义数据结构之前，有几点需要明确，对于<code>即时弹幕</code>来说需要满足以下几点：</p>
+<ol>
+<li><h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
+</li>
+<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
+<li>如果有提供弹幕接口，提供无缝接入</li>
+</ol>
+<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><p>[待续]</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
             
-                <div class="post-preview">
-    <a href="/2018/08/13/vuejs-good-meh-ugly/">
-        <h1 class="post-title archive">
-            Vue.js 优点、一般的和丑陋的
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-13
-    </p>
-</div>
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
             
-                <div class="post-preview">
-    <a href="/2018/08/07/vue-cli-3/">
-        <h1 class="post-title archive">
-            迎接新的Vue Cli 3.0
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-07
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/07/certbot/">
-        <h1 class="post-title archive">
-            安利一个最方便且免费用上https的方法
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-07
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/03/draw-wave/">
-        <h1 class="post-title archive">
-            画一条完美的波浪
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-03
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/01/the-complete-css-flex-box-tutorial/">
-        <h1 class="post-title archive">
-            完整的CSS Flex 盒子教程
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-01
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/08/01/whats-coming-to-javascript-es7-8/">
-        <h1 class="post-title archive">
-            Javascript (ES7 + ES8) 有什么新东东
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-08-01
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/07/27/new-project/">
-        <h1 class="post-title archive">
-            最近项目规划
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-27
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/07/18/palindrome-number/">
-        <h1 class="post-title archive">
-            9. Palindrome Number
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-07-18
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/">&larr;  Newer Posts</a></li>
-    
-    
-        <li class="next"><a href="/archives/page/3/">Older Posts  &rarr;</a></li>
-    
-</ul>
         </div>
     </div>
-</div>
-
+</article>
 
     <!-- Footer -->
     <hr />
