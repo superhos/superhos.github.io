@@ -1,212 +1,339 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<!-- Head tag -->
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
 <head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <!--Description-->
 
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
+    
+  
 
-    
-        <meta name="description" content="本篇翻译自Vue.js:the good,the meh and the ugly
-译者: SevensChan &amp;#x32;&amp;#57;&amp;#x37;&amp;#x34;&amp;#57;&amp;#53;&amp;#49;&amp;#x36;&amp;#53;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;
-使用一"/>
-    
+  
 
-    <!--Author-->
-    
-        <meta name="author" content="SevensChan"/>
-    
+  
 
-    <!--Open Graph Title-->
-    
-        <meta property="og:title" content="Vue.js 优点、一般的和丑陋的"/>
-    
+  
 
-    <!--Open Graph Description-->
-    
-        <meta property="og:description" content="本篇翻译自Vue.js:the good,the meh and the ugly
-译者: SevensChan &amp;#x32;&amp;#57;&amp;#x37;&amp;#x34;&amp;#57;&amp;#53;&amp;#49;&amp;#x36;&amp;#53;&amp;#64;&amp;#x71;&amp;#113;&amp;#x2e;&amp;#99;&amp;#x6f;&amp;#109;
-使用一"/>
-    
+  
 
-    <!--Open Graph Site Name-->
-        <meta property="og:site_name" content="Sevens Chan blog"/>
-
-    <!--Type page-->
-    
-        <meta property="og:type" content="article"/>
-    
-
-    <!--Page Cover-->
+  
     
     
-        <meta property="og:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
-    
-
-        <meta name="twitter:card" content="summary_large_image"/>
-
-    
-
-    
-        <meta name="twitter:image" content="https://superhos.github.iohttp://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658"/>
-    
-
-    <!-- Title -->
-    
-    <title>Vue.js 优点、一般的和丑陋的 - Sevens Chan blog</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Custom Fonts -->
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Gallery -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet"/>
-
-    <!-- Google Analytics -->
-    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
 
 
-    <!-- favicon -->
-    
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#x34;&amp;#57;&amp;#x35;&amp;#49;&amp;#x36;&amp;#x35;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js 优点、一般的和丑陋的">
+<meta property="og:url" content="https://superhos.github.io/2018/08/13/vuejs-good-meh-ugly/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#x34;&amp;#57;&amp;#x35;&amp;#49;&amp;#x36;&amp;#x35;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*NBBRtmDgsatDk6-VArO6Kw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*7el6TwAJcvD4-1ixR9i-PQ.png">
+<meta property="og:updated_time" content="2018-08-13T09:43:22.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue.js 优点、一般的和丑陋的">
+<meta name="twitter:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#x39;&amp;#x37;&amp;#x34;&amp;#57;&amp;#x35;&amp;#49;&amp;#x36;&amp;#x35;&amp;#x40;&amp;#113;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*NBBRtmDgsatDk6-VArO6Kw.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2018/08/13/vuejs-good-meh-ugly/"/>
+
+
+
+
+
+  <title>Vue.js 优点、一般的和丑陋的 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
-<body>
+  
+  
+    
+  
 
-    <!-- Menu -->
-    <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Sevens Blog</a>
-        </div>
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                
-                    <li>
-                        <a href="/">
-                            
-                                Home
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://my.oschina.net/u/203607">
-                            
-                                Old_Blog
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/archives">
-                            
-                                Archives
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/tags">
-                            
-                                Tags
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="/categories">
-                            
-                                Categories
-                            
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a href="https://github.com/klugjo/hexo-theme-clean-blog">
-                            
-                                <i class="fa fa-github fa-stack-2x"></i>
-                            
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-    <!-- /.container -->
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
 
-    <!-- Main Content -->
-    <!-- Page Header -->
-<!-- Set your background image for this header in your post front-matter: cover -->
 
-<header class="intro-header" style="background-image: url('http://img.hb.aicdn.com/b5f1b4311b029c3c21c21324d895ee9e652109e65767e-V44kDA_fw658')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>Vue.js 优点、一般的和丑陋的</h1>
-                    
-                    <span class="meta">
-                        <!-- Date and Author -->
-                        
-                        
-                            2018-08-13
-                        
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
+ </div>
+    </header>
 
-            <!-- Tags and categories -->
-           
-
-            <!-- Gallery -->
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
             
 
-            <!-- Post Main Content -->
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
-<p>译者: SevensChan <a href="mailto:&#x32;&#57;&#x37;&#x34;&#57;&#53;&#49;&#x36;&#53;&#64;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#57;&#x37;&#x34;&#57;&#53;&#49;&#x36;&#53;&#64;&#x71;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/13/vuejs-good-meh-ugly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue.js 优点、一般的和丑陋的</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-13T16:41:37+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
+<p>译者: SevensChan <a href="mailto:&#50;&#x39;&#x37;&#x34;&#57;&#x35;&#49;&#x36;&#x35;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#x39;&#x37;&#x34;&#57;&#x35;&#49;&#x36;&#x35;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#109;</a></p>
 <p>使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。</p>
 <p>经过了和Vue.js大概2年的蜜月期，我终于可以客观地从不同角度来评价一下这个框架了。</p>
 <h2 id="优点部分"><a href="#优点部分" class="headerlink" title="优点部分"></a>优点部分</h2><h3 id="响应式-Reactivity"><a href="#响应式-Reactivity" class="headerlink" title="响应式(Reactivity)"></a>响应式(Reactivity)</h3><p>数据绑定是前端世界里的一个大命题。跟JQuery对DOM微观管理不一样，我们的关注点在于数据。Vue通过双向响应数据绑定系统来巧妙地处理这个问题。</p>
@@ -250,94 +377,333 @@
 <p>在过去，我认为Vue是一个使用的库，不像React那么理想化(“我们是纯粹的Javascript!”)。我依然认为这是一个很好的比喻。另一方面，我现在认为Vue的任何东西，都要继续遵循实用主义，在用户层面上更加的精致、专注、优雅以及简洁。</p>
 <p>在使用了两年以后，我对Vue的评价还是正面的。我也依然相信将我的团队从React转移到Vue是一个很好的决定。不是因为Vue更好，而是因为它更适合我们。</p>
 
-
-                
-            </div>
-
-            <!-- Comments -->
-            
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    
-    <hr />
-    <h3>Comments:</h3>
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      
     </div>
-
-
-
-                </div>
-            
-        </div>
-    </div>
-</article>
-
-    <!-- Footer -->
-    <hr />
-
-<!-- Footer -->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-
-                    
-
-                    
-                        <li>
-                            <a href="https://github.com/superhos" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    
-
-                    
-
-                    
-
-                    
-                </ul>
-                <p class="copyright text-muted">&copy; 2018 SevensChan<br></p>
-                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
-                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-    <!-- After footer scripts -->
     
-<!-- jQuery -->
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    
+    
 
-<!-- Bootstrap -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
 
-<!-- Gallery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+    
 
-<!-- Disqus Comments -->
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/07/vue-cli-3/" rel="next" title="迎接新的Vue Cli 3.0">
+                <i class="fa fa-chevron-left"></i> 迎接新的Vue Cli 3.0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/18/which-framework/" rel="prev" title="框架说">
+                框架说 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点部分"><span class="nav-number">1.</span> <span class="nav-text">优点部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#响应式-Reactivity"><span class="nav-number">1.1.</span> <span class="nav-text">响应式(Reactivity)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置电池"><span class="nav-number">1.2.</span> <span class="nav-text">内置电池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速度"><span class="nav-number">1.3.</span> <span class="nav-text">速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML模板"><span class="nav-number">1.4.</span> <span class="nav-text">HTML模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他优点"><span class="nav-number">1.5.</span> <span class="nav-text">其他优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般的部分"><span class="nav-number">2.</span> <span class="nav-text">一般的部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件的样板-boilerplate"><span class="nav-number">2.1.</span> <span class="nav-text">组件的样板(boilerplate)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于聊天的社区"><span class="nav-number">2.2.</span> <span class="nav-text">基于聊天的社区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并非那么神奇"><span class="nav-number">2.3.</span> <span class="nav-text">并非那么神奇</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丑陋的部分"><span class="nav-number">3.</span> <span class="nav-text">丑陋的部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不清晰的架构模式"><span class="nav-number">3.1.</span> <span class="nav-text">不清晰的架构模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
 
 <script type="text/javascript">
-    var disqus_shortname = 'sevenschan';
-
-    (function(){
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
 
 
-</body>
 
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>
