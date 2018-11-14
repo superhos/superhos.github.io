@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Sevens,JS,front-end" />
 
 
 
@@ -307,6 +307,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/16/how-javascript-timers-work/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/16/how-javascript-timers-work/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -402,8 +413,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/10/http-protocal/" rel="next" title="关于HTTP协议的一切">
-                <i class="fa fa-chevron-left"></i> 关于HTTP协议的一切
+              <a href="/2017/08/16/analyzing-timer-performance/" rel="next" title="分析定时器的性能问题">
+                <i class="fa fa-chevron-left"></i> 分析定时器的性能问题
               </a>
             
           </div>
@@ -412,8 +423,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/16/analyzing-timer-performance/" rel="prev" title="分析定时器的性能问题">
-                分析定时器的性能问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/17/how-not-to-trigger-a-layout-in-webkit/" rel="prev" title="在Webkit里如何不触发重布局">
+                在Webkit里如何不触发重布局 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -443,6 +454,13 @@
 
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -564,7 +582,7 @@
   &copy; 
   <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-SEVENS CHAN"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">SevensChan</span>
 </div>
@@ -675,14 +693,30 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
+    
 
-
-
-
-
-
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://superhos.github.io/2017/08/16/how-javascript-timers-work/';
+          this.page.identifier = '2017/08/16/how-javascript-timers-work/';
+          this.page.title = '一起了解Javascript定时器';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://sevenschan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
+
+
+
+
+
 
 
 
