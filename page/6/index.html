@@ -260,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/session-and-cookie/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/ajax-page-to-static/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -279,7 +279,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/22/session-and-cookie/" itemprop="url">Session和Cookie不能不说的秘密</a></h1>
+                <a class="post-title-link" href="/2017/08/22/ajax-page-to-static/" itemprop="url">异步页面渲染成静态页面</a></h1>
         
 
         <div class="post-meta">
@@ -310,9 +310,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/08/22/session-and-cookie/#comments" itemprop="discussionUrl">
+                <a href="/2017/08/22/ajax-page-to-static/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/22/session-and-cookie/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/08/22/ajax-page-to-static/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -342,14 +342,10 @@
       
         
           
-            <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
-<ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
-</ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
+            <h3 id="异步页面渲染成静态页面"><a href="#异步页面渲染成静态页面" class="headerlink" title="异步页面渲染成静态页面"></a>异步页面渲染成静态页面</h3><p><a href="/studyforinterview/2017/08/22/ajax-page-to-static/">2017-08-22</a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/">返回目录</a></p>
+<p>原有项目使用了artTemplate模板引擎，引擎虽好，但是对SEO来说实在不佳。按理说模板引擎也没什么，但最要命的是数据都是ajax拉回来的，因此又多了一关。</p>
+<p>最佳的思路就是整个页面拉回来，让js都跑一遍然后得出最后的结果页面。但是不是dom环境下，window/dom等等的object都缺少了。</p>
 <hr>
 
           
@@ -813,6 +809,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/analyzing-timer-performance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/16/analyzing-timer-performance/" itemprop="url">分析定时器的性能问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T00:00:00+08:00">
+                2017-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/16/analyzing-timer-performance/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/16/analyzing-timer-performance/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="分析定时器的性能问题"><a href="#分析定时器的性能问题" class="headerlink" title="分析定时器的性能问题"></a>分析定时器的性能问题</h3><p><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/how-javascript-timers-work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -941,142 +1073,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">returnfunction()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>根据第五题的变形另外加一题，这题跟第五题的区别就是匿名函数有返回值，就是 setTimeout的回调函数就不再是undefined了，所以输出结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0] 例题来源，小芋头君知乎live（如禁止发布请告知删除）</p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/analyzing-timer-performance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/analyzing-timer-performance/" itemprop="url">分析定时器的性能问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T00:00:00+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/16/analyzing-timer-performance/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/16/analyzing-timer-performance/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="分析定时器的性能问题"><a href="#分析定时器的性能问题" class="headerlink" title="分析定时器的性能问题"></a>分析定时器的性能问题</h3><p><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><br>          2017-08-16
-        </a></p>
-<p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
 <hr>
 
           
