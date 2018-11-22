@@ -103,7 +103,7 @@
 <meta property="og:description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。 展现形式 如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://superhos.github.io/2018/11/13/baberrage-rebuild-1/display.jpeg">
-<meta property="og:updated_time" content="2018-11-13T09:47:34.867Z">
+<meta property="og:updated_time" content="2018-11-22T03:10:33.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Vue-Baberrage弹幕插件重制(1)】插件产品设计">
 <meta name="twitter:description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。 展现形式 如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列">
@@ -346,14 +346,19 @@
         <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
 <h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
 <p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
-<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>定义数据结构之前，有几点需要明确，对于<code>即时弹幕</code>来说需要满足以下几点：</p>
+<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
+<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
+<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
+</ol>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
 <ol>
-<li><h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
-</li>
 <li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
 <li>如果有提供弹幕接口，提供无缝接入</li>
 </ol>
-<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><p>[待续]</p>
+<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
+<li>提供弹幕对接接口。</li>
+</ol>
+<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><p>[] 使用Rxjs实现弹幕队列池<br>[] 提供前端接入方法<br>[] 提供服务端接入接口<br>[] 优化弹幕滚动效能<br>[] 优化开发范式</p>
 
       
     </div>
@@ -528,7 +533,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展现形式"><span class="nav-number">2.</span> <span class="nav-text">展现形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">3.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">4.</span> <span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端接入"><span class="nav-number">5.</span> <span class="nav-text">服务端接入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#展现形式"><span class="nav-number">2.</span> <span class="nav-text">展现形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发需求"><span class="nav-number">3.</span> <span class="nav-text">开发需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">4.</span> <span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端接入"><span class="nav-number">5.</span> <span class="nav-text">服务端接入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Roadmap"><span class="nav-number">6.</span> <span class="nav-text">Roadmap</span></a></li></ol></div>
             
 
           </div>
