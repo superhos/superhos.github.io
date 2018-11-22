@@ -260,6 +260,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/22/baberrage-rebuild-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/baberrage-rebuild-1/" itemprop="url">【Vue-Baberrage弹幕插件重制(1)】插件产品设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:12:36+08:00">
+                2018-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/22/baberrage-rebuild-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/11/22/baberrage-rebuild-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
+<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
+<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
+<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
+<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
+<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
+</ol>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
+<ol>
+<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
+<li>如果有提供弹幕接口，提供无缝接入</li>
+</ol>
+<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
+<li>提供弹幕对接接口。</li>
+</ol>
+<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><p>[] 使用Rxjs实现弹幕队列池<br>[] 提供前端接入方法<br>[] 提供服务端接入接口<br>[] 优化弹幕滚动效能<br>[] 优化开发范式</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/13/js-read-write-excel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -349,152 +495,6 @@
 <h3 id="写入Excel"><a href="#写入Excel" class="headerlink" title="写入Excel"></a>写入Excel</h3><p>读取就更简单了</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wb = XLSX.utils.book_new()</span><br><span class="line"><span class="keyword">const</span> head = &#123;<span class="string">'a'</span>:<span class="string">'第一列'</span>,<span class="string">'b'</span>:<span class="string">'第二列'</span>&#125;</span><br><span class="line"><span class="keyword">const</span> result = [&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'11'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'12'</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'21'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'22'</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">result.unshift(head)</span><br><span class="line"><span class="comment">// JSON转为Sheet</span></span><br><span class="line"><span class="keyword">var</span> ws = XLSX.utils.json_to_sheet(result[, &#123;<span class="attr">skipHeader</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment">// Sheet加入到book中</span></span><br><span class="line">XLSX.utils.book_append_sheet(wb, ws, <span class="string">`sheet1`</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wbout = XLSX.write(wb, &#123;<span class="attr">bookType</span>:<span class="string">'xlsx'</span>, <span class="attr">type</span>:<span class="string">'array'</span>&#125;)</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    FileSaver.saveAs(<span class="keyword">new</span> Blob([wbout], &#123; <span class="attr">type</span>: <span class="string">'application/octet-stream'</span> &#125;), onlyHead ? <span class="string">`导入模板.xlsx`</span> : <span class="string">`<span class="subst">$&#123;moment().format(<span class="string">'YYYY-MM-DD'</span>)&#125;</span>_nikki资料导出.xlsx`</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">console</span> !== <span class="string">'undefined'</span>)             <span class="built_in">console</span>.log(e, wbout) </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> wbout</span><br></pre></td></tr></table></figure>
 <p>看代码应该没难度，但是这个库有个问题，在issue看到它的header好像有BUG，而且单纯用header设置的话就做不了key映射（因为它header的设置只支持数组），所以我这里就用了一行数据作为我们的head，把head当做普通的数据来处理</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/13/baberrage-rebuild-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/13/baberrage-rebuild-1/" itemprop="url">【Vue-Baberrage弹幕插件重制(1)】插件产品设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-13T14:19:36+08:00">
-                2018-11-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/13/baberrage-rebuild-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/13/baberrage-rebuild-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
-<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
-<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
-<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
-<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
-<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
-</ol>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
-<ol>
-<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
-<li>如果有提供弹幕接口，提供无缝接入</li>
-</ol>
-<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
-<li>提供弹幕对接接口。</li>
-</ol>
-<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><p>[] 使用Rxjs实现弹幕队列池<br>[] 提供前端接入方法<br>[] 提供服务端接入接口<br>[] 优化弹幕滚动效能<br>[] 优化开发范式</p>
 
           
         
