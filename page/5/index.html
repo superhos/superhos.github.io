@@ -260,6 +260,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/11/16/learn-es2015-relect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/16/learn-es2015-relect/" itemprop="url">认识一下JS的反射机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-16T00:00:00+08:00">
+                2017-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/16/learn-es2015-relect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/16/learn-es2015-relect/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="认识一下JS的反射机制"><a href="#认识一下JS的反射机制" class="headerlink" title="认识一下JS的反射机制"></a>认识一下JS的反射机制</h3><p><a href="/studyforinterview/2017/11/16/learn-es2015-relect/"><br>          2017-11-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p>早在ES5标准的时候JS已经有部分反射机制的函数，例如<code>Array.isArray</code>之类的函数，不过由于ES5标准下类的概念尚未规范化，大部分类的<br>实现都是基于函数，因此反射其实不过是遍历这个函数下的属性罢了。在ES6标准出台后，类的定义有了它自己的标准，因此反射就显得重要了。</p>
+<h2 id="Why-Reflect"><a href="#Why-Reflect" class="headerlink" title="Why Reflect"></a>Why Reflect</h2><p>在JAVA或者PHP转过来的后端应该对反射的概念很熟悉，因为在大部分框架的设计底层实现上，反射能够帮助解决很多问题。</p>
+<p>MDN文档上介绍，<code>Reflect</code>是一个JS的内置对象，提供了可拦截Javascript操作的方法，这些方法和代理控制者相同。<code>Reflect</code>不是一个函数对象，所以它不能被构造化。</p>
+<p>和大部分的全局对象不同，<code>Reflect</code>没有构造器函数。我们不能对它进行<code>new</code>操作或者作为一个函数调用它。<code>Reflect</code>所有的属性和方法都是静态的（跟Math对象一样）。</p>
+<h2 id="通过Reflect获取和修改对象的属性"><a href="#通过Reflect获取和修改对象的属性" class="headerlink" title="通过Reflect获取和修改对象的属性"></a>通过Reflect获取和修改对象的属性</h2><p>先定义一个测试类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">classTest&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">constructor</span>()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'invoke'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.name = <span class="string">'brown'</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	say()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello'</span>,<span class="keyword">this</span>.name);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> test = <span class="keyword">new</span> Test();</span><br><span class="line"></span><br><span class="line">test.say();</span><br></pre></td></tr></table></figure></p>
+<p>正常输出是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">invoke</span><br><span class="line"></span><br><span class="line">hello brown</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们要用<code>Reflect.get(object,property[,this])</code>方法来获取<code>test</code>对象的属性name。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="built_in">Reflect</span>.get(test,<span class="string">"name"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br></pre></td></tr></table></figure></p>
+<p>自然可以看到输出的<code>brown</code>，要通过<code>Reflect</code>来修改这个属性也是很简单的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">Reflect</span>.set(test,<span class="string">"name"</span>,<span class="string">"Sevens"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>##</p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/11/14/cms-base-on-mevn-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1029,6 +1173,141 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/deep-learning-lol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/25/deep-learning-lol/" itemprop="url">deep-learning-lol</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T00:00:00+08:00">
+                2017-08-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/25/deep-learning-lol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/25/deep-learning-lol/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="deep-learning-lol"><a href="#deep-learning-lol" class="headerlink" title="deep-learning-lol"></a>deep-learning-lol</h3><p><a href="/studyforinterview/2017/08/25/deep-learning-lol/"><br>          2017-08-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/avoid-resubmit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1122,141 +1401,6 @@
 <h2 id="cookie防止机制"><a href="#cookie防止机制" class="headerlink" title="cookie防止机制"></a>cookie防止机制</h2><p>利用cookie也是可行的，设置一个key当提交的时候就设为有效值，当再提交的时候如果是有效值的话就拒绝提交。</p>
 <h2 id="session防止机制"><a href="#session防止机制" class="headerlink" title="session防止机制"></a>session防止机制</h2><p>1.生成表单的时候产生一个唯一的标识，分别保存在服务端session中，和客户端的hidden input里面。<br>2.客户端提交表单的时候检查标识是否存在session中，存在的话就是第一次提交，处理请求并删除session中该表单的标识。如果不存在的话就是非第一次提交，拒绝处理。</p>
 <p>当然了，session只是其中一个载体，用db或者缓存层在做都是可以的。</p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/deep-learning-lol/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/25/deep-learning-lol/" itemprop="url">deep-learning-lol</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T00:00:00+08:00">
-                2017-08-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/25/deep-learning-lol/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/25/deep-learning-lol/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="deep-learning-lol"><a href="#deep-learning-lol" class="headerlink" title="deep-learning-lol"></a>deep-learning-lol</h3><p><a href="/studyforinterview/2017/08/25/deep-learning-lol/"><br>          2017-08-25
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
 <hr>
 
           
@@ -1584,145 +1728,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/session-and-cookie/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/22/session-and-cookie/" itemprop="url">Session和Cookie不能不说的秘密</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T00:00:00+08:00">
-                2017-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/22/session-and-cookie/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/22/session-and-cookie/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
-<ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
-</ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1773,7 +1778,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">66</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
