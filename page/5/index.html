@@ -260,6 +260,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/06/14/reverse-Hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/14/reverse-Hexo/" itemprop="url">reverse-Hexo</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-14T14:52:24+08:00">
+                2018-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/14/reverse-Hexo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/14/reverse-Hexo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="逆转-Hexo"><a href="#逆转-Hexo" class="headerlink" title="逆转 Hexo"></a>逆转 Hexo</h1><p><a href="http://opensource.org/licenses/MIT" target="_blank" rel="noopener"><img src="http://img.shields.io/badge/license-MIT-brightgreen.svg" alt="License"></a></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>我的博客基于hexo在Github上部署。 良好的平台和良好的博客框架。 直到去年年底我失去了我的电脑。 我发现在GitHub存储库中只会保存生成后的代码。<br>这意味着我博客的帖子的源代码是丢失了。 太难过了随意难以继续写博客。 所以我花了半年的时间休息，没有更新我的博客。 但现在，我意识到一个伟人不会被打败的。 我可以失去代码，但我不能失去自己。 于是我积极地去寻找一种工具，一种可以将hexo生成的代码转换为帖子的源代码的工具。 可惜没有找到合适的，所以我决定自己写。<br>最后希望你不会经历我的痛苦和失落。</p>
+<p>一句话总结:<br><em>这是一个把hexo生成代码转换成源码的工具</em>.</p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g reverse-hexo</span><br></pre></td></tr></table></figure>
+<h3 id="How-To-Use"><a href="#How-To-Use" class="headerlink" title="How To Use"></a>How To Use</h3><ol>
+<li>建立一个新的Hexo项目。</li>
+<li>把Hexo生成的代码下载到 <code>public</code> 文件夹中.</li>
+<li><p>使用下面命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reverse-hexo /User/xxx/hexo-blog/root/path</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行后再执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完成</p>
+</li>
+</ol>
+<h2 id="Running-the-tests"><a href="#Running-the-tests" class="headerlink" title="Running the tests"></a>Running the tests</h2><p>检查网页。</p>
+<h2 id="Built-With"><a href="#Built-With" class="headerlink" title="Built With"></a>Built With</h2><ul>
+<li><a href="https://www.npmjs.com/package/h2m" target="_blank" rel="noopener">h2m</a> - Tool for converting HTML to Markdow</li>
+<li><a href="https://www.npmjs.com/package/cheerio/" target="_blank" rel="noopener">cheerio</a> - Fast, flexible &amp; lean implementation of core jQuery designed specifically for the server.</li>
+</ul>
+<h2 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h2><h2 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h2><p>1.0.0 实现基本功能.</p>
+<h2 id="Authors"><a href="#Authors" class="headerlink" title="Authors"></a>Authors</h2><ul>
+<li><strong>SevensChan</strong> - <em>Personal Website</em> - <a href="http://www.chenhaotaishuaile.com/" target="_blank" rel="noopener">陈昊太帅了</a></li>
+</ul>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/11/30/npm-operation-not-permitted-solution/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1315,141 +1471,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/deep-learning-lol/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/25/deep-learning-lol/" itemprop="url">deep-learning-lol</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T00:00:00+08:00">
-                2017-08-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/25/deep-learning-lol/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/25/deep-learning-lol/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="deep-learning-lol"><a href="#deep-learning-lol" class="headerlink" title="deep-learning-lol"></a>deep-learning-lol</h3><p><a href="/studyforinterview/2017/08/25/deep-learning-lol/"><br>          2017-08-25
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/avoid-resubmit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1592,7 +1613,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/24/crossdomain-solution/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/25/deep-learning-lol/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -1611,7 +1632,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/24/crossdomain-solution/" itemprop="url">跨域问题的产生和解决方案</a></h1>
+                <a class="post-title-link" href="/2017/08/25/deep-learning-lol/" itemprop="url">deep-learning-lol</a></h1>
         
 
         <div class="post-meta">
@@ -1623,8 +1644,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T00:00:00+08:00">
-                2017-08-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-25T00:00:00+08:00">
+                2017-08-25
               </time>
             
 
@@ -1642,9 +1663,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/08/24/crossdomain-solution/#comments" itemprop="discussionUrl">
+                <a href="/2017/08/25/deep-learning-lol/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/24/crossdomain-solution/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/08/25/deep-learning-lol/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1674,31 +1695,11 @@
       
         
           
-            <h3 id="跨域问题的产生和解决方案"><a href="#跨域问题的产生和解决方案" class="headerlink" title="跨域问题的产生和解决方案"></a>跨域问题的产生和解决方案</h3><p><a href="/studyforinterview/2017/08/24/crossdomain-solution/"><br>          2017-08-24
+            <h3 id="deep-learning-lol"><a href="#deep-learning-lol" class="headerlink" title="deep-learning-lol"></a>deep-learning-lol</h3><p><a href="/studyforinterview/2017/08/25/deep-learning-lol/"><br>          2017-08-25
         </a></p>
 <p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
                 </a></p>
-<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
-<h2 id="什么是同源"><a href="#什么是同源" class="headerlink" title="什么是同源"></a>什么是同源</h2><p>同源必须是：<strong>协议</strong>，<strong>域名</strong>和<strong>端口</strong>均相同，任何一项不同则视为非同源。</p>
-<p>例子：<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test.com/go.php" target="_blank" rel="noopener">http://www.test.com/go.php</a> (同源)<br><a href="http://www.test.com:80/index.php" target="_blank" rel="noopener">http://www.test.com:80/index.php</a> 和 <a href="http://www.test.com:8080/index.php" target="_blank" rel="noopener">http://www.test.com:8080/index.php</a> (非同源，端口不同)<br><a href="https://www.test.com/index.php" target="_blank" rel="noopener">https://www.test.com/index.php</a> 和 <a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> (非同源，协议不同)<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test2.com/index.php" target="_blank" rel="noopener">http://www.test2.com/index.php</a> (非同源，域名不同)</p>
-<h2 id="解决方案-JSONP"><a href="#解决方案-JSONP" class="headerlink" title="解决方案 - JSONP"></a>解决方案 - JSONP</h2><p>JSON（JavaScript Object Notation）是一种轻量级的数据交换格式，而JSONP（JSON with Pasdding）则是JSON的一种“使用模式”，通过这种模式可以实现数据的跨域获取。</p>
-<h2 id="JSONP跨域的原理"><a href="#JSONP跨域的原理" class="headerlink" title="JSONP跨域的原理"></a>JSONP跨域的原理</h2><p>在同源策略下，在某个服务器下的页面是无法获取到该服务器以外的数据的，但是<strong>img</strong>、<strong>iframe</strong>、<strong>script</strong>等标签是例外的！这些标签可以通过src属性请求到其他非同源服务器上的数据。利用script标签的开放策略，我们就可以实现跨域请求数据，当然，也需要服务端的配合。当我们正常地请求一个JSON数据的时候，服务端返回的是一串JSON类型的数据，而当我们使用JSONP模式来请求数据的时候，服务端返回的就是一段可执行的Javascript代码。</p>
-<h2 id="JSONP的实现"><a href="#JSONP的实现" class="headerlink" title="JSONP的实现"></a>JSONP的实现</h2><p>理解了原理要实现就不难了。</p>
-<ol>
-<li><p>在调用数据的时候添加一个回调的函数名作为参数：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果是JSON正常模式返回的会是下面的格式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>如果是JSONP模式的话就会返回下面的格式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对于服务端来说，只是在原有结果多输出几个字符罢了，相当简单。</p>
-<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>注意如果想其他所有域名都能访问的话就可以把第一行里面的<code>http://testbb.com</code>换成<code>*</code>。</p>
-<p>如果对数据安全性有强要求的话，第二种解决方案无疑更适合。</p>
-<h2 id="小小蔡芽"><a href="#小小蔡芽" class="headerlink" title=",小小蔡芽"></a>,小小蔡芽</h2><hr>
+<hr>
 
           
         
@@ -1784,7 +1785,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

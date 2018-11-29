@@ -260,6 +260,162 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/10/12/git-branch-strategy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/12/git-branch-strategy/" itemprop="url">关于git项目管理分支策略的一点思考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T17:42:30+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/12/git-branch-strategy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/12/git-branch-strategy/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="关于git项目管理分支策略的一点思考"><a href="#关于git项目管理分支策略的一点思考" class="headerlink" title="关于git项目管理分支策略的一点思考"></a>关于git项目管理分支策略的一点思考</h3><p><a href="/studyforinterview/2017/07/28/git-branch-strategy/">2017-07-28</a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/">返回目录</a></p>
+<h2 id="00"><a href="#00" class="headerlink" title="00"></a>00</h2><p>作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。</p>
+<p>然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vincent Driessen的文章。毕竟经验不多，在这里只能留一下自己当前的想法，以后随时更新。</p>
+<h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><p>我们项目的当前git分支策略是采用一人一条分支的策略，是由之前的同事制定的。示意图如下：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0712/145304_AFtO_203607.jpg" alt="当前分支策略示意图"><br>Figure 1. 当前分支策略示意图</p>
+<p>这种策略的优点：</p>
+<ol>
+<li>责任明确。master中的代码都可以较简单的追踪到分支上。</li>
+<li>分支清晰。在人员少的时候，可以保持分支明朗。</li>
+</ol>
+<p>但是作为组员，我认为这种分支策略是缺点远远大于优点的，主要缺點如下：</p>
+<ol>
+<li><p>不适应高频需求团队。因为需求不断砸来，缺少里程碑版本的确定，导致每个新需求来都需要马上上线，导致组员缺少同步远程库和本地库代码的时机，我有位同事开发了三个月竟然都没同步过线上的代码，可想而知一旦更新代码冲突会多严重。</p>
+</li>
+<li><p>需求必须线性合并到master上。因为每个组员只有一条自己的分支，必然会有需求先后次序的冲突，例如：开发的时候a，b，c三个需求依次开发，却被要求先要上线c需求，那么c需求就可能有代码耦合在a，b需求中，导致功能缺失。</p>
+</li>
+</ol>
+<p>因此，我开始寻找另外更好的分支策略</p>
+<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>然后参考了A successful Git branching model [0] 的模型，开始搭建自己的branch模型。</p>
+<p>主要就是master，development branch 和 issue-<em> branch。 先说issue-</em> branch，我另外搭建了一個issue系统（bug追踪系统），所有的需求开发，bug修改都需要在系统中先report。之后开发人员就可以根据issue系统給的issue id去创建分支，由于和issue系统的结合，就可以把一个大的需求切分不同部分给不同的开发人员去做。之后要合并上线的话只需要根据issue id号合并就行，最后删掉分支。</p>
+<p>由于时间关系准备开会，第二部分先简略说下，之後再補充</p>
+<p>Refference</p>
+<p>[0] Vincent Driessen,A successful Git branching model . <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p>[1] 阮一峰, <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a>. <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/10/04/try-finally/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -872,7 +1028,7 @@
         
           
             <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
-<p>译者: SevensChan <a href="mailto:&#x32;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#x36;&#x35;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#x36;&#x35;&#64;&#113;&#113;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>译者: SevensChan <a href="mailto:&#50;&#x39;&#x37;&#x34;&#57;&#53;&#x31;&#x36;&#x35;&#x40;&#x71;&#113;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#50;&#x39;&#x37;&#x34;&#57;&#53;&#x31;&#x36;&#x35;&#x40;&#x71;&#113;&#46;&#99;&#x6f;&#109;</a></p>
 <p>使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。</p>
 <p>经过了和Vue.js大概2年的蜜月期，我终于可以客观地从不同角度来评价一下这个框架了。</p>
 <h2 id="优点部分"><a href="#优点部分" class="headerlink" title="优点部分"></a>优点部分</h2><h3 id="响应式-Reactivity"><a href="#响应式-Reactivity" class="headerlink" title="响应式(Reactivity)"></a>响应式(Reactivity)</h3><p>数据绑定是前端世界里的一个大命题。跟JQuery对DOM微观管理不一样，我们的关注点在于数据。Vue通过双向响应数据绑定系统来巧妙地处理这个问题。</p>
@@ -1540,152 +1696,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/01/whats-coming-to-javascript-es7-8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/01/whats-coming-to-javascript-es7-8/" itemprop="url">Javascript (ES7 + ES8) 有什么新东东</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T10:24:15+08:00">
-                2018-08-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/01/whats-coming-to-javascript-es7-8/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/01/whats-coming-to-javascript-es7-8/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>翻译至 <a href="https://medium.com/@Murcul/whats-coming-to-javascript-es7-es8-8ce73c9a8ec9" target="_blank" rel="noopener">这里</a></p>
-<p>一些JS的新特性已经揭开了神秘的面纱，但是对于大多数开发者来说，了解一部分特性，一部分还是云里雾里的。所以在这里让我们来看一下这些新的特性。</p>
-<h2 id="Object-values-Object-entries"><a href="#Object-values-Object-entries" class="headerlink" title="Object.values/Object.entries:"></a>Object.values/Object.entries:</h2><p>从Object提取values和key-values的方法对于JS来说不是新东西，在ES2015里我们已经有了Object.keys用来返回对应一个对象拥有的可枚举的属性。但是，如果你为该对象属性提取对应的值，你就不得不执行下面的操作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span> &#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(obj).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`prop <span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;obj[key]&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/* == RESULTS</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">  prop a :  foo</span></span><br><span class="line"><span class="comment">  prop b :  bar</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>感谢的是，随着ES2017的到来，我们有了两个更轻松更有利于代码阅读的新的方法去迭代一个Object以及去提取Object.values的值或者Object的条目。</p>
-<p><code>Object.values</code> 返回的是一个数组，包含了可枚举的属性值。因此我们可以使用<code>Array.prototype</code>的方法去迭代这个数据，就像使用<code>.filter()</code>结合ES2015的箭头函数一样，它有一个隐藏的返回函数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">Object</span>.values(obj)</span><br><span class="line">.filter(<span class="function"><span class="params">val</span> =&gt;</span> <span class="keyword">typeof</span> val != <span class="string">'string'</span>) <span class="comment">// returns: [1, [1, 2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
-<p>另外<code>Object.entries</code>会返回一个包含各个可枚举属性的key-value数据。记住，每个结果项目都是数组格式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="built_in">Object</span>.entries(obj)) </span><br><span class="line"><span class="comment">// returns: "[["a", "foo"],["b", "bar"],["c", 1],["d", [1,2,3,4]]]"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Asynchronous-Iteration"><a href="#Asynchronous-Iteration" class="headerlink" title="Asynchronous Iteration"></a>Asynchronous Iteration</h2><p>在ES2015里面介绍过迭代器(Iterators)，如果你不知道关于迭代器的东东，你可以去看一下<a href="https://jakearchibald.com/2014/iterators-gonna-iterate/" target="_blank" rel="noopener">这篇文章</a>，但当时它是不能迭代异步数据的，直到现在…</p>
-<p>在ES2018里面，它成为了可能！这个改变主要是因为现在迭代器的<code>.next()</code>方法会返回一个<code>Promise</code>。在这个例子里面假设我们通过一个通用的端点来接受一组的数字：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span>* <span class="title">generateAsyncIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arrayOfPromises = [</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1000</span>, <span class="string">'foo'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1500</span>, <span class="string">'bar'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">2000</span>, <span class="string">'lol'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> nextIndex = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> (nextIndex &lt; arrayOfPromises.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> arrayOfPromises[nextIndex]</span><br><span class="line">    nextIndex++</span><br><span class="line">    <span class="keyword">yield</span> response</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncIteratorFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> asyncIterator = generateAsyncIterator()</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "foo", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "bar", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "lol", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: undefined, done: true&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子里我们用一个异步<code>generator</code>去创建一个异步的迭代器工厂，要记住的是这种异步迭代器最适合用在流，generators以及web socket上。为了更好理解这个主题，可以去看一下<a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md#iterating-generators-asynchronously" target="_blank" rel="noopener">这篇文章</a>,还有<a href="https://github.com/tc39/proposal-async-iteration#async-generator-functions" target="_blank" rel="noopener">这篇</a>。</p>
-<h2 id="Promise-Prototype-finally"><a href="#Promise-Prototype-finally" class="headerlink" title="Promise.Prototype.finally()"></a>Promise.Prototype.finally()</h2><p>Promises自ES2015以后一直存在，这是JS异步开发的一大进步。现在它在很多第三方库上都会实现一个<code>.finally()</code>的方法，主要是当Promise完成或者Rejected以后调用的一个回调函数。我们可以理解为<code>try/catch/finally</code>，finally是绝对会被执行的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise</span><br><span class="line">.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;···&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在JS语言拥有了大量的新特性，加油吧孩子！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1736,7 +1746,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

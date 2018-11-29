@@ -260,6 +260,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/24/crossdomain-solution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/24/crossdomain-solution/" itemprop="url">跨域问题的产生和解决方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-24T00:00:00+08:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/24/crossdomain-solution/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/24/crossdomain-solution/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="跨域问题的产生和解决方案"><a href="#跨域问题的产生和解决方案" class="headerlink" title="跨域问题的产生和解决方案"></a>跨域问题的产生和解决方案</h3><p><a href="/studyforinterview/2017/08/24/crossdomain-solution/"><br>          2017-08-24
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
+<h2 id="什么是同源"><a href="#什么是同源" class="headerlink" title="什么是同源"></a>什么是同源</h2><p>同源必须是：<strong>协议</strong>，<strong>域名</strong>和<strong>端口</strong>均相同，任何一项不同则视为非同源。</p>
+<p>例子：<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test.com/go.php" target="_blank" rel="noopener">http://www.test.com/go.php</a> (同源)<br><a href="http://www.test.com:80/index.php" target="_blank" rel="noopener">http://www.test.com:80/index.php</a> 和 <a href="http://www.test.com:8080/index.php" target="_blank" rel="noopener">http://www.test.com:8080/index.php</a> (非同源，端口不同)<br><a href="https://www.test.com/index.php" target="_blank" rel="noopener">https://www.test.com/index.php</a> 和 <a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> (非同源，协议不同)<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test2.com/index.php" target="_blank" rel="noopener">http://www.test2.com/index.php</a> (非同源，域名不同)</p>
+<h2 id="解决方案-JSONP"><a href="#解决方案-JSONP" class="headerlink" title="解决方案 - JSONP"></a>解决方案 - JSONP</h2><p>JSON（JavaScript Object Notation）是一种轻量级的数据交换格式，而JSONP（JSON with Pasdding）则是JSON的一种“使用模式”，通过这种模式可以实现数据的跨域获取。</p>
+<h2 id="JSONP跨域的原理"><a href="#JSONP跨域的原理" class="headerlink" title="JSONP跨域的原理"></a>JSONP跨域的原理</h2><p>在同源策略下，在某个服务器下的页面是无法获取到该服务器以外的数据的，但是<strong>img</strong>、<strong>iframe</strong>、<strong>script</strong>等标签是例外的！这些标签可以通过src属性请求到其他非同源服务器上的数据。利用script标签的开放策略，我们就可以实现跨域请求数据，当然，也需要服务端的配合。当我们正常地请求一个JSON数据的时候，服务端返回的是一串JSON类型的数据，而当我们使用JSONP模式来请求数据的时候，服务端返回的就是一段可执行的Javascript代码。</p>
+<h2 id="JSONP的实现"><a href="#JSONP的实现" class="headerlink" title="JSONP的实现"></a>JSONP的实现</h2><p>理解了原理要实现就不难了。</p>
+<ol>
+<li><p>在调用数据的时候添加一个回调的函数名作为参数：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http://www.test.com/order?id=111&amp;callback=del</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果是JSON正常模式返回的会是下面的格式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果是JSONP模式的话就会返回下面的格式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>相当于把JSON数据以参数的形式传给了回调的函数del，并且调用了页面上的del函数。<br>更严谨点可以：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;del(&#123;<span class="string">"id"</span>:<span class="number">111</span>,<span class="string">"status"</span>:<span class="string">"success"</span>,<span class="string">"msg"</span>:<span class="string">""</span>&#125;)&#125;<span class="keyword">catch</span>(e)&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于服务端来说，只是在原有结果多输出几个字符罢了，相当简单。</p>
+<h2 id="解决方案-设置Response-header跨域策略"><a href="#解决方案-设置Response-header跨域策略" class="headerlink" title="解决方案 - 设置Response header跨域策略"></a>解决方案 - 设置Response header跨域策略</h2><p>通过设置Response的头也可以解决相应的问题<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的域名，</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Origin:http://testbb.com'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许访问的方法</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Methods:POST'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//响应头设置</span></span><br><span class="line"></span><br><span class="line">header(<span class="string">'Access-Control-Allow-Headers:x-requested-with,content-type'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>注意如果想其他所有域名都能访问的话就可以把第一行里面的<code>http://testbb.com</code>换成<code>*</code>。</p>
+<p>如果对数据安全性有强要求的话，第二种解决方案无疑更适合。</p>
+<h2 id="小小蔡芽"><a href="#小小蔡芽" class="headerlink" title=",小小蔡芽"></a>,小小蔡芽</h2><hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/24/ary-story/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1084,6 +1239,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/analyzing-timer-performance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/16/analyzing-timer-performance/" itemprop="url">分析定时器的性能问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T00:00:00+08:00">
+                2017-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/16/analyzing-timer-performance/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/16/analyzing-timer-performance/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="分析定时器的性能问题"><a href="#分析定时器的性能问题" class="headerlink" title="分析定时器的性能问题"></a>分析定时器的性能问题</h3><p><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/how-javascript-timers-work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1212,142 +1503,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line"></span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">returnfunction()&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;)(i), <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>根据第五题的变形另外加一题，这题跟第五题的区别就是匿名函数有返回值，就是 setTimeout的回调函数就不再是undefined了，所以输出结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//延迟</span></span><br><span class="line"></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0] 例题来源，小芋头君知乎live（如禁止发布请告知删除）</p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/16/analyzing-timer-performance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/16/analyzing-timer-performance/" itemprop="url">分析定时器的性能问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T00:00:00+08:00">
-                2017-08-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/16/analyzing-timer-performance/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/16/analyzing-timer-performance/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="分析定时器的性能问题"><a href="#分析定时器的性能问题" class="headerlink" title="分析定时器的性能问题"></a>分析定时器的性能问题</h3><p><a href="/studyforinterview/2017/08/16/analyzing-timer-performance/"><br>          2017-08-16
-        </a></p>
-<p><a href="https://superhos.github.io/studyfortencent/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p><a href="/studyfortencent/tags/Javascript/">#Javascript</a></p>
 <hr>
 
           
@@ -1585,162 +1740,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/08/jquery-plugin-develop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/08/jquery-plugin-develop/" itemprop="url">全家一起来开发一个Jquery插件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-08T00:00:00+08:00">
-                2017-08-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/08/jquery-plugin-develop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/08/jquery-plugin-develop/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="全家一起来开发一个Jquery插件"><a href="#全家一起来开发一个Jquery插件" class="headerlink" title="全家一起来开发一个Jquery插件"></a>全家一起来开发一个Jquery插件</h3><p><a href="/studyforinterview/2017/08/08/jquery-plugin-develop/"><br>          2017-08-08
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<h2 id="小梦想"><a href="#小梦想" class="headerlink" title="小梦想"></a>小梦想</h2><p>我相信每个用过Jquery的人都有一个小梦想，就是写一个自己的Jquery插件——然后放上github，收获nk+星星，登上人生巅峰迎娶白富美。。我也不例外，在爱上vue.js以后回头来写Jquery有很多感觉都不一样了，JS的面向对象感觉理解更深了。</p>
-<p>P.S:虽然Jquery已经不再是很多人的首选了，但作为曾经的绝对霸主级JS库，还是很多地方值得我们学习参考的。</p>
-<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><p>要放上github的话肯定又有“高颜值”啦，指的是整个项目的架构要规范。这里就直接使用grunt的脚手架来搭建项目：</p>
-<p>当然，grunt的模板是需要自己下的。具体命令是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git clone https://github.com/gruntjs/grunt-init-jquery.git ~/.grunt-init/jquery</span><br></pre></td></tr></table></figure></p>
-<p>模板下好以后就可以去到我们的插件目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">grunt-int jquery</span><br></pre></td></tr></table></figure></p>
-<p>然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></p>
-<p>装好依赖包之后，看看我们的项目架构，好爽。。连README都有了。</p>
-<h2 id="插件结构"><a href="#插件结构" class="headerlink" title="插件结构"></a>插件结构</h2><p>grunt模板里面给的插件结构也很漂亮，不过我还是个人的结构。</p>
-<p>首先用闭包包着我们的插件，目的是防止$符号污染，因为$是很多库的宠儿，这里使用闭包确保我们闭包内的$是jquery对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure>
-<p>然后放入jquery扩展函数定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;(function($,window,document)&#123;</span><br><span class="line"></span><br><span class="line">	//插件内容</span><br><span class="line"></span><br><span class="line">	$.fn.extend(&#123;</span><br><span class="line"></span><br><span class="line">		tagSelect: function (option)&#123;</span><br><span class="line"></span><br><span class="line">			var plugin = new TagSelect(this, option);</span><br><span class="line"></span><br><span class="line">			return plugin.init();</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">	//TagSelect 类</span><br><span class="line"></span><br><span class="line">	var TagSelect = function (ele, opt)&#123;</span><br><span class="line"></span><br><span class="line">		//私有变量</span><br><span class="line"></span><br><span class="line">		this.$element = ele;</span><br><span class="line"></span><br><span class="line">		this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br><span class="line"></span><br><span class="line">		//私有函数</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//公有函数</span><br><span class="line"></span><br><span class="line">	TagSelect.prototype = &#123;</span><br><span class="line"></span><br><span class="line">		init: function()&#123;	</span><br><span class="line"></span><br><span class="line">			return this.$element;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">&#125;(jQuery,window,document));</span><br></pre></td></tr></table></figure>
-<p>tagSelect 是我们的插件名称，插件的定义和实现可以直接写在这个函数中，不过为了开发规范，我把这部分抽象出来。</p>
-<p>再下面就是TagSelect类，插件的实际内容都在这里了，留意这一部分：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">this.defaultSetting = &#123; </span><br><span class="line"></span><br><span class="line">			maxNum: 5,</span><br><span class="line"></span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">this.setting = $.extend(&#123;&#125;,this.defaultSetting, opt);</span><br></pre></td></tr></table></figure>
-<p>defaultSetting就是我们插件默认设置的设定，通过 $.extend() 函数把defaultSetting和opt合并在一起，重复部分使用后者的内容。</p>
-<p>这个就是我们插件的整体结构了。</p>
-<h2 id="插件的使用"><a href="#插件的使用" class="headerlink" title="插件的使用"></a>插件的使用</h2><p>因为直接用的是 $.fn.extend jquery的插件扩展机制，所以使用也是一句话的事情啦~~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$(&apos;#target&apos;).tagSelect(&#123;</span><br><span class="line"></span><br><span class="line">	maxNum : 10</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>参数传的是设置，这样调用就把我们的maxNum设成了10了。</p>
-<p>写到这里啦，有缺失部分再补充~</p>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1791,7 +1790,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-count">69</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
