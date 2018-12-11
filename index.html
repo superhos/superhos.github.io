@@ -260,6 +260,308 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/11/baberrage-rebuild-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/11/baberrage-rebuild-1/" itemprop="url">【Vue-Baberrage弹幕插件重制】插件产品设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-11T11:12:36+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/11/baberrage-rebuild-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/11/baberrage-rebuild-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
+<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
+<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
+<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
+<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
+<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
+<li>分泳道展示弹幕，使用均衡算法分配弹幕。</li>
+</ol>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
+<ol>
+<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
+<li>如果有提供弹幕接口，提供无缝接入</li>
+</ol>
+<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
+<li>提供弹幕对接接口。</li>
+</ol>
+<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><ul>
+<li style="list-style: none"><input type="checkbox" checked> 使用Rxjs实现弹幕队列池</li>
+<li style="list-style: none"><input type="checkbox"> 提供前端接入方法</li>
+<li style="list-style: none"><input type="checkbox" checked> 提供服务端接入接口</li>
+<li style="list-style: none"><input type="checkbox"> 优化弹幕滚动效能</li>
+<li style="list-style: none"><input type="checkbox"> 优化开发范式</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/05/implement-promise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/05/implement-promise/" itemprop="url">手写一个Promise</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T21:35:39+08:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/05/implement-promise/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/12/05/implement-promise/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？</p>
+<h2 id="了解Promise"><a href="#了解Promise" class="headerlink" title="了解Promise"></a>了解Promise</h2><p>先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。</p>
+<h2 id="Promise的三个状态"><a href="#Promise的三个状态" class="headerlink" title="Promise的三个状态"></a>Promise的三个状态</h2><ul>
+<li><strong>resolve</strong> 表示耗时操作已经完成</li>
+<li><strong>reject</strong>  有异常捕捉到，操作结束</li>
+<li><strong>pending</strong> 还没有调用到<code>resolve</code>或者<code>reject</code>代码块依然执行中，仍在等待结果</li>
+</ul>
+<h2 id="基础的Promise使用"><a href="#基础的Promise使用" class="headerlink" title="基础的Promise使用"></a>基础的Promise使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findSomeThing = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(<span class="string">'ok'</span>)</span><br><span class="line">        &#125;,<span class="number">3000</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> demo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    findSomeThing().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Say HI'</span>)</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了更清晰，这里就不用<code>await</code>语法了。可以看到有以下几点：</p>
+<ol>
+<li>我们的<code>findSomeThing</code>就是耗时的异步操作</li>
+<li>然后返回一个Promise，Promise代码块中在耗时操作完成之后，会执行到<code>resolve</code>或者<code>reject</code></li>
+<li>然后就会执行到我们的then函数中的代码块或者直接catch到异常。</li>
+<li>还有一点要注意，Promise是可以形成链式操作的，就是可以同时有多个then。</li>
+</ol>
+<p>清晰了主要用法，就可以想想怎么去实现</p>
+<p>P.S. 下面是我手写代码的过程，不保证最后结果正确。。等写完再找一篇权威的放最后参考。</p>
+<h2 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h2><p>首先先定义一个<code>Promize</code>类:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Promize</span> </span>&#123;</span><br><span class="line">    <span class="comment">// execFunc 为需要耗时操作的代码块</span></span><br><span class="line">    <span class="keyword">constructor</span> (callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.callback = callback()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/05/before-interview-timetable/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -776,158 +1078,6 @@
             <h3 id="监控类"><a href="#监控类" class="headerlink" title="监控类"></a>监控类</h3><p><a href="https://docs.bugsnag.com/platforms/javascript/" target="_blank" rel="noopener">Bugsnag</a> - 日志监控<br><a href="https://sentry.io/onboarding/looking-for/sharvens/configure/node" target="_blank" rel="noopener">Sentry</a> - 日志监控</p>
 <h3 id="推送类"><a href="#推送类" class="headerlink" title="推送类"></a>推送类</h3><p><a href="https://dashboard.pusher.com/" target="_blank" rel="noopener">Pusher</a> - 提供Push服务</p>
 <h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p><a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="noopener">dotenv</a> - 用以读取.env配置</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/22/baberrage-rebuild-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/22/baberrage-rebuild-1/" itemprop="url">【Vue-Baberrage弹幕插件重制(1)】插件产品设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-22T11:12:36+08:00">
-                2018-11-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/22/baberrage-rebuild-1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/22/baberrage-rebuild-1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
-<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
-<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
-<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
-<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
-<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
-</ol>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
-<ol>
-<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
-<li>如果有提供弹幕接口，提供无缝接入</li>
-</ol>
-<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
-<li>提供弹幕对接接口。</li>
-</ol>
-<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><ul>
-<li style="list-style: none"><input type="checkbox"> 使用Rxjs实现弹幕队列池</li>
-<li style="list-style: none"><input type="checkbox"> 提供前端接入方法</li>
-<li style="list-style: none"><input type="checkbox"> 提供服务端接入接口</li>
-<li style="list-style: none"><input type="checkbox"> 优化弹幕滚动效能</li>
-<li style="list-style: none"><input type="checkbox"> 优化开发范式</li>
-</ul>
 
           
         
@@ -1574,155 +1724,6 @@
           
             <h3 id="博客更新中"><a href="#博客更新中" class="headerlink" title="博客更新中.."></a>博客更新中..</h3><p>由于之前2017年的POST source丢失，现在在升级整合。</p>
 <p>也找到hexo一个问题。。迁移麻烦。。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br><span class="line">functionsayHello()&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello man'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/10/14/accuracy-of-javascript-time/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/14/accuracy-of-javascript-time/" itemprop="url">Javascript时间的准确性</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:29:26+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/10/14/accuracy-of-javascript-time/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/10/14/accuracy-of-javascript-time/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Javascript时间的准确性"><a href="#Javascript时间的准确性" class="headerlink" title="Javascript时间的准确性"></a>Javascript时间的准确性</h3><p><a href="/studyforinterview/2017/08/16/accuracy-of-javascript-time/"><br>          2017-08-16
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p><a href="/studyforinterview/tags/Javascript/">#Javascript</a></p>
-<p>【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】</p>
-<p>现在有两个问题我觉得需要好好考虑的。</p>
-<p>第一，我看了一些 <a href="http://dromaeo.com/" target="_blank" rel="noopener">Dromaeo</a> 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的，因为测试应该至少运行几毫秒，只得到一致的“0”结果是不可行的，特别是对于非平凡的代码。</p>
-<p>第二，我运行过一些关于性能方面的测试，在IE浏览器上，在<a href="http://mootools.net/slickspeed/" target="_blank" rel="noopener">SlickSpeed</a> 选择套件测试上实验结果时间有着剧烈的波动。 当你想知道自己的修改时候有好处的时候，这是很难让每一个页面重新加载15-60毫秒的时间。</p>
-<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start = (newDate).getTime();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Run a test. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> diff = (newDate).getTime() - start;</span><br></pre></td></tr></table></figure>
-<p>确切的写法可能有所不同不过核心都是一样的，通过获得执行前的Date对象和执行后的Date对象之间的时间差来作为测试的总运行时间。</p>
-<p>每次运行一段代码都会有很多地方有高有低的。这可能是因为在别的线程上有其他东西在执行，或者其他的进程占用了更多的进程。因此，实验的结果是波动的。测试波动的多少是一致的，沿着 <a href="http://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">正态分布</a> 的某个部分：</p>
-<p><img src="https://johnresig.com/files/standard.png" alt="image_1"></p>
-<p>(很多测试套件在测试的时候例如 SunSpider 和 Dromaeo 都会使用 <a href="http://en.wikipedia.org/wiki/T-distribution" target="_blank" rel="noopener">T 分布</a> 来获得更好的分布图)<br>为了更好的了解结果，我写了一个<a href="https://johnresig.com/files/bugs/timer/" target="_blank" rel="noopener">小工具</a>用来运行下面的测试：运行一个空的函数，循环10,000次，查找和循环几千个divs，最后循环修改这些divs。我连续跑了这些测试并生成了下面的直方结果图。<br>这是在OS X系统上主要浏览器的结果：</p>
-<p><img src="https://johnresig.com/files/gettime-osx.sm.png" alt="OS X"></p>
-<p>这个结果是很棒的：在0ms附近有很多不同的结果（有一些结果到达了1-4ms，这是符合预期的），每个浏览器都会跟随正态分布的结果达到了7ms,13ms和22ms。这都是我们期待的结果，没什么惊喜。</p>
-<p>【翻译到这里，发现这篇实在没有翻译的价值了，后面的东西都有点过时了。】<br>PEACE!</p>
-<hr>
 
           
         

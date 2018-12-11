@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="最近自己开了很多坑给自己(edixo, sevens-iam, sevens-data-center)，归根到底太多想做太少时间了。三年将至，也是时候参加下面试看看自己的水平到哪里了。 预期1月中旬参加面试，设立点To do list来鞭策下自己 To Do List [] 基础复习，过一遍JS基础语法ES5 &amp;amp;&amp;amp; ES6 [] css基本布局 (* flex ) [] css3">
+<meta name="description" content="Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？ 了解Promise先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。 Promise的三个状态 resolve 表示耗时操作已经完成 reject  有异常捕捉到，操作结束 pending 还没有调用到resolve或者">
 <meta property="og:type" content="article">
-<meta property="og:title" content="参加面试前的准备时间表">
-<meta property="og:url" content="https://superhos.github.io/2018/12/05/before-interview-timetable/index.html">
+<meta property="og:title" content="手写一个Promise">
+<meta property="og:url" content="https://superhos.github.io/2018/12/05/implement-promise/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="最近自己开了很多坑给自己(edixo, sevens-iam, sevens-data-center)，归根到底太多想做太少时间了。三年将至，也是时候参加下面试看看自己的水平到哪里了。 预期1月中旬参加面试，设立点To do list来鞭策下自己 To Do List [] 基础复习，过一遍JS基础语法ES5 &amp;amp;&amp;amp; ES6 [] css基本布局 (* flex ) [] css3">
+<meta property="og:description" content="Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？ 了解Promise先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。 Promise的三个状态 resolve 表示耗时操作已经完成 reject  有异常捕捉到，操作结束 pending 还没有调用到resolve或者">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-05T02:44:56.619Z">
+<meta property="og:updated_time" content="2018-12-05T13:59:52.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="参加面试前的准备时间表">
-<meta name="twitter:description" content="最近自己开了很多坑给自己(edixo, sevens-iam, sevens-data-center)，归根到底太多想做太少时间了。三年将至，也是时候参加下面试看看自己的水平到哪里了。 预期1月中旬参加面试，设立点To do list来鞭策下自己 To Do List [] 基础复习，过一遍JS基础语法ES5 &amp;amp;&amp;amp; ES6 [] css基本布局 (* flex ) [] css3">
+<meta name="twitter:title" content="手写一个Promise">
+<meta name="twitter:description" content="Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？ 了解Promise先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。 Promise的三个状态 resolve 表示耗时操作已经完成 reject  有异常捕捉到，操作结束 pending 还没有调用到resolve或者">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/12/05/before-interview-timetable/"/>
+  <link rel="canonical" href="https://superhos.github.io/2018/12/05/implement-promise/"/>
 
 
 
 
 
-  <title>参加面试前的准备时间表 | Sevens Chan blog</title>
+  <title>手写一个Promise | Sevens Chan blog</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/05/before-interview-timetable/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/05/implement-promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">参加面试前的准备时间表</h1>
+          <h1 class="post-title" itemprop="name headline">手写一个Promise</h1>
         
 
         <div class="post-meta">
@@ -291,7 +291,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T00:00:24+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T21:35:39+08:00">
                 2018-12-05
               </time>
             
@@ -310,9 +310,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/05/before-interview-timetable/#comments" itemprop="discussionUrl">
+                <a href="/2018/12/05/implement-promise/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/12/05/before-interview-timetable/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/12/05/implement-promise/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -340,20 +340,25 @@
       
 
       
-        <p>最近自己开了很多坑给自己(edixo, sevens-iam, sevens-data-center)，归根到底太多想做太少时间了。三年将至，也是时候参加下面试看看自己的水平到哪里了。</p>
-<p>预期1月中旬参加面试，设立点To do list来鞭策下自己</p>
-<h2 id="To-Do-List"><a href="#To-Do-List" class="headerlink" title="To Do List"></a>To Do List</h2><ul>
-<li>[] 基础复习，过一遍JS基础语法ES5 &amp;&amp; ES6</li>
-<li>[] css基本布局 (* flex )</li>
-<li>[] css3 &amp;&amp; JS 动画原理 (发现挺多会问到这个的) </li>
-<li>[] 简历整理 (主要整理工作经历项目经历)</li>
-<li>[] 算法复习 (一些基础的算法还是要复习一下)</li>
-<li>[] 框架深研 (但求过一遍Vue, React的核心实现, 还有Redux/Vuex的核心思想等)</li>
-<li>[] 框架组件开发 (对于大公司来说，个人的组件开发能力尤其重要)</li>
-<li>[] 笔试题演练 ( leetcode + 网上笔试题)</li>
+        <p>Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？</p>
+<h2 id="了解Promise"><a href="#了解Promise" class="headerlink" title="了解Promise"></a>了解Promise</h2><p>先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。</p>
+<h2 id="Promise的三个状态"><a href="#Promise的三个状态" class="headerlink" title="Promise的三个状态"></a>Promise的三个状态</h2><ul>
+<li><strong>resolve</strong> 表示耗时操作已经完成</li>
+<li><strong>reject</strong>  有异常捕捉到，操作结束</li>
+<li><strong>pending</strong> 还没有调用到<code>resolve</code>或者<code>reject</code>代码块依然执行中，仍在等待结果</li>
 </ul>
-<h2 id="预期目标"><a href="#预期目标" class="headerlink" title="预期目标"></a>预期目标</h2><p>Target location应该是深圳，公司的话主要有留意很久的Shopee, Lazada 和 字条跳动。</p>
-<h2 id="Cheer-Up"><a href="#Cheer-Up" class="headerlink" title="Cheer Up"></a>Cheer Up</h2><p>去除12月底5天的旅游时间，剩下大概36天，加油吧日天</p>
+<h2 id="基础的Promise使用"><a href="#基础的Promise使用" class="headerlink" title="基础的Promise使用"></a>基础的Promise使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findSomeThing = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(<span class="string">'ok'</span>)</span><br><span class="line">        &#125;,<span class="number">3000</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> demo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    findSomeThing().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Say HI'</span>)</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了更清晰，这里就不用<code>await</code>语法了。可以看到有以下几点：</p>
+<ol>
+<li>我们的<code>findSomeThing</code>就是耗时的异步操作</li>
+<li>然后返回一个Promise，Promise代码块中在耗时操作完成之后，会执行到<code>resolve</code>或者<code>reject</code></li>
+<li>然后就会执行到我们的then函数中的代码块或者直接catch到异常。</li>
+<li>还有一点要注意，Promise是可以形成链式操作的，就是可以同时有多个then。</li>
+</ol>
+<p>清晰了主要用法，就可以想想怎么去实现</p>
+<p>P.S. 下面是我手写代码的过程，不保证最后结果正确。。等写完再找一篇权威的放最后参考。</p>
+<h2 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h2><p>首先先定义一个<code>Promize</code>类:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Promize</span> </span>&#123;</span><br><span class="line">    <span class="comment">// execFunc 为需要耗时操作的代码块</span></span><br><span class="line">    <span class="keyword">constructor</span> (callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.callback = callback()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p></p>
 
       
     </div>
@@ -378,8 +383,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/30/import-export/" rel="next" title="「ES6」import,export总结">
-                <i class="fa fa-chevron-left"></i> 「ES6」import,export总结
+              <a href="/2018/12/05/before-interview-timetable/" rel="next" title="参加面试前的准备时间表">
+                <i class="fa fa-chevron-left"></i> 参加面试前的准备时间表
               </a>
             
           </div>
@@ -388,8 +393,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/05/implement-promise/" rel="prev" title="手写一个Promise">
-                手写一个Promise <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/11/baberrage-rebuild-1/" rel="prev" title="【Vue-Baberrage弹幕插件重制】插件产品设计">
+                【Vue-Baberrage弹幕插件重制】插件产品设计 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -522,7 +527,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#To-Do-List"><span class="nav-number">1.</span> <span class="nav-text">To Do List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预期目标"><span class="nav-number">2.</span> <span class="nav-text">预期目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cheer-Up"><span class="nav-number">3.</span> <span class="nav-text">Cheer Up</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Promise"><span class="nav-number">1.</span> <span class="nav-text">了解Promise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise的三个状态"><span class="nav-number">2.</span> <span class="nav-text">Promise的三个状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础的Promise使用"><span class="nav-number">3.</span> <span class="nav-text">基础的Promise使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开撸"><span class="nav-number">4.</span> <span class="nav-text">开撸</span></a></li></ol></div>
             
 
           </div>
@@ -665,9 +670,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://superhos.github.io/2018/12/05/before-interview-timetable/';
-          this.page.identifier = '2018/12/05/before-interview-timetable/';
-          this.page.title = '参加面试前的准备时间表';
+          this.page.url = 'https://superhos.github.io/2018/12/05/implement-promise/';
+          this.page.identifier = '2018/12/05/implement-promise/';
+          this.page.title = '手写一个Promise';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://sevenschan.disqus.com/embed.js';

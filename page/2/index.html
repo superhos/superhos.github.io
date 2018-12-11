@@ -260,6 +260,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/10/14/accuracy-of-javascript-time/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/14/accuracy-of-javascript-time/" itemprop="url">Javascript时间的准确性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:29:26+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/14/accuracy-of-javascript-time/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/10/14/accuracy-of-javascript-time/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Javascript时间的准确性"><a href="#Javascript时间的准确性" class="headerlink" title="Javascript时间的准确性"></a>Javascript时间的准确性</h3><p><a href="/studyforinterview/2017/08/16/accuracy-of-javascript-time/"><br>          2017-08-16
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyforinterview/tags/Javascript/">#Javascript</a></p>
+<p>【本篇翻译原文发表时间是2008年，测试的浏览器可能也不是目前主流的浏览器，这篇仅供参考】</p>
+<p>现在有两个问题我觉得需要好好考虑的。</p>
+<p>第一，我看了一些 <a href="http://dromaeo.com/" target="_blank" rel="noopener">Dromaeo</a> 提供的测试用例之后，我发现从测试返回了一堆的 0ms。这是非常奇怪的，因为测试应该至少运行几毫秒，只得到一致的“0”结果是不可行的，特别是对于非平凡的代码。</p>
+<p>第二，我运行过一些关于性能方面的测试，在IE浏览器上，在<a href="http://mootools.net/slickspeed/" target="_blank" rel="noopener">SlickSpeed</a> 选择套件测试上实验结果时间有着剧烈的波动。 当你想知道自己的修改时候有好处的时候，这是很难让每一个页面重新加载15-60毫秒的时间。</p>
+<p>这两点让我做了一下调查。所有的Javascript 性能测试工具都用了下面这一段代码来测量他们的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> start = (newDate).getTime();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Run a test. */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> diff = (newDate).getTime() - start;</span><br></pre></td></tr></table></figure>
+<p>确切的写法可能有所不同不过核心都是一样的，通过获得执行前的Date对象和执行后的Date对象之间的时间差来作为测试的总运行时间。</p>
+<p>每次运行一段代码都会有很多地方有高有低的。这可能是因为在别的线程上有其他东西在执行，或者其他的进程占用了更多的进程。因此，实验的结果是波动的。测试波动的多少是一致的，沿着 <a href="http://en.wikipedia.org/wiki/Normal_distribution" target="_blank" rel="noopener">正态分布</a> 的某个部分：</p>
+<p><img src="https://johnresig.com/files/standard.png" alt="image_1"></p>
+<p>(很多测试套件在测试的时候例如 SunSpider 和 Dromaeo 都会使用 <a href="http://en.wikipedia.org/wiki/T-distribution" target="_blank" rel="noopener">T 分布</a> 来获得更好的分布图)<br>为了更好的了解结果，我写了一个<a href="https://johnresig.com/files/bugs/timer/" target="_blank" rel="noopener">小工具</a>用来运行下面的测试：运行一个空的函数，循环10,000次，查找和循环几千个divs，最后循环修改这些divs。我连续跑了这些测试并生成了下面的直方结果图。<br>这是在OS X系统上主要浏览器的结果：</p>
+<p><img src="https://johnresig.com/files/gettime-osx.sm.png" alt="OS X"></p>
+<p>这个结果是很棒的：在0ms附近有很多不同的结果（有一些结果到达了1-4ms，这是符合预期的），每个浏览器都会跟随正态分布的结果达到了7ms,13ms和22ms。这都是我们期待的结果，没什么惊喜。</p>
+<p>【翻译到这里，发现这篇实在没有翻译的价值了，后面的东西都有点过时了。】<br>PEACE!</p>
+<hr>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/10/12/hexo-insert-image/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1170,7 +1319,7 @@
         
           
             <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
-<p>译者: SevensChan <a href="mailto:&#50;&#x39;&#55;&#52;&#x39;&#53;&#49;&#54;&#x35;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#50;&#x39;&#55;&#52;&#x39;&#53;&#49;&#54;&#x35;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>译者: SevensChan <a href="mailto:&#x32;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#x36;&#x35;&#64;&#x71;&#113;&#46;&#99;&#x6f;&#109;" target="_blank" rel="noopener">&#x32;&#x39;&#x37;&#x34;&#x39;&#x35;&#49;&#x36;&#x35;&#64;&#x71;&#113;&#46;&#99;&#x6f;&#109;</a></p>
 <p>使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。</p>
 <p>经过了和Vue.js大概2年的蜜月期，我终于可以客观地从不同角度来评价一下这个框架了。</p>
 <h2 id="优点部分"><a href="#优点部分" class="headerlink" title="优点部分"></a>优点部分</h2><h3 id="响应式-Reactivity"><a href="#响应式-Reactivity" class="headerlink" title="响应式(Reactivity)"></a>响应式(Reactivity)</h3><p>数据绑定是前端世界里的一个大命题。跟JQuery对DOM微观管理不一样，我们的关注点在于数据。Vue通过双向响应数据绑定系统来巧妙地处理这个问题。</p>
@@ -1485,160 +1634,6 @@
           
             <p>在COOLSHELL上皓哥推荐的好东西，记录在这里，具体介绍可以看<a href="https://coolshell.cn/articles/18094.html" target="_blank" rel="noopener">皓哥的文章</a></p>
 <p>我的个人网站也上了https了，以往过程是麻烦得不得了，且要到处找免费证书。<br>现在直接去这个网站就行：<br><a href="https://certbot.eff.org" target="_blank" rel="noopener">https://certbot.eff.org</a><br>然后选择web server和系统，然后会给出一堆命令，去服务器上跟着打就好。<br>最方便的是它还会自动把配置填好。。<br>直接configtest然后Reload~</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/03/draw-wave/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SevensChan">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sevens Chan blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/03/draw-wave/" itemprop="url">画一条完美的波浪</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T10:11:20+08:00">
-                2018-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/03/draw-wave/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/03/draw-wave/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>现在的UI设计都流行加条小波浪哟，看起来高大上的。</p>
-<p><img src="https://img.zcool.cn/community/012afe58be72b1a801219c772a9367.gif" alt="波浪"></p>
-<p>在波浪界有个著名的公式叫“贝塞尔曲线”，学习一下看看怎么能画一条完美的曲线。</p>
-<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>贝塞尔曲线可以根据控制点的数量分为多阶的曲线：</p>
-<p>一阶贝塞尔曲线：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984310y353.gif" alt="一阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21151949-bbe8b7e8a0b14409a189dc32e0420423.gif" alt="img"></p>
-<p>二阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984320awS6.gif" alt="二阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152016-1df7ccd4da8e4e8a86cf72772da8af42.gif" alt="img"></p>
-<p>三阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984326C3m1.gif" alt="三阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152048-9b5dee31b19349428c453b8bd5e20a3d.gif" alt="img"></p>
-<p>以此类推.</p>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="先来一个小拱门"><a href="#先来一个小拱门" class="headerlink" title="先来一个小拱门"></a>先来一个小拱门</h3><p>首先确认一下目标，希望画出下面的曲线。同时我们只想要结果，不需要理会过程，所以这里不再对公式推导，如果需要深入了解公式的，可以看看<a href="https://www.jianshu.com/p/1ddaae528bac" target="_blank" rel="noopener">这篇文章</a></p>
-<p><img src="draw-wave-WechatIMG1.jpeg" alt="WechatIMG1.jpeg"></p>
-<p>em…竖着看感觉怪怪的..很像那啥。。<br>呸呸呸。。大家意会即可。。</p>
-<p>首先要画其中一个波浪，可以知道的是起点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(x_0,y_0)</span><br></pre></td></tr></table></figure></p>
-<p>还有终点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C(x_d,y_d)</span><br></pre></td></tr></table></figure></p>
-<p>还有我们假设这是一个左右平衡的波浪，那么我们假设波浪 <strong>高度为h</strong> ,就可以得到中间点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t = ((x_d-x_0)/2,h)</span><br></pre></td></tr></table></figure></p>
-<p>根据公式我们来看一下能不能求出控制点<code>P</code><br>其实左右平衡的情况下，我们可以直接把起点、终点和控制点看成是一个等腰三角形，那么假设我们<code>h=20</code>那么波浪的顶点就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t(x_d-x_0,20)</span><br></pre></td></tr></table></figure></p>
-<p>由于是等腰三角形，那么到达顶点的时候，顶点切线到左右两边的控制轴的距离是相等的，分别设这两个点为<code>D,E</code>。<br>根据贝塞尔的特性，可以得到:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AD:AP = EP:CP = DP_t:DE</span><br></pre></td></tr></table></figure></p>
-<p>因为等腰的关系所以他们的比率都是<code>1/2</code><br>所以控制点的高度就(k)是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AP = \sqrt&#123;(h+k)^2+(AC/2)^2&#125;</span><br><span class="line"></span><br><span class="line">DP_t = AC/2/2 = 25</span><br><span class="line"></span><br><span class="line">h = 20</span><br></pre></td></tr></table></figure></p>
-<p>同时，根据比例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AD = \sqrt&#123;(25)^2+(20)^2&#125; = 32</span><br><span class="line"></span><br><span class="line">AP = 64</span><br><span class="line"></span><br><span class="line">k = 20</span><br></pre></td></tr></table></figure></p>
-<p>所以控制点<code>P</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P (50,40)</span><br></pre></td></tr></table></figure></p>
-<p>效果图：<br><img src="draw-wave-WechatIMG7.jpeg" alt="WechatIMG7.jpeg"></p>
-<p>em..这个图很粗糙..svg生成的..意会就好..</p>
-<h3 id="再来一个反拱门"><a href="#再来一个反拱门" class="headerlink" title="再来一个反拱门"></a>再来一个反拱门</h3><p>根据上面计算的，当控制点为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P(150,-40)</span><br></pre></td></tr></table></figure></p>
-<p>的时候就可以得到下面的效果图<br><img src="draw-wave-WechatIMG8.jpeg" alt="WechatIMG8.jpeg"></p>
-<p>好了这里就暂时不涉及svg的东西了，由于svg的坐标轴是已左上角为原点，混在一起说的话就会乱了。</p>
 
           
         
