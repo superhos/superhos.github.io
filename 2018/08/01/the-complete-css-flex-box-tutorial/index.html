@@ -1,39 +1,776 @@
-extends includes/layout
+<!DOCTYPE html>
 
-block content
 
-    section#wrapper.post
-        article
-            header
-                h1!=page.title
-                h2.headline!=date(page.date, 'MMM DD, YYYY h:mm')
-                    |·
-                    |#{wordcount(page.content)} words
-                    |·
-                    |#{min2read(page.content)} minutes read
-                    span.tags
 
-            if toc(page.content)
-                div#toc!=toc(page.content,{list_number:false})
+  
 
-            section#post-body!=page.content
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav#post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
-
-            include includes/comment.pug
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
 
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="翻译自The Complete CSS Flex Box Tutorial 关于这篇文章的图片来源于作者的新书，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。 【译者注：有几段关于作者新书的介绍这里就跳过了】 跟CSS Grid很一样，Flex Box 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(container)和项目元素(items)。 当我开始学习Flex，我想先看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="完整的CSS Flex 盒子教程">
+<meta property="og:url" content="https://superhos.github.io/2018/08/01/the-complete-css-flex-box-tutorial/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="翻译自The Complete CSS Flex Box Tutorial 关于这篇文章的图片来源于作者的新书，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。 【译者注：有几段关于作者新书的介绍这里就跳过了】 跟CSS Grid很一样，Flex Box 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(container)和项目元素(items)。 当我开始学习Flex，我想先看">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*T1x2OolGzQWb2GZB688_Vw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*2kaamZDI0E_U1Qu7i3UcEA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*KsOv5LJtQidXmbXaHZnDeQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*NgLbEh2kyt6pADq9q6Eq9Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*JwdJjzh906U62y5ryUBPBA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*YwvnvHBj4Gs9OnNCrA0TCQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*AhLZj_q8tvCuFraEKSG6gg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*xAPNrU9sKijsJnMJOTyUBA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*5DdP910Q6Oz6rqNfnpHGcg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*IMU7WQ7P4xepIHZGlp8ZCA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*LDRJvglhmxOIZHsDQe4A4A.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*DCpWkqPeSuiDMP-xTha5nQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*oDZ0LHJR7NBuMg0wEJihhQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*V1bfijm-RCdlxcZhP7tYwA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*XGm7JEbXLe3e9_XAdgZDYw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*pUE3gXzsGgHmgIdxIAkX1Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*FwZpPNEdh7TjVoc8XU9rfQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*UJ54WLMke5RQ4gZcFDxTvQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/600/1*T1x2OolGzQWb2GZB688_Vw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*2kaamZDI0E_U1Qu7i3UcEA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*pJwqDgFAv-jBwy9m8jbrxQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*KsOv5LJtQidXmbXaHZnDeQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*NgLbEh2kyt6pADq9q6Eq9Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*JwdJjzh906U62y5ryUBPBA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*YwvnvHBj4Gs9OnNCrA0TCQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*AhLZj_q8tvCuFraEKSG6gg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*xAPNrU9sKijsJnMJOTyUBA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*5DdP910Q6Oz6rqNfnpHGcg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*IMU7WQ7P4xepIHZGlp8ZCA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*LDRJvglhmxOIZHsDQe4A4A.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*DCpWkqPeSuiDMP-xTha5nQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*oDZ0LHJR7NBuMg0wEJihhQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*V1bfijm-RCdlxcZhP7tYwA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*XGm7JEbXLe3e9_XAdgZDYw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*pUE3gXzsGgHmgIdxIAkX1Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*FwZpPNEdh7TjVoc8XU9rfQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*ClFep05U_OkI3uA4fcDibQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1000/1*JgkuJjc2Ile0Hkef1pMyfQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*AbZAF6lmrm7jOkOKnbas4w.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*Lr8yGIA_nPAF1Ay5MraXlw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*BdoGsWOIFJ3IGW7j193W2Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*nd0NlLxeeatSX1j4dfFblQ.png">
+<meta property="og:updated_time" content="2018-08-02T02:02:30.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="完整的CSS Flex 盒子教程">
+<meta name="twitter:description" content="翻译自The Complete CSS Flex Box Tutorial 关于这篇文章的图片来源于作者的新书，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。 【译者注：有几段关于作者新书的介绍这里就跳过了】 跟CSS Grid很一样，Flex Box 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(container)和项目元素(items)。 当我开始学习Flex，我想先看">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2018/08/01/the-complete-css-flex-box-tutorial/"/>
+
+
+
+
+
+  <title>完整的CSS Flex 盒子教程 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/01/the-complete-css-flex-box-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">完整的CSS Flex 盒子教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T16:35:28+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/01/the-complete-css-flex-box-tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/01/the-complete-css-flex-box-tutorial/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>翻译自<a href="https://medium.com/@js_tut/the-complete-css-flex-box-tutorial-d17971950bdc" target="_blank" rel="noopener">The Complete CSS Flex Box Tutorial</a></p>
+<p>关于这篇文章的图片来源于作者的<a href="https://www.amazon.com/dp/1983065633/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=sl1&amp;tag=medium02-20&amp;linkId=b0eddcc81938503d94ba431d29f074c6" target="_blank" rel="noopener">新书</a>，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。</p>
+<p>【译者注：有几段关于作者新书的介绍这里就跳过了】</p>
+<p>跟<a href="https://medium.com/@js_tut/css-grid-tutorial-filling-in-the-gaps-c596c9534611" target="_blank" rel="noopener">CSS Grid</a>很一样，<em>Flex Box</em> 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(<em>container</em>)和项目元素(<em>items</em>)。</p>
+<p>当我开始学习Flex，我想先看看它所有的能力。但是，我没有找到可以看到所有Flex属性例子的教程。所以我以鸟瞰图的形式为大家展示一下Flex的能力。</p>
+<p>【译者注：因为前面预览图过多，这里放到最后以免影响阅读】</p>
+<p>这一大堆就是Flex的能力。但是。。还是让我们来每张图讲解一次吧。在教程结束的时候你应该能够快速且清晰的脑海中对Flex有一定的概念。</p>
+<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><p>Flex是一组自动拉伸父容器内容行列的规则。</p>
+<h2 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h2><p>跟其他CSS属性不一样的是，在Flex里面你需要有一个主要的容器和一些嵌套在里面的项目元素(items)。很多CSS Flex的属性是只用在容器上，一部分是用在元素上。<br><img src="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="img"></p>
+<p>你可以把一个设置了<code>display:flex</code>的flex元素看作是父容器。在这个容器里面的元素就是项目元素(items)。每个容器都有如上图所示的一个 <em>flex-start</em> 点和一个 <em>flex-end</em> 点。</p>
+<h2 id="主轴和竖轴"><a href="#主轴和竖轴" class="headerlink" title="主轴和竖轴"></a>主轴和竖轴</h2><p>虽然项目元素是以线性方向排列，但是Flex要求你要注意行和列的概念。出于这个原因，它有两个坐标轴。横向的坐标轴称为主轴，竖向的坐标轴称为竖轴(Cross-Axis)。</p>
+<p>想要在主轴上控制内容的宽度以及间隙，你需要使用<code>justify</code>的相关属性。要在竖轴上控制项目元素，你需要使用<code>align</code>的相关属性。</p>
+<p>如果你有3列和6个项目元素，Flex会自动创建第二行来容纳剩余的项目元素。<br><img src="https://cdn-images-1.medium.com/max/800/1*T1x2OolGzQWb2GZB688_Vw.png" alt="img"><br><img src="https://cdn-images-1.medium.com/max/800/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="你可以确定列的数量]"></p>
+<p>行和列在父元素里面怎么分布调整是由CSS Flex的属性<code>flex-direction</code>,<code>flex-wrap</code>和一些其他的属性决定的，将会在后面的内容演示。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="这里可以看到有n个项目元素放置在容器里面。默认情况下，这些元素会从左到右排列，当然了，开始的原始点是可以反转的"></p>
+<h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>完全可以把项目元素的放置方向反过来。<br><img src="https://cdn-images-1.medium.com/max/800/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="img"><br>设置<code>flex-direction:row-reverse</code> 就可以将方向反过来。默认值是row，意味着流向是从左向右</p>
+<h2 id="Wrap"><a href="#Wrap" class="headerlink" title="Wrap"></a>Wrap</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="img"><br>如果设置了<code>flex-wrap:wrap</code>的话，当容器内部项目元素超出长度的话会自动断行，创建新的一行放置元素。该属性默认值是<code>nowrap</code>，如果超出长度会溢出容器。</p>
+<h2 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*JwdJjzh906U62y5ryUBPBA.png" alt="img"><br><em>flex-flow</em> 是<em>flex-direction</em> 和 <em>flex-wrap</em> 的简写，允许你用一个属性去定义它们两个。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="img"><br><code>flex-flow:row wrap</code> 确定 <em>flex-direction</em> 为 <em>row</em> 而 <em>flex-wrap</em> 为 <em>wrap</em>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="img"><br><code>flex-flow:row wrap-reverse;</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="img"><br><code>flex-flow:row wrap; justify-content: space-between;</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="img"><br><code>flex-flow:row-reverse wrap</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="img"><br><code>flex-fow:row-reverse wrap-reverse</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="img"><br><code>flex-flow:row wrap;justify-content:space-between</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="img"><br>方向<code>direction</code>可以设置竖轴为主轴</p>
+<p>当我们改变flex的方向为列的时候，<em>flex-flow</em> 属性表现得跟前面的例子一样。除了这个时候，它们跟随列的垂直方向。<br><img src="https://cdn-images-1.medium.com/max/800/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="img"></p>
+<h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="img"></p>
+<p><code>flex-direction:row; justify-content: flex-start |flex-end |center|space-between |space-around |stretch |space-evenly.</code> 在每个例子中我们分别用了三个项目元素。在正常flex使用中对元素的数量是没有限制的。这些图演示了<code>justify-content</code>属性每个值的作用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="img"><br>对于方向为纵向的时候<code>justify-content</code>有着同样的效果。</p>
+<h2 id="打包Flex线-Packing-Flex-Lines-根据Flex规范"><a href="#打包Flex线-Packing-Flex-Lines-根据Flex规范" class="headerlink" title="打包Flex线 (Packing Flex Lines) (根据Flex规范)"></a>打包Flex线 (Packing Flex Lines) (根据Flex规范)</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="img"></p>
+<p>Flex把这种行为定义成”Packing flex lines”。 基本上，它就像我们前面看到的例子一样。除了下面这个情况，注意在每个项目元素集合之间的间隙。这个特性在你想在一些项目元素中创建间隙的时候特别有用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="img"></p>
+<p>[To Be Continue]</p>
+<h2 id="Flex-能力鸟瞰图"><a href="#Flex-能力鸟瞰图" class="headerlink" title="Flex 能力鸟瞰图"></a>Flex 能力鸟瞰图</h2><p><img src="https://cdn-images-1.medium.com/max/1400/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="01"><br><img src="https://cdn-images-1.medium.com/max/600/1*T1x2OolGzQWb2GZB688_Vw.png" alt="02"><br><img src="https://cdn-images-1.medium.com/max/1400/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="03"><br><img src="https://cdn-images-1.medium.com/max/1400/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="04"><br><img src="https://cdn-images-1.medium.com/max/1400/1*pJwqDgFAv-jBwy9m8jbrxQ.png" alt="05"><br><img src="https://cdn-images-1.medium.com/max/1400/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="06"><br><img src="https://cdn-images-1.medium.com/max/1400/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="07"><br><img src="https://cdn-images-1.medium.com/max/1400/1*JwdJjzh906U62y5ryUBPBA.png" alt="08"><br><img src="https://cdn-images-1.medium.com/max/1400/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="09"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="10"><br><img src="https://cdn-images-1.medium.com/max/1400/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="11"><br><img src="https://cdn-images-1.medium.com/max/1400/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="12"><br><img src="https://cdn-images-1.medium.com/max/1400/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="13"><br><img src="https://cdn-images-1.medium.com/max/1400/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="14"><br><img src="https://cdn-images-1.medium.com/max/1200/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="15"><br><img src="https://cdn-images-1.medium.com/max/1400/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="16"><br><img src="https://cdn-images-1.medium.com/max/1200/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="17"><br><img src="https://cdn-images-1.medium.com/max/1200/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="18"><br><img src="https://cdn-images-1.medium.com/max/1200/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="19"><br><img src="https://cdn-images-1.medium.com/max/1200/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="20"><br><img src="https://cdn-images-1.medium.com/max/800/1*ClFep05U_OkI3uA4fcDibQ.png" alt="21"><br><img src="https://cdn-images-1.medium.com/max/1000/1*JgkuJjc2Ile0Hkef1pMyfQ.png" alt="22"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AbZAF6lmrm7jOkOKnbas4w.png" alt="23"><br><img src="https://cdn-images-1.medium.com/max/1400/1*Lr8yGIA_nPAF1Ay5MraXlw.png" alt="24"><br><img src="https://cdn-images-1.medium.com/max/800/1*BdoGsWOIFJ3IGW7j193W2Q.png" alt="25"><br><img src="https://cdn-images-1.medium.com/max/1400/1*nd0NlLxeeatSX1j4dfFblQ.png" alt="26"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/01/whats-coming-to-javascript-es7-8/" rel="next" title="Javascript (ES7 + ES8) 有什么新东东">
+                <i class="fa fa-chevron-left"></i> Javascript (ES7 + ES8) 有什么新东东
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/draw-wave/" rel="prev" title="画一条完美的波浪">
+                画一条完美的波浪 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex"><span class="nav-number">1.</span> <span class="nav-text">Flex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#display-flex"><span class="nav-number">2.</span> <span class="nav-text">display:flex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主轴和竖轴"><span class="nav-number">3.</span> <span class="nav-text">主轴和竖轴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方向"><span class="nav-number">4.</span> <span class="nav-text">方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrap"><span class="nav-number">5.</span> <span class="nav-text">Wrap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flow"><span class="nav-number">6.</span> <span class="nav-text">Flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#justify-content"><span class="nav-number">7.</span> <span class="nav-text">justify-content</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包Flex线-Packing-Flex-Lines-根据Flex规范"><span class="nav-number">8.</span> <span class="nav-text">打包Flex线 (Packing Flex Lines) (根据Flex规范)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flex-能力鸟瞰图"><span class="nav-number">9.</span> <span class="nav-text">Flex 能力鸟瞰图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://superhos.github.io/2018/08/01/the-complete-css-flex-box-tutorial/';
+          this.page.identifier = '2018/08/01/the-complete-css-flex-box-tutorial/';
+          this.page.title = '完整的CSS Flex 盒子教程';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://sevenschan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

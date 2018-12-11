@@ -1,39 +1,767 @@
-extends includes/layout
+<!DOCTYPE html>
 
-block content
 
-    section#wrapper.post
-        article
-            header
-                h1!=page.title
-                h2.headline!=date(page.date, 'MMM DD, YYYY h:mm')
-                    |·
-                    |#{wordcount(page.content)} words
-                    |·
-                    |#{min2read(page.content)} minutes read
-                    span.tags
 
-            if toc(page.content)
-                div#toc!=toc(page.content,{list_number:false})
+  
 
-            section#post-body!=page.content
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav#post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
-
-            include includes/comment.pug
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
 
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="【翻译】每个程序员都需要了解的Unicode和字符集知识          2017-07-25                                  返回目录                  #字符集 原文: The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Un">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译】每个程序员都需要了解的Unicode和字符集知识">
+<meta property="og:url" content="https://superhos.github.io/2017/07/25/basic-character/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="【翻译】每个程序员都需要了解的Unicode和字符集知识          2017-07-25                                  返回目录                  #字符集 原文: The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Un">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://i0.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/oem.png?resize=271,209&ssl=1">
+<meta property="og:image" content="https://i2.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/hummers.jpg?resize=390,61&ssl=1">
+<meta property="og:image" content="https://i1.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/utf8.png?resize=400,63&ssl=1">
+<meta property="og:updated_time" content="2018-06-14T06:51:46.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【翻译】每个程序员都需要了解的Unicode和字符集知识">
+<meta name="twitter:description" content="【翻译】每个程序员都需要了解的Unicode和字符集知识          2017-07-25                                  返回目录                  #字符集 原文: The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Un">
+<meta name="twitter:image" content="https://i0.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/oem.png?resize=271,209&ssl=1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2017/07/25/basic-character/"/>
+
+
+
+
+
+  <title>【翻译】每个程序员都需要了解的Unicode和字符集知识 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/25/basic-character/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【翻译】每个程序员都需要了解的Unicode和字符集知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/25/basic-character/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/25/basic-character/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="【翻译】每个程序员都需要了解的Unicode和字符集知识"><a href="#【翻译】每个程序员都需要了解的Unicode和字符集知识" class="headerlink" title="【翻译】每个程序员都需要了解的Unicode和字符集知识"></a>【翻译】每个程序员都需要了解的Unicode和字符集知识</h3><p><a href="/studyforinterview/2017/07/25/basic-character/"><br>          2017-07-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<p><a href="/studyforinterview/tags/字符集/">#字符集</a></p>
+<p>原文: <a href="https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/" target="_blank" rel="noopener">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a></p>
+<p>翻译：陈昊（Sevenschan）</p>
+<blockquote>
+<p>PS: 从来没有翻译过一篇文章的作者这么喜欢讲段子。。翻译起来很费劲。。而且真正有用的干货说实话不多。。</p>
+</blockquote>
+<p>有对那个神秘的Content-Type标签产生过好奇吗？当把它放在HTML里面之后会发生什么你不知道的事呢？</p>
+<p>你试过收到一封来自保加利亚的朋友的email，但是都是一堆“???? ????????? ????????? ???”吗?</p>
+<p>我很伤心的发现有很多的程序员都不能完全的了解字符集、编码、Unicode等等的神秘世界。几年前，一个FogBUGZ的测试人员想知道是否可以用日语来处理收到的电子邮件。日语？他们有收到日语的邮件（是不是哪个不可言喻的网站的验证邮件）？人家很傻很天真一点都不懂哟。当我仔细看看我们用来解析MME邮件信息的商业ActiveX控件的时候，我们发现它对于字符集的处理是错得离谱，所以我们不得不写一段英雄般的代码来逆转错误并且重做一遍正确的。当我查看另外的商业库的时候，mmp，一个样，字符都被搞得支离破碎。我跟这些库的作者反应，得到的回答是他们“没有任何办法”。</p>
+<p>同时，我发现世界第一的语言PHP几乎完全无视字符编码问题，因为它使用8位字符，这样的设计使它几乎没有可能开发优秀的国际化应用。我想，足够就是最好了吗。</p>
+<p>所以我发布了一个公告：如果你是2003年以后的程序员，但你不知道关于字符的基础知识，不知道字符集，不知道编码，不知道unicode的话，老子会捉住你，然后把你晾在游艇上半年。我发誓我会这样做的。</p>
+<p>更重要的一点事： <strong>它其实一点都不难</strong></p>
+<p>在这篇文章里，我会把每个工作的程序员都需要知道的点都塞进你的脑袋里。要你知道 “plain text = ascii = 8位字符” 不仅是错，是大错特错。你就像那些不相信细菌的医生一样。所以，请你求求你在看完这篇文章以前，不要再写一句代码了。</p>
+<p>在我开始之前【译者注：这篇文章的前戏真长。。】，我应该提醒你如果你是那些罕见的熟悉国际化的人，你会发现我谈论的点都是很浅显的。我是真的只是尝试去设置最低界线，来帮助各位可以编写更好的代码。还有一点，字符集只是在系统国际化中的一个小部分，我也只能在一篇文章里面谈论一个小部分，反正老子说了算。</p>
+<h2 id="历史观"><a href="#历史观" class="headerlink" title="历史观"></a>历史观</h2><p>最简单了解这些东西的方法就是看看它们的时间线。</p>
+<p>你可能会以为我要讲老掉牙的字符集，例如EBCDIC。嘿嘿，老子怎么会被你们凡人猜到。 EBCDIC已经跟你们的生活毫无关系了，我们也不需要讲到那么远的历史。</p>
+<p>回到半年后，当Unix出世以后并且K&amp;R还在写C语言的时候，所有东西都很简单。EBCDIC就是使用的方案。唯一有关系的老的好的字符就是英文字母，我们把它成为ASCII，允许它们使用32到127之间的每个数字来表示每个字符。 空格是32，大写字母“A”是65,等等。这样可以很方便的保存在7位（bit）里。现代电脑大部分都是使用8位字节，因此你不仅可以存储每一个ASCII字符，你还有很多位置去做坏事，你可以存一些稀奇古怪的字符。少于32位的代码称为不可打印代码。</p>
+<p>一切都很好，假设你的母语是英语。因为我们用8位去存储字符，很多人就会都想到：“嘿嘿，我们可以用128-255位置来存储我们自己的符号。”<img src="https://i0.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/oem.png?resize=271,209&amp;ssl=1" alt="image"> 麻烦的是，太多人在同一时间有这个想法了，对于这些富余的位置各有各想法各有各精彩。IBM的电脑提供了一堆叫OEM字符的东西，用来提供欧洲的重音字符和一堆线条。。横的、竖的、垂直右边有个小铃铛的等等。你可以用这些线条字符在屏幕上去堆一个精美的盒子出来，实际上你依然可以在使用8088电脑的干衣机上看到它们的身影。实际上，随着美国以外的人们开始买属于自己的电脑以后，不同的128个字母都被赋予了他们各人的目的。例如，在一些电脑上面字符编码130会显示%uE9，但是在以色列的电脑上它就会显示 %u5D2。所以当美国人想发送他们的r%uE9sum%uE9s 到以色列的话，就会变成了r%u5D2sum%u5D2s。在很多案例中，例如俄罗斯，他们对这128位之后的字符编码的使用有着大量不同的想法，所以你很难去可靠的交换俄罗斯的文件。</p>
+<p>最后，OEM决定编纂ANSI标准。在ANSI标准里面，所有人都同意如何使用128位以下的位，这几乎与ASCII相同，但是从128位开始到最后一个编码位的使用就大有不同。这些不同的系统被称为编码页（Code Page）。例如在以色列的DOS里面使用的编码页被称为862，希腊用户用的称为737。他们使用的128位以下都是相同的，但是从128位以后开始就充斥了各种有趣的字母了。MS-DOS国家版本里面有几十个这些编码页，可以处理英语到冰岛语，甚至还可以在同一台电脑里面处理世界语和加利亚语！屌爆！但是，希伯来语和希腊语在同一台计算机上是完全不可能的，除非你编写自己的自定义程序用来显示所有使用位图的图形，因为希伯来语和希腊语需要不同的编码页与高数字。</p>
+<p>与此同时，亚洲有着成千上百个字符，这些远远不能放进8位里面。这一样会通过称为DBCS的五花八门的系统来解决，“双字节字符集”里面存着字符一些占用了一个字节，一些占用了两个字节。这样在一个字符串中很容易可以向前移，但是很难向后移。程序员最好不要使用s++和s-去向前或者向后移字符串，鼓励使用例如window里面AnsiNext和AnsiPrev的方法来避免混乱。</p>
+<p>但是，只要从来不把一个字符串移动到另一台电脑的话，或者不讲另一种语言的话，把一个字节当作一个字符或者把一个字符当作是八位是可行的。但当然，随着互联网发展，字符串从一台电脑发送到另一台电脑变得相当普遍。就在这个时候，Unicode出现了。</p>
+<h2 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h2><p>Unicode致力于创造一个可以适应所有地球上操作系统的单一字符集。有些人误解Unicode只是一个简单的16位编码，每个字符占用16位所以只能保存65536个字符。这！一点！都不对！这是一个属于Unicode的神话，你不懂别bb。</p>
+<p>实际上，关于字符，Unicode有自己的一套独到的思考方式，如果你不能了解它的想法，你会感受不到它的好。</p>
+<p>现在，我们来假设一个字母映射到一些位中，你可以把它存在硬盘或者内存中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A -&gt; 0100 0001</span><br></pre></td></tr></table></figure>
+<p>在Unicode中，一个字母映射会被映射到一个称为 <em>编码点</em> [0]的东西上，当然它只是一个概念。如何将 <em>编码点</em> 在硬盘或者内存中表现出来才是完整的故事。</p>
+<p>在Unicode中，字母A只是一个柏拉图式的念想，只是漂浮在天堂上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A</span><br></pre></td></tr></table></figure></p>
+<p>这个柏拉图式的A跟B不一样，跟a也不一样，但是跟A 和 <em>A</em> 和 <strong>A</strong> 都一样。不同字体之间的字符A 都是代表同一个A，但是不同于小写 “a”，看起来无可非议，但是在一些语言里面弄清楚一个字母是有很多争议的。德国的字母 %uDF 是真实存在的字母还是只是一种特殊的写作方式？如果一个字母在单词里面最后一笔发生了变化，这是一个新的字母吗？Hebrew说是的，Arabic说不是。无论如何，在Unicode联盟里面的那堆聪明人经过大量的讨论辩论，这些问题已经解决了。</p>
+<p>每个柏拉图式的字母会由Unicode联盟通过每个字母表来赋予一个魔术代码给它们，它是这个样子的：<strong>U+0639</strong> 。 这个魔术代码就是 <em>编码点</em> 。 编码点里面的 U+ 代表 “Unicode” ，后面的数字是十六进制数。 <strong>U+0639</strong> 是阿拉伯的字母 Ain。 英语的字母A则是 <strong>U+0041</strong> 。你可以通过 Windows 2000/xp 里面的 <strong>charmap</strong> 来查询它们，或者登陆<a href="http://www.unicode.org/" target="_blank" rel="noopener">Unicode官网</a>查询。</p>
+<p>Unicode可以定义的字母数量并没有真正的限制，实际上它们超过了65,536，所以不是每个unicode字母都可以被压缩成两个字节，这只是一个神话。</p>
+<p>好的，我们现在来个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
+<p>在Unicode里面，对应的五个编码点是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">U+0048 U+0065 U+006C U+006C U+006F</span><br></pre></td></tr></table></figure>
+<p>反正就是一堆编码点数字什么的了。谈到这里，我们还没有提到如何把这些编码保存在内存里面和如何在一封电子邮件里面重现。</p>
+<h2 id="Encodings-（编码）"><a href="#Encodings-（编码）" class="headerlink" title="Encodings （编码）"></a>Encodings （编码）</h2><p>是时候让 <em>编码</em> 出场啦。<br>Unicode编码最早的想法就是来源于那个两个字节的神话，只需要将这些数字分别存在两个字节里。就变成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">00 48 00 65 00 6C 00 6C 00 6F</span><br></pre></td></tr></table></figure>
+<p>是吧？好像不太快吧？不可以是这样吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">48 00 65 00 6C 00 6C 00 6F 00</span><br></pre></td></tr></table></figure>
+<p>在技术上，我相信可以做到的。事实上，每个实现者都希望以高地址和低地址的模式【译者注：这里提到的可以去看一下字节对齐更好理解】来存储他们的Unicode编码点。这样的话无论是任何CPU来处理，速度都是相当快的。所以人们不得不提出在每个Unicode字符串的开头存储一个FE FF的奇怪约定;这个被称为  Unicode Byte Order Mark（BOM），如果你交换了你的高低字节，那么它将会看起来是 FF FE 这样，那么其他人读到你的字符串的时候就可以知道需要把字节交换回来了。 当然了，不是每个Unicode 字符串开头都会有BOM标记的。<br><img src="https://i2.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/hummers.jpg?resize=390,61&amp;ssl=1" alt="image"></p>
+<p>这看起来已经相当好了，当时有些程序员会抱怨。“看看那些 0 ！”，他们说。因为美国人很少会用高于 U+00FF 的编码点。【译者注：然后这里一段都是讽刺德州人和加州人。。没什么营养，略去。】大意就是这些用惯了ANSI和DBCS字符集的人懒得转换使用Unicode，并且固定长度的Unicode会导致一些字符会保存大量的0字节，因此Unicode被忽略了很多年。</p>
+<p>因此，辉煌的UTF-8被提出了。 UTF-8是使用另一个系统来存储你的Unicode编码点字符串，那些模式U+数字在内存里使用8位字节,而在UTF-8里面，每个0-127的编码点都被存在了一个独立的字节里。只有当编码点大于等于128的时候才会只用第二第三个字节，实际上，最高可以允许使用六个字节。</p>
+<p><img src="https://i1.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/10/utf8.png?resize=400,63&amp;ssl=1" alt="image"></p>
+<p>这种做法使得UTF-8看起来就跟ASCII一样整洁，因此美国佬没有发现出区别。<br>只有世界上其他的人才能跳出思维圈圈。具体来说，<strong>Hello</strong>， 编码点串为 U+0048 U+0065 U+006C U+006C U+006F，会被保存为48 65 6C 6C 6F。看啊哇塞！这跟保存在ASCII或者地球上其他的OEM字符集都一样啊！现在，你可以大胆地使用重音字母或者希腊字母或者克林贡字母，即使你不得不使用几个字节来保存一个编码点，但是美国佬们永远都不会注意到。（UTF-8也有一个不错的属性，那个想要使用单个0字节作为空终止符的无效旧字符串处理编码不会被截断）。</p>
+<p>到目前为止，我已经讲述了三种Unicode编码。传统的保存在两个字节的方法被称为UCS-2（因为它有两个字节）或者UTF-16 （因为它有16位），而且你依然需要区分这是高位UCS-2还是低位UCS-2。还有很受欢迎的UTF-8。</p>
+<p>实际上有一些其他的Unicode编码方法。 有一个叫UTF-7，非常像UTF-8，但是它保证高位总是为零，因此如果你要通过某种恶意的警察邮件系统来传递Unicode，UTF-7是足够的了。还以一种UCS-4，会把每个编码点保存到4个字节里面，优点是每个编码点都能草存到相同大小的字节里面，但是，节俭的德州人会很在意这些浪费的。</p>
+<p>事实上，你正在思考使用Unicode编码点来表示柏拉图式字母，那些Unicode编码点也可以用任何老式的编码方案进行编码！举个例子，你可以对Unicode字符串Hello (U+0048 U+0065 U+006C U+006C U+006F) 进行ASCII编码，或者古老的OEM希腊语编码，或者Hebrew ANSI 编码，或者任何其他有上百年历史的编码方式。你会发现，都会是相同的结果：一些字母不会被显示出来！它会显示：? 或者�。</p>
+<p>几百种传统的编码方法都只能正确的保存部分编码点，其他的编码点都会显示问号。一些流行的英文文本编码是Windows-1252（西欧语言的Windows 9x标准）和ISO-8859-1（也称为拉丁语1）（也适用于任何西欧语言）在尝试保存俄文或者Hebrew字母的时候，都会得到一大堆问号。UTF 7，8，16和32则再这方面都有着很好的表现。</p>
+<h2 id="关于编码的一个重要的事实"><a href="#关于编码的一个重要的事实" class="headerlink" title="关于编码的一个重要的事实"></a>关于编码的一个重要的事实</h2><p>如果你已经忘光了我刚刚解释的一切，请记住一个事实。只有字符串而不知道它使用的编码，这是毫无意义的。你不可以再把头埋在洞里，假装这个文本使用的是ASCII。</p>
+<blockquote>
+<p>没有没有这样的事情作为纯文本</p>
+</blockquote>
+<p>如果你有一个字符串在内存，在文件或者在电子邮件信息中，你必须知道它使用的编码否则你不能正确地读到它。</p>
+<p>“我的网站看起来乱七八糟”或者“她不能看懂我的电子邮件当我说了重音拼音”等等这些愚蠢的问题都归咎于天真的程序员，由于他根本不知道你的信息所使用的编码。</p>
+<p>我们能不能找到有用的信息来显示字符串使用的编码方式呢？答案是有的，我们通过标准的方法来达到这个目的。对于电子邮件信息，你应该在表单的头部有一个字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Content-Type: text/plain; charset=”UTF-8″</span><br></pre></td></tr></table></figure></p>
+<p>对于网页来说，最初的想法是网站服务器会返回一个类似 <strong>Content-Type</strong> 的HTTP头部信息以及网页本身 —— 不是HTML本身，作为在HTML页面发送之前的响应头之一。</p>
+<p>但这会引起问题。假设你有很大的WEB服务器，拥有大量的页面和成百上千的页面是由不同语言的人提供的，那么所有使用的编码将会由Microsoft FrontPage选择认为适合的编码方法来生成。Web服务器本身不会真正知道每个文件的编码方式，因此无法发送Content-Type头文件。</p>
+<p>如果你可以使用某种特殊标签将HTML文件的Content-Type正确放置在HTML文件本身，那将会很方便。当然，这会让纯粹主义者疯狂…你怎么能通过读HTML文件来确定什么编码？幸运的是，几乎每个常用的编码间32到127之间的字符都相同，所以你可以随时在HTML页面上得到这个，而不用担心使用“有趣”的字母：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;meta http-equiv=“Content-Type” content=“text/html; charset=utf-8”&gt;</span><br></pre></td></tr></table></figure></p>
+<p>要记住这个meta标签必须是块里面非常靠前定义的标签，因为当浏览器看到这个标签的时候就会停止页面的解析并且开始使用你指定的编码重新开始解析整个页面。</p>
+<p>当浏览器找不到定义 <strong>Content-Type</strong> 的meta 标签而且http头也没有定义的时候怎么办？IE浏览器通常会做一个有趣的事情：它会尝试去猜测，基于各种语言的典型编码中的各种字节出现在典型文本中的频率，来决定使用什么语言和编码【译者注：IE大哥别乱猜啊。。】。因为各种旧的8位编码页往往将其国家字母放在128到255之间的不同范围内，并且因为每种人类语言都有不同的字母使用特征直方图，这实际上有一个可行的机会。这真的很奇怪，但这看起来的确可行，直到有一天他们写了一些完全不能根据字母频率分布来确认语言的东西出来，IE判定它是韩语并显示出来，证明这不是很好的方法。</p>
+<p>这篇文章变得很长，我不可能涵盖所有关于字符编码和Unicode的知识，但是我希望如果你已经读到这里的话，尝试去更多的地方去了解Unicode，会让你更获益良多。</p>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>[0] 编码点，Code point，不同地方也有翻译成码点或代码点。</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/25/参考书籍/" rel="next" title="参考书籍">
+                <i class="fa fa-chevron-left"></i> 参考书籍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/语言的选择/" rel="prev" title="语言的选择">
+                语言的选择 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【翻译】每个程序员都需要了解的Unicode和字符集知识"><span class="nav-number">1.</span> <span class="nav-text">【翻译】每个程序员都需要了解的Unicode和字符集知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#历史观"><span class="nav-number"></span> <span class="nav-text">历史观</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode"><span class="nav-number"></span> <span class="nav-text">Unicode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encodings-（编码）"><span class="nav-number"></span> <span class="nav-text">Encodings （编码）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于编码的一个重要的事实"><span class="nav-number"></span> <span class="nav-text">关于编码的一个重要的事实</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注"><span class="nav-number">1.</span> <span class="nav-text">注</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://superhos.github.io/2017/07/25/basic-character/';
+          this.page.identifier = '2017/07/25/basic-character/';
+          this.page.title = '【翻译】每个程序员都需要了解的Unicode和字符集知识';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://sevenschan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,39 +1,726 @@
-extends includes/layout
+<!DOCTYPE html>
 
-block content
 
-    section#wrapper.post
-        article
-            header
-                h1!=page.title
-                h2.headline!=date(page.date, 'MMM DD, YYYY h:mm')
-                    |·
-                    |#{wordcount(page.content)} words
-                    |·
-                    |#{min2read(page.content)} minutes read
-                    span.tags
 
-            if toc(page.content)
-                div#toc!=toc(page.content,{list_number:false})
+  
 
-            section#post-body!=page.content
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav#post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
-
-            include includes/comment.pug
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
 
 
 
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="最熟悉的陌生人 - access log简介 access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。 什么是access log顾名思义，access log就是用来记录用户的请求日志。可通过nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最熟悉的陌生人 - access log">
+<meta property="og:url" content="https://superhos.github.io/2017/07/28/nginx-accesslog/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="最熟悉的陌生人 - access log简介 access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。 什么是access log顾名思义，access log就是用来记录用户的请求日志。可通过nginx">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-04T09:55:15.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最熟悉的陌生人 - access log">
+<meta name="twitter:description" content="最熟悉的陌生人 - access log简介 access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。 什么是access log顾名思义，access log就是用来记录用户的请求日志。可通过nginx">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2017/07/28/nginx-accesslog/"/>
+
+
+
+
+
+  <title>最熟悉的陌生人 - access log | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/28/nginx-accesslog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最熟悉的陌生人 - access log</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-28T00:00:00+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/28/nginx-accesslog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/28/nginx-accesslog/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="最熟悉的陌生人-access-log"><a href="#最熟悉的陌生人-access-log" class="headerlink" title="最熟悉的陌生人 - access log"></a>最熟悉的陌生人 - access log</h3><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> access log一直是我们服务端运维找问题的好帮手，但是作为一个偏应用层的开发者来说，可能会有着那么一点陌生，例如access log写入日志的时机是什么时候呢？谁能写？怎么配置等等，所以在这篇文章里面，我会试图从官方文档去找到所需要的一切的答案。</p>
+<h2 id="什么是access-log"><a href="#什么是access-log" class="headerlink" title="什么是access log"></a>什么是access log</h2><p>顾名思义，access log就是用来记录用户的请求日志。可通过nginx的配置文件来配置他的保存位置和输出的日志格式。</p>
+<h2 id="日志告诉了我们什么信息"><a href="#日志告诉了我们什么信息" class="headerlink" title="日志告诉了我们什么信息"></a>日志告诉了我们什么信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">176.51.166.239 - - [28/Jul/2017:15:41:30 +0800] &quot;POST /wp-login.php HTTP/1.1&quot; 200 2644 &quot;http://awesomesevens.com/wp-login.php&quot; &quot;Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0&quot;</span><br></pre></td></tr></table></figure>
+<p>这是一条默认的日志，具体的内容我们参照官网给的默认格式来看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">log_format main &apos;$remote_addr - $remote_user [$time_local] &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$request&quot; $status $body_bytes_sent &apos;</span><br><span class="line"></span><br><span class="line">                           &apos;&quot;$http_referer&quot; &quot;$http_user_agent&quot;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>176.51.166.239<br>$remote_addr : 客户端(用户)的请求IP</p>
+</li>
+<li><p>-<br>$remote_user : 已经经过Auth Basic Module验证的用户名。”-“就是没有记录到。</p>
+</li>
+<li><p>[28/Jul/2017:15:41:30 +0800]<br>$time_local  : 记录的时间</p>
+</li>
+<li><p>“POST /wp-login.php HTTP/1.1”<br>$request : 请求的url，POST 为请求的方法，HTTP/1.1为请求的协议</p>
+</li>
+<li><p>200<br>$status : 请求的状态，具体的状态代表的意义可以看我的另一篇文章 <a href="https://superhos.github.io/studyforinterview/2017/07/28/dev-code/">开发时候常会遇到的状态码</a></p>
+</li>
+<li><p>2644<br>$body_bytes_sent : 传送页面的字节数</p>
+</li>
+<li><p><a href="http://awesomesevens.com/wp-login.php" target="_blank" rel="noopener">http://awesomesevens.com/wp-login.php</a><br>$http_referer : 来源页面，即从哪个页面转到本页</p>
+</li>
+<li><p>Mozilla/5.0 (Windows NT 6.0; rv:34.0) Gecko/20100101 Firefox/34.0<br>$http_user_agent : 用户的浏览器信息，终端，版本等</p>
+</li>
+</ol>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置也很简单，在nginx config的server配置中加入下面一句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">access_log  /var/log/nginx/access.log  main;</span><br></pre></td></tr></table></figure>
+<p>中间是要放置的log的地址，后面的main对应的是上一节设定的格式。</p>
+<h2 id="access太大怎么办"><a href="#access太大怎么办" class="headerlink" title="access太大怎么办"></a>access太大怎么办</h2><p>我的建议是如果访问量大得夸张的话，最好把日志一块交给应用层去做，抽出来做一个日志系统，方便后续的分析。<br>如果访问量还没到夸张的层次的时候，也要考虑日志的占用空间问题。所以对每天的日志进行压缩和转存就很有必要了。网上的有人用的是写shell+crontab来做，但其实linux本来已经提供了一个很好的工具给我们去做这件事情，叫logrotate。<br>一般logrotate的配置文件会放置在 <em>/etc/logrotate.d</em> 路径下，下面是我的一个logrotate对于nginx日志的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/var/log/nginx/*.log &#123;</span><br><span class="line"></span><br><span class="line">        daily</span><br><span class="line"></span><br><span class="line">        missingok</span><br><span class="line"></span><br><span class="line">        rotate 14</span><br><span class="line"></span><br><span class="line">        compress</span><br><span class="line"></span><br><span class="line">        delaycompress</span><br><span class="line"></span><br><span class="line">        notifempty</span><br><span class="line"></span><br><span class="line">        create 0640 www-data adm</span><br><span class="line"></span><br><span class="line">        sharedscripts</span><br><span class="line"></span><br><span class="line">        prerotate</span><br><span class="line"></span><br><span class="line">                if [ -d /etc/logrotate.d/httpd-prerotate ]; then \</span><br><span class="line"></span><br><span class="line">                        run-parts /etc/logrotate.d/httpd-prerotate; \</span><br><span class="line"></span><br><span class="line">                fi \</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">        postrotate</span><br><span class="line"></span><br><span class="line">                invoke-rc.d nginx rotate &gt;/dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">        endscript</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数 功能<br>compress 通过gzip 压缩转储以后的日志<br>nocompress 不需要压缩时，用这个参数<br>copytruncate 用于还在打开中的日志文件，把当前日志备份并截断<br>nocopytruncate 备份日志文件但是不截断<br>create mode owner group 转储文件，使用指定的文件模式创建新的日志文件<br>nocreate 不建立新的日志文件<br>delaycompress 和 compress 一起使用时，转储的日志文件到下一次转储时才压缩<br>nodelaycompress 覆盖 delaycompress 选项，转储同时压缩。<br>errors address 专储时的错误信息发送到指定的Email 地址<br>ifempty 即使是空文件也转储，这个是 logrotate 的缺省选项。<br>notifempty 如果是空文件的话，不转储<br>mail address 把转储的日志文件发送到指定的E-mail 地址<br>nomail 转储时不发送日志文件<br>olddir directory 转储后的日志文件放入指定的目录，必须和当前日志文件在同一个文件系统<br>noolddir 转储后的日志文件和当前日志文件放在同一个目录下<br>prerotate/endscript 在转储以前需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>postrotate/endscript 在转储以后需要执行的命令可以放入这个对，这两个关键字必须单独成行<br>daily 指定转储周期为每天<br>weekly 指定转储周期为每周<br>monthly 指定转储周期为每月<br>rotate count 指定日志文件删除之前转储的次数，0 指没有备份，5 指保留5 个备份<br>tabootext [+] list 让logrotate 不转储指定扩展名的文件，缺省的扩展名是：.rpm-orig, .rpmsave, v, 和 ~<br>size size 当日志文件到达指定的大小时才转储，Size 可以指定 bytes (缺省)以及KB (sizek)或者MB (sizem).</p>
+<hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/28/dev-code/" rel="next" title="开发时候常会遇到的HTTP状态码">
+                <i class="fa fa-chevron-left"></i> 开发时候常会遇到的HTTP状态码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/31/log-system-build/" rel="prev" title="项目日志系统设计和搭建">
+                项目日志系统设计和搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#最熟悉的陌生人-access-log"><span class="nav-number">1.</span> <span class="nav-text">最熟悉的陌生人 - access log</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number"></span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是access-log"><span class="nav-number"></span> <span class="nav-text">什么是access log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志告诉了我们什么信息"><span class="nav-number"></span> <span class="nav-text">日志告诉了我们什么信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number"></span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#access太大怎么办"><span class="nav-number"></span> <span class="nav-text">access太大怎么办</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://superhos.github.io/2017/07/28/nginx-accesslog/';
+          this.page.identifier = '2017/07/28/nginx-accesslog/';
+          this.page.title = '最熟悉的陌生人 - access log';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://sevenschan.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

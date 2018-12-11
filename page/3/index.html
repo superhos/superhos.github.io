@@ -1,32 +1,1963 @@
-extends includes/layout
-
-block content
-
-    section#wrapper.home
-        ul#post-list
-            each item in page.posts.sort('date', -1).toArray()
-                - var postTitle = item.title || 'No Title'
-                - var createDate = date(item.date, 'MMM DD')
-                li
-                    aside.dates=createDate
-                    if item.link
-                        a(href=url_for(item.link))= postTitle
-                            h2!=item.excerpt
-                    else
-                        a(href=url_for(item.path))= postTitle
-                            h2!=item.excerpt
-
-        nav#post-nav
-            span.prev(style='padding-left: 20px;')
-                if page.prev
-                    a(href=url_for(page.prev_link))
-                        span.arrow ←
-                        | Newer Posts
-            span.next
-                if page.next
-                    a(href=url_for(page.next_link))
-                        | Older Posts
-                        span.arrow →
+<!DOCTYPE html>
 
 
 
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sevens Chan blog">
+<meta property="og:url" content="https://superhos.github.io/page/3/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sevens Chan blog">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/page/3/"/>
+
+
+
+
+
+  <title>Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/03/draw-wave/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/03/draw-wave/" itemprop="url">画一条完美的波浪</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-03T10:11:20+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/03/draw-wave/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/03/draw-wave/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>现在的UI设计都流行加条小波浪哟，看起来高大上的。</p>
+<p><img src="https://img.zcool.cn/community/012afe58be72b1a801219c772a9367.gif" alt="波浪"></p>
+<p>在波浪界有个著名的公式叫“贝塞尔曲线”，学习一下看看怎么能画一条完美的曲线。</p>
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>贝塞尔曲线可以根据控制点的数量分为多阶的曲线：</p>
+<p>一阶贝塞尔曲线：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984310y353.gif" alt="一阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21151949-bbe8b7e8a0b14409a189dc32e0420423.gif" alt="img"></p>
+<p>二阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984320awS6.gif" alt="二阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152016-1df7ccd4da8e4e8a86cf72772da8af42.gif" alt="img"></p>
+<p>三阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984326C3m1.gif" alt="三阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152048-9b5dee31b19349428c453b8bd5e20a3d.gif" alt="img"></p>
+<p>以此类推.</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="先来一个小拱门"><a href="#先来一个小拱门" class="headerlink" title="先来一个小拱门"></a>先来一个小拱门</h3><p>首先确认一下目标，希望画出下面的曲线。同时我们只想要结果，不需要理会过程，所以这里不再对公式推导，如果需要深入了解公式的，可以看看<a href="https://www.jianshu.com/p/1ddaae528bac" target="_blank" rel="noopener">这篇文章</a></p>
+<p><img src="draw-wave-WechatIMG1.jpeg" alt="WechatIMG1.jpeg"></p>
+<p>em…竖着看感觉怪怪的..很像那啥。。<br>呸呸呸。。大家意会即可。。</p>
+<p>首先要画其中一个波浪，可以知道的是起点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(x_0,y_0)</span><br></pre></td></tr></table></figure></p>
+<p>还有终点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C(x_d,y_d)</span><br></pre></td></tr></table></figure></p>
+<p>还有我们假设这是一个左右平衡的波浪，那么我们假设波浪 <strong>高度为h</strong> ,就可以得到中间点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t = ((x_d-x_0)/2,h)</span><br></pre></td></tr></table></figure></p>
+<p>根据公式我们来看一下能不能求出控制点<code>P</code><br>其实左右平衡的情况下，我们可以直接把起点、终点和控制点看成是一个等腰三角形，那么假设我们<code>h=20</code>那么波浪的顶点就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t(x_d-x_0,20)</span><br></pre></td></tr></table></figure></p>
+<p>由于是等腰三角形，那么到达顶点的时候，顶点切线到左右两边的控制轴的距离是相等的，分别设这两个点为<code>D,E</code>。<br>根据贝塞尔的特性，可以得到:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AD:AP = EP:CP = DP_t:DE</span><br></pre></td></tr></table></figure></p>
+<p>因为等腰的关系所以他们的比率都是<code>1/2</code><br>所以控制点的高度就(k)是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AP = \sqrt&#123;(h+k)^2+(AC/2)^2&#125;</span><br><span class="line"></span><br><span class="line">DP_t = AC/2/2 = 25</span><br><span class="line"></span><br><span class="line">h = 20</span><br></pre></td></tr></table></figure></p>
+<p>同时，根据比例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AD = \sqrt&#123;(25)^2+(20)^2&#125; = 32</span><br><span class="line"></span><br><span class="line">AP = 64</span><br><span class="line"></span><br><span class="line">k = 20</span><br></pre></td></tr></table></figure></p>
+<p>所以控制点<code>P</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P (50,40)</span><br></pre></td></tr></table></figure></p>
+<p>效果图：<br><img src="draw-wave-WechatIMG7.jpeg" alt="WechatIMG7.jpeg"></p>
+<p>em..这个图很粗糙..svg生成的..意会就好..</p>
+<h3 id="再来一个反拱门"><a href="#再来一个反拱门" class="headerlink" title="再来一个反拱门"></a>再来一个反拱门</h3><p>根据上面计算的，当控制点为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P(150,-40)</span><br></pre></td></tr></table></figure></p>
+<p>的时候就可以得到下面的效果图<br><img src="draw-wave-WechatIMG8.jpeg" alt="WechatIMG8.jpeg"></p>
+<p>好了这里就暂时不涉及svg的东西了，由于svg的坐标轴是已左上角为原点，混在一起说的话就会乱了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/01/the-complete-css-flex-box-tutorial/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/01/the-complete-css-flex-box-tutorial/" itemprop="url">完整的CSS Flex 盒子教程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T16:35:28+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/01/the-complete-css-flex-box-tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/01/the-complete-css-flex-box-tutorial/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>翻译自<a href="https://medium.com/@js_tut/the-complete-css-flex-box-tutorial-d17971950bdc" target="_blank" rel="noopener">The Complete CSS Flex Box Tutorial</a></p>
+<p>关于这篇文章的图片来源于作者的<a href="https://www.amazon.com/dp/1983065633/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=sl1&amp;tag=medium02-20&amp;linkId=b0eddcc81938503d94ba431d29f074c6" target="_blank" rel="noopener">新书</a>，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。</p>
+<p>【译者注：有几段关于作者新书的介绍这里就跳过了】</p>
+<p>跟<a href="https://medium.com/@js_tut/css-grid-tutorial-filling-in-the-gaps-c596c9534611" target="_blank" rel="noopener">CSS Grid</a>很一样，<em>Flex Box</em> 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(<em>container</em>)和项目元素(<em>items</em>)。</p>
+<p>当我开始学习Flex，我想先看看它所有的能力。但是，我没有找到可以看到所有Flex属性例子的教程。所以我以鸟瞰图的形式为大家展示一下Flex的能力。</p>
+<p>【译者注：因为前面预览图过多，这里放到最后以免影响阅读】</p>
+<p>这一大堆就是Flex的能力。但是。。还是让我们来每张图讲解一次吧。在教程结束的时候你应该能够快速且清晰的脑海中对Flex有一定的概念。</p>
+<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><p>Flex是一组自动拉伸父容器内容行列的规则。</p>
+<h2 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h2><p>跟其他CSS属性不一样的是，在Flex里面你需要有一个主要的容器和一些嵌套在里面的项目元素(items)。很多CSS Flex的属性是只用在容器上，一部分是用在元素上。<br><img src="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="img"></p>
+<p>你可以把一个设置了<code>display:flex</code>的flex元素看作是父容器。在这个容器里面的元素就是项目元素(items)。每个容器都有如上图所示的一个 <em>flex-start</em> 点和一个 <em>flex-end</em> 点。</p>
+<h2 id="主轴和竖轴"><a href="#主轴和竖轴" class="headerlink" title="主轴和竖轴"></a>主轴和竖轴</h2><p>虽然项目元素是以线性方向排列，但是Flex要求你要注意行和列的概念。出于这个原因，它有两个坐标轴。横向的坐标轴称为主轴，竖向的坐标轴称为竖轴(Cross-Axis)。</p>
+<p>想要在主轴上控制内容的宽度以及间隙，你需要使用<code>justify</code>的相关属性。要在竖轴上控制项目元素，你需要使用<code>align</code>的相关属性。</p>
+<p>如果你有3列和6个项目元素，Flex会自动创建第二行来容纳剩余的项目元素。<br><img src="https://cdn-images-1.medium.com/max/800/1*T1x2OolGzQWb2GZB688_Vw.png" alt="img"><br><img src="https://cdn-images-1.medium.com/max/800/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="你可以确定列的数量]"></p>
+<p>行和列在父元素里面怎么分布调整是由CSS Flex的属性<code>flex-direction</code>,<code>flex-wrap</code>和一些其他的属性决定的，将会在后面的内容演示。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="这里可以看到有n个项目元素放置在容器里面。默认情况下，这些元素会从左到右排列，当然了，开始的原始点是可以反转的"></p>
+<h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>完全可以把项目元素的放置方向反过来。<br><img src="https://cdn-images-1.medium.com/max/800/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="img"><br>设置<code>flex-direction:row-reverse</code> 就可以将方向反过来。默认值是row，意味着流向是从左向右</p>
+<h2 id="Wrap"><a href="#Wrap" class="headerlink" title="Wrap"></a>Wrap</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="img"><br>如果设置了<code>flex-wrap:wrap</code>的话，当容器内部项目元素超出长度的话会自动断行，创建新的一行放置元素。该属性默认值是<code>nowrap</code>，如果超出长度会溢出容器。</p>
+<h2 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*JwdJjzh906U62y5ryUBPBA.png" alt="img"><br><em>flex-flow</em> 是<em>flex-direction</em> 和 <em>flex-wrap</em> 的简写，允许你用一个属性去定义它们两个。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="img"><br><code>flex-flow:row wrap</code> 确定 <em>flex-direction</em> 为 <em>row</em> 而 <em>flex-wrap</em> 为 <em>wrap</em>。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="img"><br><code>flex-flow:row wrap-reverse;</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="img"><br><code>flex-flow:row wrap; justify-content: space-between;</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="img"><br><code>flex-flow:row-reverse wrap</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="img"><br><code>flex-fow:row-reverse wrap-reverse</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="img"><br><code>flex-flow:row wrap;justify-content:space-between</code></p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="img"><br>方向<code>direction</code>可以设置竖轴为主轴</p>
+<p>当我们改变flex的方向为列的时候，<em>flex-flow</em> 属性表现得跟前面的例子一样。除了这个时候，它们跟随列的垂直方向。<br><img src="https://cdn-images-1.medium.com/max/800/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="img"></p>
+<h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="img"></p>
+<p><code>flex-direction:row; justify-content: flex-start |flex-end |center|space-between |space-around |stretch |space-evenly.</code> 在每个例子中我们分别用了三个项目元素。在正常flex使用中对元素的数量是没有限制的。这些图演示了<code>justify-content</code>属性每个值的作用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="img"><br>对于方向为纵向的时候<code>justify-content</code>有着同样的效果。</p>
+<h2 id="打包Flex线-Packing-Flex-Lines-根据Flex规范"><a href="#打包Flex线-Packing-Flex-Lines-根据Flex规范" class="headerlink" title="打包Flex线 (Packing Flex Lines) (根据Flex规范)"></a>打包Flex线 (Packing Flex Lines) (根据Flex规范)</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="img"></p>
+<p>Flex把这种行为定义成”Packing flex lines”。 基本上，它就像我们前面看到的例子一样。除了下面这个情况，注意在每个项目元素集合之间的间隙。这个特性在你想在一些项目元素中创建间隙的时候特别有用。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="img"></p>
+<p>[To Be Continue]</p>
+<h2 id="Flex-能力鸟瞰图"><a href="#Flex-能力鸟瞰图" class="headerlink" title="Flex 能力鸟瞰图"></a>Flex 能力鸟瞰图</h2><p><img src="https://cdn-images-1.medium.com/max/1400/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="01"><br><img src="https://cdn-images-1.medium.com/max/600/1*T1x2OolGzQWb2GZB688_Vw.png" alt="02"><br><img src="https://cdn-images-1.medium.com/max/1400/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="03"><br><img src="https://cdn-images-1.medium.com/max/1400/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="04"><br><img src="https://cdn-images-1.medium.com/max/1400/1*pJwqDgFAv-jBwy9m8jbrxQ.png" alt="05"><br><img src="https://cdn-images-1.medium.com/max/1400/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="06"><br><img src="https://cdn-images-1.medium.com/max/1400/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="07"><br><img src="https://cdn-images-1.medium.com/max/1400/1*JwdJjzh906U62y5ryUBPBA.png" alt="08"><br><img src="https://cdn-images-1.medium.com/max/1400/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="09"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="10"><br><img src="https://cdn-images-1.medium.com/max/1400/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="11"><br><img src="https://cdn-images-1.medium.com/max/1400/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="12"><br><img src="https://cdn-images-1.medium.com/max/1400/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="13"><br><img src="https://cdn-images-1.medium.com/max/1400/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="14"><br><img src="https://cdn-images-1.medium.com/max/1200/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="15"><br><img src="https://cdn-images-1.medium.com/max/1400/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="16"><br><img src="https://cdn-images-1.medium.com/max/1200/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="17"><br><img src="https://cdn-images-1.medium.com/max/1200/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="18"><br><img src="https://cdn-images-1.medium.com/max/1200/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="19"><br><img src="https://cdn-images-1.medium.com/max/1200/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="20"><br><img src="https://cdn-images-1.medium.com/max/800/1*ClFep05U_OkI3uA4fcDibQ.png" alt="21"><br><img src="https://cdn-images-1.medium.com/max/1000/1*JgkuJjc2Ile0Hkef1pMyfQ.png" alt="22"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AbZAF6lmrm7jOkOKnbas4w.png" alt="23"><br><img src="https://cdn-images-1.medium.com/max/1400/1*Lr8yGIA_nPAF1Ay5MraXlw.png" alt="24"><br><img src="https://cdn-images-1.medium.com/max/800/1*BdoGsWOIFJ3IGW7j193W2Q.png" alt="25"><br><img src="https://cdn-images-1.medium.com/max/1400/1*nd0NlLxeeatSX1j4dfFblQ.png" alt="26"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/08/01/whats-coming-to-javascript-es7-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/01/whats-coming-to-javascript-es7-8/" itemprop="url">Javascript (ES7 + ES8) 有什么新东东</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-01T10:24:15+08:00">
+                2018-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/01/whats-coming-to-javascript-es7-8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/01/whats-coming-to-javascript-es7-8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>翻译至 <a href="https://medium.com/@Murcul/whats-coming-to-javascript-es7-es8-8ce73c9a8ec9" target="_blank" rel="noopener">这里</a></p>
+<p>一些JS的新特性已经揭开了神秘的面纱，但是对于大多数开发者来说，了解一部分特性，一部分还是云里雾里的。所以在这里让我们来看一下这些新的特性。</p>
+<h2 id="Object-values-Object-entries"><a href="#Object-values-Object-entries" class="headerlink" title="Object.values/Object.entries:"></a>Object.values/Object.entries:</h2><p>从Object提取values和key-values的方法对于JS来说不是新东西，在ES2015里我们已经有了Object.keys用来返回对应一个对象拥有的可枚举的属性。但是，如果你为该对象属性提取对应的值，你就不得不执行下面的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span> &#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(obj).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">`prop <span class="subst">$&#123;key&#125;</span>: <span class="subst">$&#123;obj[key]&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/* == RESULTS</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">  prop a :  foo</span></span><br><span class="line"><span class="comment">  prop b :  bar</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>感谢的是，随着ES2017的到来，我们有了两个更轻松更有利于代码阅读的新的方法去迭代一个Object以及去提取Object.values的值或者Object的条目。</p>
+<p><code>Object.values</code> 返回的是一个数组，包含了可枚举的属性值。因此我们可以使用<code>Array.prototype</code>的方法去迭代这个数据，就像使用<code>.filter()</code>结合ES2015的箭头函数一样，它有一个隐藏的返回函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">Object</span>.values(obj)</span><br><span class="line">.filter(<span class="function"><span class="params">val</span> =&gt;</span> <span class="keyword">typeof</span> val != <span class="string">'string'</span>) <span class="comment">// returns: [1, [1, 2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
+<p>另外<code>Object.entries</code>会返回一个包含各个可枚举属性的key-value数据。记住，每个结果项目都是数组格式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="string">"foo"</span>, <span class="attr">b</span>: <span class="string">"bar"</span>, <span class="attr">c</span>: <span class="number">1</span>, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>] &#125;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(<span class="built_in">Object</span>.entries(obj)) </span><br><span class="line"><span class="comment">// returns: "[["a", "foo"],["b", "bar"],["c", 1],["d", [1,2,3,4]]]"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Asynchronous-Iteration"><a href="#Asynchronous-Iteration" class="headerlink" title="Asynchronous Iteration"></a>Asynchronous Iteration</h2><p>在ES2015里面介绍过迭代器(Iterators)，如果你不知道关于迭代器的东东，你可以去看一下<a href="https://jakearchibald.com/2014/iterators-gonna-iterate/" target="_blank" rel="noopener">这篇文章</a>，但当时它是不能迭代异步数据的，直到现在…</p>
+<p>在ES2018里面，它成为了可能！这个改变主要是因为现在迭代器的<code>.next()</code>方法会返回一个<code>Promise</code>。在这个例子里面假设我们通过一个通用的端点来接受一组的数字：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span>* <span class="title">generateAsyncIterator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> arrayOfPromises = [</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1000</span>, <span class="string">'foo'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">1500</span>, <span class="string">'bar'</span>)</span><br><span class="line">      &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(resolve, <span class="number">2000</span>, <span class="string">'lol'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> nextIndex = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> (nextIndex &lt; arrayOfPromises.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> arrayOfPromises[nextIndex]</span><br><span class="line">    nextIndex++</span><br><span class="line">    <span class="keyword">yield</span> response</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncIteratorFunction</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> asyncIterator = generateAsyncIterator()</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "foo", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "bar", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: "lol", done: false&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">await</span> asyncIterator.next()) <span class="comment">// returns &#123;value: undefined, done: true&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子里我们用一个异步<code>generator</code>去创建一个异步的迭代器工厂，要记住的是这种异步迭代器最适合用在流，generators以及web socket上。为了更好理解这个主题，可以去看一下<a href="https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch4.md#iterating-generators-asynchronously" target="_blank" rel="noopener">这篇文章</a>,还有<a href="https://github.com/tc39/proposal-async-iteration#async-generator-functions" target="_blank" rel="noopener">这篇</a>。</p>
+<h2 id="Promise-Prototype-finally"><a href="#Promise-Prototype-finally" class="headerlink" title="Promise.Prototype.finally()"></a>Promise.Prototype.finally()</h2><p>Promises自ES2015以后一直存在，这是JS异步开发的一大进步。现在它在很多第三方库上都会实现一个<code>.finally()</code>的方法，主要是当Promise完成或者Rejected以后调用的一个回调函数。我们可以理解为<code>try/catch/finally</code>，finally是绝对会被执行的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">promise</span><br><span class="line">.then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;···&#125;)</span><br><span class="line">.finally(<span class="function"><span class="params">()</span> =&gt;</span> &#123;···&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在JS语言拥有了大量的新特性，加油吧孩子！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/27/new-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/27/new-project/" itemprop="url">最近项目规划</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-27T13:41:42+08:00">
+                2018-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/27/new-project/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/27/new-project/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上周和朋友有个想法，需要时间去落地，加上现公司的项目进度有点紧迫，所以面试的准备进度又要慢一下了。</p>
+<p>主要和朋友的项目只有我一个程序员，市面上也没有类似的开源系统可供二次开发，用普通CMS去改的话以前也试过，要改动的地方太多，架构也不如人意。</p>
+<p>所以在前期在整体架构上面希望偏向于Saas服务的形式：</p>
+<ol>
+<li>先会构建一个IAM（身份识别与访问管理）服务，主要用来做登录认证，资源访问的权限认证。</li>
+<li>数据服务。底层是mongodb，开放对应的collection操作的API，加快开发的速度。</li>
+<li>静态资源存储服务。直接使用Apache的minio，使用的是Amazon AWS S3的协议规范，用来存储项目的静态资源。</li>
+</ol>
+<p>暂时先做这三部分的服务，好处是搭建好的话，以后的项目都可以基于这三个部分去加快开发的速度。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/18/palindrome-number/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/18/palindrome-number/" itemprop="url">9. Palindrome Number</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T23:52:33+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/18/palindrome-number/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/18/palindrome-number/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>临睡前做一题吧</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
+<p>Input: 121<br>Output: true<br>Example 2:</p>
+<p>Input: -121<br>Output: false<br>Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.<br>Example 3:</p>
+<p>Input: 10<br>Output: false<br>Explanation: Reads 01 from right to left. Therefore it is not a palindrome.<br>Follow up:</p>
+<p>Coud you solve it without converting the integer to a string?</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>没什么难度直接放代码吧</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = (x+<span class="string">""</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> i=<span class="number">0</span>,j=arr.length<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (arr.length===<span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (arr.length===<span class="number">2</span>)<span class="keyword">return</span> arr[<span class="number">0</span>] === arr[j];</span><br><span class="line">    <span class="keyword">while</span> (i&lt;j)&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i]!==arr[j])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有个follow up是不要转成字符串，可以把逐位数拿出来放到数组就一样的了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/18/quick-sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/18/quick-sort/" itemprop="url">重新认识下快速排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T22:19:23+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/18/quick-sort/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/18/quick-sort/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>自从用上了lodash以后，这些基础的算法都很少碰了，现在重温了一下。快速排序的话核心就是分而治之。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>先把核心的比较部分拆分出来，叫<code>partition</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">arr,left,right</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = left, j, pivot = arr[right];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (j = left;j&lt;=right;j++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[j] &lt; pivot)&#123;</span><br><span class="line">      swap(arr,i,j);</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr,i,right);</span><br><span class="line">  <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设比较值。<code>pivot</code>是随机抽取的比较值，国内多是数组中位数，国外多是最后一个数。</li>
+<li>比较。然后从最左开始循环跟<code>pivot</code>进行比较，如果遇到<code>arr[j]</code>比<code>pivot</code>小的数，就会把它跟<code>arr[i]</code>进行对换(<code>swap</code>是交换函数)，并且进行<code>i++</code>。</li>
+<li>分组。如此一直到<code>j == right</code>的时候，<code>i</code>不一定也会到达<code>right</code>，这个时候可以确保的是<code>i</code>的位置以及<code>i</code>以下的位置的值都是比<code>pivot</code>小的，<code>i+1</code>就是临界墙，所以把<code>i+1</code>返回去进行下一轮比较。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quicksort</span>(<span class="params">arr,left,right</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (left &lt; right)&#123;</span><br><span class="line">    partitionIndex = partition(arr,left,right);</span><br><span class="line"></span><br><span class="line">    quicksort(arr,left,partitionIndex<span class="number">-1</span>);</span><br><span class="line">    quicksort(arr,partitionIndex+<span class="number">1</span>,right);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>递归出口。来到主函数，首先可以知道递归出口是<code>left &gt;= right</code>。</li>
+<li>分而治之。根据<code>partition</code>获得得临界点，我们就可以把数组再分为两部分去进行<code>partition</code>，要注意临界点的数其实已经确定是比左边的都大，比右边的都小，所以它不需要再丢回去比较了。</li>
+<li>最后返回的就是排序完成的数组。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/12/css-box-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/12/css-box-model/" itemprop="url">css盒子模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-12T00:02:03+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/12/css-box-model/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/12/css-box-model/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>翻译自<a href="https://medium.com/@js_tut/css-tutorial-1-box-model-6ff80a9bbfda" target="_blank" rel="noopener">Thinking Inside The Box ‒ CSS Box Mode</a></p>
+<p>在掌握<em>CSS盒子模型</em>以前去认识下HTML元素的CSS属性是很诱人的。你肯定已经在chrome的开发者console上看过它们。它们看起来是这样的：<br><img src="css-box-model-css-box-1.png" alt="一个最基本的CSS盒子模型展示。看起来非常简单！"></p>
+<p>这个盒子在<em>CSS盒子模型</em>中是内容区域。</p>
+<p><code>padding</code>, <code>border</code> 和 <code>margin</code> 默认都是0px。HTML元素默认的CSS<code>box-sizing</code>样式是<code>content-box</code>，下图是一个300x100(border设1px为了看得清楚)的盒子：<br><img src="css-box-model-css-box-2.png" alt="An HTML element with default CSS box model style (box-sizing) set to its default value of content-box."></p>
+<p>当我们加 16px 的 <code>padding</code>的时候，开始变得好玩了：<br><img src="css-box-model-css-box-3.png" alt="Padding added to a regular HTML element with default style pushes out its dimensions in the amount of padding thickness that was set."></p>
+<p>Padding的厚度现在围绕着元素。注意，元素的物理尺寸现在是332 x 132! 而不是原来的 300x100。因为 32（16+16）px的padding加到了每个方向上。</p>
+<p>其实这不算是一个问题，事实上在大部分的网站上我们就会看到<em>外部padding</em>的实现，因为我们假定默认的都是好的。</p>
+<p>然而，有时候这会使得元素的尺寸预测变得复杂。如果我们在计算尺寸的时候已经包含了<code>padding</code>不是更好吗？这完全可能！</p>
+<p>这就需要把<code>box-sizing</code>设置成<code>padding-box</code>:<br><img src="css-box-model-css-box-4.png" alt="Overwriting box-sizing default value with padding-box will “invert” padding, moving it to the inner box of the element.
+"></p>
+<p>正如我们所想，现在<code>padding</code>就被包含在了盒子里面！这样就保留了原始的300x100盒子的尺寸。</p>
+<p>这是一个很好的模型用来创建像素级别的用户接口元素。</p>
+<p>但是不要忘记了，我们还有一个<code>border</code>。幸运的是，我们同样可以通过设置<code>box-sizing: border-box</code>的方法来把border加入到元素的尺寸内部。</p>
+<p>但首先，我们先来看一下设置了默认<code>padding</code>和<code>border</code>的元素是什么样子的：<br><img src="css-box-model-css-box-5.png" alt="By using box-sizing: content-box we can successfully move the border of an element inside."></p>
+<p>使用了<code>border-box</code>就会把<code>border</code>和<code>padding</code>加入到盒子里：<br><img src="css-box-model-css-box-6.png" alt="CSS: box-sizing: border-box in action"></p>
+<p>完美！</p>
+<p>现在<code>padding</code>和<code>border</code>都加入到了盒子内部了。但是，<code>margin</code>宝宝呢?!如果有一个<code>margin-box</code>来包含三个属性岂不妙哉？</p>
+<p>但现实很骨感，根据<code>margin</code>的定义它是一个内容以外的区域。</p>
+<p>所以即使你有内心的欲望想要实现这个<code>margin-box</code>，但是它并没有太大的意义。</p>
+<h3 id="译者总结"><a href="#译者总结" class="headerlink" title="译者总结"></a>译者总结</h3><p>面试很常问到的问题，盒子模型就是把DOM元素看成一个盒子，去拼凑出我们的页面，其中盒子模型包括下面几个主要属性(从内到外)：</p>
+<ol>
+<li>width/height</li>
+<li>padding</li>
+<li>border</li>
+<li>margin</li>
+</ol>
+<p>另外一个重要的属性是<code>box-sizing</code>,IE默认的是<code>border-box</code>是比较符合人类直观想象的，而Chrome等主流浏览器用的是<code>content-box</code>。</p>
+<p>主要区别就在于 <code>*-box</code> 表示了尺寸会包含到什么属性以内。例如<code>padding-box</code>就会包含<code>padding</code>和<code>width/height</code>,<code>border-box</code>就会包含<code>border</code>,<code>padding</code>和<code>width/height</code>。但是需要注意的是：没有<code>margin-box</code>，因为<code>margin</code>本来的定义就是在内容区域以外的区域。</p>
+<p>·</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/10/coding-first-issing-positive/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/10/coding-first-issing-positive/" itemprop="url">41. First Missing Positive</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T23:36:59+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/10/coding-first-issing-positive/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/10/coding-first-issing-positive/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Desription"><a href="#Desription" class="headerlink" title="Desription"></a>Desription</h3><p>Given an unsorted integer array, find the smallest missing positive integer.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
+<p>Input: [1,2,0]<br>Output: 3<br>Example 2:</p>
+<p>Input: [3,4,-1,1]<br>Output: 2<br>Example 3:</p>
+<p>Input: [7,8,9,11,12]<br>Output: 1<br>Note:</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>用了map来做，空间换时间。不过这题的难度为什么是Hard。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var firstMissingPositive = function(nums) &#123;</span><br><span class="line">    let re = &#123;&#125;;</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">        re[nums[i]] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (let i=1; i &lt;  Number.MAX_VALUE; i++)&#123;</span><br><span class="line">        if (!re[i])</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/10/fullpage-develop-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/10/fullpage-develop-1/" itemprop="url">开发一个fullpage插件遇到的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T18:55:56+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/10/fullpage-develop-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/10/fullpage-develop-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>这两天在写一个fullpage的插件，参考学习了<a href="https://github.com/alvarotrigo/fullPage.js" target="_blank" rel="noopener">fullpage.js</a>的代码，有些部分挺精妙。</p>
+<h2 id="问题-1-要使用滚动条吗"><a href="#问题-1-要使用滚动条吗" class="headerlink" title="问题(1) - 要使用滚动条吗?"></a>问题(1) - 要使用滚动条吗?</h2><p>首先要实现的基本功能就是几个页面，然后滚动到下一个页面。</p>
+<p>听起来很简单，但是要以页面转换衔接流畅为目的就要花点功夫了。</p>
+<p>第一我们不能用滚动条去做，也不是说不能，只是会遇到几何倍的问题。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 会与滚动条原本事件冲突，要停止事件冒泡。</span><br><span class="line">2. 衔接页面缓动需要另外去写。</span><br></pre></td></tr></table></figure></p>
+<p>而我这里选择操作 <code>transform:translate3d(0,0,0)</code> 来控制整体的滚动。好处在于:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 不会与滚动条冲突，overflow:hidden 了就好。</span><br><span class="line">2. 可以直接只用 CSS3动画(transition: all 1s ease) 来达到目的。</span><br></pre></td></tr></table></figure></p>
+<p>针对transition，我们可以通过监听<code>transitionend</code> 来标记滚动结束。</p>
+<h2 id="问题-2-停不住的滚动条wheel事件"><a href="#问题-2-停不住的滚动条wheel事件" class="headerlink" title="问题(2) - 停不住的滚动条wheel事件"></a>问题(2) - 停不住的滚动条wheel事件</h2><p>要控制页面，必然要监听 wheel/onwheel 事件了(兼容性这里暂时不表)。<br>但是有个问题很严峻，就是滚动是有惯性的，同时它每滚动一次就会触发一次事件。<br>假如我们用了一个 <code>isMoving</code> 来标记页面是否在动画，第一次监听到滚动事件的时候设为<code>true</code>,在最后监听到 <code>transitionend</code> 来设 <code>isMoving</code> 为 <code>false</code>。看起来很完美，但是问题是页面动画结束以后，滚动未必也已经结束了，可能还在惯性滚动，就是说动画停止了就会触发下一轮的动画，页面就又翻到下一个页面了。</p>
+<p>针对这个问题，要从两个方面来判断：</p>
+<ol>
+<li>时间差。一般一次滚动操作(包含惯性)在200-300毫秒间就能完成，如果超过这个时间差，则判断为下一次滚动。</li>
+<li>加速度。整个滚动事件速度成高斯函数，前面加速，到后面是减速。但是，速度可能有起伏，所以我们需要用中段的平均速度和尾端的平均速度来判断整体趋势是不是在减速，如果在加速的话，就是可以执行我们的页面动画，减速的话就可以跳过了（因为前面必然已经执行过一次了）。</li>
+</ol>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><p>目前在开发中，所以源码暂时不放上来了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/10/coding-generate-parentheses/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/10/coding-generate-parentheses/" itemprop="url">22. Generate Parentheses</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T11:34:41+08:00">
+                2018-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/10/coding-generate-parentheses/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/10/coding-generate-parentheses/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>For example, given n = 3, a solution set is:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">"((()))"</span>,</span><br><span class="line">  <span class="string">"(()())"</span>,</span><br><span class="line">  <span class="string">"(())()"</span>,</span><br><span class="line">  <span class="string">"()(())"</span>,</span><br><span class="line">  <span class="string">"()()()"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>最直接是递归然后剪枝，因为需要成对判断合法性，所以如果left &gt; right的时候就可以剪掉了。<br>同时如果left == 0 的时候都可以直接把right的括号补全了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;string[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">1</span>) <span class="keyword">return</span> [<span class="string">'()'</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> result = [];</span><br><span class="line">    search(n,n,<span class="string">''</span>,result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">left,right,cur,result</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; <span class="number">0</span> || right &lt; <span class="number">0</span> || left &gt; right)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (left == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = right; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">            cur += <span class="string">')'</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">        result.push(cur);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    search(left - <span class="number">1</span>, right, cur + <span class="string">'('</span>, result);</span><br><span class="line">    search(left, right - <span class="number">1</span>, cur + <span class="string">')'</span>, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
