@@ -97,15 +97,15 @@
 <meta name="description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。 展现形式 如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列">
 <meta name="keywords" content="弹幕,vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Vue-Baberrage弹幕插件重制】插件产品设计">
+<meta property="og:title" content="【Vue-Baberrage弹幕插件重制(1)】插件产品设计">
 <meta property="og:url" content="https://superhos.github.io/2018/12/11/baberrage-rebuild-1/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
 <meta property="og:description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。 展现形式 如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://superhos.github.io/2018/12/11/baberrage-rebuild-1/display.jpeg">
-<meta property="og:updated_time" content="2018-12-11T13:12:55.495Z">
+<meta property="og:updated_time" content="2018-12-13T07:05:15.700Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Vue-Baberrage弹幕插件重制】插件产品设计">
+<meta name="twitter:title" content="【Vue-Baberrage弹幕插件重制(1)】插件产品设计">
 <meta name="twitter:description" content="Introduction承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。 展现形式 如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列">
 <meta name="twitter:image" content="https://superhos.github.io/2018/12/11/baberrage-rebuild-1/display.jpeg">
 
@@ -142,7 +142,7 @@
 
 
 
-  <title>【Vue-Baberrage弹幕插件重制】插件产品设计 | Sevens Chan blog</title>
+  <title>【Vue-Baberrage弹幕插件重制(1)】插件产品设计 | Sevens Chan blog</title>
   
 
 
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【Vue-Baberrage弹幕插件重制】插件产品设计</h1>
+          <h1 class="post-title" itemprop="name headline">【Vue-Baberrage弹幕插件重制(1)】插件产品设计</h1>
         
 
         <div class="post-meta">
@@ -357,7 +357,7 @@
 <li>如果有提供弹幕接口，提供无缝接入</li>
 </ol>
 <h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
-<li>提供弹幕对接接口。</li>
+<li>提供弹幕对接接口。【支持自定义弹幕对象字段】</li>
 <li>兼容Pusher服务</li>
 </ol>
 <h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><ul>
@@ -406,6 +406,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/13/baberrage-rebuild-2/" rel="prev" title="【Vue-baberrage弹幕插件重制(2)】旧版本比较和解决方案">
+                【Vue-baberrage弹幕插件重制(2)】旧版本比较和解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -489,7 +493,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">71</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -682,7 +686,7 @@
         var disqus_config = function () {
           this.page.url = 'https://superhos.github.io/2018/12/11/baberrage-rebuild-1/';
           this.page.identifier = '2018/12/11/baberrage-rebuild-1/';
-          this.page.title = '【Vue-Baberrage弹幕插件重制】插件产品设计';
+          this.page.title = '【Vue-Baberrage弹幕插件重制(1)】插件产品设计';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://sevenschan.disqus.com/embed.js';

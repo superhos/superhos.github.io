@@ -94,17 +94,13 @@
 
 
 
-<meta name="description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
-<meta property="og:type" content="article">
-<meta property="og:title" content="41. First Missing Positive">
-<meta property="og:url" content="https://superhos.github.io/2018/07/10/coding-first-issing-positive/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sevens Chan blog">
+<meta property="og:url" content="https://superhos.github.io/page/8/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-10T15:44:46.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="41. First Missing Positive">
-<meta name="twitter:description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
+<meta name="twitter:title" content="Sevens Chan blog">
 
 
 
@@ -133,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/07/10/coding-first-issing-positive/"/>
+  <link rel="canonical" href="https://superhos.github.io/page/8/"/>
 
 
 
 
 
-  <title>41. First Missing Positive | Sevens Chan blog</title>
+  <title>Sevens Chan blog</title>
   
 
 
@@ -164,7 +160,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -262,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/10/coding-first-issing-positive/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/24/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -279,7 +277,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">41. First Missing Positive</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/24/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T23:36:59+08:00">
-                2018-07-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-24T00:00:00+08:00">
+                2017-07-24
               </time>
             
 
@@ -310,9 +310,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/10/coding-first-issing-positive/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/24/hello-world/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/10/coding-first-issing-positive/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/24/hello-world/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -340,13 +340,15 @@
       
 
       
-        <h3 id="Desription"><a href="#Desription" class="headerlink" title="Desription"></a>Desription</h3><p>Given an unsorted integer array, find the smallest missing positive integer.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
-<p>Input: [1,2,0]<br>Output: 3<br>Example 2:</p>
-<p>Input: [3,4,-1,1]<br>Output: 2<br>Example 3:</p>
-<p>Input: [7,8,9,11,12]<br>Output: 1<br>Note:</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>用了map来做，空间换时间。不过这题的难度为什么是Hard。。。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var firstMissingPositive = function(nums) &#123;</span><br><span class="line">    let re = &#123;&#125;;</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">        re[nums[i]] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (let i=1; i &lt;  Number.MAX_VALUE; i++)&#123;</span><br><span class="line">        if (!re[i])</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+          
+            <h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p><a href="/studyforinterview/2017/07/24/hello-world/"><br>          2017-07-24
+        </a></p>
+<p>新的世界<br>你好陳昊</p>
+<hr>
+
+          
+        
       
     </div>
     
@@ -363,32 +365,12 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/07/10/fullpage-develop-1/" rel="next" title="开发一个fullpage插件遇到的问题">
-                <i class="fa fa-chevron-left"></i> 开发一个fullpage插件遇到的问题
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/12/css-box-model/" rel="prev" title="css盒子模型">
-                css盒子模型 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -398,11 +380,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+  </nav>
+
 
 
           </div>
@@ -410,17 +395,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -441,17 +415,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -504,22 +469,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Desription"><span class="nav-number">1.</span> <span class="nav-text">Desription</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">3.</span> <span class="nav-text">Solution</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -633,10 +582,10 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-
+  
 
   
 
@@ -654,18 +603,6 @@
       <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
     
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://superhos.github.io/2018/07/10/coding-first-issing-positive/';
-          this.page.identifier = '2018/07/10/coding-first-issing-positive/';
-          this.page.title = '41. First Missing Positive';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://sevenschan.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
     
 
   
