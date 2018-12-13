@@ -334,34 +334,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？</p>
-<h2 id="了解Promise"><a href="#了解Promise" class="headerlink" title="了解Promise"></a>了解Promise</h2><p>先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。</p>
-<h2 id="Promise的三个状态"><a href="#Promise的三个状态" class="headerlink" title="Promise的三个状态"></a>Promise的三个状态</h2><ul>
-<li><strong>resolve</strong> 表示耗时操作已经完成</li>
-<li><strong>reject</strong>  有异常捕捉到，操作结束</li>
-<li><strong>pending</strong> 还没有调用到<code>resolve</code>或者<code>reject</code>代码块依然执行中，仍在等待结果</li>
-</ul>
-<h2 id="基础的Promise使用"><a href="#基础的Promise使用" class="headerlink" title="基础的Promise使用"></a>基础的Promise使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findSomeThing = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(<span class="string">'ok'</span>)</span><br><span class="line">        &#125;,<span class="number">3000</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> demo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    findSomeThing().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Say HI'</span>)</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了更清晰，这里就不用<code>await</code>语法了。可以看到有以下几点：</p>
-<ol>
-<li>我们的<code>findSomeThing</code>就是耗时的异步操作</li>
-<li>然后返回一个Promise，Promise代码块中在耗时操作完成之后，会执行到<code>resolve</code>或者<code>reject</code></li>
-<li>然后就会执行到我们的then函数中的代码块或者直接catch到异常。</li>
-<li>还有一点要注意，Promise是可以形成链式操作的，就是可以同时有多个then。</li>
-</ol>
-<p>清晰了主要用法，就可以想想怎么去实现</p>
-<p>P.S. 下面是我手写代码的过程，不保证最后结果正确。。等写完再找一篇权威的放最后参考。</p>
-<h2 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h2><p>首先先定义一个<code>Promize</code>类:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Promize</span> </span>&#123;</span><br><span class="line">    <span class="comment">// execFunc 为需要耗时操作的代码块</span></span><br><span class="line">    <span class="keyword">constructor</span> (callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.callback = callback()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p></p>
-
-      
-    </div>
+    
     
     
     

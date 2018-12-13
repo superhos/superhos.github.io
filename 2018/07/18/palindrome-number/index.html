@@ -334,25 +334,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>临睡前做一题吧</p>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
-<p>Input: 121<br>Output: true<br>Example 2:</p>
-<p>Input: -121<br>Output: false<br>Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.<br>Example 3:</p>
-<p>Input: 10<br>Output: false<br>Explanation: Reads 01 from right to left. Therefore it is not a palindrome.<br>Follow up:</p>
-<p>Coud you solve it without converting the integer to a string?</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>没什么难度直接放代码吧</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; x</span></span><br><span class="line"><span class="comment"> * @return &#123;boolean&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isPalindrome = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> arr = (x+<span class="string">""</span>).split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> i=<span class="number">0</span>,j=arr.length<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (arr.length===<span class="number">1</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (arr.length===<span class="number">2</span>)<span class="keyword">return</span> arr[<span class="number">0</span>] === arr[j];</span><br><span class="line">    <span class="keyword">while</span> (i&lt;j)&#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i]!==arr[j])&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">        j--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>有个follow up是不要转成字符串，可以把逐位数拿出来放到数组就一样的了。</p>
-
-      
-    </div>
+    
     
     
     

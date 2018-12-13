@@ -334,19 +334,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给定一个非负数，表示一个数字数组，在该数的基础上+1，返回一个新的数组。<br>该数字按照数位高低进行排列，最高位的数在列表的最前面。</p>
-<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><p>给定 [1,2,3] 表示 123, 返回 [1,2,4].<br>给定 [9,9,9] 表示 999, 返回 [1,0,0,0].</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>跟前面的加法题类似。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param digits: a number represented as an array of digits</span></span><br><span class="line"><span class="comment"> * @return: the result</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> plusOne = <span class="function"><span class="keyword">function</span> (<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> stack = digits;</span><br><span class="line">    <span class="keyword">let</span> r = <span class="string">""</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (stack.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> p = stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (r === <span class="string">""</span>)p += <span class="number">1</span>;</span><br><span class="line">        p += i;</span><br><span class="line">        r = <span class="string">""</span> + (<span class="built_in">Math</span>.floor(p%<span class="number">10</span>)) + r;</span><br><span class="line">        i = <span class="built_in">Math</span>.floor(p/<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i!==<span class="number">0</span>)r = i + r;</span><br><span class="line">    <span class="keyword">return</span> r.split(<span class="string">""</span>).map(<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;<span class="keyword">return</span> <span class="built_in">parseInt</span>(i);&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
+    
     
     
     

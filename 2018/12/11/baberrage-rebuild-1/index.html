@@ -337,39 +337,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
-<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
-<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
-<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
-<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
-<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
-<li>分泳道展示弹幕，使用均衡算法分配弹幕。</li>
-</ol>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
-<ol>
-<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
-<li>如果有提供弹幕接口，提供无缝接入</li>
-</ol>
-<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
-<li>提供弹幕对接接口。【支持自定义弹幕对象字段】</li>
-<li>兼容Pusher服务</li>
-</ol>
-<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><ul>
-<li style="list-style: none"><input type="checkbox" checked> 使用Rxjs实现弹幕队列池</li>
-<li style="list-style: none"><input type="checkbox"> 提供前端接入方法</li>
-<li style="list-style: none"><input type="checkbox" checked> 提供服务端接入接口</li>
-<li style="list-style: none"><input type="checkbox"> 优化弹幕滚动效能</li>
-<li style="list-style: none"><input type="checkbox"> 优化开发范式</li>
-</ul>
-
-      
-    </div>
+    
     
     
     

@@ -380,49 +380,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>翻译自<a href="https://medium.com/@js_tut/the-complete-css-flex-box-tutorial-d17971950bdc" target="_blank" rel="noopener">The Complete CSS Flex Box Tutorial</a></p>
-<p>关于这篇文章的图片来源于作者的<a href="https://www.amazon.com/dp/1983065633/ref=as_li_ss_tl?ie=UTF8&amp;linkCode=sl1&amp;tag=medium02-20&amp;linkId=b0eddcc81938503d94ba431d29f074c6" target="_blank" rel="noopener">新书</a>，并且在这里免费发布。如果你喜欢这篇教程的话就留个底哟。</p>
-<p>【译者注：有几段关于作者新书的介绍这里就跳过了】</p>
-<p>跟<a href="https://medium.com/@js_tut/css-grid-tutorial-filling-in-the-gaps-c596c9534611" target="_blank" rel="noopener">CSS Grid</a>很一样，<em>Flex Box</em> 是一个相当复杂的布局模型，因为它考虑了两个个元素类型：容器(<em>container</em>)和项目元素(<em>items</em>)。</p>
-<p>当我开始学习Flex，我想先看看它所有的能力。但是，我没有找到可以看到所有Flex属性例子的教程。所以我以鸟瞰图的形式为大家展示一下Flex的能力。</p>
-<p>【译者注：因为前面预览图过多，这里放到最后以免影响阅读】</p>
-<p>这一大堆就是Flex的能力。但是。。还是让我们来每张图讲解一次吧。在教程结束的时候你应该能够快速且清晰的脑海中对Flex有一定的概念。</p>
-<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><p>Flex是一组自动拉伸父容器内容行列的规则。</p>
-<h2 id="display-flex"><a href="#display-flex" class="headerlink" title="display:flex"></a>display:flex</h2><p>跟其他CSS属性不一样的是，在Flex里面你需要有一个主要的容器和一些嵌套在里面的项目元素(items)。很多CSS Flex的属性是只用在容器上，一部分是用在元素上。<br><img src="https://cdn-images-1.medium.com/max/1000/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="img"></p>
-<p>你可以把一个设置了<code>display:flex</code>的flex元素看作是父容器。在这个容器里面的元素就是项目元素(items)。每个容器都有如上图所示的一个 <em>flex-start</em> 点和一个 <em>flex-end</em> 点。</p>
-<h2 id="主轴和竖轴"><a href="#主轴和竖轴" class="headerlink" title="主轴和竖轴"></a>主轴和竖轴</h2><p>虽然项目元素是以线性方向排列，但是Flex要求你要注意行和列的概念。出于这个原因，它有两个坐标轴。横向的坐标轴称为主轴，竖向的坐标轴称为竖轴(Cross-Axis)。</p>
-<p>想要在主轴上控制内容的宽度以及间隙，你需要使用<code>justify</code>的相关属性。要在竖轴上控制项目元素，你需要使用<code>align</code>的相关属性。</p>
-<p>如果你有3列和6个项目元素，Flex会自动创建第二行来容纳剩余的项目元素。<br><img src="https://cdn-images-1.medium.com/max/800/1*T1x2OolGzQWb2GZB688_Vw.png" alt="img"><br><img src="https://cdn-images-1.medium.com/max/800/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="你可以确定列的数量]"></p>
-<p>行和列在父元素里面怎么分布调整是由CSS Flex的属性<code>flex-direction</code>,<code>flex-wrap</code>和一些其他的属性决定的，将会在后面的内容演示。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="这里可以看到有n个项目元素放置在容器里面。默认情况下，这些元素会从左到右排列，当然了，开始的原始点是可以反转的"></p>
-<h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>完全可以把项目元素的放置方向反过来。<br><img src="https://cdn-images-1.medium.com/max/800/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="img"><br>设置<code>flex-direction:row-reverse</code> 就可以将方向反过来。默认值是row，意味着流向是从左向右</p>
-<h2 id="Wrap"><a href="#Wrap" class="headerlink" title="Wrap"></a>Wrap</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="img"><br>如果设置了<code>flex-wrap:wrap</code>的话，当容器内部项目元素超出长度的话会自动断行，创建新的一行放置元素。该属性默认值是<code>nowrap</code>，如果超出长度会溢出容器。</p>
-<h2 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*JwdJjzh906U62y5ryUBPBA.png" alt="img"><br><em>flex-flow</em> 是<em>flex-direction</em> 和 <em>flex-wrap</em> 的简写，允许你用一个属性去定义它们两个。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="img"><br><code>flex-flow:row wrap</code> 确定 <em>flex-direction</em> 为 <em>row</em> 而 <em>flex-wrap</em> 为 <em>wrap</em>。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="img"><br><code>flex-flow:row wrap-reverse;</code></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="img"><br><code>flex-flow:row wrap; justify-content: space-between;</code></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="img"><br><code>flex-flow:row-reverse wrap</code></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="img"><br><code>flex-fow:row-reverse wrap-reverse</code></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="img"><br><code>flex-flow:row wrap;justify-content:space-between</code></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="img"><br>方向<code>direction</code>可以设置竖轴为主轴</p>
-<p>当我们改变flex的方向为列的时候，<em>flex-flow</em> 属性表现得跟前面的例子一样。除了这个时候，它们跟随列的垂直方向。<br><img src="https://cdn-images-1.medium.com/max/800/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="img"></p>
-<h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="img"></p>
-<p><code>flex-direction:row; justify-content: flex-start |flex-end |center|space-between |space-around |stretch |space-evenly.</code> 在每个例子中我们分别用了三个项目元素。在正常flex使用中对元素的数量是没有限制的。这些图演示了<code>justify-content</code>属性每个值的作用。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="img"><br>对于方向为纵向的时候<code>justify-content</code>有着同样的效果。</p>
-<h2 id="打包Flex线-Packing-Flex-Lines-根据Flex规范"><a href="#打包Flex线-Packing-Flex-Lines-根据Flex规范" class="headerlink" title="打包Flex线 (Packing Flex Lines) (根据Flex规范)"></a>打包Flex线 (Packing Flex Lines) (根据Flex规范)</h2><p><img src="https://cdn-images-1.medium.com/max/800/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="img"></p>
-<p>Flex把这种行为定义成”Packing flex lines”。 基本上，它就像我们前面看到的例子一样。除了下面这个情况，注意在每个项目元素集合之间的间隙。这个特性在你想在一些项目元素中创建间隙的时候特别有用。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="img"></p>
-<p>[To Be Continue]</p>
-<h2 id="Flex-能力鸟瞰图"><a href="#Flex-能力鸟瞰图" class="headerlink" title="Flex 能力鸟瞰图"></a>Flex 能力鸟瞰图</h2><p><img src="https://cdn-images-1.medium.com/max/1400/1*UJ54WLMke5RQ4gZcFDxTvQ.png" alt="01"><br><img src="https://cdn-images-1.medium.com/max/600/1*T1x2OolGzQWb2GZB688_Vw.png" alt="02"><br><img src="https://cdn-images-1.medium.com/max/1400/1*6Cd-JIcbtJ7Kfy7kul_2Dw.png" alt="03"><br><img src="https://cdn-images-1.medium.com/max/1400/1*2kaamZDI0E_U1Qu7i3UcEA.png" alt="04"><br><img src="https://cdn-images-1.medium.com/max/1400/1*pJwqDgFAv-jBwy9m8jbrxQ.png" alt="05"><br><img src="https://cdn-images-1.medium.com/max/1400/1*KsOv5LJtQidXmbXaHZnDeQ.png" alt="06"><br><img src="https://cdn-images-1.medium.com/max/1400/1*NgLbEh2kyt6pADq9q6Eq9Q.png" alt="07"><br><img src="https://cdn-images-1.medium.com/max/1400/1*JwdJjzh906U62y5ryUBPBA.png" alt="08"><br><img src="https://cdn-images-1.medium.com/max/1400/1*YwvnvHBj4Gs9OnNCrA0TCQ.png" alt="09"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AhLZj_q8tvCuFraEKSG6gg.png" alt="10"><br><img src="https://cdn-images-1.medium.com/max/1400/1*xAPNrU9sKijsJnMJOTyUBA.png" alt="11"><br><img src="https://cdn-images-1.medium.com/max/1400/1*5DdP910Q6Oz6rqNfnpHGcg.png" alt="12"><br><img src="https://cdn-images-1.medium.com/max/1400/1*IMU7WQ7P4xepIHZGlp8ZCA.png" alt="13"><br><img src="https://cdn-images-1.medium.com/max/1400/1*LDRJvglhmxOIZHsDQe4A4A.png" alt="14"><br><img src="https://cdn-images-1.medium.com/max/1200/1*DCpWkqPeSuiDMP-xTha5nQ.png" alt="15"><br><img src="https://cdn-images-1.medium.com/max/1400/1*oDZ0LHJR7NBuMg0wEJihhQ.png" alt="16"><br><img src="https://cdn-images-1.medium.com/max/1200/1*V1bfijm-RCdlxcZhP7tYwA.png" alt="17"><br><img src="https://cdn-images-1.medium.com/max/1200/1*XGm7JEbXLe3e9_XAdgZDYw.png" alt="18"><br><img src="https://cdn-images-1.medium.com/max/1200/1*pUE3gXzsGgHmgIdxIAkX1Q.png" alt="19"><br><img src="https://cdn-images-1.medium.com/max/1200/1*FwZpPNEdh7TjVoc8XU9rfQ.png" alt="20"><br><img src="https://cdn-images-1.medium.com/max/800/1*ClFep05U_OkI3uA4fcDibQ.png" alt="21"><br><img src="https://cdn-images-1.medium.com/max/1000/1*JgkuJjc2Ile0Hkef1pMyfQ.png" alt="22"><br><img src="https://cdn-images-1.medium.com/max/1400/1*AbZAF6lmrm7jOkOKnbas4w.png" alt="23"><br><img src="https://cdn-images-1.medium.com/max/1400/1*Lr8yGIA_nPAF1Ay5MraXlw.png" alt="24"><br><img src="https://cdn-images-1.medium.com/max/800/1*BdoGsWOIFJ3IGW7j193W2Q.png" alt="25"><br><img src="https://cdn-images-1.medium.com/max/1400/1*nd0NlLxeeatSX1j4dfFblQ.png" alt="26"></p>
-
-      
-    </div>
+    
     
     
     

@@ -334,19 +334,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。</p>
-<p>num1 和 num2 的长度都小于5100。<br>num1 和 num2 都只包含数字 0-9。<br>num1 和 num2 都不包含任何前导零。<br>您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>给定 num1 = “123”，num2 = “45”<br>返回 “168”</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>相关的题要不就翻转字符串，要不就用栈。JS用数组模拟栈更方便。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param num1: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @param num2: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @return: return sum of num1 and num2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> addStrings = <span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = num1.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> s2 = num2.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> r = <span class="string">''</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s1.length + s2.length !== <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> t1 = s1.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> t2 = s2.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> sum = <span class="built_in">parseInt</span>(t1) + <span class="built_in">parseInt</span>(t2) + i;</span><br><span class="line">        i = <span class="built_in">Math</span>.floor(sum/<span class="number">10</span>);</span><br><span class="line">        r = <span class="string">''</span> + sum%<span class="number">10</span> + r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (i?i:<span class="string">""</span>) + r + <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
+    
     
     
     

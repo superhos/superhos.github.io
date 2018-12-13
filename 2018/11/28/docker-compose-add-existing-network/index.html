@@ -335,21 +335,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h3><p>开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。</p>
-<p>当前需求是增加一个mongodb，需要加入到servicenet下。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>文档可以查看：<a href="https://docs.docker.com/compose/compose-file/#external-1" target="_blank" rel="noopener">这里</a></p>
-<p>docker-compose.yml:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">'3.6'</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mongo:</span><br><span class="line">    image: mongo</span><br><span class="line">    <span class="built_in">command</span>: [--auth]</span><br><span class="line">    container_name: cscsdb</span><br><span class="line">    volumes:</span><br><span class="line">       [<span class="string">'../dbdata:/data/db'</span>]</span><br><span class="line">    ports:</span><br><span class="line">       - 27018:27017</span><br><span class="line">    networks:</span><br><span class="line">       - outside</span><br><span class="line">networks:</span><br><span class="line">    outside:</span><br><span class="line">      external:</span><br><span class="line">        name: servicenet</span><br></pre></td></tr></table></figure>
-<p>就这个样子了</p>
-
-      
-    </div>
+    
     
     
     

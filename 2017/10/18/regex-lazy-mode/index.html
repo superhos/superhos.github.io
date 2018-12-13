@@ -338,32 +338,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="正则表达式的懒惰模式多懒惰"><a href="#正则表达式的懒惰模式多懒惰" class="headerlink" title="正则表达式的懒惰模式多懒惰"></a>正则表达式的懒惰模式多懒惰</h3><p><a href="/studyforinterview/tags/正则表达式/">#正则表达式</a></p>
-<p>作为程序员一定对正则表达式不陌生，而且都对它又爱又恨。爱在它对字符串的匹配或替换上的确很方便，恨在于要匹配的条件一多，成串的正则就只有写的人能看懂了。</p>
-<h2 id="匹配括号中的内容"><a href="#匹配括号中的内容" class="headerlink" title="匹配括号中的内容"></a>匹配括号中的内容</h2><p>这篇文章来讲一个我们常见的需求：匹配括号中的内容。这个需求在很多地方都会用得着，例如爬虫或者写模板引擎解析模板语言等。<br>下面是具体问题：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;php $a = <span class="number">1</span>; php&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这是在我的模板引擎里面抽出来的例子，为了减少问题难度，标签结尾用了<code>php}</code>而不是单纯的<code>}</code>，因为单纯的<code>}</code>会跟代码块的正常语句中括号冲突增加例子的复杂性。</p>
-<p>当看到这个例子的时候，其实很多人都可以直接想到<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">\&#123;php.*php\&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就完了吧。但是作为模板引擎，就可能遇到下面的情况：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;php $a = <span class="number">1</span>; php&#125;</span><br><span class="line"></span><br><span class="line">&#123;php </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (;$a&lt;<span class="number">10</span>;$a++)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">php&#125;</span><br><span class="line"></span><br><span class="line">&#123;php $b = <span class="number">1</span>; php&#125; &#123;php <span class="keyword">echo</span> $b; php&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这种情况下匹配的情况就如下：<br><img src="/studyforinterview/2017/10/18/regex-lazy-mode/regex_1.png" alt="匹配1"><br>暂且不管中间的多行代码块，我们看到之前的正则只能匹配到首尾两行，而且最后一行的两个块都合在一起了，怎样将它们分开呢？</p>
-<h2 id="懒惰模式"><a href="#懒惰模式" class="headerlink" title="懒惰模式"></a>懒惰模式</h2><p>答案是用正则的懒惰模式，正则的默认模式是贪婪模式，顾名思义就是有多少吃多少，直到吃到最后一个为止。而懒惰就是能不吃就不吃，能少吃就少吃。</p>
-<p>先来看三个小例子：<br>1) 有一个字符串abccccc,如果使用<code>ab.*</code>来匹配的话，就会得到结果：<br>abccccc<br>因为<code>*</code>代表的是重复0次或无限次，就是说ab后面的只要不是换行符(\n)的字符，都会被匹配上。</p>
-<p>2) 同样的例子，如果使用<code>ab.*?</code>，结果就会为ab，为什么不是abc?!<br><img src="/studyforinterview/2017/10/18/regex-lazy-mode/regex_3.png" alt="匹配2"></p>
-<p>3) 那么如果<code>?</code>后面还有其他正则匹配呢？例如下面的例子：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>mmm<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>要分别匹配到p标签和里面的内容的话就要用到懒惰模式，<code>&lt;p&gt;.*?p&gt;</code>，正如例子2)在匹配到第一个m的时候因为正则式还没结束，只能吃掉后面的字符直到吃到<code>p&gt;</code>的时候就可以结束了。</p>
-<p>回到第一节的例子：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;php $a = <span class="number">1</span>; php&#125;</span><br><span class="line"></span><br><span class="line">&#123;php </span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (;$a&lt;<span class="number">10</span>;$a++)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $a;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">php&#125;</span><br><span class="line"></span><br><span class="line">&#123;php $b = <span class="number">1</span>; php&#125; &#123;php <span class="keyword">echo</span> $b; php&#125;</span><br></pre></td></tr></table></figure></p>
-<p>只要把表达式改成：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">\&#123;php.*?php\&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样就可以匹配到首尾两行的三个代码块了：<br><img src="/studyforinterview/2017/10/18/regex-lazy-mode/regex_2.png" alt="匹配3"></p>
-<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>懒惰模式真是好东西。</p>
-<hr>
-
-      
-    </div>
+    
     
     
     

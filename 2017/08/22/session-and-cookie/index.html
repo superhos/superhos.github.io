@@ -334,24 +334,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
-<ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
-</ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
-<hr>
-
-      
-    </div>
+    
     
     
     

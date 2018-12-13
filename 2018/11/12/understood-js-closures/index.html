@@ -335,34 +335,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>翻译自：<a href="https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8" target="_blank" rel="noopener">I never understood JavaScript closures</a></p>
-<p>闭包对很多JS初学者乃至有经验者来说都是很容易混淆的概念，在这篇文章整理下相关的概念和例子。</p>
-<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>在深入来讲闭包以前，有一些基础的概念我们首先要了解一下，其中一个就是<em> 上下文
- </em>。</p>
-<p> 关于上下文<a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/" target="_blank" rel="noopener">这篇文章</a>讲得不错，引用一下这篇文章：</p>
-<blockquote>
-<p>当代码在JS中执行的时候，它所正在执行的环境是很重要的，可以归纳为下面的其中一种：<br><strong>Global code</strong> —— 你的代码在最开始默认执行的环境<br><strong>Function code</strong> —— 每当执行流程进入到一个函数体内部<br>(…), 我们可以把<code>执行上下文</code>看作是当前代码运行的环境/范围</p>
-</blockquote>
-<p> 换种说法，当我们开始一个程序，我们是在全局执行上下文里开始。一些定义在全局执行上下文里的变量，我们把它们叫做<code>全局变量</code>。当程序调用一个函数的时候，发生了什么呢？<br> 一些简单的步骤：</p>
-<ol>
-<li>Javascript 创建一个新的执行上下文，一个本地的执行上下文</li>
-<li>这个本地的执行上下文会管理它自己的变量集，这些变量就是这个执行上下文的<code>本地变量</code></li>
-<li>新的执行上下文会被抛到执行堆栈上。可以把执行堆栈看作一个机制，用于跟踪程序执行的位置</li>
-</ol>
-<p>那么函数什么时候结束呢？当遇到return语句或遇到结束括号<code>}</code>时就会结束。 函数结束时的时候，会发生以下情况：</p>
-<ol>
-<li><code>本地变量</code>会被pop出执行堆栈</li>
-<li></li>
-</ol>
-
-      
-    </div>
+    
     
     
     

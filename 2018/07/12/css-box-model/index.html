@@ -341,44 +341,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>翻译自<a href="https://medium.com/@js_tut/css-tutorial-1-box-model-6ff80a9bbfda" target="_blank" rel="noopener">Thinking Inside The Box ‒ CSS Box Mode</a></p>
-<p>在掌握<em>CSS盒子模型</em>以前去认识下HTML元素的CSS属性是很诱人的。你肯定已经在chrome的开发者console上看过它们。它们看起来是这样的：<br><img src="css-box-model-css-box-1.png" alt="一个最基本的CSS盒子模型展示。看起来非常简单！"></p>
-<p>这个盒子在<em>CSS盒子模型</em>中是内容区域。</p>
-<p><code>padding</code>, <code>border</code> 和 <code>margin</code> 默认都是0px。HTML元素默认的CSS<code>box-sizing</code>样式是<code>content-box</code>，下图是一个300x100(border设1px为了看得清楚)的盒子：<br><img src="css-box-model-css-box-2.png" alt="An HTML element with default CSS box model style (box-sizing) set to its default value of content-box."></p>
-<p>当我们加 16px 的 <code>padding</code>的时候，开始变得好玩了：<br><img src="css-box-model-css-box-3.png" alt="Padding added to a regular HTML element with default style pushes out its dimensions in the amount of padding thickness that was set."></p>
-<p>Padding的厚度现在围绕着元素。注意，元素的物理尺寸现在是332 x 132! 而不是原来的 300x100。因为 32（16+16）px的padding加到了每个方向上。</p>
-<p>其实这不算是一个问题，事实上在大部分的网站上我们就会看到<em>外部padding</em>的实现，因为我们假定默认的都是好的。</p>
-<p>然而，有时候这会使得元素的尺寸预测变得复杂。如果我们在计算尺寸的时候已经包含了<code>padding</code>不是更好吗？这完全可能！</p>
-<p>这就需要把<code>box-sizing</code>设置成<code>padding-box</code>:<br><img src="css-box-model-css-box-4.png" alt="Overwriting box-sizing default value with padding-box will “invert” padding, moving it to the inner box of the element.
-"></p>
-<p>正如我们所想，现在<code>padding</code>就被包含在了盒子里面！这样就保留了原始的300x100盒子的尺寸。</p>
-<p>这是一个很好的模型用来创建像素级别的用户接口元素。</p>
-<p>但是不要忘记了，我们还有一个<code>border</code>。幸运的是，我们同样可以通过设置<code>box-sizing: border-box</code>的方法来把border加入到元素的尺寸内部。</p>
-<p>但首先，我们先来看一下设置了默认<code>padding</code>和<code>border</code>的元素是什么样子的：<br><img src="css-box-model-css-box-5.png" alt="By using box-sizing: content-box we can successfully move the border of an element inside."></p>
-<p>使用了<code>border-box</code>就会把<code>border</code>和<code>padding</code>加入到盒子里：<br><img src="css-box-model-css-box-6.png" alt="CSS: box-sizing: border-box in action"></p>
-<p>完美！</p>
-<p>现在<code>padding</code>和<code>border</code>都加入到了盒子内部了。但是，<code>margin</code>宝宝呢?!如果有一个<code>margin-box</code>来包含三个属性岂不妙哉？</p>
-<p>但现实很骨感，根据<code>margin</code>的定义它是一个内容以外的区域。</p>
-<p>所以即使你有内心的欲望想要实现这个<code>margin-box</code>，但是它并没有太大的意义。</p>
-<h3 id="译者总结"><a href="#译者总结" class="headerlink" title="译者总结"></a>译者总结</h3><p>面试很常问到的问题，盒子模型就是把DOM元素看成一个盒子，去拼凑出我们的页面，其中盒子模型包括下面几个主要属性(从内到外)：</p>
-<ol>
-<li>width/height</li>
-<li>padding</li>
-<li>border</li>
-<li>margin</li>
-</ol>
-<p>另外一个重要的属性是<code>box-sizing</code>,IE默认的是<code>border-box</code>是比较符合人类直观想象的，而Chrome等主流浏览器用的是<code>content-box</code>。</p>
-<p>主要区别就在于 <code>*-box</code> 表示了尺寸会包含到什么属性以内。例如<code>padding-box</code>就会包含<code>padding</code>和<code>width/height</code>,<code>border-box</code>就会包含<code>border</code>,<code>padding</code>和<code>width/height</code>。但是需要注意的是：没有<code>margin-box</code>，因为<code>margin</code>本来的定义就是在内容区域以外的区域。</p>
-<p>·</p>
-
-      
-    </div>
+    
     
     
     
