@@ -335,6 +335,28 @@
     
     
     
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="防止表单重复提交，你我有责"><a href="#防止表单重复提交，你我有责" class="headerlink" title="防止表单重复提交，你我有责"></a>防止表单重复提交，你我有责</h3><p><a href="/studyforinterview/2017/08/25/avoid-resubmit/"><br>          2017-08-25
+        </a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
+                </a></p>
+<h2 id="什么是重复提交"><a href="#什么是重复提交" class="headerlink" title="什么是重复提交"></a>什么是重复提交</h2><p>表单重复提交是开发中常遇到的一个问题，根据用户行为来划分的话主要分为无意重复提交和恶意重复提交两种。无意重复提交的原因很可能是网路问题，用户点击第一次的时候没有马上得到应有的反馈，所以用户再次或多次点击（毕竟大多数人局的催促是最能提高效率的）。恶意的话就可能会绕过前端的防止重复机制，直接向服务端提交多次表单以达到某种目的。</p>
+<h2 id="前端用户体验防止机制"><a href="#前端用户体验防止机制" class="headerlink" title="前端用户体验防止机制"></a>前端用户体验防止机制</h2><p>单从用户体验上来说，要避免无意的重复提交，就要<strong>明确地</strong>告诉用户：服务端已经正在处理你的请求了，请好好等待。</p>
+<p>因此在需要一定时间处理的请求上面（主要是ajax），更应该加上一些提示的信息。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">functionlogin ()&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//blablabla</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//显示loading动画</span></span><br><span class="line"></span><br><span class="line">	$.showPreloader(<span class="string">'登錄中..'</span>); </span><br><span class="line"></span><br><span class="line">	$.ajax(url,data,<span class="function"><span class="keyword">function</span>(<span class="params">result</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//得到结果，无论成功还是失败都要把loading关掉</span></span><br><span class="line"></span><br><span class="line">		$.hidePreloader();</span><br><span class="line"></span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然了，提交后直接disable掉submit按钮也是可以的，不过感觉上没那么亲切。</p>
+<h2 id="cookie防止机制"><a href="#cookie防止机制" class="headerlink" title="cookie防止机制"></a>cookie防止机制</h2><p>利用cookie也是可行的，设置一个key当提交的时候就设为有效值，当再提交的时候如果是有效值的话就拒绝提交。</p>
+<h2 id="session防止机制"><a href="#session防止机制" class="headerlink" title="session防止机制"></a>session防止机制</h2><p>1.生成表单的时候产生一个唯一的标识，分别保存在服务端session中，和客户端的hidden input里面。<br>2.客户端提交表单的时候检查标识是否存在session中，存在的话就是第一次提交，处理请求并删除session中该表单的标识。如果不存在的话就是非第一次提交，拒绝处理。</p>
+<p>当然了，session只是其中一个载体，用db或者缓存层在做都是可以的。</p>
+<hr>
+
+      
+    </div>
+    
     
     
     
@@ -356,8 +378,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/25/deep-learning-lol/" rel="next" title="deep-learning-lol">
-                <i class="fa fa-chevron-left"></i> deep-learning-lol
+              <a href="/2017/08/24/crossdomain-solution/" rel="next" title="跨域问题的产生和解决方案">
+                <i class="fa fa-chevron-left"></i> 跨域问题的产生和解决方案
               </a>
             
           </div>
@@ -366,8 +388,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/30/wechat-js-sdk-getinfo/" rel="prev" title="基于Vue微信公众号JS SDK实现">
-                基于Vue微信公众号JS SDK实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/25/deep-learning-lol/" rel="prev" title="deep-learning-lol">
+                deep-learning-lol <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

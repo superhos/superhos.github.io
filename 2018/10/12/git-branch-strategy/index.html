@@ -337,6 +337,42 @@
     
     
     
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="关于git项目管理分支策略的一点思考"><a href="#关于git项目管理分支策略的一点思考" class="headerlink" title="关于git项目管理分支策略的一点思考"></a>关于git项目管理分支策略的一点思考</h3><p><a href="/studyforinterview/2017/07/28/git-branch-strategy/">2017-07-28</a></p>
+<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/">返回目录</a></p>
+<h2 id="00"><a href="#00" class="headerlink" title="00"></a>00</h2><p>作为组员的时候，对git的理解没太深，只知道fetch，rebase之类的简单运用，没有上升到项目管理的层面。到要自己去负责的时候，应了那句老话，人生处处是学问。</p>
+<p>然后开始在网上看看前人的经验，可参考的文章大都在谈2010年Vincent Driessen的文章。毕竟经验不多，在这里只能留一下自己当前的想法，以后随时更新。</p>
+<h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><p>我们项目的当前git分支策略是采用一人一条分支的策略，是由之前的同事制定的。示意图如下：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0712/145304_AFtO_203607.jpg" alt="当前分支策略示意图"><br>Figure 1. 当前分支策略示意图</p>
+<p>这种策略的优点：</p>
+<ol>
+<li>责任明确。master中的代码都可以较简单的追踪到分支上。</li>
+<li>分支清晰。在人员少的时候，可以保持分支明朗。</li>
+</ol>
+<p>但是作为组员，我认为这种分支策略是缺点远远大于优点的，主要缺點如下：</p>
+<ol>
+<li><p>不适应高频需求团队。因为需求不断砸来，缺少里程碑版本的确定，导致每个新需求来都需要马上上线，导致组员缺少同步远程库和本地库代码的时机，我有位同事开发了三个月竟然都没同步过线上的代码，可想而知一旦更新代码冲突会多严重。</p>
+</li>
+<li><p>需求必须线性合并到master上。因为每个组员只有一条自己的分支，必然会有需求先后次序的冲突，例如：开发的时候a，b，c三个需求依次开发，却被要求先要上线c需求，那么c需求就可能有代码耦合在a，b需求中，导致功能缺失。</p>
+</li>
+</ol>
+<p>因此，我开始寻找另外更好的分支策略</p>
+<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>然后参考了A successful Git branching model [0] 的模型，开始搭建自己的branch模型。</p>
+<p>主要就是master，development branch 和 issue-<em> branch。 先说issue-</em> branch，我另外搭建了一個issue系统（bug追踪系统），所有的需求开发，bug修改都需要在系统中先report。之后开发人员就可以根据issue系统給的issue id去创建分支，由于和issue系统的结合，就可以把一个大的需求切分不同部分给不同的开发人员去做。之后要合并上线的话只需要根据issue id号合并就行，最后删掉分支。</p>
+<p>由于时间关系准备开会，第二部分先简略说下，之後再補充</p>
+<p>Refference</p>
+<p>[0] Vincent Driessen,A successful Git branching model . <a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">http://nvie.com/posts/a-successful-git-branching-model/</a></p>
+<p>[1] 阮一峰, <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a>. <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
+<hr>
+
+      
+    </div>
+    
     
     
     

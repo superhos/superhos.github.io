@@ -346,6 +346,40 @@
     
     
     
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在的UI设计都流行加条小波浪哟，看起来高大上的。</p>
+<p><img src="https://img.zcool.cn/community/012afe58be72b1a801219c772a9367.gif" alt="波浪"></p>
+<p>在波浪界有个著名的公式叫“贝塞尔曲线”，学习一下看看怎么能画一条完美的曲线。</p>
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>贝塞尔曲线可以根据控制点的数量分为多阶的曲线：</p>
+<p>一阶贝塞尔曲线：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984310y353.gif" alt="一阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21151949-bbe8b7e8a0b14409a189dc32e0420423.gif" alt="img"></p>
+<p>二阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984320awS6.gif" alt="二阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152016-1df7ccd4da8e4e8a86cf72772da8af42.gif" alt="img"></p>
+<p>三阶：<br><img src="http://hi.csdn.net/attachment/201008/28/0_1282984326C3m1.gif" alt="三阶"><br><img src="https://images0.cnblogs.com/blog/500577/201306/21152048-9b5dee31b19349428c453b8bd5e20a3d.gif" alt="img"></p>
+<p>以此类推.</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="先来一个小拱门"><a href="#先来一个小拱门" class="headerlink" title="先来一个小拱门"></a>先来一个小拱门</h3><p>首先确认一下目标，希望画出下面的曲线。同时我们只想要结果，不需要理会过程，所以这里不再对公式推导，如果需要深入了解公式的，可以看看<a href="https://www.jianshu.com/p/1ddaae528bac" target="_blank" rel="noopener">这篇文章</a></p>
+<p><img src="draw-wave-WechatIMG1.jpeg" alt="WechatIMG1.jpeg"></p>
+<p>em…竖着看感觉怪怪的..很像那啥。。<br>呸呸呸。。大家意会即可。。</p>
+<p>首先要画其中一个波浪，可以知道的是起点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A(x_0,y_0)</span><br></pre></td></tr></table></figure></p>
+<p>还有终点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C(x_d,y_d)</span><br></pre></td></tr></table></figure></p>
+<p>还有我们假设这是一个左右平衡的波浪，那么我们假设波浪 <strong>高度为h</strong> ,就可以得到中间点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t = ((x_d-x_0)/2,h)</span><br></pre></td></tr></table></figure></p>
+<p>根据公式我们来看一下能不能求出控制点<code>P</code><br>其实左右平衡的情况下，我们可以直接把起点、终点和控制点看成是一个等腰三角形，那么假设我们<code>h=20</code>那么波浪的顶点就是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P_t(x_d-x_0,20)</span><br></pre></td></tr></table></figure></p>
+<p>由于是等腰三角形，那么到达顶点的时候，顶点切线到左右两边的控制轴的距离是相等的，分别设这两个点为<code>D,E</code>。<br>根据贝塞尔的特性，可以得到:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AD:AP = EP:CP = DP_t:DE</span><br></pre></td></tr></table></figure></p>
+<p>因为等腰的关系所以他们的比率都是<code>1/2</code><br>所以控制点的高度就(k)是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AP = \sqrt&#123;(h+k)^2+(AC/2)^2&#125;</span><br><span class="line"></span><br><span class="line">DP_t = AC/2/2 = 25</span><br><span class="line"></span><br><span class="line">h = 20</span><br></pre></td></tr></table></figure></p>
+<p>同时，根据比例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">AD = \sqrt&#123;(25)^2+(20)^2&#125; = 32</span><br><span class="line"></span><br><span class="line">AP = 64</span><br><span class="line"></span><br><span class="line">k = 20</span><br></pre></td></tr></table></figure></p>
+<p>所以控制点<code>P</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P (50,40)</span><br></pre></td></tr></table></figure></p>
+<p>效果图：<br><img src="draw-wave-WechatIMG7.jpeg" alt="WechatIMG7.jpeg"></p>
+<p>em..这个图很粗糙..svg生成的..意会就好..</p>
+<h3 id="再来一个反拱门"><a href="#再来一个反拱门" class="headerlink" title="再来一个反拱门"></a>再来一个反拱门</h3><p>根据上面计算的，当控制点为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P(150,-40)</span><br></pre></td></tr></table></figure></p>
+<p>的时候就可以得到下面的效果图<br><img src="draw-wave-WechatIMG8.jpeg" alt="WechatIMG8.jpeg"></p>
+<p>好了这里就暂时不涉及svg的东西了，由于svg的坐标轴是已左上角为原点，混在一起说的话就会乱了。</p>
+
+      
+    </div>
+    
     
     
     

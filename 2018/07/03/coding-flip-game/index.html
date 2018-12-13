@@ -335,6 +335,21 @@
     
     
     
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>翻转游戏：给定一个只包含两种字符的字符串：+和-，你和你的小伙伴轮流翻转”++”变成”–”。当一个人无法采取行动时游戏结束，另一个人将是赢家。<br>编写一个函数，计算字符串在一次有效移动后的所有可能状态。</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>给定 s = “++++”, 在一次有效移动后，它会变成下列状态之一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &quot;--++&quot;,</span><br><span class="line">  &quot;+--+&quot;,</span><br><span class="line">  &quot;++--&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>如果无法移动，则返回一个空列表[].</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>简单直接一个循环</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param s: the given string</span></span><br><span class="line"><span class="comment"> * @return: all the possible states of the string after one valid move</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> generatePossibleNextMoves = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = s.length;</span><br><span class="line">    <span class="keyword">if</span> (len &lt; <span class="number">2</span>)<span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">let</span> result = [];</span><br><span class="line">    len -= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len ; i++ )&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.substr(i,<span class="number">2</span>) === <span class="string">"++"</span>)&#123;</span><br><span class="line">            result.push(s.substring(<span class="number">0</span>,i) + <span class="string">"--"</span> + s.substring(i+<span class="number">2</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
     
     
     

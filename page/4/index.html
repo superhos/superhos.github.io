@@ -335,23 +335,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>For example, given n = 3, a solution set is:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">"((()))"</span>,</span><br><span class="line">  <span class="string">"(()())"</span>,</span><br><span class="line">  <span class="string">"(())()"</span>,</span><br><span class="line">  <span class="string">"()(())"</span>,</span><br><span class="line">  <span class="string">"()()()"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>最直接是递归然后剪枝，因为需要成对判断合法性，所以如果left &gt; right的时候就可以剪掉了。<br>同时如果left == 0 的时候都可以直接把right的括号补全了。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; n</span></span><br><span class="line"><span class="comment"> * @return &#123;string[]&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generateParenthesis = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">if</span> (n===<span class="number">1</span>) <span class="keyword">return</span> [<span class="string">'()'</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> result = [];</span><br><span class="line">    search(n,n,<span class="string">''</span>,result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">left,right,cur,result</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; <span class="number">0</span> || right &lt; <span class="number">0</span> || left &gt; right)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (left == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = right; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">            cur += <span class="string">')'</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">        result.push(cur);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    search(left - <span class="number">1</span>, right, cur + <span class="string">'('</span>, result);</span><br><span class="line">    search(left, right - <span class="number">1</span>, cur + <span class="string">')'</span>, result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
     
     
     
@@ -469,24 +452,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给定一个非负数，表示一个数字数组，在该数的基础上+1，返回一个新的数组。<br>该数字按照数位高低进行排列，最高位的数在列表的最前面。</p>
-<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><p>给定 [1,2,3] 表示 123, 返回 [1,2,4].<br>给定 [9,9,9] 表示 999, 返回 [1,0,0,0].</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>跟前面的加法题类似。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param digits: a number represented as an array of digits</span></span><br><span class="line"><span class="comment"> * @return: the result</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> plusOne = <span class="function"><span class="keyword">function</span> (<span class="params">digits</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> stack = digits;</span><br><span class="line">    <span class="keyword">let</span> r = <span class="string">""</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (stack.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> p = stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (r === <span class="string">""</span>)p += <span class="number">1</span>;</span><br><span class="line">        p += i;</span><br><span class="line">        r = <span class="string">""</span> + (<span class="built_in">Math</span>.floor(p%<span class="number">10</span>)) + r;</span><br><span class="line">        i = <span class="built_in">Math</span>.floor(p/<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i!==<span class="number">0</span>)r = i + r;</span><br><span class="line">    <span class="keyword">return</span> r.split(<span class="string">""</span>).map(<span class="function">(<span class="params">i</span>)=&gt;</span>&#123;<span class="keyword">return</span> <span class="built_in">parseInt</span>(i);&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
     
     
     
@@ -606,24 +571,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给定一个字符串所表示的括号序列，包含以下字符： ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’， 判定是否是有效的括号序列。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>括号必须依照 “()” 顺序表示， “()[]{}” 是有效的括号，但 “([)]”则是无效的括号。<br>O(n)的时间，n为括号的个数</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>这类题目也不用多想，用栈。两个栈比较。O(n).</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param s: A string</span></span><br><span class="line"><span class="comment"> * @return: whether the string is a valid parentheses</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> isValidParentheses = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> stack = s.split(<span class="string">""</span>);</span><br><span class="line">    <span class="keyword">if</span> (stack.length % <span class="number">2</span> !==<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> dic = &#123;</span><br><span class="line">        <span class="string">')'</span>:<span class="string">'('</span>,</span><br><span class="line">        <span class="string">'&#125;'</span>:<span class="string">'&#123;'</span>,</span><br><span class="line">        <span class="string">']'</span>:<span class="string">'['</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> outstack = [];</span><br><span class="line">    <span class="keyword">while</span>(stack.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> now = stack.pop();</span><br><span class="line">        <span class="keyword">if</span> (dic[now])&#123;</span><br><span class="line">            outstack.push(now);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> check = outstack.pop();</span><br><span class="line">            <span class="keyword">if</span> (dic[check] !== now)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> outstack.length&gt;<span class="number">0</span>?<span class="literal">false</span>:<span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -741,60 +688,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>翻译自： <a href="https://webdesign.tutsplus.com/tutorials/all-you-need-to-know-about-the-html5-data-attribute--webdesign-9642" target="_blank" rel="noopener">All You Need to Know About the HTML5 Data Attribute</a></p>
-<p>HTML5 data-*属性可以让你自定义数据给一个元素。这篇文章就来说说如何使用和什么时候应该用。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在HTML5之前，我们的网页上有时候不得不依赖’class’和’rel’等属性来保存一些小的数据。这会导致有时候这些数据会与网站样式性或功能性的数据冲突。<br>在新的HTML5提出了一个新的属性“data”。在这篇文章里，我会用一些例子来介绍我们要如何使用这个属性才是正确的。</p>
-<p>随着越来越多的网站受到数据驱动和类APP化的影响，他们开始需要对特定的元素上保存更多的数据。例如，我们要做一个音频的应用。我们可能需要用到这些标准的标记：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"track1.mp3"</span> <span class="attr">type</span>=<span class="string">"audio/mpeg"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>上面的标记是容易接受的，但是我们可能想去保存更多关于音频的信息而不单单音频来源。例如，我们可能想要保存音频的长度，节奏和艺人的信息。我们可以通过一些自定义的data-* 属性来保存每个音频的对应信息：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">controls</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"track1.mp3"</span> <span class="attr">type</span>=<span class="string">"audio/mpeg"</span> <span class="attr">data-duration</span>=<span class="string">"1min5secs"</span> <span class="attr">data-tempo</span>=<span class="string">"125bpm"</span> <span class="attr">data-artist</span>=<span class="string">"The Beatles"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>通过这些自定义属性提供的信息我们就可以更准确的去做例如搜索、过滤或者分类的操作。</p>
-<h2 id="如何只用-data-属性"><a href="#如何只用-data-属性" class="headerlink" title="如何只用 data-* 属性"></a>如何只用 data-* 属性</h2><p>data-* 属性的开头必须是’data-‘而且横杠后面必须包含最少一个字符。</p>
-<p>W3C规定的data属性标准如下：</p>
-<blockquote>
-<p>自定义数据属性旨在没有更合适的属性或元素的时候，使用自定义属性来存储页面或应用程序的私有数据。</p>
-</blockquote>
-<p>就是说，我们应该内部使用这些属性来为我们的应用服务，而不应该用来存储和暴露我们用户的信息。另外要注意的是，你可以为任何元素添加任何数量的自定义属性。</p>
-<h2 id="什么时候应该用-data-属性"><a href="#什么时候应该用-data-属性" class="headerlink" title="什么时候应该用 data-* 属性"></a>什么时候应该用 data-* 属性</h2><p>我们已经清楚知道怎么使用这个属性，现在再看一些其他的例子。</p>
-<p>Luckily Webdesigntuts+ 已经提供了一些很好的例子。其中一个例子你可能会遇到，当我们需要对某个特性标签显示特定的气泡信息的时候，我们就可以把气泡的信息数据存到对应的标签上：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">class</span>=<span class="string">"pink"</span> <span class="attr">data-bubble</span>=<span class="string">"2"</span>&gt;</span>Profile<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="什么时候不应该使用-data"><a href="#什么时候不应该使用-data" class="headerlink" title="什么时候不应该使用 data-*"></a>什么时候不应该使用 data-*</h2><p>当标签有原有的属性或者更合适的属性的时候，我们就不应该使用 data-* 了，例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">data-time</span>=<span class="string">"20:00"</span>&gt;</span>8pm<span class="tag">&lt;<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们知道其实 <code>time</code> 标签就可以做到上面的定义：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">time</span> <span class="attr">datetime</span>=<span class="string">"20:00"</span>&gt;</span>8pm<span class="tag">&lt;/<span class="name">time</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>data-* 属性不应该用作元数据或者micro formats的替代。Micro formats是为人类设计的，为了给出我们标签上下文。例如，你有一个Vcard提供个人或组织的联系方式，那么你可以基于它一个“vcard”的类，让机器知道这是一条联系信息。</p>
-<p>【译者注】关于微格式(micro formats)的定义可以看一下<a href="https://www.jianshu.com/p/7e11c1f32a48" target="_blank" rel="noopener">这篇</a></p>
-<p>我们应该使用下面的微格式标签结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"vcard"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"fn "</span> &gt;</span>Aaron Lumsden<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>而不是：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"vcard"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">span</span> <span class="attr">data-name</span>=<span class="string">"Aaron Lumsden "</span> &gt;</span>Aaron Lumsden<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>【译者注】实际上现在很多的双数据绑定框架都是依赖 data-* 来保存实际数据，所以这里提到的规范被模糊很多了。</p>
-<h2 id="在CSS中使用-data"><a href="#在CSS中使用-data" class="headerlink" title="在CSS中使用 data-*"></a>在CSS中使用 data-*</h2><p>当我们在HTML标签使用了data-<em>,我们同样可以在CSS上捕捉(target)到它们。但有一样很重要的事情是，千万不要直接通过data-</em>属性来使用样式，即使在某些情况下是合适的。在CSS中捕捉data-*属性的方法跟其它的属性是类似的，你可以这样去做：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[data-role="page"]</span> &#123;</span><br><span class="line">  <span class="comment">/* Styles */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>例如当我们在做手机端适配的时候，我们想让某些特定的内容只显示在手机端。就可以这样做：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-role</span>=<span class="string">"mobile"</span>&gt;</span></span><br><span class="line">Mobile only ontent</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-attr">[data-role="mobile"]</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>:none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>虽然不建议基于查看设备(【译者注】应该基于屏幕分辨率)去隐藏内容，但可能存在某些适当的情况。 妳应该根据每个具体情况能不能使用。</p>
-<p>也可以使用属性中的数据并通过CSS显示它。 虽然规范说妳不应该把自定义属性中的数据向用户显示，但是在某些情况下可能是最好的方法。 这就是它的实现方式。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"test"</span> <span class="attr">data-content</span>=<span class="string">"This is the div content"</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span>​</span><br></pre></td></tr></table></figure>
-<p>在CSS中，你可以使用’：after’ 这样的伪元素（或其他一些生成的内容），将该属性用作’after’内容的一部分，如下所示：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.test</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="selector-class">.test</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="built_in">attr</span>(data-content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样在’.text’ div中将会显示 ‘This is the div content’</p>
-<h2 id="在jQuery中使用data"><a href="#在jQuery中使用data" class="headerlink" title="在jQuery中使用data-*"></a>在jQuery中使用data-*</h2><p>jQuery已经整合了一个方法,十分方便。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;div data-info=<span class="string">"a"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">$(<span class="string">'div'</span>).data(<span class="string">'info'</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="浏览器兼容行"><a href="#浏览器兼容行" class="headerlink" title="浏览器兼容行"></a>浏览器兼容行</h2><p>其实目前基本上所有浏览器都是兼容了，所以这部分略过。</p>
-<h2 id="译者思考"><a href="#译者思考" class="headerlink" title="译者思考"></a>译者思考</h2><p>之所以会找这篇文章来看，是在想一个问题：例如为什么不能直接使用 info=”” 来定义？而要使用 data-info=””，其实也是为了符合W3C的规范，实际上两者都是能拿到值的。规范是很重要的，无规则不成方圆。<br>完。</p>
-
-          
-        
-      
-    </div>
     
     
     
@@ -914,21 +807,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h3 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h3><p><a href="https://superhos.github.io/studyforinterview/2018/07/05/coding-color-bar">514. 栅栏染色</a></p>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1046,24 +924,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。</p>
-<p>num1 和 num2 的长度都小于5100。<br>num1 和 num2 都只包含数字 0-9。<br>num1 和 num2 都不包含任何前导零。<br>您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>给定 num1 = “123”，num2 = “45”<br>返回 “168”</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>相关的题要不就翻转字符串，要不就用栈。JS用数组模拟栈更方便。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param num1: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @param num2: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @return: return sum of num1 and num2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> addStrings = <span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = num1.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> s2 = num2.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> r = <span class="string">''</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s1.length + s2.length !== <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> t1 = s1.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> t2 = s2.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> sum = <span class="built_in">parseInt</span>(t1) + <span class="built_in">parseInt</span>(t2) + i;</span><br><span class="line">        i = <span class="built_in">Math</span>.floor(sum/<span class="number">10</span>);</span><br><span class="line">        r = <span class="string">''</span> + sum%<span class="number">10</span> + r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (i?i:<span class="string">""</span>) + r + <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
     
     
     
@@ -1183,31 +1043,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>我们有一个栅栏，它有n个柱子，现在要给柱子染色，有k种颜色可以染。<br>必须保证不存在超过2个相邻的柱子颜色相同，求有多少种染色方案。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>n = 3, k = 2, return 6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">      post 1,   post 2, post 3</span><br><span class="line">way1    0         0       1 </span><br><span class="line">way2    0         1       0</span><br><span class="line">way3    0         1       1</span><br><span class="line">way4    1         0       0</span><br><span class="line">way5    1         0       1</span><br><span class="line">way6    1         1       0</span><br></pre></td></tr></table></figure></p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>这类型的题动态规划是比较适合的。</p>
-<p>先以n=3来分析。第一根可选颜色是k,第二根也是k。用一个record[]来表示，record[0]表示第一根柱子的可选方案，record[1]表示前两根柱子的可选方案，就是record[1] = k * k.</p>
-<p>到了第三根的时候就要分情况来讨论 ,前三根的可选方案有：</p>
-<p>1) 第一根与第二根同色,三根的可选方案为：k <em> (k-1).<br>2) 第一根与第二根不同色,则第三根与第一根就没有关系了，三根的可选方案为：k </em> k * (k-1).</p>
-<p>所以设 i = 3 的时候，可以得到状态转移方程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">record[i] = record[i-2] * ( k-1 ) + record[i-1] * ( k-1 );</span><br></pre></td></tr></table></figure></p>
-<p>然后 record[0] = k, record[1] = k * k.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param n: non-negative integer, n posts</span></span><br><span class="line"><span class="comment"> * @param k: non-negative integer, k colors</span></span><br><span class="line"><span class="comment"> * @return: an integer, the total number of ways</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> numWays = <span class="function"><span class="keyword">function</span> (<span class="params">n, k</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> k*k;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">let</span> record = [];</span><br><span class="line">           record[<span class="number">0</span>] = k;</span><br><span class="line">           record[<span class="number">1</span>] = k * k;</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">2</span>; i &lt; n ; i++)&#123;</span><br><span class="line">               record[i] = (record[i<span class="number">-1</span>] + record[i<span class="number">-2</span>]) * (k<span class="number">-1</span>);</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> record[n<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当然，其实我们要的就是最后一个值，所以空间上也是可以优化的，改用两个变量来保存 i, i-1 ,i-2 三个值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param n: non-negative integer, n posts</span></span><br><span class="line"><span class="comment"> * @param k: non-negative integer, k colors</span></span><br><span class="line"><span class="comment"> * @return: an integer, the total number of ways</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> numWays = <span class="function"><span class="keyword">function</span> (<span class="params">n, k</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> k;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> k*k;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">let</span> llval = k,val;</span><br><span class="line">           <span class="keyword">let</span> lval = k * k;</span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">2</span>; i &lt; n ; i++)&#123;</span><br><span class="line">               val = (lval + llval) * (k<span class="number">-1</span>);</span><br><span class="line">               llval = lval;</span><br><span class="line">               lval = val;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> val;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1325,23 +1160,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="深入JS原型链"><a href="#深入JS原型链" class="headerlink" title="深入JS原型链"></a>深入JS原型链</h3><p>最近有点太忙了，趁着现在有点时间继续写文章。</p>
-<p>## </p>
-<hr>
-
-          
-        
-      
-    </div>
     
     
     
@@ -1461,26 +1279,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>给定一个单词序列，检查它是否构成一个有效单词广场。<br>一个有效的单词广场满足：如果第k行和第k列读取相同的字符串,并且0≤k&lt;max(numRows numColumns)。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">给定</span><br><span class="line">[</span><br><span class="line">  &quot;abcd&quot;,</span><br><span class="line">  &quot;bnrt&quot;,</span><br><span class="line">  &quot;crmy&quot;,</span><br><span class="line">  &quot;dtye&quot;</span><br><span class="line">]</span><br><span class="line">返回 true</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">第一行和第一列都是“abcd”。</span><br><span class="line">第二行和第二列都是“bnrt”。</span><br><span class="line">第三行和第三列都是“crmy”。</span><br><span class="line">第四行和第四列都是“dtye”。</span><br><span class="line"></span><br><span class="line">因此，这是一个有效的单词广场.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">给定</span><br><span class="line">[</span><br><span class="line">  &quot;abcd&quot;,</span><br><span class="line">  &quot;bnrt&quot;,</span><br><span class="line">  &quot;crm&quot;,</span><br><span class="line">  &quot;dt&quot;</span><br><span class="line">]</span><br><span class="line">返回 true</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">第一行和第一列都是“abcd”。</span><br><span class="line">第二行和第二列都是“bnrt”。</span><br><span class="line">第三行和第三列都是“crm”。</span><br><span class="line">第四行和第四列都是“dt”。</span><br><span class="line"></span><br><span class="line">因此，这是一个有效的单词广场.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">给定</span><br><span class="line">[</span><br><span class="line">  &quot;ball&quot;,</span><br><span class="line">  &quot;area&quot;,</span><br><span class="line">  &quot;read&quot;,</span><br><span class="line">  &quot;lady&quot;</span><br><span class="line">]</span><br><span class="line">返回 false</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">第三行是 &quot;read&quot; 但是第三列是 &quot;lead&quot;.</span><br><span class="line"></span><br><span class="line">因此，这不是一个有效的单词广场.</span><br></pre></td></tr></table></figure>
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h3><p>直接暴力两层for, skip, O(n^m)</p>
-<h3 id="SOlution-2"><a href="#SOlution-2" class="headerlink" title="SOlution 2"></a>SOlution 2</h3><p>发现跟前面做过的Toeplitz Matrix有点像，直接忽略对角线判断<code>Matrix[i][j] == Matrix[j][i]</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param words: a list of string</span></span><br><span class="line"><span class="comment"> * @return: a boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> validWordSquare = <span class="function"><span class="keyword">function</span> (<span class="params">words</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> colwords = [];</span><br><span class="line">    <span class="keyword">let</span> cols = words[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">let</span> row = words.length;</span><br><span class="line">    <span class="keyword">let</span> offset = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>;i&lt;cols;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (offset == row<span class="number">-1</span>)<span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span> (words[i<span class="number">-1</span> + offset][i + offset] !== words[i + offset][i<span class="number">-1</span> + offset])</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (i == cols)&#123;</span><br><span class="line">            i = <span class="number">1</span>;</span><br><span class="line">            offset++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1598,25 +1396,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>翻转游戏：给定一个只包含两种字符的字符串：+和-，你和你的小伙伴轮流翻转”++”变成”–”。当一个人无法采取行动时游戏结束，另一个人将是赢家。<br>编写一个函数，计算字符串在一次有效移动后的所有可能状态。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>给定 s = “++++”, 在一次有效移动后，它会变成下列状态之一：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &quot;--++&quot;,</span><br><span class="line">  &quot;+--+&quot;,</span><br><span class="line">  &quot;++--&quot;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>如果无法移动，则返回一个空列表[].</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>简单直接一个循环</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param s: the given string</span></span><br><span class="line"><span class="comment"> * @return: all the possible states of the string after one valid move</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> generatePossibleNextMoves = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = s.length;</span><br><span class="line">    <span class="keyword">if</span> (len &lt; <span class="number">2</span>)<span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">let</span> result = [];</span><br><span class="line">    len -= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len ; i++ )&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.substr(i,<span class="number">2</span>) === <span class="string">"++"</span>)&#123;</span><br><span class="line">            result.push(s.substring(<span class="number">0</span>,i) + <span class="string">"--"</span> + s.substring(i+<span class="number">2</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
     
     
     

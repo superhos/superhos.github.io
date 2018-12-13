@@ -335,6 +335,30 @@
     
     
     
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>自从用上了lodash以后，这些基础的算法都很少碰了，现在重温了一下。快速排序的话核心就是分而治之。</p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>先把核心的比较部分拆分出来，叫<code>partition</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">partition</span>(<span class="params">arr,left,right</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = left, j, pivot = arr[right];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (j = left;j&lt;=right;j++)&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[j] &lt; pivot)&#123;</span><br><span class="line">      swap(arr,i,j);</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr,i,right);</span><br><span class="line">  <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设比较值。<code>pivot</code>是随机抽取的比较值，国内多是数组中位数，国外多是最后一个数。</li>
+<li>比较。然后从最左开始循环跟<code>pivot</code>进行比较，如果遇到<code>arr[j]</code>比<code>pivot</code>小的数，就会把它跟<code>arr[i]</code>进行对换(<code>swap</code>是交换函数)，并且进行<code>i++</code>。</li>
+<li>分组。如此一直到<code>j == right</code>的时候，<code>i</code>不一定也会到达<code>right</code>，这个时候可以确保的是<code>i</code>的位置以及<code>i</code>以下的位置的值都是比<code>pivot</code>小的，<code>i+1</code>就是临界墙，所以把<code>i+1</code>返回去进行下一轮比较。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quicksort</span>(<span class="params">arr,left,right</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (left &lt; right)&#123;</span><br><span class="line">    partitionIndex = partition(arr,left,right);</span><br><span class="line"></span><br><span class="line">    quicksort(arr,left,partitionIndex<span class="number">-1</span>);</span><br><span class="line">    quicksort(arr,partitionIndex+<span class="number">1</span>,right);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>递归出口。来到主函数，首先可以知道递归出口是<code>left &gt;= right</code>。</li>
+<li>分而治之。根据<code>partition</code>获得得临界点，我们就可以把数组再分为两部分去进行<code>partition</code>，要注意临界点的数其实已经确定是比左边的都大，比右边的都小，所以它不需要再丢回去比较了。</li>
+<li>最后返回的就是排序完成的数组。</li>
+</ol>
+
+      
+    </div>
+    
     
     
     

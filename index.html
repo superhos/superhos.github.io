@@ -335,30 +335,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在写得时候有点感觉把插件当做一个系统来写了，想要放进去的功能越来越多，还是先把基础功能做了。</p>
-<h2 id="比较1-0需要提升的地方"><a href="#比较1-0需要提升的地方" class="headerlink" title="比较1.0需要提升的地方"></a>比较1.0需要提升的地方</h2><h3 id="1-滚动最小单位为单条弹幕"><a href="#1-滚动最小单位为单条弹幕" class="headerlink" title="1. 滚动最小单位为单条弹幕"></a>1. 滚动最小单位为单条弹幕</h3><h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>滚动的最小单位为单条弹幕，造成的情况是大量Div同时修改，JS计算量巨大，虽然使用了<code>position: absolute</code>脱离了文档流，不会引起reflow和repaint，但是大量弹幕同时渲染也是会降低动画质量。</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>引入一个新的滚动单位，弹幕块，在一定时间内（默认3秒，或熟练达到3条）的弹幕会group在一起，加入到一个弹幕块中，真正动的就是弹幕块，降低了JS的运算量。</p>
-<h3 id="2-弹幕过多时杂乱无章"><a href="#2-弹幕过多时杂乱无章" class="headerlink" title="2. 弹幕过多时杂乱无章"></a>2. 弹幕过多时杂乱无章</h3><h4 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h4><p>1.0使用的是随机<code>top</code>来加入弹幕，当弹幕过多的时候，会十分杂乱，上下两行会有重叠现象，可读性差，也难以加入稳定的互动操作。</p>
-<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>加入弹幕泳道的概念，舞台建立后，会加入多条泳道（默认3条），弹幕块会加入到泳道中进行移动，保证上下泳道不会重叠阻挡。(如下图)</p>
-<p><img src="1.jpg" alt="lane"></p>
-<h3 id="3-setTimeout过多"><a href="#3-setTimeout过多" class="headerlink" title="3. setTimeout过多"></a>3. setTimeout过多</h3><h4 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h4><p>因为弹幕的滚动组件单位是弹幕本身，每加入一个弹幕都会启动一个<code>setTimeout</code>来控制它自身的动画，当有大量弹幕的时候，大量的setTimeout导致性能降低，出现动画跳帧等情况。</p>
-<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><p>插件核心维护一个中心的计时器(采用requestAnimationFrame),受机场的<strong>行李输送带</strong>启发，整个弹幕舞台就是一个传送带：</p>
-<p><img src="data:image/jpeg;base64,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" alt="lane_go"></p>
-<p>而我们的弹幕块就是传送带上的行李，当弹幕块加入到传送带上之后，就会收到传送带上的推力，从而计算自身的移动量。</p>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -476,44 +452,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>承蒙路人们支持，近一年半前的一个弹幕插件项目突破了300下载量。。哈哈好少。。这个项目当时是纯练手项目，所以一年半以后，希望重制整个项目，之前也重制过一个2.0版本在分支上，不过只是更新了动画的方式，没有太大的改进。所以现在直接进入3.0的开发。</p>
-<h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p><img src="display.jpeg" alt="展现形式"></p>
-<p>如上图，现在主流的弹幕已经比较少完全乱序、杂乱无章的了，为了方便清晰显示弹幕内容，大部分会使用上面的形式，行内整齐队列滚动，行与行之间会交错显示。</p>
-<h3 id="开发需求"><a href="#开发需求" class="headerlink" title="开发需求"></a>开发需求</h3><ol>
-<li>应付高流量弹幕，建立弹幕池，新到弹幕加入到队列池，一段时间后再渲染到弹幕舞台，降低高流量弹幕带来的渲染消耗。</li>
-<li>因为要满足弹幕滚动中更多元化的操作（例如暂停，弹出更多元素等），动画选择方面需要基于JS。</li>
-<li>分泳道展示弹幕，使用均衡算法分配弹幕。</li>
-</ol>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>自动兼容比较热门的HTML播放器，目的做到：</p>
-<ol>
-<li>如没有提供弹幕接口，则可以手动/自动匹配<vedio>标签，创建弹幕窗口</vedio></li>
-<li>如果有提供弹幕接口，提供无缝接入</li>
-</ol>
-<h3 id="服务端接入"><a href="#服务端接入" class="headerlink" title="服务端接入"></a>服务端接入</h3><ol>
-<li>提供弹幕对接接口。【支持自定义弹幕对象字段】</li>
-<li>兼容Pusher服务</li>
-</ol>
-<h3 id="Roadmap"><a href="#Roadmap" class="headerlink" title="Roadmap"></a>Roadmap</h3><ul>
-<li style="list-style: none"><input type="checkbox" checked> 使用Rxjs实现弹幕队列池</li>
-<li style="list-style: none"><input type="checkbox"> 提供前端接入方法</li>
-<li style="list-style: none"><input type="checkbox" checked> 提供服务端接入接口</li>
-<li style="list-style: none"><input type="checkbox"> 优化弹幕滚动效能</li>
-<li style="list-style: none"><input type="checkbox"> 优化开发范式</li>
-</ul>
-
-          
-        
-      
-    </div>
     
     
     
@@ -633,39 +571,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Promise在现在已经不是新鲜事，是前端必须要掌握的语法了，用的话几乎每天都在用，那么如果要我们实现一个Promise又应该怎么做呢？</p>
-<h2 id="了解Promise"><a href="#了解Promise" class="headerlink" title="了解Promise"></a>了解Promise</h2><p>先认识下Promise，Promise是解决JS回调地狱的方法之一，异步的实现方式之一。</p>
-<h2 id="Promise的三个状态"><a href="#Promise的三个状态" class="headerlink" title="Promise的三个状态"></a>Promise的三个状态</h2><ul>
-<li><strong>resolve</strong> 表示耗时操作已经完成</li>
-<li><strong>reject</strong>  有异常捕捉到，操作结束</li>
-<li><strong>pending</strong> 还没有调用到<code>resolve</code>或者<code>reject</code>代码块依然执行中，仍在等待结果</li>
-</ul>
-<h2 id="基础的Promise使用"><a href="#基础的Promise使用" class="headerlink" title="基础的Promise使用"></a>基础的Promise使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> findSomeThing = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            resolve(<span class="string">'ok'</span>)</span><br><span class="line">        &#125;,<span class="number">3000</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> demo = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    findSomeThing().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Say HI'</span>)</span><br><span class="line">    &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为了更清晰，这里就不用<code>await</code>语法了。可以看到有以下几点：</p>
-<ol>
-<li>我们的<code>findSomeThing</code>就是耗时的异步操作</li>
-<li>然后返回一个Promise，Promise代码块中在耗时操作完成之后，会执行到<code>resolve</code>或者<code>reject</code></li>
-<li>然后就会执行到我们的then函数中的代码块或者直接catch到异常。</li>
-<li>还有一点要注意，Promise是可以形成链式操作的，就是可以同时有多个then。</li>
-</ol>
-<p>清晰了主要用法，就可以想想怎么去实现</p>
-<p>P.S. 下面是我手写代码的过程，不保证最后结果正确。。等写完再找一篇权威的放最后参考。</p>
-<h2 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h2><p>首先先定义一个<code>Promize</code>类:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Promize</span> </span>&#123;</span><br><span class="line">    <span class="comment">// execFunc 为需要耗时操作的代码块</span></span><br><span class="line">    <span class="keyword">constructor</span> (callback) &#123;</span><br><span class="line">        <span class="keyword">this</span>.callback = callback()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p></p>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -783,34 +688,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近自己开了很多坑给自己(edixo, sevens-iam, sevens-data-center)，归根到底太多想做太少时间了。三年将至，也是时候参加下面试看看自己的水平到哪里了。</p>
-<p>预期1月中旬参加面试，设立点To do list来鞭策下自己</p>
-<h2 id="To-Do-List"><a href="#To-Do-List" class="headerlink" title="To Do List"></a>To Do List</h2><ul>
-<li>[] 基础复习，过一遍JS基础语法ES5 &amp;&amp; ES6</li>
-<li>[] css基本布局 (* flex )</li>
-<li>[] css3 &amp;&amp; JS 动画原理 (发现挺多会问到这个的) </li>
-<li>[] 简历整理 (主要整理工作经历项目经历)</li>
-<li>[] 算法复习 (一些基础的算法还是要复习一下)</li>
-<li>[] 框架深研 (但求过一遍Vue, React的核心实现, 还有Redux/Vuex的核心思想等)</li>
-<li>[] 框架组件开发 (对于大公司来说，个人的组件开发能力尤其重要)</li>
-<li>[] 笔试题演练 ( leetcode + 网上笔试题)</li>
-</ul>
-<h2 id="预期目标"><a href="#预期目标" class="headerlink" title="预期目标"></a>预期目标</h2><p>Target location应该是深圳，公司的话主要有留意很久的Shopee, Lazada 和 字条跳动。</p>
-<h2 id="Cheer-Up"><a href="#Cheer-Up" class="headerlink" title="Cheer Up"></a>Cheer Up</h2><p>去除12月底5天的旅游时间，剩下大概36天，加油吧日天</p>
-
-          
-        
-      
-    </div>
     
     
     
@@ -930,41 +807,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>写插件写得有点累，总结篇文章休息一下</p>
-<p>模块化规范目前应该是commonJS和ES6 module两种规范使用得比较多，<br>Node中采用的食commonJS(当然很多时候都可以混着用)，而前端的话普遍用ES6 module了。</p>
-<p>全栈做得多了，两种规范常常脑短路混淆，看着method undefined相当蛋疼，这里整理一下。</p>
-<h2 id="两种模式常用法比较"><a href="#两种模式常用法比较" class="headerlink" title="两种模式常用法比较"></a>两种模式常用法比较</h2><p>commonJS<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//---- lib.js ----</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    add</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//---- main.js ----</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="built_in">require</span>(<span class="string">'./lib'</span>).add</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure></p>
-<p>ES6 module<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//---- lib.js ----</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//---- main.js ----</span></span><br><span class="line"><span class="keyword">import</span> &#123; add &#125; <span class="keyword">from</span> <span class="string">'./lib'</span></span><br><span class="line"><span class="built_in">console</span>.log(add(x, y))</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://hackernoon.com/import-export-default-require-commandjs-javascript-nodejs-es6-vs-cheatsheet-different-tutorial-example-5a321738b50f" target="_blank" rel="noopener">参考文章</a></p>
-<p>模块化导出的话大致可以分为以下四种：</p>
-<ol>
-<li>命名导出 (一个模块多个导出)</li>
-<li>默认导出 (一个模块一个导出)</li>
-<li>混合命名和默认导出</li>
-<li>循环依赖</li>
-</ol>
-<h2 id="命名导出"><a href="#命名导出" class="headerlink" title="命名导出"></a>命名导出</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//------ lib.js ------</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> sqrt = <span class="built_in">Math</span>.sqrt;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">square</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">diag</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sqrt(square(x) + square(y));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//------ main.js ------</span></span><br><span class="line"><span class="keyword">import</span> &#123; square, diag &#125; <span class="keyword">from</span> <span class="string">'lib'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(square(<span class="number">11</span>)); <span class="comment">// 121</span></span><br><span class="line"><span class="built_in">console</span>.log(diag(<span class="number">4</span>, <span class="number">3</span>)); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//------ main.js ------</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> lib <span class="keyword">from</span> <span class="string">'lib'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(lib.square(<span class="number">11</span>)); <span class="comment">// 121</span></span><br><span class="line"><span class="built_in">console</span>.log(lib.diag(<span class="number">4</span>, <span class="number">3</span>)); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-<h2 id="默认导出"><a href="#默认导出" class="headerlink" title="默认导出"></a>默认导出</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//------ myFunc.js ------</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; ... &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//------ main1.js ------</span></span><br><span class="line"><span class="keyword">import</span> myFunc <span class="keyword">from</span> <span class="string">'myFunc'</span>;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure>
-<h2 id="混合命名和默认导出"><a href="#混合命名和默认导出" class="headerlink" title="混合命名和默认导出"></a>混合命名和默认导出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//------ underscore.js ------</span><br><span class="line">export default function (obj) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line">export function each(obj, iterator, context) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">export &#123; each as forEach &#125;;</span><br><span class="line"></span><br><span class="line">//------ main.js ------</span><br><span class="line">import _, &#123; each &#125; from &apos;underscore&apos;;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h2 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lib.js</span></span><br><span class="line"><span class="keyword">import</span> Main <span class="keyword">from</span> <span class="string">'main'</span>;</span><br><span class="line"><span class="keyword">var</span> lib = &#123;<span class="attr">message</span>: <span class="string">"This Is A Lib"</span>&#125;;</span><br><span class="line"><span class="keyword">export</span> &#123; lib <span class="keyword">as</span> Lib &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; Lib &#125; <span class="keyword">from</span> <span class="string">'lib'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123; </span><br><span class="line">  <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://2ality.com/2014/09/es6-modules-final.html" target="_blank" rel="noopener">http://2ality.com/2014/09/es6-modules-final.html</a></p>
-<p><a href="https://gist.github.com/vasco3/22b09ef0ca5e0f8c5996#modules" target="_blank" rel="noopener">https://gist.github.com/vasco3/22b09ef0ca5e0f8c5996#modules</a></p>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1082,26 +924,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h3><p>开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。</p>
-<p>当前需求是增加一个mongodb，需要加入到servicenet下。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>文档可以查看：<a href="https://docs.docker.com/compose/compose-file/#external-1" target="_blank" rel="noopener">这里</a></p>
-<p>docker-compose.yml:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">'3.6'</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mongo:</span><br><span class="line">    image: mongo</span><br><span class="line">    <span class="built_in">command</span>: [--auth]</span><br><span class="line">    container_name: cscsdb</span><br><span class="line">    volumes:</span><br><span class="line">       [<span class="string">'../dbdata:/data/db'</span>]</span><br><span class="line">    ports:</span><br><span class="line">       - 27018:27017</span><br><span class="line">    networks:</span><br><span class="line">       - outside</span><br><span class="line">networks:</span><br><span class="line">    outside:</span><br><span class="line">      external:</span><br><span class="line">        name: servicenet</span><br></pre></td></tr></table></figure>
-<p>就这个样子了</p>
-
-          
-        
-      
-    </div>
     
     
     
@@ -1221,23 +1043,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="监控类"><a href="#监控类" class="headerlink" title="监控类"></a>监控类</h3><p><a href="https://docs.bugsnag.com/platforms/javascript/" target="_blank" rel="noopener">Bugsnag</a> - 日志监控<br><a href="https://sentry.io/onboarding/looking-for/sharvens/configure/node" target="_blank" rel="noopener">Sentry</a> - 日志监控</p>
-<h3 id="推送类"><a href="#推送类" class="headerlink" title="推送类"></a>推送类</h3><p><a href="https://dashboard.pusher.com/" target="_blank" rel="noopener">Pusher</a> - 提供Push服务</p>
-<h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p><a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="noopener">dotenv</a> - 用以读取.env配置</p>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1355,27 +1160,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近在做前端的excel导入导出需求，顺便整理下</p>
-<h3 id="Library"><a href="#Library" class="headerlink" title="Library"></a>Library</h3><p><a href="https://www.npmjs.com/package/xlsx" target="_blank" rel="noopener">xlsx</a><br><a href="https://www.npmjs.com/package/open-file-dialog" target="_blank" rel="noopener">open-file-dialog</a><br><a href="https://www.npmjs.com/package/file-saver" target="_blank" rel="noopener">file-saver</a><br>xlsx是xlsx格式文件的JS处理库，两个字：优秀。open-file-dialog是选择文件弹框，当然用原生都是可以的。<br>file-saver是文件输出的包。</p>
-<h3 id="读取Excel"><a href="#读取Excel" class="headerlink" title="读取Excel"></a>读取Excel</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">dialog(&#123;</span><br><span class="line">    multiple: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 指定 .xlsx 格式</span></span><br><span class="line">    accept: <span class="string">'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'</span></span><br><span class="line">  &#125;, (json) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> file = json[<span class="number">0</span>] <span class="comment">// 单选一个文件</span></span><br><span class="line">    <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader()</span><br><span class="line">    <span class="comment">// 读取完成后执行 onload</span></span><br><span class="line">    reader.onload = <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line">      <span class="keyword">const</span> data = e.target.result</span><br><span class="line">      <span class="keyword">const</span> workbook = XLSX.read(data, &#123;</span><br><span class="line">        type: <span class="string">'binary'</span> <span class="comment">// 设置二进制格式</span></span><br><span class="line">      &#125;)</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 遍历所有工作表</span></span><br><span class="line">      workbook.SheetNames.forEach(<span class="function"><span class="params">sheetName</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 将表内容转换成object数组</span></span><br><span class="line">        <span class="keyword">let</span> XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])</span><br><span class="line">        <span class="keyword">let</span> json_object = XL_row_object</span><br><span class="line">        <span class="built_in">console</span>.log(json_object)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 异常处理</span></span><br><span class="line">    reader.onerror = <span class="function">(<span class="params">ex</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(ex)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 二进制格式读取文件</span></span><br><span class="line">    reader.readAsBinaryString(file) </span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>具体看注释，主要原理就是二进制格式读取Excel文件，然后XLSX对数据进行解析，得到我们想要的object数组。</p>
-<h3 id="写入Excel"><a href="#写入Excel" class="headerlink" title="写入Excel"></a>写入Excel</h3><p>读取就更简单了</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wb = XLSX.utils.book_new()</span><br><span class="line"><span class="keyword">const</span> head = &#123;<span class="string">'a'</span>:<span class="string">'第一列'</span>,<span class="string">'b'</span>:<span class="string">'第二列'</span>&#125;</span><br><span class="line"><span class="keyword">const</span> result = [&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'11'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'12'</span></span><br><span class="line">&#125;,&#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'21'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'22'</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">result.unshift(head)</span><br><span class="line"><span class="comment">// JSON转为Sheet</span></span><br><span class="line"><span class="keyword">var</span> ws = XLSX.utils.json_to_sheet(result[, &#123;<span class="attr">skipHeader</span>: <span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment">// Sheet加入到book中</span></span><br><span class="line">XLSX.utils.book_append_sheet(wb, ws, <span class="string">`sheet1`</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> wbout = XLSX.write(wb, &#123;<span class="attr">bookType</span>:<span class="string">'xlsx'</span>, <span class="attr">type</span>:<span class="string">'array'</span>&#125;)</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    FileSaver.saveAs(<span class="keyword">new</span> Blob([wbout], &#123; <span class="attr">type</span>: <span class="string">'application/octet-stream'</span> &#125;), onlyHead ? <span class="string">`导入模板.xlsx`</span> : <span class="string">`<span class="subst">$&#123;moment().format(<span class="string">'YYYY-MM-DD'</span>)&#125;</span>_nikki资料导出.xlsx`</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123; </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">console</span> !== <span class="string">'undefined'</span>)             <span class="built_in">console</span>.log(e, wbout) </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> wbout</span><br></pre></td></tr></table></figure>
-<p>看代码应该没难度，但是这个库有个问题，在issue看到它的header好像有BUG，而且单纯用header设置的话就做不了key映射（因为它header的设置只支持数组），所以我这里就用了一行数据作为我们的head，把head当做普通的数据来处理</p>
-
-          
-        
-      
-    </div>
     
     
     
@@ -1495,39 +1279,6 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>翻译自：<a href="https://medium.com/dailyjs/i-never-understood-javascript-closures-9663703368e8" target="_blank" rel="noopener">I never understood JavaScript closures</a></p>
-<p>闭包对很多JS初学者乃至有经验者来说都是很容易混淆的概念，在这篇文章整理下相关的概念和例子。</p>
-<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><p>在深入来讲闭包以前，有一些基础的概念我们首先要了解一下，其中一个就是<em> 上下文
- </em>。</p>
-<p> 关于上下文<a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/" target="_blank" rel="noopener">这篇文章</a>讲得不错，引用一下这篇文章：</p>
-<blockquote>
-<p>当代码在JS中执行的时候，它所正在执行的环境是很重要的，可以归纳为下面的其中一种：<br><strong>Global code</strong> —— 你的代码在最开始默认执行的环境<br><strong>Function code</strong> —— 每当执行流程进入到一个函数体内部<br>(…), 我们可以把<code>执行上下文</code>看作是当前代码运行的环境/范围</p>
-</blockquote>
-<p> 换种说法，当我们开始一个程序，我们是在全局执行上下文里开始。一些定义在全局执行上下文里的变量，我们把它们叫做<code>全局变量</code>。当程序调用一个函数的时候，发生了什么呢？<br> 一些简单的步骤：</p>
-<ol>
-<li>Javascript 创建一个新的执行上下文，一个本地的执行上下文</li>
-<li>这个本地的执行上下文会管理它自己的变量集，这些变量就是这个执行上下文的<code>本地变量</code></li>
-<li>新的执行上下文会被抛到执行堆栈上。可以把执行堆栈看作一个机制，用于跟踪程序执行的位置</li>
-</ol>
-<p>那么函数什么时候结束呢？当遇到return语句或遇到结束括号<code>}</code>时就会结束。 函数结束时的时候，会发生以下情况：</p>
-<ol>
-<li><code>本地变量</code>会被pop出执行堆栈</li>
-<li></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
     
     
     
@@ -1645,118 +1396,6 @@
     
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>相信写过代码生成器的朋友都会对V-DOM不陌生，我也不例外，在这里翻译一篇挺好的文章来总结一下。</p>
-<p>翻译自： <a href="https://medium.com/@deathmood/how-to-write-your-own-virtual-dom-ee74acc13060" target="_blank" rel="noopener">How to write your own Virtual DOM</a><br>(部分由译者修改)</p>
-<p>当创建自己的虚拟DOM的时候，有一样事情你需要知道，就是你不需要使用到任何react/vue的资源或者代码。因为使用到它们的话，将会使我们的虚拟DOM非常的大和复杂，我们尽量在50行代码去完成它。</p>
-<p>这里有两个主要的概念：</p>
-<ul>
-<li>虚拟DOM食是真实DOM的表现形式</li>
-<li>当我们修改虚拟DOM树的任何内容，我们会获得新的虚拟DOM树。算法会比较两棵树（新和旧），找到不同的部分并且只会在真实DOM上更新这些部分。</li>
-</ul>
-<p>就是这些，我们开始来更深入的看看这些概念。</p>
-<p>更新： 另外一篇文章讲述了怎么在虚拟DOM上设置props和事件，<a href="https://medium.com/@deathmood/write-your-virtual-dom-2-props-events-a957608f5c76" target="_blank" rel="noopener">就是这里</a></p>
-<h2 id="表现出我们的DOM树"><a href="#表现出我们的DOM树" class="headerlink" title="表现出我们的DOM树"></a>表现出我们的DOM树</h2><p>最开始，我们需要把我们的DOM树保存到内存中。我们可以先使用旧有得JS对象结构。<br>首先我们会有类似这样的树：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>看起来挺漂亮的吧？那么怎么用JS对象去表达它呢：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    type: <span class="string">'ul'</span>,</span><br><span class="line">    props: &#123; <span class="string">'class'</span>: <span class="string">'list'</span> &#125;,</span><br><span class="line">    childen:[</span><br><span class="line">        &#123; <span class="attr">type</span>: <span class="string">'li'</span>, <span class="attr">props</span>: &#123;&#125;, <span class="attr">children</span>: [<span class="string">'item 1'</span>] &#125;,</span><br><span class="line">        &#123; <span class="attr">type</span>: <span class="string">'li'</span>, <span class="attr">props</span>: &#123;&#125;, <span class="attr">children</span>: [<span class="string">'item 2'</span>] &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这里你有两样事情需要注意：</p>
-<ul>
-<li><p>我们用对象表现了DOM元素：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">type</span>: <span class="string">'...'</span>, <span class="attr">props</span>: &#123;...&#125;, <span class="attr">children</span>: [...]&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们用JS的字符串来表现了DOM的文字节点：</p>
-</li>
-</ul>
-<p>但是用这样的一种方法去表现一棵大的树是挺困难的。所以我们写一个helper函数来帮助我们更容易地去了解结构。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">h</span> (<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; type, props, children&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>现在我们就可以用下面的方式来表现DOM树：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">h(<span class="string">'ul'</span>, &#123; <span class="string">'class'</span>: <span class="string">'list'</span> &#125;,</span><br><span class="line">    h(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 1'</span>),</span><br><span class="line">    h(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 2'</span>),</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>看起来干净很多了是吧? 但是我们可以更进一步，听说过JSX吧？ 是的，我们在这里同样可以使用。</p>
-<p>如果你阅读过<a href="https://babeljs.io/docs/plugins/transform-react-jsx/" target="_blank" rel="noopener">Babel JSX文档</a>，你就会知道，Babel会将下面的代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>转化成<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(<span class="string">'ul'</span>, &#123; <span class="attr">className</span>: <span class="string">'list'</span>&#125;,</span><br><span class="line">    React.createElement(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 1'</span>),</span><br><span class="line">    React.createElement(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 1'</span>),</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
-<p>注意到相似的地方了吗？ 是的，它只是将我们的<code>h(...)</code>换成了<code>React.createElement(...)</code>。这证明我们可以使用一个叫 <strong>jsx</strong> 编译的东西。我们只需要引用一个注释在我们的源文件最顶部：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/** @jsx h */</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">"list"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>那么我们就告诉了Babel: 喂！帮我将JSX转换成 <strong>h</strong>而不是<strong>React.createElement</strong>。当然，你也可以用其他东西来替换掉<code>h</code>，</p>
-<p>所以我们可以这样来写我们的DOM：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** @jsx h */</span></span><br><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">    &lt;ul className=<span class="string">"list"</span>&gt;</span><br><span class="line">        &lt;li&gt;item <span class="number">1</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">        &lt;li&gt;item 2&lt;/</span>li&gt;</span><br><span class="line">    &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br></pre></td></tr></table></figure></p>
-<p>经过babel的编译，可以得到：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">    h(<span class="string">'ul'</span>, &#123; <span class="string">'class'</span>: <span class="string">'list'</span> &#125;,</span><br><span class="line">        h(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 1'</span>),</span><br><span class="line">        h(<span class="string">'li'</span>, &#123;&#125;, <span class="string">'item 2'</span>),</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>当<code>h</code>执行的时候，它会返回一个原始的JS对象，就像下面那样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &#123; <span class="attr">type</span>: ‘ul’, <span class="attr">props</span>: &#123; <span class="attr">className</span>: ‘list’ &#125;, <span class="attr">children</span>: [</span><br><span class="line">    &#123; <span class="attr">type</span>: ‘li’, <span class="attr">props</span>: &#123;&#125;, <span class="attr">children</span>: [‘item <span class="number">1</span>’] &#125;,</span><br><span class="line">    &#123; <span class="attr">type</span>: ‘li’, <span class="attr">props</span>: &#123;&#125;, <span class="attr">children</span>: [‘item <span class="number">2</span>’] &#125;</span><br><span class="line">  ] &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
-<p>## 使用我们的DOM展示<br>那么现在我们已经可以使用我们自己的结构使用JS对象来表示DOM树。屌爆了，但是我们还需要可以通过它来建立新的真实DOM。因为我们不会只单单执行<code>展示</code>操作。</p>
-<p>首先先定义一些假设和术语：</p>
-<ul>
-<li><p>我会在变量前面加<code>$</code>，用来表示所有真实的DOM节点(元素,文字节点)，因此 <em>$parent</em> 就是一个真实的DOM元素。</p>
-</li>
-<li><p>虚拟DOM展示的变量会命名为节点。</p>
-</li>
-<li><p>跟React一样，你有且只能有一个根节点，其他的所有节点都被包含在根节点下。</p>
-</li>
-</ul>
-<p>好的，像前面一样，我们先来写一个 <code>createElement(...)</code> 用来将虚拟DOM转换成一个现实DOM节点。先别管<code>props</code> 和 <code>children</code>， 我们后面再补全：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> node === <span class="string">'string'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.createTextNode(node)</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createElement(node.type)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样我们就可以用下面的JS结构来表示节点：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    type: <span class="string">'...'</span>,</span><br><span class="line">    props: &#123; ... &#125;,</span><br><span class="line">    children: [ ... ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>因此，我们都可以传递文字节点或者虚拟节点。</p>
-<p>然后现在来考虑下子节点<code>children</code>，每个子节点都是一个文字节点或者元素节点。所以它们也可以用我们的<code>createElement(...)</code>函数来生成。是的，你感觉到没有？这就有点递归的感觉了：））所以我们可以用<code>createElement(...)</code>来生成每个元素的子节点，然后使用<code>appendChild()</code>来将它们加入到我们的元素中：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> node === <span class="string">'string'</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.createTextNode(node)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> $el = <span class="built_in">document</span>.createElement(node.type)</span><br><span class="line">    node.children</span><br><span class="line">        .map(createElement)</span><br><span class="line">        .forEach($el.appendChild.bind($el))</span><br><span class="line">    <span class="keyword">return</span> $el</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Wow! 看起來不错, 暂时先不考虑<code>props</code>，因为它会让虚拟DOM的基本概念变得复杂，不方便我们理解。</p>
-<p>来个小总结：</p>
-<p>JS:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** @jsx h */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">h</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; type, props, children &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> node === <span class="string">'string'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createTextNode(node);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> $el = <span class="built_in">document</span>.createElement(node.type);</span><br><span class="line">  node.children</span><br><span class="line">    .map(createElement)</span><br><span class="line">    .forEach($el.appendChild.bind($el));</span><br><span class="line">  <span class="keyword">return</span> $el;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">"list"</span>&gt;</span><br><span class="line">    &lt;li&gt;item <span class="number">1</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;li&gt;item 2&lt;/</span>li&gt;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const $root = document.getElementById('root');</span></span><br><span class="line"><span class="regexp">$root.appendChild(createElement(a));</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="处理改变"><a href="#处理改变" class="headerlink" title="处理改变"></a>处理改变</h2><p>接下来我们要把我们的虚拟DOM转换成真实DOM，是时候要考虑我们虚拟DOM树之间的比较。d我们要写一个最基本的算法，用来比较两棵虚拟树之间的差异，并且只把这些差异操作在真实DOM中。</p>
-<p>那么怎么去比较树呢？我们需要考虑到下面的一些情况：</p>
-<ul>
-<li><p>在相同的位置没有旧的节点，所以我们需要通过<code>appendChild(...)</code>增加新的节点:<br><img src="https://cdn-images-1.medium.com/max/800/1*GFUWrX6pBgiDQ5Z-IvzjUw.png" alt="Image 1"></p>
-</li>
-<li><p>在相同的位置没有新的节点，所以我们需要用到<code>removeChild(...)</code>来删除节点：<br><img src="https://cdn-images-1.medium.com/max/800/1*VRoYwAeWPF0jbiWXsKb2HA.png" alt="Image 2"></p>
-</li>
-<li><p>在相同的位置节点不一样，那么我们需要用<code>replaceChild(...)</code>来进行节点的替换：<br><img src="https://cdn-images-1.medium.com/max/800/1*6iQYEH0APjbuPvYmnD7Qlw.png" alt="Image 3"></p>
-</li>
-<li><p>相同位置节点相同的时候，我们需要进入更深一层的子节点进行比较：<br><img src="https://cdn-images-1.medium.com/max/800/1*x1Eq-uuqgL0z9d9qn_opww.png" alt="Image 4"></p>
-</li>
-</ul>
-<p>OK，那么我们就来写一个叫<code>updateElement(...)</code>，接收参数为：<code>$parent</code>，<code>newNode</code>，<code>oldNode</code>，<code>$parent</code>是我们虚拟DOM节点的真实DOM父元素。接下来就来看一下我们怎么来处理上述的情况。</p>
-<h3 id="没有旧节点的时候"><a href="#没有旧节点的时候" class="headerlink" title="没有旧节点的时候"></a>没有旧节点的时候</h3><p>没有旧节点的时候就是没有纠节点，相当的直接：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateElement</span> (<span class="params">$parent, newNode, oldNode</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!oldNode)&#123;</span><br><span class="line">        $parent.appendChild(</span><br><span class="line">            createElement(newNode)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="没有新节点的时候"><a href="#没有新节点的时候" class="headerlink" title="没有新节点的时候"></a>没有新节点的时候</h3><p>在这里我们会有一个问题，如果在一棵新的虚拟树的当前位置上没有节点的话，我们应该从真实DOM中把它删除掉，但是我们应该怎么做呢？<br>对的，我们知道它的父元素是谁，那么我们就建议使用<code>$parent.removeChild(...)</code>。但是我们还没实现它。假设我们知道节点在父节点中的位置，那么我就可以用索引<strong>index</strong>来操作它<code>$parent.childNodes[index]</code>.</p>
-<p>OK，现在就可以通过<strong>index</strong>来实现我们的<code>updateElement</code>:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateElement</span>(<span class="params">$parent, newNode, oldNode, index = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!oldNode) &#123;</span><br><span class="line">        $parent.appendChild(</span><br><span class="line">            createElement(newNode)</span><br><span class="line">        )</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!newNode) &#123;</span><br><span class="line">        $parent.removeNode(</span><br><span class="line">            $parent.childNodes[indexs]</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="节点改变"><a href="#节点改变" class="headerlink" title="节点改变"></a>节点改变</h3><p>首先我们需要写一个函数去比较两个节点（新和旧）然后告诉我们节点的确更新了。元素和文字节点我们都应该考虑到：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changed</span>(<span class="params">node1, node2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> node1 !== <span class="keyword">typeof</span> node2 ||</span><br><span class="line">           <span class="keyword">typeof</span> node1 === <span class="string">'string'</span> &amp;&amp; node1 !== node2 ||</span><br><span class="line">           node1.type !== node2.type</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>那么现在，通过索引<code>index</code>我们就可以很简单的把旧的节点换成新的节点：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateElement</span>(<span class="params">$parent, newNode, oldNode, index = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!oldNode) &#123;</span><br><span class="line">        $parent.appendChild(</span><br><span class="line">            createElement(newNode)</span><br><span class="line">        )</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!newNode) &#123;</span><br><span class="line">        $parent.removeChild(</span><br><span class="line">            $parent.childNodes[index]</span><br><span class="line">        )</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (changed(newNode, oldNode)) &#123;</span><br><span class="line">        $parent.replaceChild(</span><br><span class="line">            createElement(newNode),</span><br><span class="line">            $parent.childNodes[index]</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="子节点差异"><a href="#子节点差异" class="headerlink" title="子节点差异"></a>子节点差异</h3><p>最后，我们要需要遍历所有节点的子节点，并且检查它们是否有改变，实际上是对每个节点都执行一次<code>updateElement(...)</code>。是的，又是递归。</p>
-<p>但是同样有下面几项需要考虑的：</p>
-<ul>
-<li>我们只比较元素下的子节点（文字节点无子节点）</li>
-<li>我们将当前节点的引用作为父节点传递</li>
-<li>我们需要一个一个节点去比较，即使一些节点会得到<code>undefined</code>也在所不惜，我们的函数可以处理它</li>
-<li>索引<code>index</code>仅仅是当前子节点数组的索引</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> (!oldNode) &#123;</span><br><span class="line">    $parent.appendChild(</span><br><span class="line">      createElement(newNode)</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!newNode) &#123;</span><br><span class="line">    $parent.removeChild(</span><br><span class="line">      $parent.childNodes[index]</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (changed(newNode, oldNode)) &#123;</span><br><span class="line">    $parent.replaceChild(</span><br><span class="line">      createElement(newNode),</span><br><span class="line">      $parent.childNodes[index]</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newNode.type) &#123;</span><br><span class="line">    <span class="keyword">const</span> newLength = newNode.children.length;</span><br><span class="line">    <span class="keyword">const</span> oldLength = oldNode.children.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; newLength || i &lt; oldLength; i++) &#123;</span><br><span class="line">      updateElement(</span><br><span class="line">        $parent.childNodes[index],</span><br><span class="line">        newNode.children[i],</span><br><span class="line">        oldNode.children[i],</span><br><span class="line">        i</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="把他们合在一起"><a href="#把他们合在一起" class="headerlink" title="把他们合在一起"></a>把他们合在一起</h3><p>终于到了这一步了，把我们上面整理的东西都合在一起：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** @jsx h */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">h</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123; type, props, children &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> node === <span class="string">'string'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createTextNode(node);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> $el = <span class="built_in">document</span>.createElement(node.type);</span><br><span class="line">  node.children</span><br><span class="line">    .map(createElement)</span><br><span class="line">    .forEach($el.appendChild.bind($el));</span><br><span class="line">  <span class="keyword">return</span> $el;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changed</span>(<span class="params">node1, node2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> node1 !== <span class="keyword">typeof</span> node2 ||</span><br><span class="line">         <span class="keyword">typeof</span> node1 === <span class="string">'string'</span> &amp;&amp; node1 !== node2 ||</span><br><span class="line">         node1.type !== node2.type</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateElement</span>(<span class="params">$parent, newNode, oldNode, index = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!oldNode) &#123;</span><br><span class="line">    $parent.appendChild(</span><br><span class="line">      createElement(newNode)</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!newNode) &#123;</span><br><span class="line">    $parent.removeChild(</span><br><span class="line">      $parent.childNodes[index]</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (changed(newNode, oldNode)) &#123;</span><br><span class="line">    $parent.replaceChild(</span><br><span class="line">      createElement(newNode),</span><br><span class="line">      $parent.childNodes[index]</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newNode.type) &#123;</span><br><span class="line">    <span class="keyword">const</span> newLength = newNode.children.length;</span><br><span class="line">    <span class="keyword">const</span> oldLength = oldNode.children.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; newLength || i &lt; oldLength; i++) &#123;</span><br><span class="line">      updateElement(</span><br><span class="line">        $parent.childNodes[index],</span><br><span class="line">        newNode.children[i],</span><br><span class="line">        oldNode.children[i],</span><br><span class="line">        i</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> a = (</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;item <span class="number">1</span>&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">    &lt;li&gt;item 2&lt;/</span>li&gt;</span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const b = (</span></span><br><span class="line"><span class="regexp">  &lt;ul&gt;</span></span><br><span class="line"><span class="regexp">    &lt;li&gt;item 1&lt;/</span>li&gt;</span><br><span class="line">    &lt;li&gt;hello!<span class="xml"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">  &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const $root = document.getElementById('root');</span></span><br><span class="line"><span class="regexp">const $reload = document.getElementById('reload');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">updateElement($root, a);</span></span><br><span class="line"><span class="regexp">$reload.addEventListener('click', () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  updateElement($root, b, a);</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"reload"</span>&gt;</span>RELOAD<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#root</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">30px</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>打开开发者工具来观察一下当我们点击reload按钮的时候DOM的改变：<br><img src="https://cdn-images-1.medium.com/max/1600/1*e1s_Zc_fVxL3i0un2ZNEtg.gif" alt="Dom Change"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>恭喜！我们完成了一个简单版本的虚拟DOM。希望你读了这篇文章以后能后了解到虚拟DOM的基本概念以及React的底层是如何去做的。</p>
-<p>然而依然有很多东西没有提及到（我尽量在之后的文章来讲述他们）：</p>
-<ul>
-<li>设置元素的属性(props)以及差异更新它们</li>
-<li>事件处理———对它们的元素对象进行事件监听</li>
-<li>让我们的虚拟DOM能够用上组件化，像React那样</li>
-<li>与真实DOM节点的关联</li>
-<li>与直接修改真实DOM的插件兼并使用，例如jQuery和它的插件</li>
-<li>还有很多很多</li>
-</ul>
-
-          
-        
-      
-    </div>
     
     
     
