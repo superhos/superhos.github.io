@@ -402,10 +402,26 @@
 
           
   <div class="comments" id="comments">
-    
+    <div id="gitment-comments"></div> 
   </div>
 
 
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "655. Add Strings",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
         </div>
         
           
