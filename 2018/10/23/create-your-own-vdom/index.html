@@ -719,21 +719,6 @@
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-<% if(page.comments && theme.comments && theme.comments.gitment){ %>
-    <div id="gitment-comments"></div>    
-<% } %>
-<script>
-const gitment = new Gitment({
-    id: '<%= page.title.replace(/[^\w\s]/gi, '').substring(0, 49) %>',
-    owner: 'superhos',
-    repo: 'superhos.github.io',
-    oauth: {
-        client_id: '<%= theme.comments.gitment.clientId %>',
-        client_secret: '<%= theme.comments.gitment.clientSecret %>'
-    }
-});
-gitment.render(document.getElementById('gitment-comments'));
-</script>
 
 
   
@@ -745,6 +730,25 @@ gitment.render(document.getElementById('gitment-comments'));
 
   
 
+
+    <div id="gitment-comments"></div>    
+
+
+
+    
+
+<script>
+const gitment = new Gitment({
+    id: "如何创建自己的虚拟DOM",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
 
   
 
