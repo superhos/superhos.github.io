@@ -138,6 +138,8 @@
 
 
 
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 
   <title>参考书籍 | Sevens Chan blog</title>
   
@@ -305,17 +307,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/07/25/参考书籍/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/07/25/参考书籍/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -369,8 +360,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/basic-character/" rel="next" title="【翻译】每个程序员都需要了解的Unicode和字符集知识">
-                <i class="fa fa-chevron-left"></i> 【翻译】每个程序员都需要了解的Unicode和字符集知识
+              <a href="/2017/07/25/语言的选择/" rel="next" title="语言的选择">
+                <i class="fa fa-chevron-left"></i> 语言的选择
               </a>
             
           </div>
@@ -379,8 +370,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/25/语言的选择/" rel="prev" title="语言的选择">
-                语言的选择 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/25/basic-character/" rel="prev" title="【翻译】每个程序员都需要了解的Unicode和字符集知识">
+                【翻译】每个程序员都需要了解的Unicode和字符集知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -410,13 +401,6 @@
 
           
   <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
     
   </div>
 
@@ -634,7 +618,21 @@
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
+<% if(page.comments && theme.comments && theme.comments.gitment){ %>
+    <div id="gitment-comments"></div>    
+<% } %>
+<script>
+const gitment = new Gitment({
+    id: '<%= page.title.replace(/[^\w\s]/gi, '').substring(0, 49) %>',
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: '<%= theme.comments.gitment.clientId %>',
+        client_secret: '<%= theme.comments.gitment.clientSecret %>'
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
 
 
   
@@ -649,30 +647,14 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
-    
 
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://superhos.github.io/2017/07/25/参考书籍/';
-          this.page.identifier = '2017/07/25/参考书籍/';
-          this.page.title = '参考书籍';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://sevenschan.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
+
+
+
+
+
 
   
-
-
-
-
-
 
 
 

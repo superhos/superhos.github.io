@@ -134,6 +134,8 @@
 
 
 
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 
   <title>Tag: hexo | Sevens Chan blog</title>
   
@@ -488,7 +490,21 @@
   
     <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
-
+<% if(page.comments && theme.comments && theme.comments.gitment){ %>
+    <div id="gitment-comments"></div>    
+<% } %>
+<script>
+const gitment = new Gitment({
+    id: '<%= page.title.replace(/[^\w\s]/gi, '').substring(0, 49) %>',
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: '<%= theme.comments.gitment.clientId %>',
+        client_secret: '<%= theme.comments.gitment.clientSecret %>'
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
   
 
   
@@ -503,18 +519,14 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://sevenschan.disqus.com/count.js" async></script>
-    
 
-    
+
+
+
+
+
 
   
-
-
-
-
-
 
 
 
