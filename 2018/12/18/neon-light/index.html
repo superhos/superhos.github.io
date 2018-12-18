@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="首发于：知乎 INTRODUCTION这个是以前写下的一个vue插件，抽取里面的霓虹灯生成部分来说说怎么能代码生成一个霓虹灯字效果。先看看最后的效果图：  ANALYSIS核心部分用SVG或者CANVAS都是可以的，不过感觉SVG更方便携带，所以我这里用了SVG。主要步骤如下：  确立一个霓虹灯效果的SVG模板 将字体转换成SVG路径并将字体路径嵌入到SVG模板中去 加点CSS动画效果 完工  开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS实现酷酷的霓虹灯效果">
+<meta property="og:url" content="https://superhos.github.io/2018/12/18/neon-light/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="首发于：知乎 INTRODUCTION这个是以前写下的一个vue插件，抽取里面的霓虹灯生成部分来说说怎么能代码生成一个霓虹灯字效果。先看看最后的效果图：  ANALYSIS核心部分用SVG或者CANVAS都是可以的，不过感觉SVG更方便携带，所以我这里用了SVG。主要步骤如下：  确立一个霓虹灯效果的SVG模板 将字体转换成SVG路径并将字体路径嵌入到SVG模板中去 加点CSS动画效果 完工  开">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://superhos.github.io/2018/12/18/neon-light/neon.gif">
+<meta property="og:image" content="https://superhos.github.io/2018/12/18/neon-light/neon-2.jpg">
+<meta property="og:updated_time" content="2018-12-18T03:12:20.386Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS实现酷酷的霓虹灯效果">
+<meta name="twitter:description" content="首发于：知乎 INTRODUCTION这个是以前写下的一个vue插件，抽取里面的霓虹灯生成部分来说说怎么能代码生成一个霓虹灯字效果。先看看最后的效果图：  ANALYSIS核心部分用SVG或者CANVAS都是可以的，不过感觉SVG更方便携带，所以我这里用了SVG。主要步骤如下：  确立一个霓虹灯效果的SVG模板 将字体转换成SVG路径并将字体路径嵌入到SVG模板中去 加点CSS动画效果 完工  开">
+<meta name="twitter:image" content="https://superhos.github.io/2018/12/18/neon-light/neon.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2018/12/18/neon-light/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>JS实现酷酷的霓虹灯效果 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/12/18/neon-light/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS实现酷酷的霓虹灯效果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-18T11:06:06+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首发于：<a href="https://zhuanlan.zhihu.com/p/52638323" target="_blank" rel="noopener">知乎</a></p>
+<h3 id="INTRODUCTION"><a href="#INTRODUCTION" class="headerlink" title="INTRODUCTION"></a>INTRODUCTION</h3><p>这个是以前写下的一个vue插件，抽取里面的霓虹灯生成部分来说说怎么能代码生成一个霓虹灯字效果。先看看最后的效果图：</p>
+<p><img src="neon.gif" alt="neon"></p>
+<h3 id="ANALYSIS"><a href="#ANALYSIS" class="headerlink" title="ANALYSIS"></a>ANALYSIS</h3><p>核心部分用SVG或者CANVAS都是可以的，不过感觉SVG更方便携带，所以我这里用了SVG。主要步骤如下：</p>
+<ol>
+<li>确立一个霓虹灯效果的SVG模板</li>
+<li>将字体转换成SVG路径并将字体路径嵌入到SVG模板中去</li>
+<li>加点CSS动画效果</li>
+<li>完工</li>
+</ol>
+<h3 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h3><h4 id="1-SVG模板"><a href="#1-SVG模板" class="headerlink" title="1. SVG模板"></a>1. SVG模板</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">:width</span>=<span class="string">"width"</span> <span class="attr">:height</span>=<span class="string">"height"</span> <span class="attr">:style</span>=<span class="string">"svgStyle"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">filter</span> <span class="attr">id</span>=<span class="string">"glow"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">feGaussianBlur</span> <span class="attr">stdDeviation</span>=<span class="string">"4"</span> <span class="attr">result</span>=<span class="string">"coloredBlur"</span>&gt;</span><span class="tag">&lt;/<span class="name">feGaussianBlur</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">feMerge</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">feMergeNode</span> <span class="attr">in</span>=<span class="string">"coloredBlur"</span>&gt;</span><span class="tag">&lt;/<span class="name">feMergeNode</span>&gt;</span></span><br><span class="line">             <span class="tag">&lt;<span class="name">feMergeNode</span> <span class="attr">in</span>=<span class="string">"SourceGraphic"</span>&gt;</span><span class="tag">&lt;/<span class="name">feMergeNode</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;/<span class="name">feMerge</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- Logo Container --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">g</span> <span class="attr">class</span>=<span class="string">"fade"</span>&gt;</span></span><br><span class="line">    	 <span class="comment">&lt;!-- Outside --&gt;</span></span><br><span class="line">    	 <span class="tag">&lt;<span class="name">g</span> <span class="attr">:style</span>=<span class="string">"&#123;fill:color&#125;"</span> <span class="attr">v-html</span>=<span class="string">"inside"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个就是我代码里面的SVG模板，用了vue来进行数据的绑定。</p>
+<p>svg里面使用了高斯模糊的filter<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">feGaussianBlur</span> <span class="attr">stdDeviation</span>=<span class="string">"4"</span> <span class="attr">result</span>=<span class="string">"coloredBlur"</span>&gt;</span><span class="tag">&lt;/<span class="name">feGaussianBlur</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>但是因为霓虹灯字体里面的是灯管，应该是清晰的，所以原字体的轮廓不能模糊掉，使用feMerge来融合层</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">feMerge</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">feMergeNode</span> <span class="attr">in</span>=<span class="string">"coloredBlur"</span>&gt;</span><span class="tag">&lt;/<span class="name">feMergeNode</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">feMergeNode</span> <span class="attr">in</span>=<span class="string">"SourceGraphic"</span>&gt;</span><span class="tag">&lt;/<span class="name">feMergeNode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">feMerge</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>再来看下面就是内容部分，我在这里加了一个带有fade类的容器，是用来最后加仿真动画效果的，后面再说，然后一个里容器就是用来放置字体的路径。</p>
+<h4 id="2-将字体转换成SVG路径"><a href="#2-将字体转换成SVG路径" class="headerlink" title="2. 将字体转换成SVG路径"></a>2. 将字体转换成SVG路径</h4><p>这个原理其实是读取<code>.ttf</code> , <code>.woff</code> 这些字体文件来获取字体的描点来构成路径。</p>
+<p>知道这个原理之后，我们就要找个可以支持浏览器的字体文件读取库 (当然有空读字体文件格式规范的朋友们也能自己写一个库)。</p>
+<p>这里可以看下<code>opentype.js</code> 和基于它的 <code>text-to-svg</code>（两个包都没有umd打包）。我这里使用的是<code>text-to-svg</code>：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> TextToSVG <span class="keyword">from</span> <span class="string">'text-to-svg'</span> </span><br><span class="line"><span class="comment">// this.fontFile =&gt; .ttf/.woff字体文件</span></span><br><span class="line"><span class="comment">// this.words    =&gt; 全部字</span></span><br><span class="line"><span class="comment">// this.width    =&gt; 全部字加起来的总宽度</span></span><br><span class="line"><span class="comment">// this.height   =&gt; 全部字占用的单行高度</span></span><br><span class="line"><span class="comment">// this.flash    =&gt; 是否使用flash效果</span></span><br><span class="line"><span class="comment">// this.inside   =&gt; 绑定到svg模板的路径数据</span></span><br><span class="line"></span><br><span class="line">TextToSVG.load(<span class="keyword">this</span>.fontFile, (err,textToSVG) =&gt; &#123;</span><br><span class="line">      <span class="comment">// Divide to single letter</span></span><br><span class="line">      <span class="keyword">this</span>.words.split(<span class="string">''</span>).forEach(<span class="function"><span class="params">word</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// Setting</span></span><br><span class="line">        <span class="keyword">const</span> options = &#123;<span class="attr">x</span>: <span class="keyword">this</span>.width + <span class="number">10</span>, <span class="attr">y</span>: <span class="number">0</span>, <span class="attr">anchor</span>: <span class="string">'left top'</span>&#125;</span><br><span class="line">        <span class="keyword">let</span> svg = textToSVG.getSVG(word,options)</span><br><span class="line">        <span class="comment">// 获取当前字体的宽高</span></span><br><span class="line">        <span class="keyword">let</span> matchs = svg.match(<span class="regexp">/(?&lt;=").*?(?=")/g</span>)</span><br><span class="line">        <span class="keyword">this</span>.width += <span class="built_in">parseInt</span>(matchs[<span class="number">4</span>])</span><br><span class="line">        <span class="keyword">this</span>.height = <span class="built_in">parseInt</span>(matchs[<span class="number">6</span>])</span><br><span class="line">        <span class="comment">// 获取当前字体的路径</span></span><br><span class="line">        <span class="keyword">let</span> path = svg.match(<span class="regexp">/\&lt;path\s*(.*?)\/\&gt;/g</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">// 如果闪烁效果打开</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.flash)&#123;</span><br><span class="line">          path = path.replace(<span class="string">'&lt;path '</span>,<span class="string">`&lt;path <span class="subst">$&#123;<span class="keyword">this</span>.$options._scopeId&#125;</span> class="random<span class="subst">$&#123;<span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random()*<span class="number">10</span>)+<span class="number">1</span>&#125;</span>"`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.inside += path</span><br><span class="line">        <span class="keyword">this</span>.width += <span class="number">5</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>首先看到<code>TextToSVG.load(this.fontFile,(err,textToSVG) =&gt; {})</code> 这个函数是读取字体文件并且返回一个字体解析对象。再来通过这个返回的字体解析对象textToSVG我们就可以通过 <code>textToSVG.getSVG(word)</code> 用来转换字体，返回的是类似以下的一个SVG对象：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">width</span>=<span class="string">"72"</span> <span class="attr">height</span>=<span class="string">"72"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">path</span> <span class="attr">d</span>=<span class="string">"M323.34 40.01L323.34 7.66L385.99 7.66L385.99 36L385.99 36Q385.71 36.70 385.15 37.76L385.15 37.76L385.15 37.76Q384.59 39.09 384.02 40.01L384.02 40.01L388.10 40.01L388.10 51.89L382.48 51.89L382.69 52.66L383.74 55.13L383.74 55.13Q384.38 56.46 384.80 57.30L384.80 57.30L387.82 57.30L387.82 69.82L374.53 69.82L374.53 69.82Q372 69.19 370.31 66.38L370.31 66.38L370.31 66.38Q368.77 63.77 365.81 55.76L365.81 55.76L365.60 54.77L365.60 51.89L363.21 51.89L363.21 69.82L345.91 69.82L345.91 54.56L345.21 55.13L342.75 63.35L342.75 63.35Q340.85 68.70 338.32 69.82L338.32 69.82L321.87 69.82L321.87 57.38L325.88 57.38L325.88 57.38Q326.16 56.81 327.21 54.70L327.21 54.70L327.21 54.70Q328.13 52.95 328.48 51.89L328.48 51.89L321.59 51.89L321.59 40.01L323.34 40.01ZM384.45 9.21L324.96 9.21L324.96 39.80L347.46 39.80L347.46 41.55L322.99 41.55L322.99 50.34L347.46 50.34L347.46 68.34L361.66 68.34L361.66 50.34L386.55 50.34L386.55 41.55L361.66 41.55L361.66 39.80L378.12 39.80L378.12 39.80Q380.23 39.38 381.98 37.69L381.98 37.69L381.98 37.69Q383.81 36.07 384.45 34.03L384.45 34.03L384.45 9.21ZM338.04 20.46L338.04 17.37L347.46 17.37L347.46 20.46L338.04 20.46ZM361.66 20.46L361.66 17.37L362.09 17.37L372.49 17.37L372.49 20.46L361.66 20.46ZM338.04 31.01L338.04 27.98L347.46 27.98L347.46 31.01L338.04 31.01ZM361.66 31.01L361.66 27.98L362.09 27.98L372.49 27.98L372.49 31.01L361.66 31.01ZM343.80 52.45L330.94 52.45L330.94 52.45Q330.09 53.79 329.18 55.62L329.18 55.62L327.63 58.85L323.20 58.85L323.20 68.34L336.56 68.34L336.56 68.34Q339.02 67.01 340.99 61.52L340.99 61.52L343.59 53.23L343.80 52.45ZM380.02 52.45L367.01 52.45L367.01 52.45Q370.73 62.79 372.14 65.25L372.14 65.25L372.14 65.25Q373.55 67.71 376.29 68.34L376.29 68.34L386.27 68.34L386.27 58.71L383.11 58.71L382.55 57.94L382.55 57.94Q381.91 56.74 381.21 55.20L381.21 55.20L381.21 55.20Q380.72 54.14 380.02 52.45L380.02 52.45Z"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>再下来就可以通过读取这个svg上面的属性来计算总的长度和高度，然后再正则获取到<code>&lt;path /&gt;</code> 里面的内容，对SVG模板上的部分进行绑定，就可以得到当前效果：</p>
+<p><img src="neon-2.jpg" alt="neon-1"></p>
+<h4 id="3-加点CSS动画效果"><a href="#3-加点CSS动画效果" class="headerlink" title="3. 加点CSS动画效果"></a>3. 加点CSS动画效果</h4><p>光是这样子的话感觉太单调了，跟大家平时去得红灯区感觉有点不一样，所以这里加点小动画。</p>
+<h5 id="1-电压不稳定时候的忽明忽暗"><a href="#1-电压不稳定时候的忽明忽暗" class="headerlink" title="1) 电压不稳定时候的忽明忽暗"></a>1) 电压不稳定时候的忽明忽暗</h5><p>这个效果其实就是一个fade，前面加到容器里的类fade</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.fade</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: fade <span class="number">3s</span> infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> fade &#123;</span><br><span class="line">  0%, 100% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.7</span>;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">url</span>(#glow);</span><br><span class="line">  &#125;</span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">url</span>(#glow);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br><span class="line">2）濒临坏掉的闪烁</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> random &#123;</span><br><span class="line">  0%, 9%, 11% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  10% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了真实性可以多准备几个random的类</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.random1</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: random <span class="number">8s</span> infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.random2</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: random <span class="number">7s</span> infinite;</span><br><span class="line">  <span class="attribute">animation-delay</span>: <span class="number">2s</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.random3</span> &#123;</span><br><span class="line">  <span class="attribute">animation</span>: random <span class="number">6s</span> infinite;</span><br><span class="line">  <span class="attribute">animation-delay</span>: <span class="number">4s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在第二步path绑定到模板的时候，让path随机增加一个random类。</p>
+<h4 id="4-完工"><a href="#4-完工" class="headerlink" title="4. 完工"></a>4. 完工</h4><p>来看看最后效果</p>
+<p><a href="https://blog.chenhaotaishuaile.com/vue-neon-light/" target="_blank" rel="noopener">Demo</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>常常总结所得是有益处的，例如我写文章的时候发现了一些组件上写得不好的地方，也想到了能改进的方法，抽空的话把组件也更新一次。</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/douyin-style/" rel="next" title="CSS3 实现抖音LOGO STYLE">
+                <i class="fa fa-chevron-left"></i> CSS3 实现抖音LOGO STYLE
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "JS实现酷酷的霓虹灯效果",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#INTRODUCTION"><span class="nav-number">1.</span> <span class="nav-text">INTRODUCTION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ANALYSIS"><span class="nav-number">2.</span> <span class="nav-text">ANALYSIS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开撸"><span class="nav-number">3.</span> <span class="nav-text">开撸</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SVG模板"><span class="nav-number">3.1.</span> <span class="nav-text">1. SVG模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-将字体转换成SVG路径"><span class="nav-number">3.2.</span> <span class="nav-text">2. 将字体转换成SVG路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-加点CSS动画效果"><span class="nav-number">3.3.</span> <span class="nav-text">3. 加点CSS动画效果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-电压不稳定时候的忽明忽暗"><span class="nav-number">3.3.1.</span> <span class="nav-text">1) 电压不稳定时候的忽明忽暗</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-完工"><span class="nav-number">3.4.</span> <span class="nav-text">4. 完工</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
