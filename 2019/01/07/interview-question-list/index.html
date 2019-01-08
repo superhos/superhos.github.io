@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包；  基础类型和类型判断  this  动画；  一个请求发送后发生">
+<meta name="description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包，闭包数据缓存手写  事件循环机制  基础类型和类型判断  this">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端面试题整理">
 <meta property="og:url" content="https://superhos.github.io/2019/01/07/interview-question-list/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包；  基础类型和类型判断  this  动画；  一个请求发送后发生">
+<meta property="og:description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包，闭包数据缓存手写  事件循环机制  基础类型和类型判断  this">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-08T15:36:39.320Z">
+<meta property="og:updated_time" content="2019-01-08T15:39:16.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题整理">
-<meta name="twitter:description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包；  基础类型和类型判断  this  动画；  一个请求发送后发生">
+<meta name="twitter:description" content="开始进入刷题阶段，从网上找来的一些前端面试题，在这里进行整合。整合Shopee、腾讯、京东、阿里、头条、百度、大丰收、深信服、平安科技等前端面试题。 计算机原理  MD5, SHA-1   JS基础语法 &amp;amp; 原理  let、const和var  SVG的原理  SVG和Canvas的对比；  let vs var；  闭包，闭包数据缓存手写  事件循环机制  基础类型和类型判断  this">
 
 
 
@@ -342,7 +342,8 @@
 <li style="list-style: none"><input type="checkbox"> SVG的原理</li>
 <li style="list-style: none"><input type="checkbox"> SVG和Canvas的对比；</li>
 <li style="list-style: none"><input type="checkbox"> let vs var；</li>
-<li style="list-style: none"><input type="checkbox"> 闭包；</li>
+<li style="list-style: none"><input type="checkbox"> 闭包，闭包数据缓存手写</li>
+<li style="list-style: none"><input type="checkbox"> 事件循环机制</li>
 <li style="list-style: none"><input type="checkbox"> 基础类型和类型判断</li>
 <li style="list-style: none"><input type="checkbox"> this</li>
 <li style="list-style: none"><input type="checkbox"> 动画；</li>
@@ -361,6 +362,10 @@
 </li>
 <li><p>[ ] 数组去重</p>
 </li>
+</ul>
+<h4 id="工程化相关"><a href="#工程化相关" class="headerlink" title="工程化相关"></a>工程化相关</h4><ul>
+<li style="list-style: none"><input type="checkbox"> webpack</li>
+<li style="list-style: none"><input type="checkbox"> CMD原理</li>
 </ul>
 <h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><ul>
 <li style="list-style: none"><input type="checkbox"> 盒子模型，content-box 和 border-box</li>
@@ -389,6 +394,7 @@
 <li>把差异应用到真正的DOM树上</li>
 </ul>
 </li>
+<li style="list-style: none"><input type="checkbox"> Vue响应式原理</li>
 <li style="list-style: none"><input type="checkbox"> redux和vuex的区别<blockquote>
 <p>Vuex 其实是一个针对 Vue 特化的 Flux，主要是为了配合 Vue 本身的响应式机制。当然吸取了一些 Redux 的特点，比如单状态树和便于测试和热重载的 API，但是也选择性的放弃了一些在 Vue 的场景下并不契合的特性，比如强制的 immutability（在保证了每一次状态变化都能追踪的情况下强制的 immutability 带来的收益就很有限了）、为了同构而设计得较为繁琐的 API、必须依赖第三方库才能相对高效率地获得状态树的局部状态等等（相比之下 Vuex 直接用 Vue 本身的计算属性就可以）<br>所以 Vue + Vuex 会更简洁，也不需要考虑性能问题，代价就是 Vuex 只能和 Vue 配合。Vue + Redux 也不是不可以，但是 Redux 作为一个泛用的实现和 Vue 的契合度肯定不如 Vuex。</p>
 </blockquote>
@@ -610,7 +616,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机原理"><span class="nav-number">1.</span> <span class="nav-text">计算机原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS基础语法-amp-原理"><span class="nav-number">2.</span> <span class="nav-text">JS基础语法 &amp; 原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS"><span class="nav-number">3.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#框架"><span class="nav-number">4.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络协议相关"><span class="nav-number">5.</span> <span class="nav-text">网络协议相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端安全策略和常见入侵"><span class="nav-number">6.</span> <span class="nav-text">前端安全策略和常见入侵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">7.</span> <span class="nav-text">数据结构与算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#团队协助"><span class="nav-number">8.</span> <span class="nav-text">团队协助</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计模式"><span class="nav-number">9.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实操训练"><span class="nav-number">10.</span> <span class="nav-text">实操训练</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算机原理"><span class="nav-number">1.</span> <span class="nav-text">计算机原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JS基础语法-amp-原理"><span class="nav-number">2.</span> <span class="nav-text">JS基础语法 &amp; 原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工程化相关"><span class="nav-number">3.</span> <span class="nav-text">工程化相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS"><span class="nav-number">4.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#框架"><span class="nav-number">5.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络协议相关"><span class="nav-number">6.</span> <span class="nav-text">网络协议相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前端安全策略和常见入侵"><span class="nav-number">7.</span> <span class="nav-text">前端安全策略和常见入侵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">8.</span> <span class="nav-text">数据结构与算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#团队协助"><span class="nav-number">9.</span> <span class="nav-text">团队协助</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计模式"><span class="nav-number">10.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实操训练"><span class="nav-number">11.</span> <span class="nav-text">实操训练</span></a></li></ol></div>
             
 
           </div>
