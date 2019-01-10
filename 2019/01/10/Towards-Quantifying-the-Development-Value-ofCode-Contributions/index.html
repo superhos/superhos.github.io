@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Session和Cookie不能不说的秘密">
-<meta property="og:url" content="https://superhos.github.io/2017/08/22/session-and-cookie/index.html">
+<meta property="og:title" content="【读书笔记】如何量化程序员对项目的贡献">
+<meta property="og:url" content="https://superhos.github.io/2019/01/10/Towards-Quantifying-the-Development-Value-ofCode-Contributions/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta property="og:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T09:54:44.235Z">
+<meta property="og:updated_time" content="2019-01-10T08:04:06.414Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Session和Cookie不能不说的秘密">
-<meta name="twitter:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="twitter:title" content="【读书笔记】如何量化程序员对项目的贡献">
+<meta name="twitter:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/08/22/session-and-cookie/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/01/10/Towards-Quantifying-the-Development-Value-ofCode-Contributions/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>Session和Cookie不能不说的秘密 | Sevens Chan blog</title>
+  <title>【读书笔记】如何量化程序员对项目的贡献 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/session-and-cookie/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/10/Towards-Quantifying-the-Development-Value-ofCode-Contributions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Session和Cookie不能不说的秘密</h1>
+          <h1 class="post-title" itemprop="name headline">【读书笔记】如何量化程序员对项目的贡献</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T00:00:00+08:00">
-                2017-08-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-10T14:32:53+08:00">
+                2019-01-10
               </time>
             
 
@@ -333,15 +333,39 @@
       
 
       
-        <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
+        <h4 id="Update-History"><a href="#Update-History" class="headerlink" title="Update History"></a>Update History</h4><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Content</th>
+<th>Author</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0.2</td>
+<td>完成Section1和2</td>
+<td>Sevens</td>
+<td>2019-01-10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Before"><a href="#Before" class="headerlink" title="Before"></a>Before</h2><p>此文档为阅读下面论文的读书笔记：<br><a href="https://per.pub/A1Pd7xaM.pdf" target="_blank" rel="noopener">Towards Quantifying the Development Value of Code Contributions</a></p>
+<h2 id="1-Introduction-精简翻译"><a href="#1-Introduction-精简翻译" class="headerlink" title="1 Introduction 精简翻译"></a>1 Introduction 精简翻译</h2><p>传统的代码贡献量化方法通常以简单的指标为特征，例如代码量统计（NOC）和代码行数统计（LOC），例如GitHub使用NOC来进行开发者项目的排行。<br>在这篇文章中，主要概述了如何量化代码贡献在开发工作中的价值。作者定义：<em>开发价值</em> 为贡献的代码在开发工作中的量化和贡献的代码为其他开发人员节省的开发工作。<br>作者将开发价值分为结构性和非结构性两个部分。结构性价值反映了代码结构对开发活动中的影响：一个被许多函数调用的函数降低了那些调用它的函数的代码量，因此具有更高的价值。根据这个结论，作者设计了 <em>DevRank</em>，基于PageRank，通过函数调用图谱来派生出开发价值。<br>另外，并非所有的开发价值都体现在代码结构中。三个有经验的开发着根据提交代码的影响进行分类再来判断代码的价值。作者通过自然语言处理（NLP）和机器学习(ML)来探索了自动化描述提交代码产生的影响力的可能性。最后，作者训练出一个<code>learning-to-rank</code> (L2R)的模型用来找出开发代码产生出的结构性和非结构性价值的最佳综合价值。</p>
+<h2 id="1-Introduction-译者总结"><a href="#1-Introduction-译者总结" class="headerlink" title="1 Introduction 译者总结"></a>1 Introduction 译者总结</h2><p>总体来说步骤就是</p>
 <ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
+<li>分为结构化和非结构化来评估</li>
+<li>结构化代码统计出在其他代码中的影响力价值分</li>
+<li>通过NLP和ML来对非结构化代码进行分类评分</li>
+<li>结合2和3得出的价值分数通过L2R来得到最佳综合价值</li>
 </ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
-<hr>
+<h2 id="2-开发价值"><a href="#2-开发价值" class="headerlink" title="2 开发价值"></a>2 开发价值</h2><p>作者假定代码贡献包含两个部分：</p>
+<ol>
+<li>结构化价值：反映了代码在程序结构中的作用</li>
+<li>非结构化价值：以代码结构本身无关的方式对项目的影响<br>最后提供结合两种价值的方法</li>
+</ol>
+<h2 id="3-结构价值：-DevRank"><a href="#3-结构价值：-DevRank" class="headerlink" title="3 结构价值： DevRank"></a>3 结构价值： DevRank</h2><p>[To Be Continue]</p>
 
       
     </div>
@@ -367,8 +391,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/22/ajax-page-to-static/" rel="next" title="异步页面渲染成静态页面">
-                <i class="fa fa-chevron-left"></i> 异步页面渲染成静态页面
+              <a href="/2019/01/09/this-from-ECMA/" rel="next" title="ECMAScript规范解读this精简">
+                <i class="fa fa-chevron-left"></i> ECMAScript规范解读this精简
               </a>
             
           </div>
@@ -376,10 +400,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/24/ary-story/" rel="prev" title="不同进制之间的故事">
-                不同进制之间的故事 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -418,7 +438,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "Session和Cookie不能不说的秘密",
+    id: "【读书笔记】如何量化程序员对项目的贡献",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -520,7 +540,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session和Cookie不能不说的秘密"><span class="nav-number">1.</span> <span class="nav-text">Session和Cookie不能不说的秘密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保持会话的技术"><span class="nav-number"></span> <span class="nav-text">保持会话的技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number"></span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number"></span> <span class="nav-text">Session</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-History"><span class="nav-number">1.</span> <span class="nav-text">Update History</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before"><span class="nav-number"></span> <span class="nav-text">Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-精简翻译"><span class="nav-number"></span> <span class="nav-text">1 Introduction 精简翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-译者总结"><span class="nav-number"></span> <span class="nav-text">1 Introduction 译者总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开发价值"><span class="nav-number"></span> <span class="nav-text">2 开发价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-结构价值：-DevRank"><span class="nav-number"></span> <span class="nav-text">3 结构价值： DevRank</span></a></div>
             
 
           </div>

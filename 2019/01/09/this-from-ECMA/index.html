@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="description" content="本文为此文的精简图总结版本，具体内容意义请翻看原文。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Session和Cookie不能不说的秘密">
-<meta property="og:url" content="https://superhos.github.io/2017/08/22/session-and-cookie/index.html">
+<meta property="og:title" content="ECMAScript规范解读this精简">
+<meta property="og:url" content="https://superhos.github.io/2019/01/09/this-from-ECMA/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta property="og:description" content="本文为此文的精简图总结版本，具体内容意义请翻看原文。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T09:54:44.235Z">
+<meta property="og:updated_time" content="2019-01-09T15:34:24.314Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Session和Cookie不能不说的秘密">
-<meta name="twitter:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="twitter:title" content="ECMAScript规范解读this精简">
+<meta name="twitter:description" content="本文为此文的精简图总结版本，具体内容意义请翻看原文。">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/08/22/session-and-cookie/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/01/09/this-from-ECMA/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>Session和Cookie不能不说的秘密 | Sevens Chan blog</title>
+  <title>ECMAScript规范解读this精简 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/session-and-cookie/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/09/this-from-ECMA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Session和Cookie不能不说的秘密</h1>
+          <h1 class="post-title" itemprop="name headline">ECMAScript规范解读this精简</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T00:00:00+08:00">
-                2017-08-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-09T23:33:00+08:00">
+                2019-01-09
               </time>
             
 
@@ -333,15 +333,7 @@
       
 
       
-        <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
-<ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
-</ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
-<hr>
+        <p>本文为<a href="https://github.com/mqyqingfeng/Blog/issues/7" target="_blank" rel="noopener">此文</a>的精简图总结版本，具体内容意义请翻看原文。</p>
 
       
     </div>
@@ -367,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/22/ajax-page-to-static/" rel="next" title="异步页面渲染成静态页面">
-                <i class="fa fa-chevron-left"></i> 异步页面渲染成静态页面
+              <a href="/2019/01/09/docker-shell/" rel="next" title="Docker常用命令记录">
+                <i class="fa fa-chevron-left"></i> Docker常用命令记录
               </a>
             
           </div>
@@ -377,8 +369,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/24/ary-story/" rel="prev" title="不同进制之间的故事">
-                不同进制之间的故事 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/10/Towards-Quantifying-the-Development-Value-ofCode-Contributions/" rel="prev" title="【读书笔记】如何量化程序员对项目的贡献">
+                【读书笔记】如何量化程序员对项目的贡献 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -418,7 +410,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "Session和Cookie不能不说的秘密",
+    id: "ECMAScript规范解读this精简",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -447,17 +439,8 @@ gitment.render(document.getElementById('gitment-comments'));
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -510,22 +493,6 @@ gitment.render(document.getElementById('gitment-comments'));
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session和Cookie不能不说的秘密"><span class="nav-number">1.</span> <span class="nav-text">Session和Cookie不能不说的秘密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保持会话的技术"><span class="nav-number"></span> <span class="nav-text">保持会话的技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number"></span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number"></span> <span class="nav-text">Session</span></a></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
