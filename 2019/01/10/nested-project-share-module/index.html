@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src  |-----project-b          |---- package.json  |-- package.json------">
+<meta name="description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src       |---project-b               |---- package.json  |-- package.js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="嵌套项目共用node_modules">
 <meta property="og:url" content="https://superhos.github.io/2019/01/10/nested-project-share-module/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src  |-----project-b          |---- package.json  |-- package.json------">
+<meta property="og:description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src       |---project-b               |---- package.json  |-- package.js">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-10T10:14:32.315Z">
+<meta property="og:updated_time" content="2019-01-11T02:22:16.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌套项目共用node_modules">
-<meta name="twitter:description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src  |-----project-b          |---- package.json  |-- package.json------">
+<meta name="twitter:description" content="真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要yarn install一遍，可以做下面配置。 目录结构 1234567------------------  |-- node_modules  |-- src       |---project-b               |---- package.json  |-- package.js">
 
 
 
@@ -335,7 +335,7 @@
       
         <p>真实项目的时候各种情况都有可能遇到，有时候会遇到多个项目嵌套的情况，为了避免每个项目都要<code>yarn install</code>一遍，可以做下面配置。</p>
 <p><strong>目录结构</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">------------------</span><br><span class="line">  |-- node_modules</span><br><span class="line">  |-- src</span><br><span class="line">  |-----project-b</span><br><span class="line">          |---- package.json</span><br><span class="line">  |-- package.json</span><br><span class="line">------------------</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">------------------</span><br><span class="line">  |-- node_modules</span><br><span class="line">  |-- src</span><br><span class="line">       |---project-b</span><br><span class="line">               |---- package.json</span><br><span class="line">  |-- package.json</span><br><span class="line">------------------</span><br></pre></td></tr></table></figure>
 <p>在主目录<code>package.json</code>中配置：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="string">"project-b"</span>: <span class="string">"file:src/project-b"</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中库名称对应的是嵌套项目<code>package.json</code>中的<code>name</code>配置，值的话要注意前缀是<code>file:</code>然后加上路径</p>
 <p>在嵌套项目中<code>package.json</code>基本没有要修改的了<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"project-b"</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
