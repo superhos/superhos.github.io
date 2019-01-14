@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
+<meta name="description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【读书笔记】如何量化程序员对项目的贡献">
 <meta property="og:url" content="https://superhos.github.io/2019/01/10/Towards-Quantifying-the-Development-Value-ofCode-Contributions/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
+<meta property="og:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-10T08:04:06.414Z">
+<meta property="og:updated_time" content="2019-01-14T07:15:59.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【读书笔记】如何量化程序员对项目的贡献">
-<meta name="twitter:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code Contributions 1 Introduction 精简翻译传统的代码">
+<meta name="twitter:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
 
 
 
@@ -349,6 +349,12 @@
 <td>Sevens</td>
 <td>2019-01-10</td>
 </tr>
+<tr>
+<td>0.0.3</td>
+<td>完成Section 3部分</td>
+<td>Sevens</td>
+<td>2019-01-14</td>
+</tr>
 </tbody>
 </table>
 <h2 id="Before"><a href="#Before" class="headerlink" title="Before"></a>Before</h2><p>此文档为阅读下面论文的读书笔记：<br><a href="https://per.pub/A1Pd7xaM.pdf" target="_blank" rel="noopener">Towards Quantifying the Development Value of Code Contributions</a></p>
@@ -365,7 +371,8 @@
 <li>结构化价值：反映了代码在程序结构中的作用</li>
 <li>非结构化价值：以代码结构本身无关的方式对项目的影响<br>最后提供结合两种价值的方法</li>
 </ol>
-<h2 id="3-结构价值：-DevRank"><a href="#3-结构价值：-DevRank" class="headerlink" title="3 结构价值： DevRank"></a>3 结构价值： DevRank</h2><p>[To Be Continue]</p>
+<h2 id="3-结构化代码的价值：-DevRank"><a href="#3-结构化代码的价值：-DevRank" class="headerlink" title="3 结构化代码的价值： DevRank"></a>3 结构化代码的价值： DevRank</h2><p>在大部分语言来说，一个函数体（程序体，方法）是为程序结构的一个基本单元。开发的价值不单基于创建这个函数的工作量，也基于其他函数调用这个函数时候节省的工作量。结构化代码的价值会被作者开发的基于图论的算法<em>DevRank</em>所记录下来（PageRank算法的扩展算法）<br>PageRank是Google搜索的基础算法。算法在基于网页的有向图上运行。这个算法会假定访问行为并且迭代计算访问者访问每个页面的可能性。计算概率的中心依赖与访问者的行为。原始的PageRank算法基于访问者的两个随机行为：(1)访问一个页面的时候，会有α概率随机访问页面上的其中一个连接，（2）会有1-α的概率访问者会传送到随机的页面并继续浏览。阻尼(damping)因子α是预先选择的固定概率。基于该行为，得到的概率为通过页面的连接结构而被访问的概率，直观地说，反映的就是这个页面唉网络上的受欢迎程度或者重要性。<br>为了要计算每一个函数的结构化价值，作者根据代码构建了一个静态被调用函数图。虽然程序执行的时候永远不会像PageRank那样随机跳到不相关的函数中去，但是作者发现PageRank是一个非常方便用来表征代码的模型。我们假定随机传送为代码开发活动的导航，而不是执行行为。<br>在DevRank中，</p>
+<p>[To Be Continue]</p>
 
       
     </div>
@@ -544,7 +551,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-History"><span class="nav-number">1.</span> <span class="nav-text">Update History</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before"><span class="nav-number"></span> <span class="nav-text">Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-精简翻译"><span class="nav-number"></span> <span class="nav-text">1 Introduction 精简翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-译者总结"><span class="nav-number"></span> <span class="nav-text">1 Introduction 译者总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开发价值"><span class="nav-number"></span> <span class="nav-text">2 开发价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-结构价值：-DevRank"><span class="nav-number"></span> <span class="nav-text">3 结构价值： DevRank</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-History"><span class="nav-number">1.</span> <span class="nav-text">Update History</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before"><span class="nav-number"></span> <span class="nav-text">Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-精简翻译"><span class="nav-number"></span> <span class="nav-text">1 Introduction 精简翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-译者总结"><span class="nav-number"></span> <span class="nav-text">1 Introduction 译者总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开发价值"><span class="nav-number"></span> <span class="nav-text">2 开发价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-结构化代码的价值：-DevRank"><span class="nav-number"></span> <span class="nav-text">3 结构化代码的价值： DevRank</span></a></div>
             
 
           </div>
