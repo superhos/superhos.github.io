@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
+<meta name="description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789101112131415function New(func) &amp;#123;    var res = &amp;#123;&amp;#125;;    if (func.prototype !== null) &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="41. First Missing Positive">
-<meta property="og:url" content="https://superhos.github.io/2018/07/10/coding-first-issing-positive/index.html">
+<meta property="og:title" content="new的时候实际做了什么">
+<meta property="og:url" content="https://superhos.github.io/2019/01/15/what-new-does/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
+<meta property="og:description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789101112131415function New(func) &amp;#123;    var res = &amp;#123;&amp;#125;;    if (func.prototype !== null) &amp;#123;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-10T15:44:46.936Z">
+<meta property="og:updated_time" content="2019-01-15T13:55:58.165Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="41. First Missing Positive">
-<meta name="twitter:description" content="DesriptionGiven an unsorted integer array, find the smallest missing positive integer. ExampleExample 1: Input: [1,2,0]Output: 3Example 2: Input: [3,4,-1,1]Output: 2Example 3: Input: [7,8,9,11,12]Outp">
+<meta name="twitter:title" content="new的时候实际做了什么">
+<meta name="twitter:description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789101112131415function New(func) &amp;#123;    var res = &amp;#123;&amp;#125;;    if (func.prototype !== null) &amp;#123;">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/07/10/coding-first-issing-positive/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/01/15/what-new-does/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>41. First Missing Positive | Sevens Chan blog</title>
+  <title>new的时候实际做了什么 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/10/coding-first-issing-positive/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/15/what-new-does/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">41. First Missing Positive</h1>
+          <h1 class="post-title" itemprop="name headline">new的时候实际做了什么</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-10T23:36:59+08:00">
-                2018-07-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-15T21:37:21+08:00">
+                2019-01-15
               </time>
             
 
@@ -333,13 +333,16 @@
       
 
       
-        <h3 id="Desription"><a href="#Desription" class="headerlink" title="Desription"></a>Desription</h3><p>Given an unsorted integer array, find the smallest missing positive integer.</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Example 1:</p>
-<p>Input: [1,2,0]<br>Output: 3<br>Example 2:</p>
-<p>Input: [3,4,-1,1]<br>Output: 2<br>Example 3:</p>
-<p>Input: [7,8,9,11,12]<br>Output: 1<br>Note:</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>用了map来做，空间换时间。不过这题的难度为什么是Hard。。。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var firstMissingPositive = function(nums) &#123;</span><br><span class="line">    let re = &#123;&#125;;</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">        re[nums[i]] = 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    for (let i=1; i &lt;  Number.MAX_VALUE; i++)&#123;</span><br><span class="line">        if (!re[i])</span><br><span class="line">            return i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <h2 id="什么是new"><a href="#什么是new" class="headerlink" title="什么是new"></a>什么是new</h2><p><code>new</code>存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？</p>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><p>可以来实现一个<code>New</code>函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">New</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (func.prototype !== <span class="literal">null</span>) &#123;</span><br><span class="line">        res.__proto__ = func.prototype;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> ret = func.apply(res, <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">typeof</span> ret === <span class="string">"object"</span> || <span class="keyword">typeof</span> ret === <span class="string">"function"</span>) &amp;&amp; ret !== <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = New(A, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// 相当于</span></span><br><span class="line"><span class="keyword">var</span> obj2 = <span class="keyword">new</span> A(<span class="number">1</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>具体步骤：</p>
+<ol>
+<li><code>var res = {}</code> 首先会创建一个空的对象</li>
+<li><code>res.__proto__ = func.prototype</code> 然后对象的原型就会指向类方法的原型对象，以实现类的原型方法以及指向的原型链。</li>
+<li><code>var ret = func.apply(res, Array.prototype.slice.call(arguments, 1));</code> 设定作用域为<code>res</code>，然后调用<code>func</code>的构造函数，传入参数为<code>Array.prototype.slice.call(arguments, 1))</code></li>
+<li>然后返回<code>ret</code>或者<code>res</code></li>
+</ol>
+
       
     </div>
     
@@ -364,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/10/fullpage-develop-1/" rel="next" title="开发一个fullpage插件遇到的问题">
-                <i class="fa fa-chevron-left"></i> 开发一个fullpage插件遇到的问题
+              <a href="/2019/01/15/arrow-functions-and-this/" rel="next" title="箭头函数和`this`关键字">
+                <i class="fa fa-chevron-left"></i> 箭头函数和`this`关键字
               </a>
             
           </div>
@@ -373,10 +376,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/12/css-box-model/" rel="prev" title="css盒子模型">
-                css盒子模型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -415,7 +414,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "41. First Missing Positive",
+    id: "new的时候实际做了什么",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -517,7 +516,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Desription"><span class="nav-number">1.</span> <span class="nav-text">Desription</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">3.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是new"><span class="nav-number">1.</span> <span class="nav-text">什么是new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际操作"><span class="nav-number">2.</span> <span class="nav-text">实际操作</span></a></li></ol></div>
             
 
           </div>
