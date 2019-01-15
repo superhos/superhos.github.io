@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Sevens Chan blog">
 <meta property="og:description" content="关于原型与原型链可以找到成千上万的文章来解说，这里就记录下我对其的最最最最最粗浅认知，来方便理解。  Function有prototype, Object有proto __proto__ 是以[ [ Prototype ] ]的形式存在于对象的实现中，可以看出，是不建议开发者直接去改动这个属性的。而__proto__就是用来描述当前对象的原型，可以理解为，它就是一个对象句柄，用以指">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-15T14:47:34.576Z">
+<meta property="og:updated_time" content="2019-01-15T14:59:32.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型与原型链的粗浅认知">
 <meta name="twitter:description" content="关于原型与原型链可以找到成千上万的文章来解说，这里就记录下我对其的最最最最最粗浅认知，来方便理解。  Function有prototype, Object有proto __proto__ 是以[ [ Prototype ] ]的形式存在于对象的实现中，可以看出，是不建议开发者直接去改动这个属性的。而__proto__就是用来描述当前对象的原型，可以理解为，它就是一个对象句柄，用以指">
@@ -336,9 +336,9 @@
         <p>关于原型与原型链可以找到成千上万的文章来解说，这里就记录下我对其的最最最最最粗浅认知，来方便理解。</p>
 <ol start="0">
 <li>Function有prototype, Object有<strong>proto</strong></li>
-<li><code>__proto__</code> 是以[ [ Prototype ] ]的形式存在于对象的实现中，可以看出，是不建议开发者直接去改动这个属性的。<br>而<code>__proto__</code>就是用来描述当前<strong>对象</strong>的原型，可以理解为，它就是一个对象句柄，用以指向<code>原型对象</code>。</li>
+<li><code>__proto__</code> 是以[ [ Prototype ] ]的形式存在于对象的实现中，可以看出，是不建议开发者直接去改动这个属性的。<br>而<code>__proto__</code>就是用来描述当前<strong>对象</strong>的原型，可以理解为，它就是一个对象句柄，用以指向<code>原型对象</code>。通过<code>Object.getPrototypeOf</code>可以返回对象的<code>__proto__</code>。</li>
 <li><code>prototype</code> 是一个原型的<strong>对象</strong>，但是这个对象并不一定就是我们的基础类型<code>Object</code>，通过前面的结论，可以知道对象都是有<code>__proto__</code>，那么就可以用原型对象的<code>__proto__</code>属性来判断它的上级原型是什么。</li>
-<li><code>function</code>是一个特殊<code>object</code>，我更趋向用面向对象的思想把它理解为是<code>object</code>的继承类。<code>function</code> 有一个 <code>prototype</code>属性，同样是一个对象句柄，指向的就是我们所说的<strong>原型对象</strong>，这个对象里有一个属性叫<code>constructor</code>，指向的就是<code>function</code>构造函数本身。</li>
+<li><code>function</code>是<code>object</code>的继承类。<code>function</code> 有一个 <code>prototype</code>属性，同样是一个对象句柄，指向的就是我们所说的<strong>原型对象</strong>，这个对象里有一个属性叫<code>constructor</code>，指向的就是<code>function</code>构造函数本身。</li>
 <li>第三点中原型对象，听名字就不难想到，肯定也有一个<code>__proto__</code>句柄，而这个句柄指向的就是<code>Object</code>的<code>prototype</code>从而形成原型链。  </li>
 </ol>
 
