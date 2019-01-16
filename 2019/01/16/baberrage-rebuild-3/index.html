@@ -101,17 +101,17 @@
 <meta property="og:site_name" content="Sevens Chan blog">
 <meta property="og:description" content="目前已经完成了一个版本，却是引来了更多的思考。主要要思考的问题有：  如何减少帧单位内的计算量 如何达到弹幕展示均衡 如何减少repaint/reflow泳道的循环运动为减少DOM增删带来资源损耗，初步设计每条泳道会有两条track，根据transform的X坐标实现循环运动。如下图所示：(截图截得不好 ，Pool应该是固定不动的)优点：减少DOM增删操作，循环只需要更改transformX">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/1.jpg">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/2.jpg">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/3.jpg">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/4.jpg">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/5.jpg">
-<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/6.jpg">
-<meta property="og:updated_time" content="2019-01-16T09:39:21.261Z">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/1.jpg">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/2.jpg">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/3.jpg">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/4.jpg">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/5.jpg">
+<meta property="og:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/6.jpg">
+<meta property="og:updated_time" content="2019-01-16T09:42:09.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考">
 <meta name="twitter:description" content="目前已经完成了一个版本，却是引来了更多的思考。主要要思考的问题有：  如何减少帧单位内的计算量 如何达到弹幕展示均衡 如何减少repaint/reflow泳道的循环运动为减少DOM增删带来资源损耗，初步设计每条泳道会有两条track，根据transform的X坐标实现循环运动。如下图所示：(截图截得不好 ，Pool应该是固定不动的)优点：减少DOM增删操作，循环只需要更改transformX">
-<meta name="twitter:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/baberrage-rebuild-3/1.jpg">
+<meta name="twitter:image" content="https://superhos.github.io/2019/01/16/baberrage-rebuild-3/1.jpg">
 
 
 
@@ -344,15 +344,15 @@
 <ol>
 <li>如何减少帧单位内的计算量</li>
 <li>如何达到弹幕展示均衡</li>
-<li>如何减少repaint/reflow<br><h2 id="泳道的循环运动"><a href="#泳道的循环运动" class="headerlink" title="泳道的循环运动"></a>泳道的循环运动</h2>为减少DOM增删带来资源损耗，初步设计每条泳道会有两条track，根据transform的X坐标实现循环运动。如下图所示：<br><img src="baberrage-rebuild-3/1.jpg" alt="1"><br><img src="baberrage-rebuild-3/2.jpg" alt="1"><br><img src="baberrage-rebuild-3/3.jpg" alt="1"><br><img src="baberrage-rebuild-3/4.jpg" alt="1"><br>(截图截得不好 ，Pool应该是固定不动的)<br>优点：减少DOM增删操作，循环只需要更改transformX<br>缺点：两条track必须固定宽度为泳池宽度，这样才能构成环路。</li>
+<li>如何减少repaint/reflow<br><h2 id="泳道的循环运动"><a href="#泳道的循环运动" class="headerlink" title="泳道的循环运动"></a>泳道的循环运动</h2>为减少DOM增删带来资源损耗，初步设计每条泳道会有两条track，根据transform的X坐标实现循环运动。如下图所示：<br><img src="1.jpg" alt="1"><br><img src="2.jpg" alt="1"><br><img src="3.jpg" alt="1"><br><img src="4.jpg" alt="1"><br>(截图截得不好 ，Pool应该是固定不动的)<br>优点：减少DOM增删操作，循环只需要更改transformX<br>缺点：两条track必须固定宽度为泳池宽度，这样才能构成环路。</li>
 </ol>
 <h2 id="弹幕派发"><a href="#弹幕派发" class="headerlink" title="弹幕派发"></a>弹幕派发</h2><p>如上篇所说，整个弹幕泳池会分为多个不相关联的泳道（Lane），目的是减少每帧的计算量，由原来的每帧要计算每个弹幕DOM的移动量降低为只需计算泳道的移动量。<br>而关于弹幕注入泳道的部分目前有两个解决方案：</p>
 <p>首先两个方案都使用了Rxjs bufferTime和bufferCount管道来做弹幕入口，防止弹幕井喷。</p>
 <p><strong>#1</strong> 然后增加中心派发层，计算每个泳道的空闲情况，派发弹幕到指定的泳道</p>
-<p><img src="baberrage-rebuild-3/5.jpg" alt="5"></p>
+<p><img src="5.jpg" alt="5"></p>
 <p>优点：能够中心统筹泳道，均衡每个泳道的弹幕数量<br>缺点：计算量集中在了中心派发层</p>
 <p><strong>#2</strong> 使用弹幕队列，由泳道各自计算各自的空闲情况，争夺队列弹幕。</p>
-<p><img src="baberrage-rebuild-3/6.jpg" alt="6"></p>
+<p><img src="6.jpg" alt="6"></p>
 <p>优点：去中心化，降低中心计算量<br>缺点：泳道之间不能通讯，无法得知总体弹幕均衡情况，有机会出现一条泳道抢夺所有弹幕资源的情况。</p>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>各有优点也各有缺点，因此也仍在思考这部分的设计。有新的解决方案再更新上来。</p>
 
