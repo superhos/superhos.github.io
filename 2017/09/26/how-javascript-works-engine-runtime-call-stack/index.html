@@ -94,12 +94,12 @@
 
 
 
-<meta name="description" content="JS工作原理：引擎，运行时和调用堆栈          2017-09-26                                  返回目录                  翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢">
+<meta name="description" content="翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服务端，Hybird应用，嵌入设备等等等等。 这一系列文章主要针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS工作原理：引擎，运行时和调用堆栈">
 <meta property="og:url" content="https://superhos.github.io/2017/09/26/how-javascript-works-engine-runtime-call-stack/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="JS工作原理：引擎，运行时和调用堆栈          2017-09-26                                  返回目录                  翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢">
+<meta property="og:description" content="翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服务端，Hybird应用，嵌入设备等等等等。 这一系列文章主要针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1400/1*Zf4reZZJ9DCKsXf5CSXghg.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*OnH_DlbNAPvB9KLxUCyMsA.png">
@@ -109,10 +109,10 @@
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1200/1*AycFMDy9tlDmNoc5LXd9-g.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*e0nEd59RPKz9coyY8FX-uw.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*WlMXK3rs_scqKTRV41au7g.jpeg">
-<meta property="og:updated_time" content="2018-06-14T06:51:46.718Z">
+<meta property="og:updated_time" content="2019-01-16T12:50:09.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS工作原理：引擎，运行时和调用堆栈">
-<meta name="twitter:description" content="JS工作原理：引擎，运行时和调用堆栈          2017-09-26                                  返回目录                  翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢">
+<meta name="twitter:description" content="翻译自： How JavaScript works: an overview of the engine, the runtime, and the call stack 今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服务端，Hybird应用，嵌入设备等等等等。 这一系列文章主要针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1400/1*Zf4reZZJ9DCKsXf5CSXghg.png">
 
 
@@ -342,11 +342,7 @@
       
 
       
-        <h3 id="JS工作原理：引擎，运行时和调用堆栈"><a href="#JS工作原理：引擎，运行时和调用堆栈" class="headerlink" title="JS工作原理：引擎，运行时和调用堆栈"></a>JS工作原理：引擎，运行时和调用堆栈</h3><p><a href="/studyforinterview/2017/09/26/how-javascript-works-engine-runtime-call-stack/"><br>          2017-09-26
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p>翻译自： <a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="noopener">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
+        <p>翻译自： <a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="noopener">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
 <p>今时今日，JavaScript越来越受欢迎，越来越多地方都可以看到它的身影：前端，服务端，Hybird应用，嵌入设备等等等等。</p>
 <p>这一系列文章主要针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。</p>
 <p>在GitHub的统计可以看得出，JavaScript在很多地方都领先其他语言。<br><img src="https://cdn-images-1.medium.com/max/1400/1*Zf4reZZJ9DCKsXf5CSXghg.png" alt="GitHit Range"></p>
@@ -516,7 +512,7 @@ gitment.render(document.getElementById('gitment-comments'));
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -529,7 +525,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -564,7 +560,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS工作原理：引擎，运行时和调用堆栈"><span class="nav-number">1.</span> <span class="nav-text">JS工作原理：引擎，运行时和调用堆栈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number"></span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript引擎"><span class="nav-number"></span> <span class="nav-text">JavaScript引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时-The-Runtime"><span class="nav-number"></span> <span class="nav-text">运行时(The Runtime)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用栈"><span class="nav-number"></span> <span class="nav-text">调用栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发和事件循环"><span class="nav-number"></span> <span class="nav-text">并发和事件循环</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript引擎"><span class="nav-number">2.</span> <span class="nav-text">JavaScript引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时-The-Runtime"><span class="nav-number">3.</span> <span class="nav-text">运行时(The Runtime)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用栈"><span class="nav-number">4.</span> <span class="nav-text">调用栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发和事件循环"><span class="nav-number">5.</span> <span class="nav-text">并发和事件循环</span></a></li></ol></div>
             
 
           </div>

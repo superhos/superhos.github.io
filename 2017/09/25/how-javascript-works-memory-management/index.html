@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="JS工作原理：內存管理与常见内存泄露分析          2017-09-25                                  返回目录                  翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaSc">
+<meta name="description" content="翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。 该系列的第一篇文章重点介绍了引擎，运行时和调用堆栈 an">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS工作原理：內存管理与常见内存泄露分析">
 <meta property="og:url" content="https://superhos.github.io/2017/09/25/how-javascript-works-memory-management/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="JS工作原理：內存管理与常见内存泄露分析          2017-09-25                                  返回目录                  翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaSc">
+<meta property="og:description" content="翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。 该系列的第一篇文章重点介绍了引擎，运行时和调用堆栈 an">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*slxXgq_TO38TgtoKpWa_jQ.png">
-<meta property="og:updated_time" content="2018-06-14T06:51:46.689Z">
+<meta property="og:updated_time" content="2019-01-16T12:50:16.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS工作原理：內存管理与常见内存泄露分析">
-<meta name="twitter:description" content="JS工作原理：內存管理与常见内存泄露分析          2017-09-25                                  返回目录                  翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaSc">
+<meta name="twitter:description" content="翻译自： How JavaScript works: memory management + how to handle 4 common memory leaks 在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。 该系列的第一篇文章重点介绍了引擎，运行时和调用堆栈 an">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/1600/1*slxXgq_TO38TgtoKpWa_jQ.png">
 
 
@@ -335,11 +335,7 @@
       
 
       
-        <h3 id="JS工作原理：內存管理与常见内存泄露分析"><a href="#JS工作原理：內存管理与常见内存泄露分析" class="headerlink" title="JS工作原理：內存管理与常见内存泄露分析"></a>JS工作原理：內存管理与常见内存泄露分析</h3><p><a href="/studyforinterview/2017/09/25/how-javascript-works-memory-management/"><br>          2017-09-25
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<p>翻译自： <a href="https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec" target="_blank" rel="noopener">How JavaScript works: memory management + how to handle 4 common memory leaks</a></p>
+        <p>翻译自： <a href="https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec" target="_blank" rel="noopener">How JavaScript works: memory management + how to handle 4 common memory leaks</a></p>
 <p>在几周前我们就开始了一系列针对JavaScript工作原理的挖掘：我们认为当我们认识JavaScript的组成部分以及了解它们是如何搞在一起的，我们就可以写出更好的代码和应用。</p>
 <p>该系列的第一篇文章重点介绍了引擎，运行时和调用堆栈 <a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf" target="_blank" rel="noopener">an overview of the engine, the runtime, and the call stack</a>。第二篇文章阐述了Google V8 JavaScript引擎内部，并提供了一些有关如何编写更好的JavaScript代码的建议 <a href="https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e" target="_blank" rel="noopener">How JavaScript works: inside the V8 engine + 5 tips on how to write optimized code</a>。</p>
 <p>在第三篇文章，我们来讨论另一个重要的话题，由于日常使用的编程语言的日益成熟和复杂性，开发人员更加容易忽略的一点 ———— 内存管理。我们会讲一下关于我们是如何处理我们网站上JavaScript泄露的问题。</p>
@@ -496,7 +492,7 @@ gitment.render(document.getElementById('gitment-comments'));
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -509,7 +505,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -544,7 +540,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS工作原理：內存管理与常见内存泄露分析"><span class="nav-number">1.</span> <span class="nav-text">JS工作原理：內存管理与常见内存泄露分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number"></span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存的生命周期"><span class="nav-number"></span> <span class="nav-text">内存的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是内存"><span class="nav-number"></span> <span class="nav-text">什么是内存</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存的生命周期"><span class="nav-number">2.</span> <span class="nav-text">内存的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是内存"><span class="nav-number">3.</span> <span class="nav-text">什么是内存</span></a></li></ol></div>
             
 
           </div>

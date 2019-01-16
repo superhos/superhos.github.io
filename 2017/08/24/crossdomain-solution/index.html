@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="跨域问题的产生和解决方案          2017-08-24                                  返回目录                  什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：">
+<meta name="description" content="什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：http://www.test.com/index.php 和 http://www.test.com/go.php (同源)http://www.test.com:80/in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="跨域问题的产生和解决方案">
 <meta property="og:url" content="https://superhos.github.io/2017/08/24/crossdomain-solution/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="跨域问题的产生和解决方案          2017-08-24                                  返回目录                  什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：">
+<meta property="og:description" content="什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：http://www.test.com/index.php 和 http://www.test.com/go.php (同源)http://www.test.com:80/in">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-14T06:51:46.526Z">
+<meta property="og:updated_time" content="2019-01-16T12:45:28.846Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域问题的产生和解决方案">
-<meta name="twitter:description" content="跨域问题的产生和解决方案          2017-08-24                                  返回目录                  什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：">
+<meta name="twitter:description" content="什么是跨域跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。 什么是同源同源必须是：协议，域名和端口均相同，任何一项不同则视为非同源。 例子：http://www.test.com/index.php 和 http://www.test.com/go.php (同源)http://www.test.com:80/in">
 
 
 
@@ -333,11 +333,7 @@
       
 
       
-        <h3 id="跨域问题的产生和解决方案"><a href="#跨域问题的产生和解决方案" class="headerlink" title="跨域问题的产生和解决方案"></a>跨域问题的产生和解决方案</h3><p><a href="/studyforinterview/2017/08/24/crossdomain-solution/"><br>          2017-08-24
-        </a></p>
-<p><a href="https://superhos.github.io/studyforinterview/2017/07/25/起航/"><br>                        返回目录
-                </a></p>
-<h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
+        <h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，就是指浏览器不允许页面的脚本执行非同源的页面脚本。它是由浏览器的同源策略引起的，是浏览器对JavaScript施加的安全限制。</p>
 <h2 id="什么是同源"><a href="#什么是同源" class="headerlink" title="什么是同源"></a>什么是同源</h2><p>同源必须是：<strong>协议</strong>，<strong>域名</strong>和<strong>端口</strong>均相同，任何一项不同则视为非同源。</p>
 <p>例子：<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test.com/go.php" target="_blank" rel="noopener">http://www.test.com/go.php</a> (同源)<br><a href="http://www.test.com:80/index.php" target="_blank" rel="noopener">http://www.test.com:80/index.php</a> 和 <a href="http://www.test.com:8080/index.php" target="_blank" rel="noopener">http://www.test.com:8080/index.php</a> (非同源，端口不同)<br><a href="https://www.test.com/index.php" target="_blank" rel="noopener">https://www.test.com/index.php</a> 和 <a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> (非同源，协议不同)<br><a href="http://www.test.com/index.php" target="_blank" rel="noopener">http://www.test.com/index.php</a> 和 <a href="http://www.test2.com/index.php" target="_blank" rel="noopener">http://www.test2.com/index.php</a> (非同源，域名不同)</p>
 <h2 id="解决方案-JSONP"><a href="#解决方案-JSONP" class="headerlink" title="解决方案 - JSONP"></a>解决方案 - JSONP</h2><p>JSON（JavaScript Object Notation）是一种轻量级的数据交换格式，而JSONP（JSON with Pasdding）则是JSON的一种“使用模式”，通过这种模式可以实现数据的跨域获取。</p>
@@ -393,8 +389,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/24/ary-story/" rel="prev" title="不同进制之间的故事">
-                不同进制之间的故事 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/08/25/avoid-resubmit/" rel="prev" title="防止表单重复提交，你我有责">
+                防止表单重复提交，你我有责 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -488,7 +484,7 @@ gitment.render(document.getElementById('gitment-comments'));
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -501,7 +497,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -536,7 +532,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#跨域问题的产生和解决方案"><span class="nav-number">1.</span> <span class="nav-text">跨域问题的产生和解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域"><span class="nav-number"></span> <span class="nav-text">什么是跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源"><span class="nav-number"></span> <span class="nav-text">什么是同源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-JSONP"><span class="nav-number"></span> <span class="nav-text">解决方案 - JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP跨域的原理"><span class="nav-number"></span> <span class="nav-text">JSONP跨域的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP的实现"><span class="nav-number"></span> <span class="nav-text">JSONP的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-设置Response-header跨域策略"><span class="nav-number"></span> <span class="nav-text">解决方案 - 设置Response header跨域策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小小蔡芽"><span class="nav-number"></span> <span class="nav-text">,小小蔡芽</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是跨域"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同源"><span class="nav-number">2.</span> <span class="nav-text">什么是同源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-JSONP"><span class="nav-number">3.</span> <span class="nav-text">解决方案 - JSONP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP跨域的原理"><span class="nav-number">4.</span> <span class="nav-text">JSONP跨域的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP的实现"><span class="nav-number">5.</span> <span class="nav-text">JSONP的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案-设置Response-header跨域策略"><span class="nav-number">6.</span> <span class="nav-text">解决方案 - 设置Response header跨域策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小小蔡芽"><span class="nav-number">7.</span> <span class="nav-text">,小小蔡芽</span></a></li></ol></div>
             
 
           </div>
