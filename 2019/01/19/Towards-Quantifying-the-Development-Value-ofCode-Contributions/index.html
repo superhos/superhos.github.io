@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【读书笔记】如何量化程序员对项目的贡献">
+<meta property="og:url" content="https://superhos.github.io/2019/01/19/Towards-Quantifying-the-Development-Value-ofCode-Contributions/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-18T16:43:12.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【读书笔记】如何量化程序员对项目的贡献">
+<meta name="twitter:description" content="Update History   Version Content Author Date     0.0.2 完成Section1和2 Sevens 2019-01-10   0.0.3 完成Section 3部分 Sevens 2019-01-14    Before此文档为阅读下面论文的读书笔记：Towards Quantifying the Development Value of Code">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2019/01/19/Towards-Quantifying-the-Development-Value-ofCode-Contributions/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>【读书笔记】如何量化程序员对项目的贡献 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/19/Towards-Quantifying-the-Development-Value-ofCode-Contributions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【读书笔记】如何量化程序员对项目的贡献</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-19T00:43:12+08:00">
+                2019-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Update-History"><a href="#Update-History" class="headerlink" title="Update History"></a>Update History</h4><table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Content</th>
+<th>Author</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0.2</td>
+<td>完成Section1和2</td>
+<td>Sevens</td>
+<td>2019-01-10</td>
+</tr>
+<tr>
+<td>0.0.3</td>
+<td>完成Section 3部分</td>
+<td>Sevens</td>
+<td>2019-01-14</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Before"><a href="#Before" class="headerlink" title="Before"></a>Before</h2><p>此文档为阅读下面论文的读书笔记：<br><a href="https://per.pub/A1Pd7xaM.pdf" target="_blank" rel="noopener">Towards Quantifying the Development Value of Code Contributions</a></p>
+<h2 id="1-Introduction-精简翻译"><a href="#1-Introduction-精简翻译" class="headerlink" title="1 Introduction 精简翻译"></a>1 Introduction 精简翻译</h2><p>传统的代码贡献量化方法通常以简单的指标为特征，例如代码量统计（NOC）和代码行数统计（LOC），例如GitHub使用NOC来进行开发者项目的排行。<br>在这篇文章中，主要概述了如何量化代码贡献在开发工作中的价值。作者定义：<em>开发价值</em> 为贡献的代码在开发工作中的量化和贡献的代码为其他开发人员节省的开发工作。<br>作者将开发价值分为结构性和非结构性两个部分。结构性价值反映了代码结构对开发活动中的影响：一个被许多函数调用的函数降低了那些调用它的函数的代码量，因此具有更高的价值。根据这个结论，作者设计了 <em>DevRank</em>，基于PageRank，通过函数调用图谱来派生出开发价值。<br>另外，并非所有的开发价值都体现在代码结构中。三个有经验的开发着根据提交代码的影响进行分类再来判断代码的价值。作者通过自然语言处理（NLP）和机器学习(ML)来探索了自动化描述提交代码产生的影响力的可能性。最后，作者训练出一个<code>learning-to-rank</code> (L2R)的模型用来找出开发代码产生出的结构性和非结构性价值的最佳综合价值。</p>
+<h2 id="1-Introduction-译者总结"><a href="#1-Introduction-译者总结" class="headerlink" title="1 Introduction 译者总结"></a>1 Introduction 译者总结</h2><p>总体来说步骤就是</p>
+<ol>
+<li>分为结构化和非结构化来评估</li>
+<li>结构化代码统计出在其他代码中的影响力价值分</li>
+<li>通过NLP和ML来对非结构化代码进行分类评分</li>
+<li>结合2和3得出的价值分数通过L2R来得到最佳综合价值</li>
+</ol>
+<h2 id="2-开发价值"><a href="#2-开发价值" class="headerlink" title="2 开发价值"></a>2 开发价值</h2><p>作者假定代码贡献包含两个部分：</p>
+<ol>
+<li>结构化价值：反映了代码在程序结构中的作用</li>
+<li>非结构化价值：以代码结构本身无关的方式对项目的影响<br>最后提供结合两种价值的方法</li>
+</ol>
+<h2 id="3-结构化代码的价值：-DevRank"><a href="#3-结构化代码的价值：-DevRank" class="headerlink" title="3 结构化代码的价值： DevRank"></a>3 结构化代码的价值： DevRank</h2><p>在大部分语言来说，一个函数体（程序体，方法）是为程序结构的一个基本单元。开发的价值不单基于创建这个函数的工作量，也基于其他函数调用这个函数时候节省的工作量。结构化代码的价值会被作者开发的基于图论的算法<em>DevRank</em>所记录下来（PageRank算法的扩展算法）<br>PageRank是Google搜索的基础算法。算法在基于网页的有向图上运行。这个算法会假定访问行为并且迭代计算访问者访问每个页面的可能性。计算概率的中心依赖与访问者的行为。原始的PageRank算法基于访问者的两个随机行为：(1)访问一个页面的时候，会有α概率随机访问页面上的其中一个连接，（2）会有1-α的概率访问者会传送到随机的页面并继续浏览。阻尼(damping)因子α是预先选择的固定概率。基于该行为，得到的概率为通过页面的连接结构而被访问的概率，直观地说，反映的就是这个页面唉网络上的受欢迎程度或者重要性。<br>为了要计算每一个函数的结构化价值，作者根据代码构建了一个静态被调用函数图。虽然程序执行的时候永远不会像PageRank那样随机跳到不相关的函数中去，但是作者发现PageRank是一个非常方便用来表征代码的模型。我们假定随机传送为代码开发活动的导航，而不是执行行为。<br>在DevRank中，访客会被定义为一个开发嗅探者(development sniffer)，主要任务是用来探测开发的工作量。作者假定开发的工作量是由该函数在整个开发历史中的LOC（代码行数统计）来确定的。作者相信这样的假设比仅计算最新版本的LOC来得更加准确。基于这个假设，</p>
+<p>[To Be Continue]</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/16/rendering-repaint-reflowrelayout-restyle/" rel="next" title="前端渲染：重绘，重布局和样式重塑">
+                <i class="fa fa-chevron-left"></i> 前端渲染：重绘，重布局和样式重塑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/19/baberrage-rebuild-3/" rel="prev" title="【Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考">
+                【Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "【读书笔记】如何量化程序员对项目的贡献",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">73</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Update-History"><span class="nav-number">1.</span> <span class="nav-text">Update History</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Before"><span class="nav-number"></span> <span class="nav-text">Before</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-精简翻译"><span class="nav-number"></span> <span class="nav-text">1 Introduction 精简翻译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Introduction-译者总结"><span class="nav-number"></span> <span class="nav-text">1 Introduction 译者总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-开发价值"><span class="nav-number"></span> <span class="nav-text">2 开发价值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-结构化代码的价值：-DevRank"><span class="nav-number"></span> <span class="nav-text">3 结构化代码的价值： DevRank</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
