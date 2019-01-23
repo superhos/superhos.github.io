@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="关于HTTP协议，可以看我的而另一篇文章：关于HTTP协议的一切 这篇查询用[0] HTTP:Status 1xx (临时响应) 表示说临时响应并需要请求者继续执行操作HTTP:Status 2xx (成功) 表示成功处理了请求HTTP:Status 3xx (重定向) 表示要完成请求需要进一步操作。通常这些状态码用来重定向 。HTTP:Status 4xx (错误) 表示请求可能出错，妨碍了服务">
+<meta name="description" content="泳道track显示弹幕的时机根据上一篇 Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考的设计，泳道分为两条track且每条track固定的宽度(等于弹幕舞台可视宽度)。 因为弹幕放置到Track上的时候，位置必须是在舞台外面的，不然就会有突然出现类似跳帧感觉。所以我们必须要知道当前要进入舞台的track是哪条。 因此这里使用了一个新的Web API: Intersec">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开发时候常会遇到的HTTP状态码">
-<meta property="og:url" content="https://superhos.github.io/2017/07/28/dev-code/index.html">
+<meta property="og:title" content="【Vue-baberrage弹幕插件重制(4)】泳道Track与弹幕">
+<meta property="og:url" content="https://superhos.github.io/2019/01/23/baberrage-rebuild-4/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="关于HTTP协议，可以看我的而另一篇文章：关于HTTP协议的一切 这篇查询用[0] HTTP:Status 1xx (临时响应) 表示说临时响应并需要请求者继续执行操作HTTP:Status 2xx (成功) 表示成功处理了请求HTTP:Status 3xx (重定向) 表示要完成请求需要进一步操作。通常这些状态码用来重定向 。HTTP:Status 4xx (错误) 表示请求可能出错，妨碍了服务">
+<meta property="og:description" content="泳道track显示弹幕的时机根据上一篇 Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考的设计，泳道分为两条track且每条track固定的宽度(等于弹幕舞台可视宽度)。 因为弹幕放置到Track上的时候，位置必须是在舞台外面的，不然就会有突然出现类似跳帧感觉。所以我们必须要知道当前要进入舞台的track是哪条。 因此这里使用了一个新的Web API: Intersec">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-16T12:45:53.600Z">
+<meta property="og:updated_time" content="2019-01-23T06:54:45.826Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发时候常会遇到的HTTP状态码">
-<meta name="twitter:description" content="关于HTTP协议，可以看我的而另一篇文章：关于HTTP协议的一切 这篇查询用[0] HTTP:Status 1xx (临时响应) 表示说临时响应并需要请求者继续执行操作HTTP:Status 2xx (成功) 表示成功处理了请求HTTP:Status 3xx (重定向) 表示要完成请求需要进一步操作。通常这些状态码用来重定向 。HTTP:Status 4xx (错误) 表示请求可能出错，妨碍了服务">
+<meta name="twitter:title" content="【Vue-baberrage弹幕插件重制(4)】泳道Track与弹幕">
+<meta name="twitter:description" content="泳道track显示弹幕的时机根据上一篇 Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考的设计，泳道分为两条track且每条track固定的宽度(等于弹幕舞台可视宽度)。 因为弹幕放置到Track上的时候，位置必须是在舞台外面的，不然就会有突然出现类似跳帧感觉。所以我们必须要知道当前要进入舞台的track是哪条。 因此这里使用了一个新的Web API: Intersec">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/07/28/dev-code/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/01/23/baberrage-rebuild-4/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>开发时候常会遇到的HTTP状态码 | Sevens Chan blog</title>
+  <title>【Vue-baberrage弹幕插件重制(4)】泳道Track与弹幕 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/28/dev-code/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/23/baberrage-rebuild-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">开发时候常会遇到的HTTP状态码</h1>
+          <h1 class="post-title" itemprop="name headline">【Vue-baberrage弹幕插件重制(4)】泳道Track与弹幕</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-28T00:00:00+08:00">
-                2017-07-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-23T12:45:44+08:00">
+                2019-01-23
               </time>
             
 
@@ -333,12 +333,15 @@
       
 
       
-        <p>关于HTTP协议，可以看我的而另一篇文章：<a href="https://superhos.github.io/studyforinterview/2017/08/10/http-protocal/">关于HTTP协议的一切</a></p>
-<p>这篇查询用[0]</p>
-<p>HTTP:Status 1xx (临时响应) 表示说临时响应并需要请求者继续执行操作<br>HTTP:Status 2xx (成功) 表示成功处理了请求<br>HTTP:Status 3xx (重定向) 表示要完成请求需要进一步操作。通常这些状态码用来重定向 。<br>HTTP:Status 4xx (错误) 表示请求可能出错，妨碍了服务器的处理<br>HTTP:Status 5xx (服务器错误) 表示服务器在尝试处理请求时发生了内部错误。这些错误可能是服务器本身引起的，而不是请求错误。</p>
-<h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3><p>200 (成功)<br>304 (未修改) 自上次请求后，请求的网页未修改过。服务器返回此响应时，不返回网页请求，客户端可以一般读取缓存。<br>401 (未授权) 请求要求身份验证。<br>403 (禁止) 服务器拒绝请求。<br>404 (未找到) 服务器找不到请求的网页<br>500 (服务器出错) 要看log找错了<br>504 (服务响应超时)</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[0]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组</p>
-<hr>
+        <h3 id="泳道track显示弹幕的时机"><a href="#泳道track显示弹幕的时机" class="headerlink" title="泳道track显示弹幕的时机"></a>泳道track显示弹幕的时机</h3><p>根据上一篇 <a href="https://blog.chenhaotaishuaile.com/2019/01/19/baberrage-rebuild-3/" target="_blank" rel="noopener">Vue-baberrage弹幕插件重制(3)】中心分派和竞争获取的思考</a><br>的设计，泳道分为两条track且每条track固定的宽度(等于弹幕舞台可视宽度)。</p>
+<p>因为弹幕放置到Track上的时候，位置必须是在舞台外面的，不然就会有突然出现类似跳帧感觉。所以我们必须要知道当前要进入舞台的track是哪条。</p>
+<p>因此这里使用了一个新的Web API:</p>
+<h4 id="Intersection-Observer-API"><a href="#Intersection-Observer-API" class="headerlink" title="Intersection Observer API"></a>Intersection Observer API</h4><p>按照<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener">规范文档</a>的说法，Intersection observer API提供了一种方法，可以异步观察目标元素与祖先元素或顶层文件的交集变化。也就是说，我们以后的滚动加载、lazyload等等的功能都能通过Intersection Observer API来实现，虽然这个还是实验中的功能，但是除了IE的浏览器基本都很早就支持了。</p>
+<p>那么有了这个API，我们就可以用它来做判断，哪条track出现在舞台。<br>举个简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">    root: <span class="built_in">document</span>.querySelector(<span class="string">'#stage'</span>), </span><br><span class="line">    rootMargin: <span class="string">'0px'</span>, </span><br><span class="line">    threshold: <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> callback = <span class="function"><span class="keyword">function</span>(<span class="params">entries, observer</span>) </span>&#123; </span><br><span class="line">    <span class="comment">/* Content excerpted, show below */</span> </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> observer = <span class="keyword">new</span> IntersectionObserver(callback, options);</span><br></pre></td></tr></table></figure>
+<p>其中<code>threshold</code>代表当目标元素与我们stage的交集多少才会触发事件，0 代表一出现就马上触发。可以设为 1 ，代表要完整出现了，才会触发。当时也接受数组形式，代表可以有多次的触发时机。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> track1 = <span class="built_in">document</span>.querySelector(<span class="string">'#track'</span>);</span><br><span class="line"><span class="keyword">var</span> track2 = <span class="built_in">document</span>.querySelector(<span class="string">'#track2'</span>);</span><br><span class="line">observer.observe(track1);</span><br><span class="line">observer.observe(track2);</span><br></pre></td></tr></table></figure>
+<p>这里只做简单的使用演示，实际项目中考虑的东西还要许多。<br>那么这样监听之后，当达到了触发条件的时候，我们就可以修改当前track的状态，来判断哪条track来显示弹幕了。</p>
 
       
     </div>
@@ -364,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/语言的选择/" rel="next" title="语言的选择">
-                <i class="fa fa-chevron-left"></i> 语言的选择
+              <a href="/2019/01/22/understand-event-loop/" rel="next" title="理解JS并发模型 - Event Loop, Micro Task, Macro Task">
+                <i class="fa fa-chevron-left"></i> 理解JS并发模型 - Event Loop, Micro Task, Macro Task
               </a>
             
           </div>
@@ -373,10 +376,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/28/nginx-accesslog/" rel="prev" title="最熟悉的陌生人 - access log">
-                最熟悉的陌生人 - access log <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -415,7 +414,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "开发时候常会遇到的HTTP状态码",
+    id: "【Vue-baberrage弹幕插件重制(4)】泳道Track与弹幕",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -517,7 +516,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见状态码"><span class="nav-number">1.</span> <span class="nav-text">常见状态码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number"></span> <span class="nav-text">Reference</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#泳道track显示弹幕的时机"><span class="nav-number">1.</span> <span class="nav-text">泳道track显示弹幕的时机</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Intersection-Observer-API"><span class="nav-number">1.1.</span> <span class="nav-text">Intersection Observer API</span></a></li></ol></li></ol></div>
             
 
           </div>
