@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="docker," />
+  <meta name="keywords" content="Sevens,JS,front-end" />
 
 
 
@@ -94,18 +94,17 @@
 
 
 
-<meta name="description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
-<meta name="keywords" content="docker">
+<meta name="description" content="工具类Random.org - 利用大气噪音生成真随机数，分为免费和付费两种API。 监控类Bugsnag - 日志监控Sentry - 日志监控 推送类Pusher - 提供Push服务 配置类dotenv - 用以读取.env配置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker-compose中把服务加入到当前存在的network中">
-<meta property="og:url" content="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/index.html">
+<meta property="og:title" content="实用Library记录">
+<meta property="og:url" content="https://superhos.github.io/2019/01/29/tools-markdown/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
+<meta property="og:description" content="工具类Random.org - 利用大气噪音生成真随机数，分为免费和付费两种API。 监控类Bugsnag - 日志监控Sentry - 日志监控 推送类Pusher - 提供Push服务 配置类dotenv - 用以读取.env配置">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-28T04:15:48.710Z">
+<meta property="og:updated_time" content="2019-01-29T09:34:21.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker-compose中把服务加入到当前存在的network中">
-<meta name="twitter:description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
+<meta name="twitter:title" content="实用Library记录">
+<meta name="twitter:description" content="工具类Random.org - 利用大气噪音生成真随机数，分为免费和付费两种API。 监控类Bugsnag - 日志监控Sentry - 日志监控 推送类Pusher - 提供Push服务 配置类dotenv - 用以读取.env配置">
 
 
 
@@ -134,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/01/29/tools-markdown/"/>
 
 
 
@@ -143,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>docker-compose中把服务加入到当前存在的network中 | Sevens Chan blog</title>
+  <title>实用Library记录 | Sevens Chan blog</title>
   
 
 
@@ -266,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/29/tools-markdown/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -283,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker-compose中把服务加入到当前存在的network中</h1>
+          <h1 class="post-title" itemprop="name headline">实用Library记录</h1>
         
 
         <div class="post-meta">
@@ -295,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T12:11:16+08:00">
-                2018-11-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-29T09:46:20+08:00">
+                2019-01-29
               </time>
             
 
@@ -334,12 +333,10 @@
       
 
       
-        <h3 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h3><p>开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。</p>
-<p>当前需求是增加一个mongodb，需要加入到servicenet下。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>文档可以查看：<a href="https://docs.docker.com/compose/compose-file/#external-1" target="_blank" rel="noopener">这里</a></p>
-<p>docker-compose.yml:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">'3.6'</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mongo:</span><br><span class="line">    image: mongo</span><br><span class="line">    <span class="built_in">command</span>: [--auth]</span><br><span class="line">    container_name: cscsdb</span><br><span class="line">    volumes:</span><br><span class="line">       [<span class="string">'../dbdata:/data/db'</span>]</span><br><span class="line">    ports:</span><br><span class="line">       - 27018:27017</span><br><span class="line">    networks:</span><br><span class="line">       - outside</span><br><span class="line">networks:</span><br><span class="line">    outside:</span><br><span class="line">      external:</span><br><span class="line">        name: servicenet</span><br></pre></td></tr></table></figure>
-<p>就这个样子了</p>
+        <h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p><a href="https://www.random.org" target="_blank" rel="noopener">Random.org</a> - 利用大气噪音生成真随机数，分为免费和付费两种API。</p>
+<h3 id="监控类"><a href="#监控类" class="headerlink" title="监控类"></a>监控类</h3><p><a href="https://docs.bugsnag.com/platforms/javascript/" target="_blank" rel="noopener">Bugsnag</a> - 日志监控<br><a href="https://sentry.io/onboarding/looking-for/sharvens/configure/node" target="_blank" rel="noopener">Sentry</a> - 日志监控</p>
+<h3 id="推送类"><a href="#推送类" class="headerlink" title="推送类"></a>推送类</h3><p><a href="https://dashboard.pusher.com/" target="_blank" rel="noopener">Pusher</a> - 提供Push服务</p>
+<h3 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h3><p><a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="noopener">dotenv</a> - 用以读取.env配置</p>
 
       
     </div>
@@ -356,12 +353,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/docker/" rel="tag"># docker</a>
-          
-        </div>
-      
 
       
       
@@ -371,8 +362,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/13/js-read-write-excel/" rel="next" title="JS读写Excel文件">
-                <i class="fa fa-chevron-left"></i> JS读写Excel文件
+              <a href="/2019/01/24/understand-event-loop/" rel="next" title="理解JS并发模型 - Event Loop, Micro Task, Macro Task">
+                <i class="fa fa-chevron-left"></i> 理解JS并发模型 - Event Loop, Micro Task, Macro Task
               </a>
             
           </div>
@@ -380,10 +371,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/30/import-export/" rel="prev" title="「ES6」import,export总结">
-                「ES6」import,export总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,7 +409,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "docker-compose中把服务加入到当前存在的network中",
+    id: "实用Library记录",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -524,7 +511,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题来源"><span class="nav-number">1.</span> <span class="nav-text">问题来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工具类"><span class="nav-number">1.</span> <span class="nav-text">工具类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监控类"><span class="nav-number">2.</span> <span class="nav-text">监控类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送类"><span class="nav-number">3.</span> <span class="nav-text">推送类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置类"><span class="nav-number">4.</span> <span class="nav-text">配置类</span></a></li></ol></div>
             
 
           </div>
