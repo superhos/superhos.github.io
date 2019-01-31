@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="浏览器,渲染," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="参考文章，非完全翻译，加入了译者的个人理解。如英文较好者可以点击阅读原文。  Introduction我们应该都很清楚浏览器的渲染过程如下：  具体步骤如下：  HTML -&amp;gt; DOM  CSS -&amp;gt; CSSOM  DOM + CSSOM -&amp;gt; Render Tree Layout Paint对于每个浏览器都会有一个浏览器引擎作为核心去执行这些步骤，火狐有Gecko，Chro">
+<meta name="keywords" content="浏览器,渲染">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器渲染时候做了什么？">
+<meta property="og:url" content="https://superhos.github.io/2019/01/31/how-browser-rendering-works/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="参考文章，非完全翻译，加入了译者的个人理解。如英文较好者可以点击阅读原文。  Introduction我们应该都很清楚浏览器的渲染过程如下：  具体步骤如下：  HTML -&amp;gt; DOM  CSS -&amp;gt; CSSOM  DOM + CSSOM -&amp;gt; Render Tree Layout Paint对于每个浏览器都会有一个浏览器引擎作为核心去执行这些步骤，火狐有Gecko，Chro">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://mateoclarke.com/public/images/browser-rendering.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*GSw1oqEpbPo0NmwG_73bPw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*Ib2Ufggiy67xg02Jp8CYhQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*YdURVl_Qkxv9Lf4Ja583-w.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*23wqjUorWI2fkCJ_AN5a2w.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*vIwWeznQhir5EPWDOyo5sw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*ugZgXZkxbzeIia7Z3jP76A.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*ROuUBS5eZ1DKk2RnFDfh6Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1600/1*5GYEa442MdwmhPGJbGagGw.png">
+<meta property="og:updated_time" content="2019-01-31T10:23:59.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器渲染时候做了什么？">
+<meta name="twitter:description" content="参考文章，非完全翻译，加入了译者的个人理解。如英文较好者可以点击阅读原文。  Introduction我们应该都很清楚浏览器的渲染过程如下：  具体步骤如下：  HTML -&amp;gt; DOM  CSS -&amp;gt; CSSOM  DOM + CSSOM -&amp;gt; Render Tree Layout Paint对于每个浏览器都会有一个浏览器引擎作为核心去执行这些步骤，火狐有Gecko，Chro">
+<meta name="twitter:image" content="http://mateoclarke.com/public/images/browser-rendering.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2019/01/31/how-browser-rendering-works/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>浏览器渲染时候做了什么？ | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/31/how-browser-rendering-works/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器渲染时候做了什么？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-31T11:50:44+08:00">
+                2019-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://blog.logrocket.com/how-browser-rendering-works-behind-the-scenes-6782b0e8fb10?gi=6d8028a5d1d2" target="_blank" rel="noopener">参考文章</a>，非完全翻译，加入了译者的个人理解。如英文较好者可以点击阅读原文。</p>
+</blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>我们应该都很清楚浏览器的渲染过程如下：</p>
+<p><img src="http://mateoclarke.com/public/images/browser-rendering.png" alt="render flow"></p>
+<p>具体步骤如下：</p>
+<ol>
+<li>HTML -&gt; DOM </li>
+<li>CSS -&gt; CSSOM </li>
+<li>DOM + CSSOM -&gt; Render Tree</li>
+<li>Layout</li>
+<li>Paint<br><br>对于每个浏览器都会有一个浏览器引擎作为核心去执行这些步骤，火狐有Gecko，Chrome有基于Webkit的Blink。</li>
+</ol>
+<p>接下来我们来一步步看上面的几个步骤</p>
+<h2 id="发送和接收信息"><a href="#发送和接收信息" class="headerlink" title="发送和接收信息"></a>发送和接收信息</h2><p>数据是以“字节”为单位在网络中传输的。当我们在浏览器中打开HTML网页，浏览器是读取在我们硬盘中（或者网络中）HTML的原始字节。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*GSw1oqEpbPo0NmwG_73bPw.png" alt="bytes of data"></p>
+<p>划重点：浏览器读取的是数据的原始字节，而不是我们所写的代码。</p>
+<p>浏览器接收数据的字节，但它无法真正做任何事情。<br><strong>必须将原始字节数据转换为它理解的形式。</strong><br>这是第一步。<br><img src="https://cdn-images-1.medium.com/max/1600/1*Ib2Ufggiy67xg02Jp8CYhQ.png" alt="重点-1"></p>
+<h2 id="DOM-构成"><a href="#DOM-构成" class="headerlink" title="DOM 构成"></a>DOM 构成</h2><h3 id="将HTML的原始字节转为DOM"><a href="#将HTML的原始字节转为DOM" class="headerlink" title="将HTML的原始字节转为DOM"></a>将HTML的原始字节转为DOM</h3><p>浏览器对象需要的是文档对象模型(DOM)对象，那么DOM对象是怎么来的呢？</p>
+<p>首先，先把数据原始字节转换成字符：<br><img src="https://cdn-images-1.medium.com/max/1600/1*YdURVl_Qkxv9Lf4Ja583-w.png" alt="byte=&gt;Characters"></p>
+<p>这时候可以看到我们自己写的代码。这个转换是基于html文件的字符编码来完成的。<br>此时，浏览器从数据原始字节变为文件中的实际字符。但是还没结束，这些字符会进一步转换成叫tokens的东西。<br><img src="https://cdn-images-1.medium.com/max/1600/1*23wqjUorWI2fkCJ_AN5a2w.png" alt="=&gt;Tokens"></p>
+<p>那么，这些<strong>Tokens</strong>又是什么东西？<br>在文件中一堆的字符对浏览器引擎来说并不友好。如果没有这种标记化的过程(tokenization)，一堆字符会产生一堆的无意义的html代码。<br>当我们以<code>.html</code>的后缀保存一个文件，相当于告诉浏览器这个文件需要以<code>html</code>文档来解释。浏览器“解释”此文件的方式是先解析它。</p>
+<p>在解析阶段，特别是在标记阶段(tokenization)，每个开始和结束的标签都需要考虑到。</p>
+<p>解析器理解尖括号中的每个字符串，例如<code>&lt;html&gt;</code>，<code>&lt;p&gt;</code>，并理解适用于每个字符串的规则集。 例如，表示锚标记的标记将具有与表示段落标记的标记不同的属性。</p>
+<p>从概念上来说，你可以把一个token看成是某一种数据结构，里面包含着一个<code>html</code>标签的信息。实质上，一个<code>html</code>文件会被解析成多个这样的单元，这些就是<strong>tokens</strong>。 这是浏览器开始理解你我们写得东西的方式。</p>
+<blockquote>
+<p>将字符解析成多个token单元的过程就称为标记化过程。</p>
+</blockquote>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*vIwWeznQhir5EPWDOyo5sw.png" alt="token的概念图"></p>
+<p>Tokens是好东西，但还不是我们最后的结果。<br>在标记化过程结束的时候，这些tokens就要被转换成nodes(节点)。<br><br>我们可以把这些节点看作是具有特定属性的不同对象。实际上，更好的解释是把节点视为文档对象模型（DOM）中的单独实体元素。</p>
+<p>节点也是好东西，但依然不是最后的结果。</p>
+<p>根据上面创建的节点，它们会按照树的数据结构来连接成我们熟知的DOM。树的结构包含有父子关系，同辈关系等。<br>最后，我们得到下面的这个结构（模型使用的是树的数据结构）：<br><img src="https://cdn-images-1.medium.com/max/1600/1*ugZgXZkxbzeIia7Z3jP76A.png" alt="Dom"></p>
+<p>因此我们生成DOM的过程就如下：<br><img src="https://cdn-images-1.medium.com/max/1600/1*ROuUBS5eZ1DKk2RnFDfh6Q.png" alt="From Tokens to Nodes and the Dom"></p>
+<p>根据<code>html</code>文件的大小，DOM的构建过程会花费一点时间。无论多少的文件，都会花费响应的时间。</p>
+<h2 id="那么，CSSOM呢？"><a href="#那么，CSSOM呢？" class="headerlink" title="那么，CSSOM呢？"></a>那么，CSSOM呢？</h2><p><code>html</code>文件的CSS链接方式如下所示：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"main.css"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当浏览器接收数据原始字节并启动DOM构建过程时，它也会发出请求来获取链接的main.css样式表。<br>一旦浏览器开始解析html，在找到css文件的链接标记后，它就会发出获取该请求的请求。之后同样的，会先获取文件的数据原始字节。</p>
+<h3 id="由CSS原始字节到CSSOM"><a href="#由CSS原始字节到CSSOM" class="headerlink" title="由CSS原始字节到CSSOM"></a>由CSS原始字节到CSSOM</h3><p>大致步骤跟DOM相当的类似，同样会经过Characters -&gt; Tokens -&gt; Node 的步骤。<br>同样会用树的结构来把Nodes构建成一棵树，称为CSS Object Model，CSSOM。</p>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*5GYEa442MdwmhPGJbGagGw.png" alt="CSSOM"></p>
+<p>CSS还有一样东西叫<a href="https://blog.logrocket.com/how-css-works-understanding-the-cascade-d181cd89a4d8" target="_blank" rel="noopener">Cascade</a>。这个Cascade是浏览器确定元素使用什么样式的方式。</p>
+<p>由于元素样式可能会受到它的父元素影响。例如继承或者在元素本身上去设置</p>
+<p>【晚上继续】</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浏览器-渲染/" rel="tag"># 浏览器,渲染</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/29/tools-markdown/" rel="next" title="实用Library记录">
+                <i class="fa fa-chevron-left"></i> 实用Library记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "浏览器渲染时候做了什么？",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送和接收信息"><span class="nav-number">2.</span> <span class="nav-text">发送和接收信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM-构成"><span class="nav-number">3.</span> <span class="nav-text">DOM 构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将HTML的原始字节转为DOM"><span class="nav-number">3.1.</span> <span class="nav-text">将HTML的原始字节转为DOM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#那么，CSSOM呢？"><span class="nav-number">4.</span> <span class="nav-text">那么，CSSOM呢？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#由CSS原始字节到CSSOM"><span class="nav-number">4.1.</span> <span class="nav-text">由CSS原始字节到CSSOM</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
