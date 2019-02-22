@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="docker," />
+  <meta name="keywords" content="Sevens,JS,front-end" />
 
 
 
@@ -94,18 +94,19 @@
 
 
 
-<meta name="description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
-<meta name="keywords" content="docker">
+<meta name="description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker-compose中把服务加入到当前存在的network中">
-<meta property="og:url" content="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/index.html">
+<meta property="og:title" content="相等操作符的那些事儿">
+<meta property="og:url" content="https://superhos.github.io/2019/02/22/comparison-stuff/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
+<meta property="og:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-11-28T04:15:48.710Z">
+<meta property="og:image" content="https://superhos.github.io/2019/02/22/comparison-stuff/conversion.jpeg">
+<meta property="og:updated_time" content="2019-02-22T03:08:44.332Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker-compose中把服务加入到当前存在的network中">
-<meta name="twitter:description" content="问题来源开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。 当前需求是增加一个mongodb，需要加入到servicenet下。 解决文档可以查看：这里 docker-compose.yml: 1234567891011121314151617version: &apos;3.6&apos;services:  mongo:    image:">
+<meta name="twitter:title" content="相等操作符的那些事儿">
+<meta name="twitter:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
+<meta name="twitter:image" content="https://superhos.github.io/2019/02/22/comparison-stuff/conversion.jpeg">
 
 
 
@@ -134,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/02/22/comparison-stuff/"/>
 
 
 
@@ -143,7 +144,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>docker-compose中把服务加入到当前存在的network中 | Sevens Chan blog</title>
+  <title>相等操作符的那些事儿 | Sevens Chan blog</title>
   
 
 
@@ -266,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/11/28/docker-compose-add-existing-network/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/22/comparison-stuff/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -283,7 +284,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker-compose中把服务加入到当前存在的network中</h1>
+          <h1 class="post-title" itemprop="name headline">相等操作符的那些事儿</h1>
         
 
         <div class="post-meta">
@@ -295,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T12:11:16+08:00">
-                2018-11-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-22T10:33:43+08:00">
+                2019-02-22
               </time>
             
 
@@ -334,13 +335,27 @@
       
 
       
-        <h3 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h3><p>开发过程中往往会遇到中途要加入新的服务的需求，在未整合成DockFile之前，用docker-compose是比较理想的。</p>
-<p>当前需求是增加一个mongodb，需要加入到servicenet下。</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>文档可以查看：<a href="https://docs.docker.com/compose/compose-file/#external-1" target="_blank" rel="noopener">这里</a></p>
-<p>docker-compose.yml:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version: <span class="string">'3.6'</span></span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mongo:</span><br><span class="line">    image: mongo</span><br><span class="line">    <span class="built_in">command</span>: [--auth]</span><br><span class="line">    container_name: cscsdb</span><br><span class="line">    volumes:</span><br><span class="line">       [<span class="string">'../dbdata:/data/db'</span>]</span><br><span class="line">    ports:</span><br><span class="line">       - 27018:27017</span><br><span class="line">    networks:</span><br><span class="line">       - outside</span><br><span class="line">networks:</span><br><span class="line">    outside:</span><br><span class="line">      external:</span><br><span class="line">        name: servicenet</span><br></pre></td></tr></table></figure>
-<p>就这个样子了</p>
-
+        <p>先说结论，<code>==</code>相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用<code>===</code>全等操作符来做比较。<br>但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。</p>
+<h3 id="相等操作符号比较转换图"><a href="#相等操作符号比较转换图" class="headerlink" title="相等操作符号比较转换图"></a>相等操作符号比较转换图</h3><p><img src="conversion.jpeg" alt="conversion"></p>
+<p>可以得出以下就条容易记忆的点：</p>
+<ol>
+<li>同类型比较，直接比较内容。</li>
+<li>除<code>undefined</code>,<code>null</code>,<code>Objectr</code>以外，<code>Number</code>,<code>String</code>,<code>Boolean</code>之间的比较皆先通过<code>ToNumber(value)</code>转换为<code>Number</code>类型再比较。</li>
+<li><code>undefined</code> 只会和 <code>null</code> 相等，反之亦然。</li>
+<li>当<code>Object</code>参与比较的时候会转换为原始值（Primitive）再进行比较，<code>ToPrimitive</code> 会先调用对象的<code>toString()</code>方法，如果不存在就会再调用<code>valueOf()</code>方法，然后把拿到的值再进行比较。如果<code>toString()</code>和<code>valueOf()</code>都不存在，就会报<code>TypeError</code>。</li>
+<li><code>Symbol()</code>类型不与任何值相等。</li>
+</ol>
+<h3 id="一些关于数据类型的细节"><a href="#一些关于数据类型的细节" class="headerlink" title="一些关于数据类型的细节"></a>一些关于数据类型的细节</h3><ul>
+<li>为什么有的编程规范要求用 void 0 代替 undefined?<ul>
+<li>因为在<code>{ ... }</code>局部代码块中，<code>undefined</code>是允许被赋值的，所以使用<code>void 0</code>更稳妥。</li>
+</ul>
+</li>
+<li>为什么0.1 + 0.2 != 0.3<ul>
+<li>这个是老生常谈的问题了，原因在于IEEE-754的双精度浮点数规则，<code>0.1</code>存储成二进制的时候是无限循环二进制导致了。解决的方法可以：</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0.1</span> + <span class="number">0.2</span>).toPrecision(<span class="number">10</span>) == <span class="number">0.3</span></span><br><span class="line">&gt; <span class="literal">true</span></span><br><span class="line"> </span><br><span class="line">(<span class="number">0.1</span> + <span class="number">0.2</span>).toFixed(<span class="number">10</span>) == <span class="number">0.3</span></span><br><span class="line">&gt; <span class="literal">true</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -356,12 +371,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/docker/" rel="tag"># docker</a>
-          
-        </div>
-      
 
       
       
@@ -371,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/13/js-read-write-excel/" rel="next" title="JS读写Excel文件">
-                <i class="fa fa-chevron-left"></i> JS读写Excel文件
+              <a href="/2019/02/21/why-shouldnt-jsonp-be-used/" rel="next" title="为什么不建议使用jsonp">
+                <i class="fa fa-chevron-left"></i> 为什么不建议使用jsonp
               </a>
             
           </div>
@@ -380,10 +389,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/30/import-export/" rel="prev" title="「ES6」import,export总结">
-                「ES6」import,export总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,7 +427,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "docker-compose中把服务加入到当前存在的network中",
+    id: "相等操作符的那些事儿",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -524,7 +529,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题来源"><span class="nav-number">1.</span> <span class="nav-text">问题来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#相等操作符号比较转换图"><span class="nav-number">1.</span> <span class="nav-text">相等操作符号比较转换图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些关于数据类型的细节"><span class="nav-number">2.</span> <span class="nav-text">一些关于数据类型的细节</span></a></li></ol></div>
             
 
           </div>
