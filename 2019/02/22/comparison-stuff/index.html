@@ -102,7 +102,7 @@
 <meta property="og:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://superhos.github.io/2019/02/22/comparison-stuff/conversion.jpeg">
-<meta property="og:updated_time" content="2019-02-22T03:08:44.332Z">
+<meta property="og:updated_time" content="2019-02-23T08:37:52.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="相等操作符的那些事儿">
 <meta name="twitter:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
@@ -341,7 +341,7 @@
 <ol>
 <li>同类型比较，直接比较内容。</li>
 <li>除<code>undefined</code>,<code>null</code>,<code>Objectr</code>以外，<code>Number</code>,<code>String</code>,<code>Boolean</code>之间的比较皆先通过<code>ToNumber(value)</code>转换为<code>Number</code>类型再比较。</li>
-<li><code>undefined</code> 只会和 <code>null</code> 相等，反之亦然。</li>
+<li>除自身以外,<code>undefined</code> 只会和 <code>null</code> 相等，反之亦然。</li>
 <li>当<code>Object</code>参与比较的时候会转换为原始值（Primitive）再进行比较，<code>ToPrimitive</code> 会先调用对象的<code>toString()</code>方法，如果不存在就会再调用<code>valueOf()</code>方法，然后把拿到的值再进行比较。如果<code>toString()</code>和<code>valueOf()</code>都不存在，就会报<code>TypeError</code>。</li>
 <li><code>Symbol()</code>类型不与任何值相等。</li>
 </ol>
