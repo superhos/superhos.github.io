@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="何为深浅拷贝我们都知道我们的数据类型可以分为基本类型：123456stringnullnumberundefiendbooleansymbol 而同样可以分出两个引用类型：123objectfunction` 它们的区别在于，基本类型在堆栈中存的是value本身，而引用类型存的是指向堆中实际value的地址，称为引用句柄。当我们拷贝我们的对象的时候，基本类型就比较简单，直接复制value就可以了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈一下JS的深浅拷贝">
+<meta property="og:url" content="https://superhos.github.io/2019/02/25/js-copy/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="何为深浅拷贝我们都知道我们的数据类型可以分为基本类型：123456stringnullnumberundefiendbooleansymbol 而同样可以分出两个引用类型：123objectfunction` 它们的区别在于，基本类型在堆栈中存的是value本身，而引用类型存的是指向堆中实际value的地址，称为引用句柄。当我们拷贝我们的对象的时候，基本类型就比较简单，直接复制value就可以了。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-25T17:10:56.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈一下JS的深浅拷贝">
+<meta name="twitter:description" content="何为深浅拷贝我们都知道我们的数据类型可以分为基本类型：123456stringnullnumberundefiendbooleansymbol 而同样可以分出两个引用类型：123objectfunction` 它们的区别在于，基本类型在堆栈中存的是value本身，而引用类型存的是指向堆中实际value的地址，称为引用句柄。当我们拷贝我们的对象的时候，基本类型就比较简单，直接复制value就可以了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2019/02/25/js-copy/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>谈一下JS的深浅拷贝 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/25/js-copy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">谈一下JS的深浅拷贝</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-25T16:00:52+08:00">
+                2019-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="何为深浅拷贝"><a href="#何为深浅拷贝" class="headerlink" title="何为深浅拷贝"></a>何为深浅拷贝</h2><p>我们都知道我们的数据类型可以分为基本类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">string</span><br><span class="line">null</span><br><span class="line">number</span><br><span class="line">undefiend</span><br><span class="line">boolean</span><br><span class="line">symbol</span><br></pre></td></tr></table></figure></p>
+<p>而同样可以分出两个引用类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">object</span><br><span class="line">function</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<p>它们的区别在于，基本类型在堆栈中存的是value本身，而引用类型存的是指向堆中实际value的地址，称为引用句柄。<br>当我们拷贝我们的对象的时候，基本类型就比较简单，直接复制value就可以了。而引用类型就会有两个结果：</p>
+<ol>
+<li>只复制了引用句柄，那么指向的value如果发生了改动，那么我们复制后对应的value也会跟随改变，因为实际上指向的是同一个value，这就叫<strong>浅拷贝</strong></li>
+<li>在堆中开辟一个新的位置，把被复制对象指向的value复制到新的位置中，复制对象再指向这个信息位置，这就叫<strong>深拷贝</strong></li>
+</ol>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>根据我们的定义，那能不能直接这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newObj = oldObj</span><br></pre></td></tr></table></figure></p>
+<p>答案当然是<strong>不可以</strong>，这样的话，这本质上只是建立了一个新的变量指向了旧的对象，如果改变<code>newObj</code>中的value，那么连基本类型的存储value都会一并被改变。<br>因此浅拷贝是可以依靠创建一个新的对象的方式来传入目标的键值：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">Object</span>.assign(&#123;&#125;, oldObj)</span><br></pre></td></tr></table></figure></p>
+<p>这样的话虽然引用类型同样还是指向同一个引用对象，但是基本类型都已经拥有了属于自己的存储空间，本质上是分隔开了。</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>正如前面分析，深浅拷贝之间的区别就在于引用类型指向的是新的引用对象，还是依然指向被复制对象的引用对象。</p>
+<p>很多文章书籍都介绍了一种方便的方法（例如《你不知道的javascipt》），就是利用JSON和字符串之间的转换：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ref = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">var</span> oldObj = &#123;</span><br><span class="line">    type: <span class="string">'old'</span>,</span><br><span class="line">    data: ref</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(oldObj))</span><br></pre></td></tr></table></figure></p>
+<p>但是在实际开发的时候，我们会遇到一个问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ref = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">var</span> oldObj = &#123;</span><br><span class="line">    type: <span class="string">'old'</span>,</span><br><span class="line">    data: ref</span><br><span class="line">&#125;</span><br><span class="line">ref.parent = oldObj</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(oldObj))</span><br></pre></td></tr></table></figure></p>
+<p>那么就会得到一个TypeError：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught TypeError: Converting circular structure to JSON</span><br></pre></td></tr></table></figure></p>
+<p>因为oldObj中的对象形成了回路，<code>JSON.stringify</code>无法转换成功。</p>
+<blockquote>
+<p>其实深拷贝是很依赖业务开发定义的，例如如果能保证对象中不造成引用回路的话，JSON转换的方法足够了，同样，我们需要的深拷贝可能只要第一层的深度或者全部都要深拷贝。从自身项目出发。</p>
+</blockquote>
+<p>假设我们要做全量深拷贝的话，只会有一点问题的，这个问题后面再来谈，先来看下实现的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!item) &#123; <span class="keyword">return</span> item &#125; <span class="comment">// null, undefined values check</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> types = [ <span class="built_in">Number</span>, <span class="built_in">String</span>, <span class="built_in">Boolean</span> ]</span><br><span class="line">    <span class="keyword">let</span> result</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标准化类型，防止有类似new String('aaa')或 new Number('444') 的操作</span></span><br><span class="line">    types.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (item <span class="keyword">instanceof</span> type) &#123;</span><br><span class="line">            result = type( item )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> result == <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是数组类型</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.toString.call( item ) === <span class="string">"[object Array]"</span>) &#123;</span><br><span class="line">            result = []</span><br><span class="line">            item.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">child, index, array</span>) </span>&#123; </span><br><span class="line">                <span class="comment">// 递归</span></span><br><span class="line">                result[index] = deepClone( child )</span><br><span class="line">            &#125;)</span><br><span class="line">        <span class="comment">// Object类型</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> item == <span class="string">"object"</span>) &#123;</span><br><span class="line">            <span class="comment">// 是不是dom</span></span><br><span class="line">            <span class="keyword">if</span> (item.nodeType &amp;&amp; <span class="keyword">typeof</span> item.cloneNode == <span class="string">"function"</span>) &#123;</span><br><span class="line">                result = item.cloneNode( <span class="literal">true</span> )    </span><br><span class="line">            <span class="comment">// 不含prototype,则是object</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!item.prototype) &#123; </span><br><span class="line">                <span class="comment">// 是不是日期类型</span></span><br><span class="line">                <span class="keyword">if</span> (item <span class="keyword">instanceof</span> <span class="built_in">Date</span>) &#123;</span><br><span class="line">                    result = <span class="keyword">new</span> <span class="built_in">Date</span>(item)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 深层递归</span></span><br><span class="line">                    result = &#123;&#125;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">var</span> i <span class="keyword">in</span> item) &#123;</span><br><span class="line">                        result[i] = deepClone( item[i] )</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 是否有构造函数，是则为函数</span></span><br><span class="line">                <span class="keyword">if</span> (<span class="literal">false</span> &amp;&amp; item.constructor) &#123;</span><br><span class="line">                    <span class="comment">// 不建议这样去做，原因在下面</span></span><br><span class="line">                    result = <span class="keyword">new</span> item.constructor()</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    result = <span class="built_in">JSON</span>。parse(<span class="built_in">JSON</span>.stringify(item))</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = item</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么现在来讨论下拷贝objects时候会遇到的问题。当我们创建一个新对象的时候，会做一下操作：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> User = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> newuser = <span class="keyword">new</span> User()</span><br></pre></td></tr></table></figure></p>
+<p>当然我们可以通过这种方式去拷贝，每个对象都会暴露一个构造器(constructor)属性，我们可以通过它去拷贝对象，但这种方式并非万无一失。我们同样可以使用一个简单的<code>for in</code>去遍历这个对象，但它同样会走向同一个方向 - 麻烦。上面代码有实现了使用构造器去拷贝一个对象，只是用了false来隐藏。</p>
+<p>那么，为什么拷贝是一种痛苦呢? 首先，每个对象/instance 都可能有它自身的状态，我们不能在拷贝的时候确认这个对象的状态进而拷贝到我们的对象中去，否则会破坏这个状态。<br>另外，通过构造器去拷贝的时候，参数依赖也是一个障碍。我们很难去确认，创建对象的人有没有传入像下面那样的参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> User(&#123;</span><br><span class="line">    bike: someBikeInstance</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>遇到这种情况，someBikeInstance可能是从相同的上下文中创建，也可能在拷贝方法中无话获知的上下文中创建。</p>
+<p>因此对于基于<code>function</code>的类的拷贝，我们目前也最好也使用<code>JSON.parse(JSON.stringify(...))</code>来进行拷贝。</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/22/comparison-stuff/" rel="next" title="相等操作符的那些事儿">
+                <i class="fa fa-chevron-left"></i> 相等操作符的那些事儿
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "谈一下JS的深浅拷贝",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为深浅拷贝"><span class="nav-number">1.</span> <span class="nav-text">何为深浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浅拷贝"><span class="nav-number">2.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深拷贝"><span class="nav-number">3.</span> <span class="nav-text">深拷贝</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
