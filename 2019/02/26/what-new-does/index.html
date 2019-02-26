@@ -94,19 +94,17 @@
 
 
 
-<meta name="description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
+<meta name="description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789function New(func) &amp;#123;    let res = Object.create(func.prototype)    let ret = func.apply(res, Array.prot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="相等操作符的那些事儿">
-<meta property="og:url" content="https://superhos.github.io/2019/02/22/comparison-stuff/index.html">
+<meta property="og:title" content="new的时候实际做了什么【02-26更新】">
+<meta property="og:url" content="https://superhos.github.io/2019/02/26/what-new-does/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
+<meta property="og:description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789function New(func) &amp;#123;    let res = Object.create(func.prototype)    let ret = func.apply(res, Array.prot">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://superhos.github.io/2019/02/22/comparison-stuff/conversion.jpeg">
-<meta property="og:updated_time" content="2019-02-23T08:37:52.083Z">
+<meta property="og:updated_time" content="2019-02-26T10:45:35.665Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="相等操作符的那些事儿">
-<meta name="twitter:description" content="先说结论，==相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用===全等操作符来做比较。但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。 相等操作符号比较转换图 可以得出以下就条容易记忆的点：  同类型比较，直接比较内容。 除undefined,null,Objectr以外，Number,String,Boolean之间的比较皆先通过ToNumber">
-<meta name="twitter:image" content="https://superhos.github.io/2019/02/22/comparison-stuff/conversion.jpeg">
+<meta name="twitter:title" content="new的时候实际做了什么【02-26更新】">
+<meta name="twitter:description" content="什么是newnew存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？ 实际操作可以来实现一个New函数：123456789function New(func) &amp;#123;    let res = Object.create(func.prototype)    let ret = func.apply(res, Array.prot">
 
 
 
@@ -135,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2019/02/22/comparison-stuff/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/02/26/what-new-does/"/>
 
 
 
@@ -144,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>相等操作符的那些事儿 | Sevens Chan blog</title>
+  <title>new的时候实际做了什么【02-26更新】 | Sevens Chan blog</title>
   
 
 
@@ -267,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/22/comparison-stuff/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/26/what-new-does/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -284,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">相等操作符的那些事儿</h1>
+          <h1 class="post-title" itemprop="name headline">new的时候实际做了什么【02-26更新】</h1>
         
 
         <div class="post-meta">
@@ -296,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-22T10:33:43+08:00">
-                2019-02-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-26T18:37:21+08:00">
+                2019-02-26
               </time>
             
 
@@ -335,27 +333,15 @@
       
 
       
-        <p>先说结论，<code>==</code>相等操作符会进行隐式转换再比较有可能造成结果的不可预测，所以开发时候更建议使用<code>===</code>全等操作符来做比较。<br>但是，相等操作符的操作比较也是面试的热门考点之一，这里就稍作总结。</p>
-<h3 id="相等操作符号比较转换图"><a href="#相等操作符号比较转换图" class="headerlink" title="相等操作符号比较转换图"></a>相等操作符号比较转换图</h3><p><img src="conversion.jpeg" alt="conversion"></p>
-<p>可以得出以下就条容易记忆的点：</p>
+        <h2 id="什么是new"><a href="#什么是new" class="headerlink" title="什么是new"></a>什么是new</h2><p><code>new</code>存在于各种语言中，作用基本大家都明白，就是通过指定类来新建一个对象。那么在JS里面，实际做的操作有哪些呢？</p>
+<h2 id="实际操作"><a href="#实际操作" class="headerlink" title="实际操作"></a>实际操作</h2><p>可以来实现一个<code>New</code>函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">New</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="built_in">Object</span>.create(func.prototype)</span><br><span class="line">    <span class="keyword">let</span> ret = func.apply(res, <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">return</span> (ret &amp;&amp; ret === <span class="string">"object"</span>) ? ret : res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj1 = New(A, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">// 相当于</span></span><br><span class="line"><span class="keyword">var</span> obj2 = <span class="keyword">new</span> A(<span class="number">1</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>具体步骤：</p>
 <ol>
-<li>同类型比较，直接比较内容。</li>
-<li>除<code>undefined</code>,<code>null</code>,<code>Objectr</code>以外，<code>Number</code>,<code>String</code>,<code>Boolean</code>之间的比较皆先通过<code>ToNumber(value)</code>转换为<code>Number</code>类型再比较。</li>
-<li>除自身以外,<code>undefined</code> 只会和 <code>null</code> 相等，反之亦然。</li>
-<li>当<code>Object</code>参与比较的时候会转换为原始值（Primitive）再进行比较，<code>ToPrimitive</code> 会先调用对象的<code>toString()</code>方法，如果不存在就会再调用<code>valueOf()</code>方法，然后把拿到的值再进行比较。如果<code>toString()</code>和<code>valueOf()</code>都不存在，就会报<code>TypeError</code>。</li>
-<li><code>Symbol()</code>类型不与任何值相等。</li>
+<li>通过<code>Object.create(...)</code>传入构造函数的原型对象来创建一个新的<code>object</code>对象，并且它的<code>__proto__</code>会指向构造函数的原型对象，命名为<code>res</code></li>
+<li>传入<code>res</code>作为构造函数<code>func</code>调用的作用域，并且传入除第一个以外的参数(因为第一个参数传入的是要实例化的构造函数)。</li>
+<li>如果构造函数执行后有返回对象<code>ret</code>，则返回该对象，没有的话就返回前面创建的<code>res</code>。</li>
 </ol>
-<h3 id="一些关于数据类型的细节"><a href="#一些关于数据类型的细节" class="headerlink" title="一些关于数据类型的细节"></a>一些关于数据类型的细节</h3><ul>
-<li>为什么有的编程规范要求用 void 0 代替 undefined?<ul>
-<li>因为在<code>{ ... }</code>局部代码块中，<code>undefined</code>是允许被赋值的，所以使用<code>void 0</code>更稳妥。</li>
-</ul>
-</li>
-<li>为什么0.1 + 0.2 != 0.3<ul>
-<li>这个是老生常谈的问题了，原因在于IEEE-754的双精度浮点数规则，<code>0.1</code>存储成二进制的时候是无限循环二进制导致了。解决的方法可以：</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0.1</span> + <span class="number">0.2</span>).toPrecision(<span class="number">10</span>) == <span class="number">0.3</span></span><br><span class="line">&gt; <span class="literal">true</span></span><br><span class="line"> </span><br><span class="line">(<span class="number">0.1</span> + <span class="number">0.2</span>).toFixed(<span class="number">10</span>) == <span class="number">0.3</span></span><br><span class="line">&gt; <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -380,8 +366,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/21/why-shouldnt-jsonp-be-used/" rel="next" title="为什么不建议使用jsonp">
-                <i class="fa fa-chevron-left"></i> 为什么不建议使用jsonp
+              <a href="/2019/02/26/ajax-introduction/" rel="next" title="Ajax - 异步，回调 & Promise">
+                <i class="fa fa-chevron-left"></i> Ajax - 异步，回调 & Promise
               </a>
             
           </div>
@@ -389,10 +375,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/25/js-copy/" rel="prev" title="谈一下JS的深浅拷贝">
-                谈一下JS的深浅拷贝 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -431,7 +413,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "相等操作符的那些事儿",
+    id: "new的时候实际做了什么【02-26更新】",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -533,7 +515,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#相等操作符号比较转换图"><span class="nav-number">1.</span> <span class="nav-text">相等操作符号比较转换图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些关于数据类型的细节"><span class="nav-number">2.</span> <span class="nav-text">一些关于数据类型的细节</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是new"><span class="nav-number">1.</span> <span class="nav-text">什么是new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际操作"><span class="nav-number">2.</span> <span class="nav-text">实际操作</span></a></li></ol></div>
             
 
           </div>
