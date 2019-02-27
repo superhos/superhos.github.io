@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，但其实fetch自身也有一点不足。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = function">
+<meta name="description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，很大原因是其自带的Promise属性。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = functio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fetch API的不足之处">
+<meta property="og:title" content="Fetch API的介绍和使用">
 <meta property="og:url" content="https://superhos.github.io/2019/01/02/fetch-disadvantage/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，但其实fetch自身也有一点不足。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = function">
+<meta property="og:description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，很大原因是其自带的Promise属性。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = functio">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-02T08:40:45.626Z">
+<meta property="og:updated_time" content="2019-02-27T06:12:35.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fetch API的不足之处">
-<meta name="twitter:description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，但其实fetch自身也有一点不足。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = function">
+<meta name="twitter:title" content="Fetch API的介绍和使用">
+<meta name="twitter:description" content="目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，很大原因是其自带的Promise属性。 XHR 和 fetch() 的快速比较先来看一个传统的XHR 123456789101112const xhr = new XMLHttpRequet()xhr.onreadystatechange = functio">
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>Fetch API的不足之处 | Sevens Chan blog</title>
+  <title>Fetch API的介绍和使用 | Sevens Chan blog</title>
   
 
 
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Fetch API的不足之处</h1>
+          <h1 class="post-title" itemprop="name headline">Fetch API的介绍和使用</h1>
         
 
         <div class="post-meta">
@@ -333,10 +333,15 @@
       
 
       
-        <p>目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，但其实fetch自身也有一点不足。</p>
+        <p>目前的JS项目的网络传输部分基本都被axios和新api fetch承包了，作为原生API的fetch一度被认为是XHR的更优解决方案，很大原因是其自带的Promise属性。</p>
 <h3 id="XHR-和-fetch-的快速比较"><a href="#XHR-和-fetch-的快速比较" class="headerlink" title="XHR 和 fetch() 的快速比较"></a>XHR 和 fetch() 的快速比较</h3><p>先来看一个传统的XHR</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequet()</span><br><span class="line"></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState !== <span class="number">4</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.responseText))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">xhr.open(<span class="string">'GET'</span>,<span class="string">'https://enter.chenhaotaishuaile.com/api/get_recent_posts'</span>)</span><br><span class="line">xhr.send()</span><br></pre></td></tr></table></figure>
 <p>而fetch的实现如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">'https://enter.chenhaotaishuaile.com/api/get_recent_posts'</span>)</span><br><span class="line">    .then(<span class="function">(<span class="params">res</span>) =&gt;</span> res.json())</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>) =&gt;</span> <span class="built_in">console</span>.log(data))</span><br></pre></td></tr></table></figure></p>
+<h3 id="Fetch的常见问题"><a href="#Fetch的常见问题" class="headerlink" title="Fetch的常见问题"></a>Fetch的常见问题</h3><ul>
+<li>Fetch 请求默认是不带 cookie 的，需要设置 fetch(url, {credentials: ‘include’})</li>
+<li>服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。</li>
+</ul>
+<p>主要在于第二点被一些开发人员所诟病，认为，请求返回错误也应该被Reject，但实际上是，我认为，这个措施跟<code>XHRHttpRequest</code>的<code>readyState和Status</code>分开处理一样道理的，都是为了分清楚错误源，更好的去排查是服务端方面的问题还是网络方面的问题，更重要的是，实际上如果遇到状态码规定不规范的情况，就更需要开发人员自行去确定这个请求是不是合法的了。</p>
 
       
     </div>
@@ -413,7 +418,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "Fetch API的不足之处",
+    id: "Fetch API的介绍和使用",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -515,7 +520,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XHR-和-fetch-的快速比较"><span class="nav-number">1.</span> <span class="nav-text">XHR 和 fetch() 的快速比较</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#XHR-和-fetch-的快速比较"><span class="nav-number">1.</span> <span class="nav-text">XHR 和 fetch() 的快速比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fetch的常见问题"><span class="nav-number">2.</span> <span class="nav-text">Fetch的常见问题</span></a></li></ol></div>
             
 
           </div>

@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。在这片文章中，我会通过下面几个section来说说当今前端Ajax的使用。  Javascript的异步机制 AJAX AJAX的不同预备状态 回调 Promise 跨域调用 JQuery的例子 更多回调 &amp;amp; Promise 的例子  为了更加了解ajax,我们必须先了解一下J">
+<meta name="description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。虽然目前也有了新的fetch，但是实际上Ajax还是暂时没有离开我们的视线(还有很多面试官喜欢问)。所以在这篇文章中，我会通过下面几个section来说说当今前端Ajax的使用。 怎样创建一个Ajax调用123const xhr = new XMLHttpRequest() // IE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ajax - 异步，回调 &amp; Promise">
 <meta property="og:url" content="https://superhos.github.io/2019/02/26/ajax-introduction/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。在这片文章中，我会通过下面几个section来说说当今前端Ajax的使用。  Javascript的异步机制 AJAX AJAX的不同预备状态 回调 Promise 跨域调用 JQuery的例子 更多回调 &amp;amp; Promise 的例子  为了更加了解ajax,我们必须先了解一下J">
+<meta property="og:description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。虽然目前也有了新的fetch，但是实际上Ajax还是暂时没有离开我们的视线(还有很多面试官喜欢问)。所以在这篇文章中，我会通过下面几个section来说说当今前端Ajax的使用。 怎样创建一个Ajax调用123const xhr = new XMLHttpRequest() // IE">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-25T17:21:54.243Z">
+<meta property="og:updated_time" content="2019-02-27T06:13:05.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ajax - 异步，回调 &amp; Promise">
-<meta name="twitter:description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。在这片文章中，我会通过下面几个section来说说当今前端Ajax的使用。  Javascript的异步机制 AJAX AJAX的不同预备状态 回调 Promise 跨域调用 JQuery的例子 更多回调 &amp;amp; Promise 的例子  为了更加了解ajax,我们必须先了解一下J">
+<meta name="twitter:description" content="Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。虽然目前也有了新的fetch，但是实际上Ajax还是暂时没有离开我们的视线(还有很多面试官喜欢问)。所以在这篇文章中，我会通过下面几个section来说说当今前端Ajax的使用。 怎样创建一个Ajax调用123const xhr = new XMLHttpRequest() // IE">
 
 
 
@@ -333,18 +333,31 @@
       
 
       
-        <p>Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。在这片文章中，我会通过下面几个section来说说当今前端Ajax的使用。</p>
-<ul>
-<li>Javascript的异步机制</li>
-<li>AJAX</li>
-<li>AJAX的不同预备状态</li>
-<li>回调</li>
-<li>Promise</li>
-<li>跨域调用</li>
-<li>JQuery的例子</li>
-<li>更多回调 &amp; Promise 的例子</li>
-</ul>
-<p>为了更加了解ajax,我们必须先了解一下Javascript的异步机制</p>
+        <p>Ajax是Javascript的核心，在SPA（单页应用）中也获得广泛的使用。它是我们页面和服务端之间通讯的桥梁。虽然目前也有了新的fetch，但是实际上Ajax还是暂时没有离开我们的视线(还有很多面试官喜欢问)。所以在这篇文章中，我会通过下面几个section来说说当今前端Ajax的使用。</p>
+<h3 id="怎样创建一个Ajax调用"><a href="#怎样创建一个Ajax调用" class="headerlink" title="怎样创建一个Ajax调用"></a>怎样创建一个Ajax调用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest() <span class="comment">// IE已经退出历史帷幕，这里不再考虑ActiveXObject兼容</span></span><br><span class="line">xhr.open(methodType, URL, <span class="keyword">async</span>)</span><br><span class="line">xhr.send()</span><br></pre></td></tr></table></figure>
+<p>上面三行代码就实现了一个发送给服务端的Ajax请求了。<br>1) 第一行创建了一个<code>XMLHttpRequest</code>的实体类，通过这个实体类我们可以发起XHR调用并且获得相应。<br>2) 第二行用来设置我们的请求，<code>methodType</code>用来设定请求的类型：<code>POST,GET,PUT,DELETE</code>等，<code>GET/POST</code>是最常见的。<code>URL</code>就是我们调用的服务地址，<code>async</code>设定是否是异步，默认为<code>true</code>，如果不为<code>true</code>，那么<code>send()</code>方法将不会<code>return</code>直到服务端有响应回访。<br>3) 最后一行就是实发出请求，浏览器会创建一个HTTPRequest并发送去服务端。xhr会在请求上保存所有的信息，例如HTTPConnection状态，HTTPResponse状态以及状态码。</p>
+<p>如果需要两个Ajax调用，就要重复这三行代码（当然封装了就更好了）。</p>
+<h3 id="Ajax状态改变函数监听"><a href="#Ajax状态改变函数监听" class="headerlink" title="Ajax状态改变函数监听"></a>Ajax状态改变函数监听</h3><p>为了获悉到实时的访问状态，我们需要监听<code>onreadystatechange</code>事件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'reaceived the response'</span>, xhr.responseText)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'error in processing the request'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'waiting for the response finish'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当HTTPConnection状态发生改变的时候都会调用一次<code>onreadystatechange</code>，并且可以读取到xhr当前的状态<code>readyState</code>，主要状态如下：</p>
+<p>0: 请求未初始化<br>1: 服务器连接已建立<br>2: 请求已接收<br>3: 请求处理中<br>4: 请求已完成，且响应已就绪</p>
+<p>当状态为<code>4</code>的时候，就说明了响应结果已经返回了并且可以去判断请求的状态<code>status</code>(200,404,500等等)了。当<code>xhr.readyState === 4 &amp;&amp; xhr.status === 200</code>的时候，就可以去读取<code>xhr.responseText</code>的内容了，注意的是，<code>responseText</code>的格式可能是XML,JSON,plain text,二进制或其他，这就要取决于客户端和浏览器之间的约定了。</p>
+<p>完整的Ajax调用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajaxCall</span>(<span class="params">url, &#123; methodType = <span class="string">'GET'</span> &#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    xhr.open(methodType, url, <span class="literal">true</span>)</span><br><span class="line">    xhr.send()</span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'xhr done successfully'</span>)</span><br><span class="line">                <span class="keyword">const</span> resp = <span class="built_in">JSON</span>.parse(xhr.responseText)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;                                </span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'reqeust failed'</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'reqeust pending'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'reqeust sent succesfully'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajaxCall(<span class="string">'https://test.com'</span>, &#123; <span class="attr">methodType</span>: <span class="string">'Get'</span> &#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="那么POST请求呢"><a href="#那么POST请求呢" class="headerlink" title="那么POST请求呢"></a>那么POST请求呢</h3><p>对于<code>GET</code>来说，参数可以直接加在URL上没难度，那么<code>POST</code>呢？<br>实际上<code>xhr.send(...)</code>的参数就是接受要传出去的参数，对于<code>POST</code>请求我们可以这么做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">... <span class="comment">// 省略初始化</span></span><br><span class="line">xhr.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>) <span class="comment">// 设定POST请求的请求头格式</span></span><br><span class="line">xhr.send(<span class="string">`id=<span class="subst">$&#123;id&#125;</span>`</span>) <span class="comment">// 发送带参数的请求</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="我们需要回调"><a href="#我们需要回调" class="headerlink" title="我们需要回调"></a>我们需要回调</h3><p>为了看起来方便，暂时我们也只考虑<code>GET</code>请求，也就是用回上面的完整代码。<br>当我们封装好ajax请求函数之后，我们需要一个机制，可以让函数通知我们请求已经结束了/发生异常了，首先我们选择JS的基础回调函数来实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajaxCall</span>(<span class="params">url, &#123; methodType = <span class="string">'GET'</span> &#125;, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">    xhr.open(methodType, url, <span class="literal">true</span>)</span><br><span class="line">    xhr.send()</span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'xhr done successfully'</span>)</span><br><span class="line">                <span class="keyword">const</span> resp = <span class="built_in">JSON</span>.parse(xhr.responseText)</span><br><span class="line">                callback &amp;&amp; callback(resp)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;                                </span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'reqeust failed'</span>)</span><br><span class="line">                callback &amp;&amp; callback(xhr.statusText)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'reqeust pending'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'reqeust sent succesfully'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajaxCall(<span class="string">'https://test.com'</span>, &#123; <span class="attr">methodType</span>: <span class="string">'Get'</span> &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样就可以在我们正常的流程中获取到请求的返回结果了。</p>
+<h3 id="加上Promise更实用"><a href="#加上Promise更实用" class="headerlink" title="加上Promise更实用"></a>加上Promise更实用</h3><p>很多时候，请求是嵌套的，或者需要其他耗时的操作，容易造成回调地狱，这时候就可以用<code>Promise</code>来帮助我们解决这个问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajaxCall</span>(<span class="params">url, &#123; methodType = <span class="string">'GET'</span> &#125;, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">        xhr.open(methodType, url, <span class="literal">true</span>)</span><br><span class="line">        xhr.send()</span><br><span class="line">        xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (xhr.status === <span class="number">200</span>) &#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'xhr done successfully'</span>)</span><br><span class="line">                    <span class="keyword">const</span> resp = <span class="built_in">JSON</span>.parse(xhr.responseText)</span><br><span class="line">                    resolve(resp)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;                                </span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">'reqeust failed'</span>)</span><br><span class="line">                    reject(xhr.status)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'reqeust pending'</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'reqeust sent succesfully'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> res = <span class="keyword">await</span> ajaxCall(<span class="string">'https://test.com'</span>, &#123; <span class="attr">methodType</span>: <span class="string">'Get'</span> &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>个人更喜欢使用<code>async/await</code>，来到这一步，一个异步的ajax请求函数(非完整)的到此结束了。</p>
+<h3 id="等等，跨域问题呢？"><a href="#等等，跨域问题呢？" class="headerlink" title="等等，跨域问题呢？"></a>等等，跨域问题呢？</h3><p>实际上，<code>XMLHttpRequest</code>应对跨域问题就两种解决方案：</p>
+<ol>
+<li>CORS,全称是“跨域资源共享”(Cross-origin resource sharing)。详细标准的内容可以看<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">这篇文章</a></li>
+<li>JSONP,这个方案虽然可以支持更古老的浏览器，但是缺点是：<pre><code>1) 只支持`GET`请求
+2) 没有错误处理机制，发生错误的时候要么是跨域错误，要么是404连接错误。
+3) 脆弱性，因为对返回的代码绝对的信任，所以进一步暴露了CSRF漏洞。
+</code></pre></li>
+</ol>
+<p>因此建议还是使用第一种方案，当然这种方案更重要的是和后端同事沟通好。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到这里未知，一个Ajax的内容就基本差不多了，而<code>fetch</code>相关的话可以看<a href="https://blog.chenhaotaishuaile.com/2019/01/02/fetch-disadvantage/" target="_blank" rel="noopener">我的另一篇文章</a>。好了到此结束。</p>
 
       
     </div>
@@ -450,8 +463,17 @@ gitment.render(document.getElementById('gitment-comments'));
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -504,6 +526,22 @@ gitment.render(document.getElementById('gitment-comments'));
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#怎样创建一个Ajax调用"><span class="nav-number">1.</span> <span class="nav-text">怎样创建一个Ajax调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ajax状态改变函数监听"><span class="nav-number">2.</span> <span class="nav-text">Ajax状态改变函数监听</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#那么POST请求呢"><span class="nav-number">3.</span> <span class="nav-text">那么POST请求呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们需要回调"><span class="nav-number">4.</span> <span class="nav-text">我们需要回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加上Promise更实用"><span class="nav-number">5.</span> <span class="nav-text">加上Promise更实用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等等，跨域问题呢？"><span class="nav-number">6.</span> <span class="nav-text">等等，跨域问题呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
