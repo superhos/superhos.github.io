@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="作为MVVM的核心内容数据绑定，是非常要必要去探究和简单实现一下的。 Vue.js数据绑定功能来看一下Vue.js的数据是如何使用的：1234567&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;input v-model=&quot;message&quot; /&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;  var message = &apos;Vue.j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单实现双向数据绑定">
+<meta property="og:url" content="https://superhos.github.io/2019/02/27/two-way-binding/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="作为MVVM的核心内容数据绑定，是非常要必要去探究和简单实现一下的。 Vue.js数据绑定功能来看一下Vue.js的数据是如何使用的：1234567&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;input v-model=&quot;message&quot; /&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;  var message = &apos;Vue.j">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-27T14:56:43.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单实现双向数据绑定">
+<meta name="twitter:description" content="作为MVVM的核心内容数据绑定，是非常要必要去探究和简单实现一下的。 Vue.js数据绑定功能来看一下Vue.js的数据是如何使用的：1234567&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;input v-model=&quot;message&quot; /&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;  var message = &apos;Vue.j">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2019/02/27/two-way-binding/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>简单实现双向数据绑定 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/27/two-way-binding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单实现双向数据绑定</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T18:09:50+08:00">
+                2019-02-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>作为MVVM的核心内容数据绑定，是非常要必要去探究和简单实现一下的。</p>
+<h3 id="Vue-js数据绑定功能"><a href="#Vue-js数据绑定功能" class="headerlink" title="Vue.js数据绑定功能"></a>Vue.js数据绑定功能</h3><p>来看一下Vue.js的数据是如何使用的：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"message"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> message = <span class="string">'Vue.js is rad'</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">new</span> Vue(&#123; <span class="attr">el</span>: <span class="string">'#app'</span>, <span class="attr">data</span>: &#123; message &#125; &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果使用<code>{ {} }</code>的话就会涉及到模板解析方面的知识，这里为求把焦点更集中，所以使用了<code>input</code>和<code>v-model</code>的配合。</p>
+<p>首先可以看到，我们的<code>input</code>标签是通过<code>v-model</code>来绑定数据对象的，当数据对象<code>message</code>内容发生改变的时候就会引起<code>input</code>value的改变。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="HTML配置"><a href="#HTML配置" class="headerlink" title="HTML配置"></a>HTML配置</h3><p>先看看HTML配置<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">s-model</span>=<span class="string">"message"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"click"</span>&gt;</span>设置message为Hello World<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">br</span>/&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">s-model</span>=<span class="string">"message"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>主要设置了一个绑定了<code>message</code>数据对象的<code>input</code>输入框，一个点击后会设置<code>message</code>对象值为<code>Hello world</code>的<code>button</code>，还有一个绑定了<code>message</code>数据对象的<code>span</code>用来看看它的值的改变。</p>
+<h3 id="Proxy-Handler"><a href="#Proxy-Handler" class="headerlink" title="Proxy Handler"></a>Proxy Handler</h3><p>这里的object劫持采用了Proxy的方式，下面是handler的定义：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BindingProxyHandler</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">        get: <span class="function">(<span class="params">target, key, receiver</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, key, receiver);</span><br><span class="line">        &#125;,</span><br><span class="line">        set: <span class="function">(<span class="params">target, key, value, receiver</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 搜索绑定key的model的DOM</span></span><br><span class="line">            <span class="keyword">let</span> doms = <span class="built_in">document</span>.querySelectorAll(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.elTag&#125;</span> [s-model="<span class="subst">$&#123;key&#125;</span>"]`</span>) || <span class="literal">null</span></span><br><span class="line">            <span class="keyword">if</span> (!doms || doms.length === <span class="number">0</span>)<span class="keyword">return</span></span><br><span class="line">            <span class="comment">// update DOM</span></span><br><span class="line">            doms.forEach(<span class="function"><span class="params">dom</span> =&gt;</span> &#123;</span><br><span class="line">                dom.value = dom.innerHTML = value	</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Reflect</span>.set(target, key, value, receiver);</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该函数返回了一个闭包函数组，封装成函数的形式是为了方便后面注入this的作用域。<br>主要看<code>set</code>部分：当有值改变的时候，会通过<code>querySelectorAll</code>来获取有绑定该被改变模型对象的DOM，当然这部分可以加入Cache缓存绑定结果，就不需要每次都去query一次了，为了思路更清晰，这里先不加。</p>
+<h3 id="初始化工作"><a href="#初始化工作" class="headerlink" title="初始化工作"></a>初始化工作</h3><p>然后我们定义一个类似Vue配置形式的函数，叫它Sue吧：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Sue</span>(<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!options.el) <span class="keyword">throw</span> <span class="built_in">Error</span>(<span class="string">'`el` can not be null'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 保存tag名称，方面query</span></span><br><span class="line">  <span class="keyword">this</span>.elTag = options.el</span><br><span class="line">  <span class="comment">// 保存tag dom</span></span><br><span class="line">  <span class="keyword">this</span>.el = <span class="built_in">document</span>.querySelectorAll(options.el)</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.el.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">   <span class="keyword">this</span>.el = <span class="keyword">this</span>.el[<span class="number">0</span>] </span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">   <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'`el` element not exist'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// data binding</span></span><br><span class="line">  <span class="keyword">this</span>.datas = <span class="keyword">new</span> <span class="built_in">Proxy</span>(options.data || &#123;&#125;, BindingProxyHandler.call(<span class="keyword">this</span>)) <span class="comment">// 绑定当前作用域</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.bindInput()</span><br><span class="line">  <span class="comment">// set default</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(<span class="keyword">this</span>.datas).forEach(<span class="function"><span class="params">key</span> =&gt;</span> <span class="keyword">this</span>.set(key, <span class="keyword">this</span>.datas[key]))</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sue.prototype.set = <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">this</span>.datas[key])<span class="keyword">return</span></span><br><span class="line">  <span class="keyword">this</span>.datas[key] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sue.prototype.bindInput = <span class="function"><span class="keyword">function</span> (<span class="params">modelName</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> el = <span class="built_in">document</span>.querySelector(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.elTag&#125;</span>`</span>)</span><br><span class="line">  el.addEventListener(<span class="string">'keyup'</span>, (evt) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> node = evt.target</span><br><span class="line">    <span class="keyword">if</span> (node.tagName === <span class="string">'INPUT'</span> &amp;&amp; node.getAttribute(<span class="string">'s-model'</span>) !== <span class="string">''</span>) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(node.value)</span><br><span class="line">      <span class="keyword">this</span>.datas[node.getAttribute(<span class="string">'s-model'</span>)] = node.value</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> el</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面主要一步就是数据通过Proxy来进行劫持绑定，传入的data对象的数值在<code>get/set</code>操作的时候都会先经过我们上面设置的BindingProxyHandler里面的方法。</p>
+<p>最后调用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> app = <span class="keyword">new</span> Sue(&#123;</span><br><span class="line">      el: <span class="string">'#app'</span>,</span><br><span class="line">      data: &#123;</span><br><span class="line">        message: <span class="string">'123'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">document</span>.querySelector(<span class="string">'#click'</span>).addEventListener(<span class="string">'click'</span>, () =&gt; app.set(<span class="string">'message'</span>,<span class="string">'Hello World'</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><a href="http://jsrun.net/g2XKp/" target="_blank" rel="noopener">DEMO</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>到这一步，其实已经完成了，整个流程很清晰：</p>
+<ol>
+<li>劫持数据<code>get/set</code>方法</li>
+<li>监听输入类组件的输入事件，当触发的时候就把值传递给<code>this.datas[model]</code></li>
+<li>传递成功后，就会自动触发BindingProxyHandler中的<code>set</code>事件，然后再查询绑定了该数据模型的DOM，将其的’value/innerHTML’设为新的<code>value</code>。</li>
+</ol>
+<p>当然，代码中其实有很多地方可以优化的，例如缓存，防抖等，为了表达清晰脉络，所以简化一下。</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/27/reflect-vs-object/" rel="next" title="Reflect与Object比较">
+                <i class="fa fa-chevron-left"></i> Reflect与Object比较
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "简单实现双向数据绑定",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">80</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-js数据绑定功能"><span class="nav-number">1.</span> <span class="nav-text">Vue.js数据绑定功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number"></span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML配置"><span class="nav-number">1.</span> <span class="nav-text">HTML配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy-Handler"><span class="nav-number">2.</span> <span class="nav-text">Proxy Handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化工作"><span class="nav-number">3.</span> <span class="nav-text">初始化工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
