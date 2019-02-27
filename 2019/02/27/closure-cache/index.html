@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="最近用得挺多的，记录一下  只启动docker-compose其中的一个容器服务1docker-compose up -d --no-deps --build &amp;lt;server_name&amp;gt;   --no-deps 不启动依赖的容器--build 重新build Image  强制删除docker container1docker rm -f &amp;lt;container&amp;gt;   不需">
+<meta name="description" content="看到的一题面试题，其实就是通过闭包保持缓存的生命周期的一个简单闭包应用而已： 123456789101112131415const Cache = (function ()&amp;#123;    // 内部缓存    const _cache = &amp;#123;&amp;#125;    return &amp;#123;        set: function (key, value) &amp;#123;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Docker常用命令记录">
-<meta property="og:url" content="https://superhos.github.io/2019/01/09/docker-shell/index.html">
+<meta property="og:title" content="实现一个闭包缓存封装">
+<meta property="og:url" content="https://superhos.github.io/2019/02/27/closure-cache/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="最近用得挺多的，记录一下  只启动docker-compose其中的一个容器服务1docker-compose up -d --no-deps --build &amp;lt;server_name&amp;gt;   --no-deps 不启动依赖的容器--build 重新build Image  强制删除docker container1docker rm -f &amp;lt;container&amp;gt;   不需">
+<meta property="og:description" content="看到的一题面试题，其实就是通过闭包保持缓存的生命周期的一个简单闭包应用而已： 123456789101112131415const Cache = (function ()&amp;#123;    // 内部缓存    const _cache = &amp;#123;&amp;#125;    return &amp;#123;        set: function (key, value) &amp;#123;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-09T08:22:10.087Z">
+<meta property="og:updated_time" content="2019-02-27T07:02:31.906Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker常用命令记录">
-<meta name="twitter:description" content="最近用得挺多的，记录一下  只启动docker-compose其中的一个容器服务1docker-compose up -d --no-deps --build &amp;lt;server_name&amp;gt;   --no-deps 不启动依赖的容器--build 重新build Image  强制删除docker container1docker rm -f &amp;lt;container&amp;gt;   不需">
+<meta name="twitter:title" content="实现一个闭包缓存封装">
+<meta name="twitter:description" content="看到的一题面试题，其实就是通过闭包保持缓存的生命周期的一个简单闭包应用而已： 123456789101112131415const Cache = (function ()&amp;#123;    // 内部缓存    const _cache = &amp;#123;&amp;#125;    return &amp;#123;        set: function (key, value) &amp;#123;">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2019/01/09/docker-shell/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/02/27/closure-cache/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>Docker常用命令记录 | Sevens Chan blog</title>
+  <title>实现一个闭包缓存封装 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/01/09/docker-shell/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/27/closure-cache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Docker常用命令记录</h1>
+          <h1 class="post-title" itemprop="name headline">实现一个闭包缓存封装</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-09T15:57:15+08:00">
-                2019-01-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T14:51:21+08:00">
+                2019-02-27
               </time>
             
 
@@ -333,17 +333,9 @@
       
 
       
-        <p>最近用得挺多的，记录一下</p>
-<ol>
-<li>只启动docker-compose其中的一个容器服务<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d --no-deps --build &lt;server_name&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><code>--no-deps</code> 不启动依赖的容器<br><code>--build</code> 重新build Image</p>
-<ol start="2">
-<li>强制删除docker container<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f &lt;container&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>不需要再先stop再rm了</p>
+        <p>看到的一题面试题，其实就是通过闭包保持缓存的生命周期的一个简单闭包应用而已：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Cache = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 内部缓存</span></span><br><span class="line">    <span class="keyword">const</span> _cache = &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        set: <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">            _cache[key] = value</span><br><span class="line">        &#125;,</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span> (<span class="params">key, value</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> _cache[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line">Cache.set(<span class="string">'a'</span>,<span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(Cache.get(<span class="string">'a'</span>))</span><br></pre></td></tr></table></figure>
+<p><code>return</code>对象中的两个函数形成了闭包环境，因此<code>_cache</code>不会被垃圾回收掉。</p>
 
       
     </div>
@@ -369,8 +361,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/07/interview-question-list/" rel="next" title="前端面试题整理">
-                <i class="fa fa-chevron-left"></i> 前端面试题整理
+              <a href="/2019/02/26/what-new-does/" rel="next" title="new的时候实际做了什么【02-26更新】">
+                <i class="fa fa-chevron-left"></i> new的时候实际做了什么【02-26更新】
               </a>
             
           </div>
@@ -378,10 +370,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/10/nested-project-share-module/" rel="prev" title="嵌套项目共用node_modules">
-                嵌套项目共用node_modules <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -420,7 +408,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "Docker常用命令记录",
+    id: "实现一个闭包缓存封装",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
