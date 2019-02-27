@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Description以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。 num1 和 num2 的长度都小于5100。num1 和 num2 都只包含数字 0-9。num1 和 num2 都不包含任何前导零。您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。 Example给定 num1 = “123”，num2 = “45”返回">
+<meta name="description" content="开始进入到Vue.js框架的深层原理学习和实现，在此之前，有一些基本概念要认识下。根据当前个人的认知，目前双向绑定的主要实现方式有观察者模式和劫持方式。说到劫持的方式，主要就是通过Object.definedProperty(...)来覆盖get/set方法来达到劫持的目的。而在ES6，新提供了一个内置对象Reflect，同样可以达到Object的作用。那么我们来看看它们之间的区别。 定义 Ref">
 <meta property="og:type" content="article">
-<meta property="og:title" content="655. Add Strings">
-<meta property="og:url" content="https://superhos.github.io/2018/07/04/coding-add-strings/index.html">
+<meta property="og:title" content="Reflect与Object比较">
+<meta property="og:url" content="https://superhos.github.io/2019/02/27/reflect-vs-object/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Description以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。 num1 和 num2 的长度都小于5100。num1 和 num2 都只包含数字 0-9。num1 和 num2 都不包含任何前导零。您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。 Example给定 num1 = “123”，num2 = “45”返回">
+<meta property="og:description" content="开始进入到Vue.js框架的深层原理学习和实现，在此之前，有一些基本概念要认识下。根据当前个人的认知，目前双向绑定的主要实现方式有观察者模式和劫持方式。说到劫持的方式，主要就是通过Object.definedProperty(...)来覆盖get/set方法来达到劫持的目的。而在ES6，新提供了一个内置对象Reflect，同样可以达到Object的作用。那么我们来看看它们之间的区别。 定义 Ref">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T03:05:37.787Z">
+<meta property="og:updated_time" content="2019-02-27T10:02:25.545Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="655. Add Strings">
-<meta name="twitter:description" content="Description以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。 num1 和 num2 的长度都小于5100。num1 和 num2 都只包含数字 0-9。num1 和 num2 都不包含任何前导零。您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。 Example给定 num1 = “123”，num2 = “45”返回">
+<meta name="twitter:title" content="Reflect与Object比较">
+<meta name="twitter:description" content="开始进入到Vue.js框架的深层原理学习和实现，在此之前，有一些基本概念要认识下。根据当前个人的认知，目前双向绑定的主要实现方式有观察者模式和劫持方式。说到劫持的方式，主要就是通过Object.definedProperty(...)来覆盖get/set方法来达到劫持的目的。而在ES6，新提供了一个内置对象Reflect，同样可以达到Object的作用。那么我们来看看它们之间的区别。 定义 Ref">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2018/07/04/coding-add-strings/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/02/27/reflect-vs-object/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>655. Add Strings | Sevens Chan blog</title>
+  <title>Reflect与Object比较 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2018/07/04/coding-add-strings/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/02/27/reflect-vs-object/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">655. Add Strings</h1>
+          <h1 class="post-title" itemprop="name headline">Reflect与Object比较</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-04T11:02:12+08:00">
-                2018-07-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-27T16:02:58+08:00">
+                2019-02-27
               </time>
             
 
@@ -333,11 +333,37 @@
       
 
       
-        <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>以字符串的形式给出两个非负整数 num1 和 num2，返回 num1 和 num2 的和。</p>
-<p>num1 和 num2 的长度都小于5100。<br>num1 和 num2 都只包含数字 0-9。<br>num1 和 num2 都不包含任何前导零。<br>您不能使用任何内置的BigInteger库内的方法或直接将输入转换为整数。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>给定 num1 = “123”，num2 = “45”<br>返回 “168”</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>相关的题要不就翻转字符串，要不就用栈。JS用数组模拟栈更方便。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @param num1: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @param num2: a non-negative integers</span></span><br><span class="line"><span class="comment"> * @return: return sum of num1 and num2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> addStrings = <span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = num1.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> s2 = num2.split(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">let</span> r = <span class="string">''</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(s1.length + s2.length !== <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> t1 = s1.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> t2 = s2.pop() || <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">let</span> sum = <span class="built_in">parseInt</span>(t1) + <span class="built_in">parseInt</span>(t2) + i;</span><br><span class="line">        i = <span class="built_in">Math</span>.floor(sum/<span class="number">10</span>);</span><br><span class="line">        r = <span class="string">''</span> + sum%<span class="number">10</span> + r;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (i?i:<span class="string">""</span>) + r + <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>开始进入到Vue.js框架的深层原理学习和实现，在此之前，有一些基本概念要认识下。根据当前个人的认知，目前双向绑定的主要实现方式有观察者模式和劫持方式。说到劫持的方式，主要就是通过<code>Object.definedProperty(...)</code>来覆盖<code>get/set</code>方法来达到劫持的目的。<br>而在ES6，新提供了一个内置对象<code>Reflect</code>，同样可以达到<code>Object</code>的作用。那么我们来看看它们之间的区别。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><blockquote>
+<p>Reflect is a built-in object that provides methods for interceptable JavaScript operations. The methods are the same as those of proxy handlers. Reflect is not a function object, so it’s not constructible.</p>
+</blockquote>
+<p>根据MDN上对<code>Reflect</code>的定义，它的核心是<strong>interceptable JavaScript operations</strong>，也就是拦截操作，而<code>Object</code>的定义是创建对象的包装器。</p>
+<p>另外，ES6更提供了一个<code>Proxy</code>内置对象，所含方法和<code>Reflect</code>基本一致，主要区别在于，使用<code>Proxy</code>后返回的是一个包装好的<code>Proxy</code>类，继承于传入的Object,而<code>Reflect</code>则是直接操作原有的<code>Object</code>.<br>那么我们如果要劫持多个对象的话,<code>Proxy</code>是更好的选择。</p>
+<p>另外我们常年会使用<code>Object.definedProperty(...)</code>来做劫持相关的操作，但是根据<a href="http://es6.ruanyifeng.com/#docs/reflect" target="_blank" rel="noopener">阮一峰ES6 - Reflect</a>中描述，<strong>未来的新方法将只部署在Reflect对象上</strong>。也就是说, 现在如果是劫持相关的操作，替换使用<code>Reflect</code>是比较好的选择。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>Reflect对象提供以下静态函数，它们具有与处理器对象方法相同的名称。这些方法中的一些与 Object 上的对应方法相同。</p>
+<ul>
+<li>Reflect.apply()<br>对一个函数进行调用操作，同时可以传入一个数组作为调用参数。和 Function.prototype.apply() 功能类似。</li>
+<li>Reflect.construct()<br>对构造函数进行 new 操作，相当于执行 new target(…args)。</li>
+<li>Reflect.defineProperty()<br>和 Object.defineProperty() 类似。</li>
+<li>Reflect.deleteProperty()<br>作为函数的delete操作符，相当于执行 delete target[name]。</li>
+<li><del>Reflect.enumerate()</del><br>该方法会返回一个包含有目标对象身上所有可枚举的自身字符串属性以及继承字符串属性的迭代器，for…in 操作遍历到的正是这些属性。</li>
+<li>Reflect.get()<br>获取对象身上某个属性的值，类似于 target[name]。</li>
+<li>Reflect.getOwnPropertyDescriptor()<br>类似于 Object.getOwnPropertyDescriptor()。</li>
+<li>Reflect.getPrototypeOf()<br>类似于 Object.getPrototypeOf()。</li>
+<li>Reflect.has()<br>判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同。</li>
+<li>Reflect.isExtensible()<br>类似于 Object.isExtensible().</li>
+<li>Reflect.ownKeys()<br>返回一个包含所有自身属性（不包含继承属性）的数组。</li>
+<li>Reflect.preventExtensions()<br>类似于 Object.preventExtensions()。返回一个Boolean。</li>
+<li>Reflect.set()<br>将值分配给属性的函数。返回一个Boolean，如果更新成功，则返回true。</li>
+<li>Reflect.setPrototypeOf()<br>类似于 Object.setPrototypeOf()。</li>
+</ul>
+<p>可以看到，绝大部分的劫持方法都提供好了，可以看到，例如，我们要判断一个对象是否存在某个属性的时候，以往的做法是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="string">'test'</span> <span class="keyword">in</span> Obj) &#123;</span><br><span class="line">    <span class="comment">// 存在</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用了<code>in</code>运算符，为了更规范的函数化编程，可以使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">Reflect</span>.has(Obj,<span class="string">'test'</span>)) &#123;</span><br><span class="line">    <span class="comment">// 存在</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因此可以看到<code>Reflect</code>存在的一部分原因就是为了把原来JavaScript中存在的命令式操作改成使用它的函数操作。</p>
+<p>因为大部分方法的意义跟<code>Object</code>一样，这里不再详细诉述，可以去查看阮老师的文章。</p>
+<h3 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h3><p>最大的区别在于对异常的处理：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 老写法</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(target, property, attributes);</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新写法</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">Reflect</span>.defineProperty(target, property, attributes)) &#123;</span><br><span class="line">  <span class="comment">// success</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// failure</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>就是说，不需要经过<code>try/catch</code>来处理异常，看个人喜好了。</p>
+
       
     </div>
     
@@ -362,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/04/coding-color-bar/" rel="next" title="514. 栅栏染色">
-                <i class="fa fa-chevron-left"></i> 514. 栅栏染色
+              <a href="/2019/02/27/closure-cache/" rel="next" title="实现一个闭包缓存封装">
+                <i class="fa fa-chevron-left"></i> 实现一个闭包缓存封装
               </a>
             
           </div>
@@ -371,10 +397,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/05/algorithm-dynamic-planning/" rel="prev" title="基础算法 - 动态规划">
-                基础算法 - 动态规划 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,7 +435,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "655. Add Strings",
+    id: "Reflect与Object比较",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -515,7 +537,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution"><span class="nav-number">3.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理"><span class="nav-number">3.</span> <span class="nav-text">异常处理</span></a></li></ol></div>
             
 
           </div>
