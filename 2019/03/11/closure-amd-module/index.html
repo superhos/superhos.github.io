@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="参考书籍#参考 书籍[1]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组[2]《Vue.js权威指南》，张耀春，黄轶，王静，苏伟等著[3]《你不知道的JavaScript 上卷/中卷》，[美] Kyle Simpson">
+<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546var Module = (function () &amp;#123;    let modules = []    function define (mod, dependencies, func) &amp;#123;        let d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="参考书籍">
-<meta property="og:url" content="https://superhos.github.io/2017/07/25/参考书籍/index.html">
+<meta property="og:title" content="闭包实现一个AMD模块化">
+<meta property="og:url" content="https://superhos.github.io/2019/03/11/closure-amd-module/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="参考书籍#参考 书籍[1]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组[2]《Vue.js权威指南》，张耀春，黄轶，王静，苏伟等著[3]《你不知道的JavaScript 上卷/中卷》，[美] Kyle Simpson">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546var Module = (function () &amp;#123;    let modules = []    function define (mod, dependencies, func) &amp;#123;        let d">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T09:54:04.755Z">
+<meta property="og:updated_time" content="2019-03-11T03:58:02.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="参考书籍">
-<meta name="twitter:description" content="参考书籍#参考 书籍[1]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组[2]《Vue.js权威指南》，张耀春，黄轶，王静，苏伟等著[3]《你不知道的JavaScript 上卷/中卷》，[美] Kyle Simpson">
+<meta name="twitter:title" content="闭包实现一个AMD模块化">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546var Module = (function () &amp;#123;    let modules = []    function define (mod, dependencies, func) &amp;#123;        let d">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/07/25/参考书籍/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/03/11/closure-amd-module/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>参考书籍 | Sevens Chan blog</title>
+  <title>闭包实现一个AMD模块化 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/25/参考书籍/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/03/11/closure-amd-module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">参考书籍</h1>
+          <h1 class="post-title" itemprop="name headline">闭包实现一个AMD模块化</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">
-                2017-07-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-11T11:32:47+08:00">
+                2019-03-11
               </time>
             
 
@@ -333,9 +333,8 @@
       
 
       
-        <h3 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h3><p><a href="/studyforinterview/tags/参考/">#参考</a></p>
-<h3 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h3><p>[1]《技术之瞳》，阿里巴巴集团校园招聘笔试项目组<br>[2]《Vue.js权威指南》，张耀春，黄轶，王静，苏伟等著<br>[3]《你不知道的JavaScript 上卷/中卷》，[美] Kyle Simpson</p>
-<hr>
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Module = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> modules = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">define</span> (<span class="params">mod, dependencies, func</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> depens = &#123;&#125;</span><br><span class="line">        dependencies.forEach(<span class="function">(<span class="params">depend, key</span>) =&gt;</span> &#123;</span><br><span class="line">            depens[depend] = modules[depend] </span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        modules[mod] = func.call(func, depens)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">require</span> (<span class="params">mod</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> modules[mod]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        define,</span><br><span class="line">        <span class="built_in">require</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">Module.define(<span class="string">'foo'</span>, [], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHi</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'say hi'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        sayHi</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Module.define(<span class="string">'bar'</span>, [<span class="string">'foo'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">depends</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        depends.foo.sayHi()</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'say hello'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        sayHello</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bar = Module.require(<span class="string">'bar'</span>)</span><br><span class="line">bar.sayHello()</span><br></pre></td></tr></table></figure>
+<p>有点事做，晚上再补充。</p>
 
       
     </div>
@@ -361,8 +360,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/语言的选择/" rel="next" title="语言的选择">
-                <i class="fa fa-chevron-left"></i> 语言的选择
+              <a href="/2019/03/06/ES5-extends/" rel="next" title="ES5中的继承实现">
+                <i class="fa fa-chevron-left"></i> ES5中的继承实现
               </a>
             
           </div>
@@ -370,10 +369,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/28/nginx-accesslog/" rel="prev" title="最熟悉的陌生人 - access log">
-                最熟悉的陌生人 - access log <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -412,7 +407,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "参考书籍",
+    id: "闭包实现一个AMD模块化",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -441,17 +436,8 @@ gitment.render(document.getElementById('gitment-comments'));
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -504,22 +490,6 @@ gitment.render(document.getElementById('gitment-comments'));
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考书籍"><span class="nav-number">1.</span> <span class="nav-text">参考书籍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书籍"><span class="nav-number">2.</span> <span class="nav-text">书籍</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
