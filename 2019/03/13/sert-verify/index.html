@@ -102,7 +102,8 @@
 <meta property="og:description" content="在学习HTTPS协议握手过程的时候，在接收服务端Server Hello数据包的时候会包含有服务端的证书，然后浏览器需要对这个证书进行验证，但是很多文章都对这个验证过程一笔带过了，所以这里来总结一下。 参考资料  Browsers and Certificate Validation HTTPS通信中的身份认证机制  为什么要验证这个证书在HTTPS连接中，证书是服务端身份的证明，另外证书中的公钥">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/14/AA0bG9.png">
-<meta property="og:updated_time" content="2019-03-14T13:46:11.814Z">
+<meta property="og:image" content="https://segmentfault.com/img/bVtA4M">
+<meta property="og:updated_time" content="2019-03-14T13:50:13.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【面试补缺（2）】HTTPS握手阶段浏览器对服务端证书的验证过程">
 <meta name="twitter:description" content="在学习HTTPS协议握手过程的时候，在接收服务端Server Hello数据包的时候会包含有服务端的证书，然后浏览器需要对这个证书进行验证，但是很多文章都对这个验证过程一笔带过了，所以这里来总结一下。 参考资料  Browsers and Certificate Validation HTTPS通信中的身份认证机制  为什么要验证这个证书在HTTPS连接中，证书是服务端身份的证明，另外证书中的公钥">
@@ -366,6 +367,7 @@
 <p>CA通过持有相应公钥的自发证书（称为ROOT）来建立其签名秘钥的所有权，意思是CA证书链的ROOT证书是由CA自签生成的。CA必须严格的控制和遵守审核的过程来创建，同时root会派发<code>Intermediate CA</code>中间证书给中间商赚差价，就是我们常去购买证书的网站，让它们也有权利颁发证书。</p>
 <p><img src="https://s2.ax1x.com/2019/03/14/AA0bG9.png" alt="ca-chain"></p>
 <p>由ROOT派生中间证书，再由中间证书派发我们使用的证书，给个证书都签署了序列中的下一个证书，这一系列证书就成为<strong>证书路径 (certification path)</strong>，根称为<strong>信任锚(trust anchor)</strong>，我们服务端的证书就称为<strong>叶(leaf)证书</strong>或者<strong>终端实体( end entity)证书</strong>。</p>
+<p><strong>注意一点就是ROOT CA是内置在浏览器当中的。</strong></p>
 <h2 id="路径构建"><a href="#路径构建" class="headerlink" title="路径构建"></a>路径构建</h2><p>通常来说，浏览器必须查找多个证书路径，直到找到给定证书的有效证书路径。即使路径可能包含正确的链接能连到已知锚点的证书，但由于路径长度、域名、证书使用或者策略的限制，路径本身可能会被拒绝。</p>
 <p>每当浏览器遇到新的证书执行构建和评估所有路径的过程都是消耗很大的。当然，对于现在的浏览器来说已经有各种优化来选择正确的证书路径，这部分在本篇文章暂时不表。</p>
 <h2 id="路径验证"><a href="#路径验证" class="headerlink" title="路径验证"></a>路径验证</h2><p>在构建候选证书路径之后，浏览器会使用当前证书中包含的信息对这条路径进行验证。如果浏览器可以证明，从一个信任锚直接签名的证书开始，遍历到的每个证书对应的私钥都是用于颁发下一个证书（一直到叶证书）的话，那么这条路径就是有效。</p>
@@ -373,7 +375,8 @@
 <p>浏览器会从信任锚(就是根证书)开始去遍历路径中所有的证书，验证每个证书的基本信息和关键扩展。</p>
 <p>如果遍历到路径中最后一个证书都没有错误的话，则该路径为有效，如果中间产生错误，则无效。</p>
 <h2 id="基本证书的处理"><a href="#基本证书的处理" class="headerlink" title="基本证书的处理"></a>基本证书的处理</h2><p>抛开证书扩展先不谈，来说说浏览器对证书验证的检查顺序：</p>
-<h4 id="1-验证证书的完整性"><a href="#1-验证证书的完整性" class="headerlink" title="1. 验证证书的完整性"></a>1. 验证证书的完整性</h4><p>使用证书的公钥对证书上的数字签名进行解密验证，如果验证正确的话，则证书是完整没被篡改过的。</p>
+<h4 id="1-验证证书的完整性"><a href="#1-验证证书的完整性" class="headerlink" title="1. 验证证书的完整性"></a>1. 验证证书的完整性</h4><p>浏览器读取证书中的tbsCertificate部分（明文），使用SignatureAlgorithm中的散列函数计算得到信息摘要，并利用tbsCertificate中的公钥解密SignatureValue得到信息摘要，然后对比双方的信息摘要，判断是否一致；如果一致，则成功；如果不一致，则失败。</p>
+<p><img src="https://segmentfault.com/img/bVtA4M" alt="比较"></p>
 <blockquote>
 <p>数字签名技术是将摘要信息用发送者的私钥加密，与原文一起传送给接收者。接收者只有用发送者的公钥才能解密被加密的摘要信息，然后用HASH函数对收到的原文产生一个摘要信息，与解密的摘要信息对比。如果相同，则说明收到的信息是完整的，在传输过程中没有被修改，否则说明信息被修改过，因此数字签名能够验证信息的完整性。</p>
 </blockquote>
