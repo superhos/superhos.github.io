@@ -94,19 +94,19 @@
 
 
 
-<meta name="description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#x32;&amp;#x39;&amp;#55;&amp;#52;&amp;#x39;&amp;#x35;&amp;#49;&amp;#54;&amp;#x35;&amp;#x40;&amp;#x71;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样">
+<meta name="description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#57;&amp;#x37;&amp;#52;&amp;#57;&amp;#53;&amp;#49;&amp;#54;&amp;#x35;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue.js 优点、一般的和丑陋的">
 <meta property="og:url" content="https://superhos.github.io/2018/08/13/vuejs-good-meh-ugly/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#x32;&amp;#x39;&amp;#55;&amp;#52;&amp;#x39;&amp;#x35;&amp;#49;&amp;#54;&amp;#x35;&amp;#x40;&amp;#x71;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样">
+<meta property="og:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#57;&amp;#x37;&amp;#52;&amp;#57;&amp;#53;&amp;#49;&amp;#54;&amp;#x35;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*NBBRtmDgsatDk6-VArO6Kw.png">
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*7el6TwAJcvD4-1ixR9i-PQ.png">
 <meta property="og:updated_time" content="2018-08-13T09:43:22.787Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue.js 优点、一般的和丑陋的">
-<meta name="twitter:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#x32;&amp;#x39;&amp;#55;&amp;#52;&amp;#x39;&amp;#x35;&amp;#49;&amp;#54;&amp;#x35;&amp;#x40;&amp;#x71;&amp;#x71;&amp;#46;&amp;#99;&amp;#x6f;&amp;#x6d; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样">
+<meta name="twitter:description" content="本篇翻译自Vue.js:the good,the meh and the ugly 译者: SevensChan &amp;#50;&amp;#57;&amp;#x37;&amp;#52;&amp;#57;&amp;#53;&amp;#49;&amp;#54;&amp;#x35;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109; 使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。">
 <meta name="twitter:image" content="https://cdn-images-1.medium.com/max/800/1*NBBRtmDgsatDk6-VArO6Kw.png">
 
 
@@ -337,7 +337,7 @@
 
       
         <p>本篇翻译自<a href="https://medium.com/@Pier/vue-js-the-good-the-meh-and-the-ugly-82800bbe6684" target="_blank" rel="noopener">Vue.js:the good,the meh and the ugly</a></p>
-<p>译者: SevensChan <a href="mailto:&#x32;&#x39;&#55;&#52;&#x39;&#x35;&#49;&#54;&#x35;&#x40;&#x71;&#x71;&#46;&#99;&#x6f;&#x6d;" target="_blank" rel="noopener">&#x32;&#x39;&#55;&#52;&#x39;&#x35;&#49;&#54;&#x35;&#x40;&#x71;&#x71;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>译者: SevensChan <a href="mailto:&#50;&#57;&#x37;&#52;&#57;&#53;&#49;&#54;&#x35;&#64;&#113;&#113;&#46;&#99;&#111;&#109;" target="_blank" rel="noopener">&#50;&#57;&#x37;&#52;&#57;&#53;&#49;&#54;&#x35;&#64;&#113;&#113;&#46;&#99;&#111;&#109;</a></p>
 <p>使用一个新的框架和库的时候是兴奋的，同时也是有要的。即使经过不少的评测，你也永远不会知道自己会遇上什么样的坑。</p>
 <p>经过了和Vue.js大概2年的蜜月期，我终于可以客观地从不同角度来评价一下这个框架了。</p>
 <h2 id="优点部分"><a href="#优点部分" class="headerlink" title="优点部分"></a>优点部分</h2><h3 id="响应式-Reactivity"><a href="#响应式-Reactivity" class="headerlink" title="响应式(Reactivity)"></a>响应式(Reactivity)</h3><p>数据绑定是前端世界里的一个大命题。跟JQuery对DOM微观管理不一样，我们的关注点在于数据。Vue通过双向响应数据绑定系统来巧妙地处理这个问题。</p>
@@ -510,7 +510,7 @@ gitment.render(document.getElementById('gitment-comments'));
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">89</span>
+                <span class="site-state-item-count">91</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
