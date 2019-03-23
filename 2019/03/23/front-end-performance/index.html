@@ -94,17 +94,20 @@
 
 
 
-<meta name="description" content="语言的选择#PHP 我目前主要负责的也是前端以及后端的api开发，所以这里算法的话会以js为主，后面会整理php以及js的深入内容。 最后选择 PHP JS  根据复习的语言，也决定了我的投递岗位：  PHP开发工程师 前端开发工程师 Node.js开发工程师">
+<meta name="description" content="监测时间的方式在说如何优化之前，先要知道网页需要优化的瓶颈在哪里，是发生在哪个阶段。对于这部分，Performance API给予了我们巨大的帮助。个人也比较推崇使用Performance API，因为如果在文件中锚点的话，本身也会有一定消耗影响真实时间。  Performance.timing 属性 navigationStart：浏览器处理当前网页的启动时间 fetchStart：浏览器发起h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="语言的选择">
-<meta property="og:url" content="https://superhos.github.io/2017/07/25/语言的选择/index.html">
+<meta property="og:title" content="【面试补缺(4)】WEB前端优化">
+<meta property="og:url" content="https://superhos.github.io/2019/03/23/front-end-performance/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="语言的选择#PHP 我目前主要负责的也是前端以及后端的api开发，所以这里算法的话会以js为主，后面会整理php以及js的深入内容。 最后选择 PHP JS  根据复习的语言，也决定了我的投递岗位：  PHP开发工程师 前端开发工程师 Node.js开发工程师">
+<meta property="og:description" content="监测时间的方式在说如何优化之前，先要知道网页需要优化的瓶颈在哪里，是发生在哪个阶段。对于这部分，Performance API给予了我们巨大的帮助。个人也比较推崇使用Performance API，因为如果在文件中锚点的话，本身也会有一定消耗影响真实时间。  Performance.timing 属性 navigationStart：浏览器处理当前网页的启动时间 fetchStart：浏览器发起h">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T09:54:00.412Z">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/644387/201607/644387-20160707133942030-282686102.png">
+<meta property="og:image" content="http://coding.imweb.io/img/p6/firstscreen.png">
+<meta property="og:updated_time" content="2019-03-23T14:34:31.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="语言的选择">
-<meta name="twitter:description" content="语言的选择#PHP 我目前主要负责的也是前端以及后端的api开发，所以这里算法的话会以js为主，后面会整理php以及js的深入内容。 最后选择 PHP JS  根据复习的语言，也决定了我的投递岗位：  PHP开发工程师 前端开发工程师 Node.js开发工程师">
+<meta name="twitter:title" content="【面试补缺(4)】WEB前端优化">
+<meta name="twitter:description" content="监测时间的方式在说如何优化之前，先要知道网页需要优化的瓶颈在哪里，是发生在哪个阶段。对于这部分，Performance API给予了我们巨大的帮助。个人也比较推崇使用Performance API，因为如果在文件中锚点的话，本身也会有一定消耗影响真实时间。  Performance.timing 属性 navigationStart：浏览器处理当前网页的启动时间 fetchStart：浏览器发起h">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/644387/201607/644387-20160707133942030-282686102.png">
 
 
 
@@ -133,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/07/25/语言的选择/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/03/23/front-end-performance/"/>
 
 
 
@@ -142,7 +145,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>语言的选择 | Sevens Chan blog</title>
+  <title>【面试补缺(4)】WEB前端优化 | Sevens Chan blog</title>
   
 
 
@@ -265,7 +268,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/07/25/语言的选择/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/03/23/front-end-performance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +285,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">语言的选择</h1>
+          <h1 class="post-title" itemprop="name headline">【面试补缺(4)】WEB前端优化</h1>
         
 
         <div class="post-meta">
@@ -294,8 +297,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T00:00:00+08:00">
-                2017-07-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-23T13:22:59+08:00">
+                2019-03-23
               </time>
             
 
@@ -333,19 +336,42 @@
       
 
       
-        <h3 id="语言的选择"><a href="#语言的选择" class="headerlink" title="语言的选择"></a>语言的选择</h3><p><a href="/studyforinterview/tags/PHP/">#PHP</a></p>
-<p>我目前主要负责的也是前端以及后端的api开发，所以这里算法的话会以js为主，后面会整理php以及js的深入内容。</p>
-<h3 id="最后选择"><a href="#最后选择" class="headerlink" title="最后选择"></a>最后选择</h3><ul>
-<li>PHP</li>
-<li>JS</li>
+        <h2 id="监测时间的方式"><a href="#监测时间的方式" class="headerlink" title="监测时间的方式"></a>监测时间的方式</h2><p>在说如何优化之前，先要知道网页需要优化的瓶颈在哪里，是发生在哪个阶段。对于这部分，<strong>Performance API</strong>给予了我们巨大的帮助。<br>个人也比较推崇使用<strong>Performance API</strong>，因为如果在文件中锚点的话，本身也会有一定消耗影响真实时间。</p>
+<p><img src="https://images2015.cnblogs.com/blog/644387/201607/644387-20160707133942030-282686102.png" alt="performance"></p>
+<h3 id="Performance-timing-属性"><a href="#Performance-timing-属性" class="headerlink" title="Performance.timing 属性"></a>Performance.timing 属性</h3><ul>
+<li>navigationStart：浏览器处理当前网页的启动时间</li>
+<li>fetchStart：浏览器发起http请求读取文档的毫秒时间戳。</li>
+<li>domainLookupStart：域名查询开始时的时间戳。</li>
+<li>domainLookupEnd：域名查询结束时的时间戳。</li>
+<li>connectStart：http请求开始向服务器发送的时间戳。</li>
+<li>connectEnd：浏览器与服务器连接建立（握手和认证过程结束）的毫秒时间戳。</li>
+<li>requestStart：浏览器向服务器发出http请求时的时间戳。或者开始读取本地缓存时。</li>
+<li>responseStart：浏览器从服务器（或读取本地缓存）收到第一个字节时的时间戳。</li>
+<li>responseEnd：浏览器从服务器收到最后一个字节时的毫秒时间戳。</li>
+<li>domLoading：浏览器开始解析网页DOM结构的时间。</li>
+<li>domInteractive：网页dom树创建完成，开始加载内嵌资源的时间。</li>
+<li>domContentLoadedEventStart：网页DOMContentLoaded事件发生时的时间戳。</li>
+<li>domContentLoadedEventEnd：网页所有需要执行的脚本执行完成时的时间，domReady的时间。</li>
+<li>domComplete：网页dom结构生成时的时间戳。</li>
+<li>loadEventStart：当前网页load事件的回调函数开始执行的时间戳。</li>
+<li>loadEventEnd：当前网页load事件的回调函数结束运行时的时间戳。</li>
 </ul>
-<p>根据复习的语言，也决定了我的投递岗位：</p>
-<ul>
-<li>PHP开发工程师</li>
-<li>前端开发工程师</li>
-<li>Node.js开发工程师</li>
-</ul>
-<hr>
+<h3 id="性能数据分析"><a href="#性能数据分析" class="headerlink" title="性能数据分析"></a>性能数据分析</h3><ol>
+<li>DNS寻址时间：t.domainLookupEnd - t.domainLookupStart。</li>
+<li>TCP连接耗时：t.connectEnd - t.connectStart。</li>
+<li>首包时间: t.responseStart - t.navigationStart。</li>
+<li>request请求耗时：t.responseEnd - t.requestStart。</li>
+<li>白屏时间。</li>
+<li>解析DOM树结构的时间：t.domComplete - t.domLoading。</li>
+<li>页面加载完成的时间：t.loadEventEnd - t.fetchStart。</li>
+</ol>
+<h2 id="优化的分类"><a href="#优化的分类" class="headerlink" title="优化的分类"></a>优化的分类</h2><p>前端优化主要针对两种，一是首屏优化，二是白屏优化。</p>
+<h3 id="首屏优化"><a href="#首屏优化" class="headerlink" title="首屏优化"></a>首屏优化</h3><h4 id="什么是首屏"><a href="#什么是首屏" class="headerlink" title="什么是首屏"></a>什么是首屏</h4><p>首屏时间是指用户打开网站开始，到浏览器首屏内容渲染完成的时间。对于用户体验来说，首屏时间是用户对一个网站的重要体验因素。通常一个网站，如果首屏时间在5秒以内是比较优秀的，10秒以内是可以接受的，10秒以上就不可容忍了。超过10秒的首屏时间用户会选择刷新页面或立刻离开。<br><img src="http://coding.imweb.io/img/p6/firstscreen.png" alt="首屏"><br>期间包括以下步骤：<br>1) DNS解析<br>2) 连接建立<br>3) 请求以及响应耗时<br>4) HTML文档加载和解析<br>5) SPA没有做SSR的网站会有JS页面渲染（如Vue.js,React.js）<br>6) 包含在首屏的资源文件加载完毕</p>
+<h3 id="白屏优化"><a href="#白屏优化" class="headerlink" title="白屏优化"></a>白屏优化</h3><h4 id="什么是白屏"><a href="#什么是白屏" class="headerlink" title="什么是白屏"></a>什么是白屏</h4><p>白屏时间指的是浏览器开始显示内容的时间，我们一般认为浏览器开始渲染<body></body>标签或者解析完<head>标签的时刻就是页面白屏结束的时间点。<br>所以从定义上来看，白屏应该是被包含在首屏的概念中而已，这里不作细讲，后面也以首屏优化来讨论。</head></p>
+<h2 id="优化项目"><a href="#优化项目" class="headerlink" title="优化项目"></a>优化项目</h2><p>接下来会以输入网址后回车开始到首屏显示出来的流程来分析哪些部分可以加入优化。</p>
+<h3 id="DNS阶段"><a href="#DNS阶段" class="headerlink" title="DNS阶段"></a>DNS阶段</h3><p>一般来说，在前端优化中与 DNS 有关的有两点： 一个是减少DNS的请求次数，另一个就是进行DNS预获取 。</p>
+<p>DNS 作为互联网的基础协议，其解析的速度似乎很容易被网站优化人员忽视。现在大多数新浏览器已经针对DNS解析进行了优化，典型的一次DNS解析需要耗费 20-120 毫秒，减少DNS解析时间和次数是个很好的优化方式。也就是我们常说的<strong>域名收敛</strong>.</p>
+<p>[Writing]</p>
 
       
     </div>
@@ -371,8 +397,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/25/参考书籍/" rel="next" title="参考书籍">
-                <i class="fa fa-chevron-left"></i> 参考书籍
+              <a href="/2019/03/16/csrf-token-generate/" rel="next" title="【面试补缺（3）】ANTI CSRF TOKEN具体过程">
+                <i class="fa fa-chevron-left"></i> 【面试补缺（3）】ANTI CSRF TOKEN具体过程
               </a>
             
           </div>
@@ -380,10 +406,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/28/nginx-accesslog/" rel="prev" title="最熟悉的陌生人 - access log">
-                最熟悉的陌生人 - access log <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,7 +444,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "语言的选择",
+    id: "【面试补缺(4)】WEB前端优化",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -524,7 +546,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#语言的选择"><span class="nav-number">1.</span> <span class="nav-text">语言的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后选择"><span class="nav-number">2.</span> <span class="nav-text">最后选择</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#监测时间的方式"><span class="nav-number">1.</span> <span class="nav-text">监测时间的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Performance-timing-属性"><span class="nav-number">1.1.</span> <span class="nav-text">Performance.timing 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能数据分析"><span class="nav-number">1.2.</span> <span class="nav-text">性能数据分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化的分类"><span class="nav-number">2.</span> <span class="nav-text">优化的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首屏优化"><span class="nav-number">2.1.</span> <span class="nav-text">首屏优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是首屏"><span class="nav-number">2.1.1.</span> <span class="nav-text">什么是首屏</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#白屏优化"><span class="nav-number">2.2.</span> <span class="nav-text">白屏优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是白屏"><span class="nav-number">2.2.1.</span> <span class="nav-text">什么是白屏</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化项目"><span class="nav-number">3.</span> <span class="nav-text">优化项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS阶段"><span class="nav-number">3.1.</span> <span class="nav-text">DNS阶段</span></a></li></ol></li></ol></div>
             
 
           </div>
