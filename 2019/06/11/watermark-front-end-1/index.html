@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="系列之路： 数字水印技术在前端落地的思考[0] - 概念篇数字水印技术在前端落地的思考[1] - 方案篇 引子少说硕士毕业了也已经三年多了，遥想6年前进入到研究领域学习，在当时数据挖掘、人工智能等技术领域林立的背景下，全班只有我一人毅然选择了这个比较偏门的技术领域去研究，只能说自己是够硬气的，至于选择数字水印研究的原因，在文末再以小彩蛋的形式写一下吧，引子不宜太长。 关于这个系列关于这个文章系列，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字水印技术在前端落地的思考[0] - 概念篇">
+<meta property="og:url" content="https://superhos.github.io/2019/06/11/watermark-front-end-1/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="系列之路： 数字水印技术在前端落地的思考[0] - 概念篇数字水印技术在前端落地的思考[1] - 方案篇 引子少说硕士毕业了也已经三年多了，遥想6年前进入到研究领域学习，在当时数据挖掘、人工智能等技术领域林立的背景下，全班只有我一人毅然选择了这个比较偏门的技术领域去研究，只能说自己是够硬气的，至于选择数字水印研究的原因，在文末再以小彩蛋的形式写一下吧，引子不宜太长。 关于这个系列关于这个文章系列，">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8173e01b0a665c6777a175b44915c6e2_hd.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-b5ac0073cbc0a909d491199ad77bf5ea_hd.jpg">
+<meta property="og:updated_time" content="2019-06-11T12:42:26.576Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字水印技术在前端落地的思考[0] - 概念篇">
+<meta name="twitter:description" content="系列之路： 数字水印技术在前端落地的思考[0] - 概念篇数字水印技术在前端落地的思考[1] - 方案篇 引子少说硕士毕业了也已经三年多了，遥想6年前进入到研究领域学习，在当时数据挖掘、人工智能等技术领域林立的背景下，全班只有我一人毅然选择了这个比较偏门的技术领域去研究，只能说自己是够硬气的，至于选择数字水印研究的原因，在文末再以小彩蛋的形式写一下吧，引子不宜太长。 关于这个系列关于这个文章系列，">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-8173e01b0a665c6777a175b44915c6e2_hd.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2019/06/11/watermark-front-end-1/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>数字水印技术在前端落地的思考[0] - 概念篇 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/06/11/watermark-front-end-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数字水印技术在前端落地的思考[0] - 概念篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-11T20:38:21+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>系列之路：</p>
+<p>数字水印技术在前端落地的思考[0] - 概念篇<br>数字水印技术在前端落地的思考[1] - 方案篇</p>
+<h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>少说硕士毕业了也已经三年多了，遥想6年前进入到研究领域学习，在当时数据挖掘、人工智能等技术领域林立的背景下，全班只有我一人毅然选择了这个比较偏门的技术领域去研究，只能说自己是够硬气的，至于选择数字水印研究的原因，在文末再以小彩蛋的形式写一下吧，引子不宜太长。</p>
+<h2 id="关于这个系列"><a href="#关于这个系列" class="headerlink" title="关于这个系列"></a>关于这个系列</h2><p>关于这个文章系列，其实我更希望把着重点放在“前端”上，想通过整理思考，看看能不能把这样的一门技术放到我们的前端中去，因此下面几个section我会简单地介绍一下什么是数字水印，然后就会开始对前端加入数字水印的可行性方案进行猜想。</p>
+<h2 id="什么是水印"><a href="#什么是水印" class="headerlink" title="什么是水印"></a>什么是水印</h2><p>水印技术其实是历史悠久的技术了，早在宋朝时期的交子上就已经有显性水印的出现，而这门技术现在更是深入我们的生活每个角落，不说远的，可以看到我们的红色毛爷爷身上也是有着美丽的水印存在。</p>
+<p>那么水印有什么作用呢？主要作用就是标记版权和检测版权（辨认真伪），这两个作用其实也是一个功能。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-8173e01b0a665c6777a175b44915c6e2_hd.jpg" alt=""></p>
+<p>显性水印的优点在于容易处理，显性水印的嵌入相当于在载体层上再加一层水印层来达到标记水印的目的，有点PS基础的人都会怎么去加水印，相当简单。缺点在于它是每个人都可视的，攻击者就可以通过裁剪、模糊等操作对水印进行攻击消除，同时显性水印也会破坏图片的完整性。</p>
+<h2 id="什么是数字水印"><a href="#什么是数字水印" class="headerlink" title="什么是数字水印"></a>什么是数字水印</h2><p>上面一个section中，有两个关键词，“显性”和“看到”，这就说明原有的显性水印技术其实是我们肉眼可见，可以直接在载体上看得到的。针对其优缺点，在1995年一位xx教授(这个实在忘了，大大不好意思)就提出了一个崭新的水印技术，数字水印。</p>
+<p>数字水印核心概念就在于“数字”两个字，对载体和水印分别做数字化处理，然后在空间域或者频域通过特定的算法将水印数据加入到载体数据中，同时保证不会破坏载体的完整性，提高抗攻击能力（衡量值是鲁棒性）。</p>
+<p>有点抽象对不对？这里举个简单的例子。</p>
+<p>PS: 为了更易懂，我就用了一个非常非常简单，性能上却是很差的算法来做讲解，大家领会核心就好。</p>
+<h2 id="嵌入水印步骤"><a href="#嵌入水印步骤" class="headerlink" title="嵌入水印步骤"></a>嵌入水印步骤</h2><h4 id="1-先预处理载体和水印对象（图片）"><a href="#1-先预处理载体和水印对象（图片）" class="headerlink" title="1. 先预处理载体和水印对象（图片）"></a>1. 先预处理载体和水印对象（图片）</h4><p><img src="https://pic3.zhimg.com/80/v2-b5ac0073cbc0a909d491199ad77bf5ea_hd.jpg" alt=""></p>
+<p>假设我们有一张灰色的刘德华图片，将它的每一个像素转换成一个灰度值，得到一个灰度值矩阵，然后再把每个灰度值转成二进制，全部合并一起以后就得到一个二进制序列。（当然并非所有水印算法都是按照这套，像我有的算法就是在灰度矩阵就能进行嵌入）</p>
+<p>对水印图像进行同样的预处理</p>
+<h4 id="2-特定算法嵌入数据"><a href="#2-特定算法嵌入数据" class="headerlink" title="2. 特定算法嵌入数据"></a>2. 特定算法嵌入数据</h4><p>这个就是各家发挥想象，通过自己研究的算法把水印图像数据嵌入到载体图像数据中。例如，这里讲一个简单的空间域（大部分算法分为空间域嵌入或频域嵌入）算法，假设我们的水印图像是32x32的大小，那么序列数据长度就是8 x 32 x 32 = 8192，那么我们就在载体图像序列中每隔四个位的那个位就对水印序列的一个位进行异或处理：</p>
+<p>当然了，选择插入位置其实也是一个可以研究的算法，这里就按最简单的来。通过这样简单的操作，水印数据就嵌入到载体数据中了（当然，这个简陋的异或处理对原有图像的完整度也是破坏甚高的，如何在嵌入的时候保证完整度是其中一个研究点）。</p>
+<h4 id="3-逆处理"><a href="#3-逆处理" class="headerlink" title="3. 逆处理"></a>3. 逆处理</h4><p>跟步骤1相反，把最后得到的序列按八位转换为灰度值，然后再输出为一张图片。那么这张图片就是嵌入了水印的图片了。</p>
+<h2 id="水印检测步骤"><a href="#水印检测步骤" class="headerlink" title="水印检测步骤"></a>水印检测步骤</h2><p>有嵌入，就当然要有提取和检测，要判断这张图片中是不是有我们的水印在里面。在说步骤之前，有两个概念要分清：</p>
+<p><strong>盲水印算法</strong> 盲水印并不是概括地指数字水印技术，实际上它是数字水印中的一种，意思就是在水印提取/检测的阶段中，不需要原有的图片或者原有的水印图片参与的算法，就叫做盲水印算法。</p>
+<p><strong>非盲水印算法：</strong> 顾名思义，非盲水印就是在提取/检测的阶段中，需要原有的图片或者原有的水印图片参与的算法，就是非盲水印算法。<br>可以看得出，我们例子的算法是非盲水印算法，需要拿原有的图片进行比对才能得出我们的水印图像。</p>
+<h4 id="1-预处理"><a href="#1-预处理" class="headerlink" title="1.预处理"></a>1.预处理</h4><p>跟嵌入步骤一样，分别对已嵌入水印的图片和原有的图片进行预处理，得到两个二进制序列。</p>
+<h4 id="2-选择嵌入位进行逆算法"><a href="#2-选择嵌入位进行逆算法" class="headerlink" title="2. 选择嵌入位进行逆算法"></a>2. 选择嵌入位进行逆算法</h4><p>我们的选块算法是：每隔四个位的那个位就是我们的嵌入位，嵌入算法是：异或算法。</p>
+<p>那么如上图，我们就能得出我们的水印二进制序列。</p>
+<h4 id="3-逆处理-1"><a href="#3-逆处理-1" class="headerlink" title="3. 逆处理"></a>3. 逆处理</h4><p>把水印二进制序列进行逆处理，看看能不能得到我们之前嵌入的水印图片？</p>
+<h2 id="几个关于数字水印需要知道的点"><a href="#几个关于数字水印需要知道的点" class="headerlink" title="几个关于数字水印需要知道的点"></a>几个关于数字水印需要知道的点</h2><p>有人说，不截图用手机拍照不就可以了吗？这是大错特错，数字水印嵌入载体对象以后，实际上就是载体对象的一部分，通过手机拍照可以看到图片的一切都能够用算法把水印提取出来，例如我们电影院的电影，实际上就是嵌入了数字水印，如果盗摄的话是可以查到盗摄来源的。<br>裁切可以破坏水印吗？抵抗攻击能力中就包含裁切，模糊等攻击，目前绝大部分的水印算法都有能力抗拒这些攻击。</p>
+<h2 id="数字水印能带给前端什么"><a href="#数字水印能带给前端什么" class="headerlink" title="数字水印能带给前端什么"></a>数字水印能带给前端什么</h2><p>终于把数字水印的概念用了最简单的方式讲述了一遍，后面关于数字水印的算法将只会一笔带过（或者其他系列再细谈），我会把着重点放回到前端上。</p>
+<p>那么，在前端领域上我们为什么会需要数字水印呢？或者说在什么场景下我们可以用到数字水印呢？</p>
+<p><a href="https://www.zhihu.com/question/50735753/answer/122593277" target="_blank" rel="noopener">阿里巴巴公司根据截图查到泄露信息的具体员工的技术是什么？</a><br>​<br>这个经典的案例就是其中一个使用场景，把当前用户的数据加入到水印中再嵌入到前端页面，那么当这个用户对当前屏幕截屏或者拍照的时候，就会把水印信息也截取了下来，之后在网上看到这张图片的时候就能追溯源头了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>第一篇就主要讲一下数字水印的基本概念和数字水印可以在前端怎么应用，下一篇就开始来研究下可行的方案和优缺点。</p>
+<p>谢谢观看！</p>
+<p>======= 小彩蛋 =======</p>
+<h4 id="为什么我当初会选择数字水印领域？"><a href="#为什么我当初会选择数字水印领域？" class="headerlink" title="为什么我当初会选择数字水印领域？"></a>为什么我当初会选择数字水印领域？</h4><p>起源是我刚开始读硕的时候看到一篇新闻，一个摄影师控告某个公司盗用自己的摄影作品，但是却无法证明作品是自己拍的。。这就有点证明不了自己是自己的感觉了。。因此当时就想把这门技术落地，做成云服务，那么以后作品的拥有者就能通过服务来添加他们的独有水印，然后当需要认证的时候就可能有证据证明这是属于他们的作品了。当然，不是免费的，0.1元嵌入一张的话，利润都是相当可观的，但是当时跟两个投资人谈过，他们的兴趣都不大。。所以最后只能不了了之了哈哈哈。</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/09/improve-not-stop/" rel="next" title="学无止境">
+                <i class="fa fa-chevron-left"></i> 学无止境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "数字水印技术在前端落地的思考[0] - 概念篇",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">94</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引子"><span class="nav-number">1.</span> <span class="nav-text">引子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于这个系列"><span class="nav-number">2.</span> <span class="nav-text">关于这个系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是水印"><span class="nav-number">3.</span> <span class="nav-text">什么是水印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是数字水印"><span class="nav-number">4.</span> <span class="nav-text">什么是数字水印</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌入水印步骤"><span class="nav-number">5.</span> <span class="nav-text">嵌入水印步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-先预处理载体和水印对象（图片）"><span class="nav-number">5.0.1.</span> <span class="nav-text">1. 先预处理载体和水印对象（图片）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-特定算法嵌入数据"><span class="nav-number">5.0.2.</span> <span class="nav-text">2. 特定算法嵌入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-逆处理"><span class="nav-number">5.0.3.</span> <span class="nav-text">3. 逆处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#水印检测步骤"><span class="nav-number">6.</span> <span class="nav-text">水印检测步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-预处理"><span class="nav-number">6.0.1.</span> <span class="nav-text">1.预处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-选择嵌入位进行逆算法"><span class="nav-number">6.0.2.</span> <span class="nav-text">2. 选择嵌入位进行逆算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-逆处理-1"><span class="nav-number">6.0.3.</span> <span class="nav-text">3. 逆处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个关于数字水印需要知道的点"><span class="nav-number">7.</span> <span class="nav-text">几个关于数字水印需要知道的点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字水印能带给前端什么"><span class="nav-number">8.</span> <span class="nav-text">数字水印能带给前端什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么我当初会选择数字水印领域？"><span class="nav-number">9.0.1.</span> <span class="nav-text">为什么我当初会选择数字水印领域？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
