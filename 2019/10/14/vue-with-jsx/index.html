@@ -94,17 +94,17 @@
 
 
 
-<meta name="description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="description" content="虽然Vue的模板够简单，但是感觉上还是没有JSX用得顺手，这里来记录下Vue配置JSX的步骤。 什么是JSXJSX本质上是语法糖，实际上是转化成了createElement函数。 使用步骤 vue create 创建一个vue的项目 安装babel vue jsx编译库: 1npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-me">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Session和Cookie不能不说的秘密">
-<meta property="og:url" content="https://superhos.github.io/2017/08/22/session-and-cookie/index.html">
+<meta property="og:title" content="在Vue中使用JSX">
+<meta property="og:url" content="https://superhos.github.io/2019/10/14/vue-with-jsx/index.html">
 <meta property="og:site_name" content="Sevens Chan blog">
-<meta property="og:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta property="og:description" content="虽然Vue的模板够简单，但是感觉上还是没有JSX用得顺手，这里来记录下Vue配置JSX的步骤。 什么是JSXJSX本质上是语法糖，实际上是转化成了createElement函数。 使用步骤 vue create 创建一个vue的项目 安装babel vue jsx编译库: 1npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-me">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-04T09:54:44.235Z">
+<meta property="og:updated_time" content="2019-10-14T15:52:11.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Session和Cookie不能不说的秘密">
-<meta name="twitter:description" content="Session和Cookie不能不说的秘密保持会话的技术既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？其实主要的方法有三种  cookie。把会话信息保存在客户端cookie上（不安全） Session。把会话信息保存在服务端上，客户端保存会话的ID GET/POST。通过参数形式保存会话信息或会话ID。  Cookiecookie是保存在浏览器终端内存或">
+<meta name="twitter:title" content="在Vue中使用JSX">
+<meta name="twitter:description" content="虽然Vue的模板够简单，但是感觉上还是没有JSX用得顺手，这里来记录下Vue配置JSX的步骤。 什么是JSXJSX本质上是语法糖，实际上是转化成了createElement函数。 使用步骤 vue create 创建一个vue的项目 安装babel vue jsx编译库: 1npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-me">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="https://superhos.github.io/2017/08/22/session-and-cookie/"/>
+  <link rel="canonical" href="https://superhos.github.io/2019/10/14/vue-with-jsx/"/>
 
 
 
@@ -142,7 +142,7 @@
 <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
 
 
-  <title>Session和Cookie不能不说的秘密 | Sevens Chan blog</title>
+  <title>在Vue中使用JSX | Sevens Chan blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2017/08/22/session-and-cookie/">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2019/10/14/vue-with-jsx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SevensChan">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Session和Cookie不能不说的秘密</h1>
+          <h1 class="post-title" itemprop="name headline">在Vue中使用JSX</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T00:00:00+08:00">
-                2017-08-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-14T00:41:28+08:00">
+                2019-10-14
               </time>
             
 
@@ -333,15 +333,19 @@
       
 
       
-        <h3 id="Session和Cookie不能不说的秘密"><a href="#Session和Cookie不能不说的秘密" class="headerlink" title="Session和Cookie不能不说的秘密"></a>Session和Cookie不能不说的秘密</h3><h2 id="保持会话的技术"><a href="#保持会话的技术" class="headerlink" title="保持会话的技术"></a>保持会话的技术</h2><p>既然我们都知道HTTP是无状态的协议，那么我们需要保持用户会话的话有什么技术方案弥补呢？<br>其实主要的方法有三种</p>
-<ol>
-<li>cookie。把会话信息保存在客户端cookie上（不安全）</li>
-<li>Session。把会话信息保存在服务端上，客户端保存会话的ID</li>
-<li>GET/POST。通过参数形式保存会话信息或会话ID。</li>
+        <p>虽然Vue的模板够简单，但是感觉上还是没有JSX用得顺手，这里来记录下Vue配置JSX的步骤。</p>
+<h2 id="什么是JSX"><a href="#什么是JSX" class="headerlink" title="什么是JSX"></a>什么是JSX</h2><p>JSX本质上是语法糖，实际上是转化成了createElement函数。</p>
+<h2 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h2><ol>
+<li>vue create 创建一个vue的项目</li>
+<li><p>安装babel vue jsx编译库:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在.babelrc中添加下面代码：<br>{<br>“presets”: [“@vue/babel-preset-jsx”]<br>}</p>
+</li>
+<li>随便找一个.vue文件，删掉template，然后在组件中增加渲染函数render，不要忘记要把createElement(h函数)传进来：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'app'</span>,</span><br><span class="line">  components: &#123;</span><br><span class="line">    HelloWorld</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg: <span class="string">'hello world'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  render (h) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">        &lt;HelloWorld msg=&#123;<span class="keyword">this</span>.msg&#125; /&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>cookie是保存在浏览器终端内存或磁盘上的一小块数据，只能保存字符串类型，所有的cookie信息都会随着浏览器的请求而发送。cookie分为：持久cookie，数据保存在磁盘中；会话cookie，数据保存在内存中，浏览器关闭后将清楚。尽管几乎所有浏览器都支持cookie，但是浏览器对单域下cookie的个数和每个key的长度都有限制。</p>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>服务器端的机制，服务器使用一种类似散列表的结构来保存信息，客户端需要接收保存和回送session的会话ID，session通常是借助客户端的cookie来储存session会话ID。如果客户端cookie被禁用，建议的方案就是以参数形式加到请求中来保持会话。</p>
-<hr>
+<p>到这里已经完成了vue使用jsx配置了。<br>主要看下为什么要传入一个h参数，h参数是什么？实际上将 <code>h</code> 作为 <code>createElement</code> 的别名是 Vue 生态系统中的一个通用惯例，实际上也是 JSX 所要求的。<code>createElement</code>是构建VNode的构建函数。</p>
 
       
     </div>
@@ -367,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/17/how-not-to-trigger-a-layout-in-webkit/" rel="next" title="在Webkit里如何不触发重布局">
-                <i class="fa fa-chevron-left"></i> 在Webkit里如何不触发重布局
+              <a href="/2019/06/11/watermark-front-end-1/" rel="next" title="数字水印技术在前端落地的思考[0] - 概念篇">
+                <i class="fa fa-chevron-left"></i> 数字水印技术在前端落地的思考[0] - 概念篇
               </a>
             
           </div>
@@ -376,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/24/crossdomain-solution/" rel="prev" title="跨域问题的产生和解决方案">
-                跨域问题的产生和解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -418,7 +418,7 @@
 
 <script>
 const gitment = new Gitment({
-    id: "Session和Cookie不能不说的秘密",
+    id: "在Vue中使用JSX",
     owner: 'superhos',
     repo: 'superhos.github.io',
     oauth: {
@@ -520,7 +520,7 @@ gitment.render(document.getElementById('gitment-comments'));
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Session和Cookie不能不说的秘密"><span class="nav-number">1.</span> <span class="nav-text">Session和Cookie不能不说的秘密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保持会话的技术"><span class="nav-number"></span> <span class="nav-text">保持会话的技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number"></span> <span class="nav-text">Cookie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number"></span> <span class="nav-text">Session</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是JSX"><span class="nav-number">1.</span> <span class="nav-text">什么是JSX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用步骤"><span class="nav-number">2.</span> <span class="nav-text">使用步骤</span></a></li></ol></div>
             
 
           </div>
