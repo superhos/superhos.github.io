@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="测试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="建立一个网络应用不再是一件简单的事情，前端在功能职责上已经分担了更多的责任。为了让应用开发效率更高，可维护性更高以及更可读，我们一般会使用类似React, Vue或者Angular这类型的框架来开发。 但是，随着代码量的增加，同样会变得更复杂和更有可能出现bug。因此，我们需要学会如何去写测试用例，通过它来帮助提升我们代码的质量。 幸运的是，现在我们已经有了很多的测试方案，对React来说，有一个">
+<meta name="keywords" content="测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用测试框架进行React应用测试">
+<meta property="og:url" content="https://superhos.github.io/2020/02/19/test-react-apps/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="建立一个网络应用不再是一件简单的事情，前端在功能职责上已经分担了更多的责任。为了让应用开发效率更高，可维护性更高以及更可读，我们一般会使用类似React, Vue或者Angular这类型的框架来开发。 但是，随着代码量的增加，同样会变得更复杂和更有可能出现bug。因此，我们需要学会如何去写测试用例，通过它来帮助提升我们代码的质量。 幸运的是，现在我们已经有了很多的测试方案，对React来说，有一个">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-18T16:35:33.838Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用测试框架进行React应用测试">
+<meta name="twitter:description" content="建立一个网络应用不再是一件简单的事情，前端在功能职责上已经分担了更多的责任。为了让应用开发效率更高，可维护性更高以及更可读，我们一般会使用类似React, Vue或者Angular这类型的框架来开发。 但是，随着代码量的增加，同样会变得更复杂和更有可能出现bug。因此，我们需要学会如何去写测试用例，通过它来帮助提升我们代码的质量。 幸运的是，现在我们已经有了很多的测试方案，对React来说，有一个">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2020/02/19/test-react-apps/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>使用测试框架进行React应用测试 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2020/02/19/test-react-apps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用测试框架进行React应用测试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-19T00:04:22+08:00">
+                2020-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>建立一个网络应用不再是一件简单的事情，前端在功能职责上已经分担了更多的责任。为了让应用开发效率更高，可维护性更高以及更可读，我们一般会使用类似React, Vue或者Angular这类型的框架来开发。</p>
+<p>但是，随着代码量的增加，同样会变得更复杂和更有可能出现bug。因此，我们需要学会如何去写测试用例，通过它来帮助提升我们代码的质量。</p>
+<p>幸运的是，现在我们已经有了很多的测试方案，对React来说，有一个叫<a href="https://github.com/testing-library/react-testing-library" target="_blank" rel="noopener">react-testing-library</a>格外优秀，今天我们就来挖掘一下这个宝库。</p>
+<h2 id="为什么要用React测试库（React-Testing-Library，-RTL）"><a href="#为什么要用React测试库（React-Testing-Library，-RTL）" class="headerlink" title="为什么要用React测试库（React Testing Library， RTL）"></a>为什么要用React测试库（React Testing Library， RTL）</h2><p>基本来说，React测试库（React Testing Library， RTL）是由简单而完整的React DOM测试实用工具组成，这些实用工具带来了良好的测试实践，特别是：</p>
+<blockquote>
+<p>当你的应用写得越多测试用例，它会给你越多的信心。 - <em>Kent C.Dodds</em></p>
+</blockquote>
+<p>事实上，开发者倾向于测试那些被我们称为<strong>实现细节</strong>。举个简单的例子来解释它：我们要实现一个计数器，可以加数或减数。这里有一个基于类的实现以及两个它的两个测试：第一个是用<code>Enzyme</code>写的，第二个则是用RTL写的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// counter.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    state = &#123; <span class="attr">count</span>: <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line">    increment = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.setState(<span class="function">(<span class="params">&#123; count &#125;</span>) =&gt;</span> (&#123; <span class="attr">count</span>: count + <span class="number">1</span> &#125;))</span><br><span class="line"></span><br><span class="line">    decrement = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.setState(<span class="function">(<span class="params">&#123; count &#125;</span>) =&gt;</span> (&#123; <span class="attr">count</span>: count - <span class="number">1</span> &#125;))</span><br><span class="line">    </span><br><span class="line">    render () &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;button onClick=&#123;<span class="keyword">this</span>.decrement&#125;&gt; - <span class="xml"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">                &lt;p&gt;&#123;<span class="keyword">this</span>.state.count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">                &lt;button onClick=&#123;this.increment&#125;&gt; + &lt;/</span>button&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default Counter</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// counter-enzym.test.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">import</span> &#123; shallow &#125; <span class="keyword">from</span> <span class="string">'enzyme</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import Counter from '</span>./counter<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">describe('</span>&lt;Counter /&gt;<span class="string">', () =&gt; &#123;</span></span><br><span class="line"><span class="string">    it('</span>properly increments and decrements the counter<span class="string">', () =&gt; &#123;</span></span><br><span class="line"><span class="string">        const wrapper = shallow(&lt;Counter /&gt;);</span></span><br><span class="line"><span class="string">        expect(wrapper.state("count")).toBe(0);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        wrapper.instance().increment();</span></span><br><span class="line"><span class="string">        expect(wrapper.state("count")).toBe(1);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        wrapper.instance().decrement();</span></span><br><span class="line"><span class="string">        expect(wrapper.state("count")).toBe(0);</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">&#125;)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// counter-rtl.test.js</span></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render, fireEvent &#125; <span class="keyword">from</span> <span class="string">"@testing-library/react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">"./counter"</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"&lt;Counter /&gt;"</span>, () =&gt; &#123;</span><br><span class="line">  it(<span class="string">"properly increments and decrements the counter"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getByText &#125; = render(<span class="xml"><span class="tag">&lt;<span class="name">Counter</span> /&gt;</span>);</span></span><br><span class="line"><span class="xml">    const counter = getByText("0");</span></span><br><span class="line"><span class="xml">    const incrementButton = getByText("+");</span></span><br><span class="line"><span class="xml">    const decrementButton = getByText("-");</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    fireEvent.click(incrementButton);</span></span><br><span class="line"><span class="xml">    expect(counter.textContent).toEqual("1");</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    fireEvent.click(decrementButton);</span></span><br><span class="line"><span class="xml">    expect(counter.textContent).toEqual("0");</span></span><br><span class="line"><span class="xml">  &#125;);</span></span><br><span class="line"><span class="xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>比较两个测试用例，感觉哪个更好？为什么？如果你没有写过测试，你可能会感觉两个都还好。事实上，这两个测试用例都能保证counter增加或减少。然后，第一个用例在测试实现细节的时候有两个风险：</p>
+<ul>
+<li>假阳性：即使代码被破坏测试也能通过。</li>
+<li>假阴性：即使代码是正确的也可能测试不通过。</li>
+</ul>
+<p>让我们来说明这两个观点。</p>
+<p>[明晚待续]</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/测试/" rel="tag"># 测试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/14/vue-with-jsx/" rel="next" title="在Vue中使用JSX">
+                <i class="fa fa-chevron-left"></i> 在Vue中使用JSX
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "使用测试框架进行React应用测试",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">96</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用React测试库（React-Testing-Library，-RTL）"><span class="nav-number">1.</span> <span class="nav-text">为什么要用React测试库（React Testing Library， RTL）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
