@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Sevens,JS,front-end" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="随着ES6语法的全面普及，面向对象的思想在前端领域也变得更加的重要，作为后端转过来的前端，更加明白面向对象在编程中的优势。而写这篇文章的缘由是因为在一个群里看到的一条面试题，以及若干个群友的回答。 题目我需要一只碗，今天可以用来吃饭，明天可以用来喝粥，一般我会吃白米饭或者糙米饭，也会喝瘦肉粥或者白粥，请编写一些Javascript类来实现我的需求。 先来看看群友们的回答来自某群友的答案：12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作为前端也要懂的面向对象编程">
+<meta property="og:url" content="https://superhos.github.io/2020/02/20/oop-front-end/index.html">
+<meta property="og:site_name" content="Sevens Chan blog">
+<meta property="og:description" content="随着ES6语法的全面普及，面向对象的思想在前端领域也变得更加的重要，作为后端转过来的前端，更加明白面向对象在编程中的优势。而写这篇文章的缘由是因为在一个群里看到的一条面试题，以及若干个群友的回答。 题目我需要一只碗，今天可以用来吃饭，明天可以用来喝粥，一般我会吃白米饭或者糙米饭，也会喝瘦肉粥或者白粥，请编写一些Javascript类来实现我的需求。 先来看看群友们的回答来自某群友的答案：12345">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-20T13:45:38.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="作为前端也要懂的面向对象编程">
+<meta name="twitter:description" content="随着ES6语法的全面普及，面向对象的思想在前端领域也变得更加的重要，作为后端转过来的前端，更加明白面向对象在编程中的优势。而写这篇文章的缘由是因为在一个群里看到的一条面试题，以及若干个群友的回答。 题目我需要一只碗，今天可以用来吃饭，明天可以用来喝粥，一般我会吃白米饭或者糙米饭，也会喝瘦肉粥或者白粥，请编写一些Javascript类来实现我的需求。 先来看看群友们的回答来自某群友的答案：12345">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://superhos.github.io/2020/02/20/oop-front-end/"/>
+
+
+
+
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+
+
+  <title>作为前端也要懂的面向对象编程 | Sevens Chan blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sevens Chan blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">陈日天技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://superhos.github.io/2020/02/20/oop-front-end/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SevensChan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sevens Chan blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">作为前端也要懂的面向对象编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-20T20:54:14+08:00">
+                2020-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>随着ES6语法的全面普及，面向对象的思想在前端领域也变得更加的重要，作为后端转过来的前端，更加明白面向对象在编程中的优势。<br>而写这篇文章的缘由是因为在一个群里看到的一条面试题，以及若干个群友的回答。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>我需要一只碗，今天可以用来吃饭，明天可以用来喝粥，一般我会吃白米饭或者糙米饭，也会喝瘦肉粥或者白粥，请编写一些Javascript类来实现我的需求。</p>
+<h2 id="先来看看群友们的回答"><a href="#先来看看群友们的回答" class="headerlink" title="先来看看群友们的回答"></a>先来看看群友们的回答</h2><p>来自某群友的答案：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bowl</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bowl.prototype.eatRice = <span class="function"><span class="keyword">function</span> (<span class="params">rice</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(rice)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Bowl.prototype.drinkZhou = <span class="function"><span class="keyword">function</span> (<span class="params">zhou</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(zhou)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bowl = <span class="keyword">new</span> Bowl()</span><br><span class="line"></span><br><span class="line">bowl.eatRice(<span class="string">'whiteRice'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// bowl.drinkZhou('whiteZhou')</span></span><br></pre></td></tr></table></figure></p>
+<p>这里只放这一个回答吧，因为其他人的答案都跟这个大同小异。如果由我来评审的话，这个答案无限接近0分。原因如下：</p>
+<ol>
+<li>没有深刻了解面向对象编程。</li>
+<li>扩展性差，如果后天要吃面的话，就只能在原型上增加方法，如此下来，代码会越来越臃肿。并且每次有加的食物，都需要改动到类代码。</li>
+</ol>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>要解答这条题，先要审题，究竟题目要考什么。<strong>编写一些Javascript类</strong>，从这几个关键字不难看出，需要我们为题目中出现的对象抽象出相应的类。</p>
+<p>我们来看看题目中出现的几个对象：</p>
+<ol>
+<li>碗</li>
+<li>米饭</li>
+<li>糙米饭</li>
+<li>瘦肉粥</li>
+<li>白粥</li>
+<li>我 (人)</li>
+</ol>
+<p>其中第6个对象是最容易被忽视的，群友们的回答基本都是把<em>吃</em>和<em>喝</em>的行为赋给了碗，但是碗能够自己吃喝吗？</p>
+<p>因此，我们还需要定义一个<code>Person</code>类。</p>
+<h3 id="Bowl类"><a href="#Bowl类" class="headerlink" title="Bowl类"></a>Bowl类</h3><p>首先来定义一下碗的类：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bowl</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> () &#123;</span><br><span class="line">        <span class="comment">// 定义content用来表示碗里面有什么</span></span><br><span class="line">        <span class="keyword">this</span>.content = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 把食物放进碗中</span></span><br><span class="line">    put (food) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.content) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'碗不为空'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.content = food</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子中，暂时不考虑食物本身的体积和碗的容积，可以看到，碗自身的属性在这道题目里面其实就一个<code>content</code>，用来记录碗里面装了什么。</p>
+<p>然后看到<code>put</code>方法，这里面我们需要知道装进来的东西是什么，只需要给定一个<code>food</code>接口实现类。</p>
+<h3 id="Food类"><a href="#Food类" class="headerlink" title="Food类"></a>Food类</h3><p>接下来我们看看米饭，糙米饭，瘦肉粥，白粥，其实他们都可以抽象为叫食物的类，因此我们可以定义一个食物类：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Food</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (&#123;</span><br><span class="line">        name = <span class="string">''</span>,</span><br><span class="line">        materials = []</span><br><span class="line">    &#125;) &#123;</span><br><span class="line">        <span class="comment">// 食物的名称</span></span><br><span class="line">        <span class="keyword">this</span>.name = name</span><br><span class="line">        <span class="comment">// 食物的材料</span></span><br><span class="line">        <span class="keyword">this</span>.materials = materials</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>到这里，那我们要表示四种食物的时候可以怎么做呢？我们可以再继承出一个饭类和粥类<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 饭类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rice</span> <span class="keyword">extends</span> <span class="title">Food</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">        <span class="comment">// 用米</span></span><br><span class="line">        <span class="keyword">this</span>.materials.push(props.rice)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 粥类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Porridge</span> <span class="keyword">extends</span> <span class="title">Food</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">        <span class="comment">// 用米</span></span><br><span class="line">        <span class="keyword">this</span>.materials.push(props.rice)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我<strong>把饭类和粥类分开定义</strong>是为了提高贴近题目清晰度，而实际上，粥类完全可以继承饭类，只要增加一个<code>含水量</code>的属性，当含水量高的时候，饭自然会成为粥。另外看到，其实<code>rice</code>也是<code>Food</code>中材料的一种，因此我们并不需要额外的属性去保存米饭，只要把它也丢进去材料就行。</p>
+<p>OK，现在有了这两个类，表示四种食物就没难度了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 米饭</span></span><br><span class="line"><span class="keyword">const</span> rice = <span class="keyword">new</span> Rice(&#123; <span class="attr">name</span>: <span class="string">'米饭'</span>, <span class="attr">rice</span>: <span class="string">'白米'</span>&#125;)</span><br><span class="line"><span class="comment">// 糙米饭</span></span><br><span class="line"><span class="keyword">const</span> brownRice = <span class="keyword">new</span> Rice(&#123; <span class="attr">name</span>: <span class="string">'糙米饭'</span>, <span class="attr">rice</span>: <span class="string">'糙米'</span>&#125;)</span><br><span class="line"><span class="comment">// 瘦肉粥</span></span><br><span class="line"><span class="keyword">const</span> meatPorridge = <span class="keyword">new</span> Porridge(&#123; <span class="attr">name</span>: <span class="string">'瘦肉粥'</span>, <span class="attr">materials</span>: [<span class="string">'瘦肉'</span>], <span class="attr">rice</span>: <span class="string">'白米'</span>&#125;)</span><br><span class="line"><span class="comment">// 白粥</span></span><br><span class="line"><span class="keyword">const</span> purePorridge = <span class="keyword">new</span> Porridge(&#123; <span class="attr">name</span>: <span class="string">'白粥'</span>, <span class="attr">rice</span>: <span class="string">'白米'</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>接下来就是验证四种食物的时候，我们要怎么能证明<code>meatPorridge</code>就是粥呢？怎么证明<code>brownRice</code>是米饭呢？很简单，看下面：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">meatPorridge <span class="keyword">instanceof</span> Porridge <span class="comment">// true</span></span><br><span class="line">meatPorridge <span class="keyword">instanceof</span> Rice <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">brownRice <span class="keyword">instanceof</span> Porridge <span class="comment">// false</span></span><br><span class="line">brownRice <span class="keyword">instanceof</span> Rice <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">brownRice <span class="keyword">instanceof</span> Food <span class="comment">// true</span></span><br><span class="line">meatPorridge <span class="keyword">instanceof</span> Food <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到，它们都分别对应上了应该对应的父类，已经它们都是Food的子类。</p>
+<h3 id="Person类"><a href="#Person类" class="headerlink" title="Person类"></a>Person类</h3><p>到了这里，我们接结束了吗？当然不是，还有最后的一个类<code>Person</code>。定义<code>Person</code>的原因是，吃和喝是属于人类的行为，而不是碗的行为，因此我们来简单定义一个可以吃和喝的人：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">        <span class="comment">// 简单的给他一个名字</span></span><br><span class="line">        <span class="keyword">this</span>.name = props.name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    eat (bowl) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!bowl.content) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'给一个空碗我干嘛?'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        bowl.content = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>吃完啦`</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    drink (bowl) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!bowl.content) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'给一个空碗我干嘛?'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        bowl.content = <span class="literal">null</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>喝完啦`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后我们来表达一下题目：</p>
+<blockquote>
+<p>我需要一只碗，今天可以用来吃饭，明天可以用来喝粥，一般我会吃白米饭或者糙米饭，也会喝瘦肉粥或者白粥，请编写一些Javascript类来实现我的需求。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先定义一个我</span></span><br><span class="line"><span class="keyword">const</span> me = <span class="keyword">new</span> Person(&#123; <span class="attr">name</span>: <span class="string">'靓仔'</span> &#125;)</span><br><span class="line"><span class="comment">// 给一个碗</span></span><br><span class="line"><span class="keyword">const</span> bowl = <span class="keyword">new</span> Bowl()</span><br><span class="line"><span class="comment">// 今天吃饭</span></span><br><span class="line"><span class="keyword">const</span> rice = <span class="keyword">new</span> Rice(&#123; <span class="attr">name</span>: <span class="string">'米饭'</span>, <span class="attr">rice</span>: <span class="string">'白米'</span>&#125;)</span><br><span class="line"><span class="comment">// 饭装进碗中</span></span><br><span class="line">bowl.put(rice)</span><br><span class="line">me.eat(bowl)</span><br><span class="line"><span class="comment">// 明天喝粥</span></span><br><span class="line"><span class="keyword">const</span> meatPorridge = <span class="keyword">new</span> Porridge(&#123; <span class="attr">name</span>: <span class="string">'瘦肉粥'</span>, <span class="attr">materials</span>: [<span class="string">'瘦肉'</span>], <span class="attr">rice</span>: <span class="string">'白米'</span>&#125;)</span><br><span class="line"><span class="comment">// 饭装进碗中</span></span><br><span class="line">bowl.put(rice)</span><br><span class="line">me.drink(bowl)</span><br></pre></td></tr></table></figure>
+<p>至此这道题就可以结束了。</p>
+<h2 id="稍等，那扩展性如何呢？"><a href="#稍等，那扩展性如何呢？" class="headerlink" title="稍等，那扩展性如何呢？"></a>稍等，那扩展性如何呢？</h2><p>这是我觉得其中一个很重要的考点，回顾一下群友的回答，他的代码如果要增加新的食物的话就需要改动到碗的代码，并且原型会原来越臃肿。反观我们的答案，完全不需要动到刚才我们写得任何一个类，只需要增加一个<code>Noodle</code>类：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Noodle</span> <span class="keyword">extends</span> <span class="title">Food</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span> (props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props)</span><br><span class="line">        <span class="comment">// 面条种类</span></span><br><span class="line">        <span class="keyword">this</span>.materials.push(props.noodle)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以了。</p>
+<h2 id="放飞思维"><a href="#放飞思维" class="headerlink" title="放飞思维"></a>放飞思维</h2><p>其实这道题除了考面向对象编程思维以外，更多是再考对代码的把控能力。</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/19/test-react-apps/" rel="next" title="使用测试框架进行React应用测试">
+                <i class="fa fa-chevron-left"></i> 使用测试框架进行React应用测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    <div id="gitment-comments"></div> 
+  </div>
+
+
+
+    
+
+
+<script>
+const gitment = new Gitment({
+    id: "作为前端也要懂的面向对象编程",
+    owner: 'superhos',
+    repo: 'superhos.github.io',
+    oauth: {
+        client_id: "955a1a460b0c407643cf",
+        client_secret: "2a328b1118b9fdd8a9b773214b8324b94cf3cb1a"
+    }
+});
+gitment.render(document.getElementById('gitment-comments'));
+</script>
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="SevensChan" />
+          <p class="site-author-name" itemprop="name">SevensChan</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先来看看群友们的回答"><span class="nav-number">2.</span> <span class="nav-text">先来看看群友们的回答</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析"><span class="nav-number">3.</span> <span class="nav-text">解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bowl类"><span class="nav-number">3.1.</span> <span class="nav-text">Bowl类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Food类"><span class="nav-number">3.2.</span> <span class="nav-text">Food类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Person类"><span class="nav-number">3.3.</span> <span class="nav-text">Person类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稍等，那扩展性如何呢？"><span class="nav-number">4.</span> <span class="nav-text">稍等，那扩展性如何呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#放飞思维"><span class="nav-number">5.</span> <span class="nav-text">放飞思维</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-SEVENS CHAN"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SevensChan</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
