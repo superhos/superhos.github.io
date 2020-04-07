@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="Sevens Chan blog">
 <meta property="og:description" content="优化目标 降低打包体积 提升打包速度  两个目标第一个目标优先度是大于第二个的，最理想的情况是两者取得一个平衡点。 分析工具(1) 速度： speed-measure-webpack-plugin(2) 体积： webpack-bundle-analyzer 降低体积Tree shakingTree shaking会通过静态分析代码，没有被用到的代码会被清掉。只支持ESM模式，因为commonjs">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-24T13:49:49.854Z">
+<meta property="og:updated_time" content="2020-03-25T15:50:29.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Webpack性能优化笔录">
 <meta name="twitter:description" content="优化目标 降低打包体积 提升打包速度  两个目标第一个目标优先度是大于第二个的，最理想的情况是两者取得一个平衡点。 分析工具(1) 速度： speed-measure-webpack-plugin(2) 体积： webpack-bundle-analyzer 降低体积Tree shakingTree shaking会通过静态分析代码，没有被用到的代码会被清掉。只支持ESM模式，因为commonjs">
@@ -348,7 +348,7 @@
 <h3 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h3><p>(1)开启optimization.splitChunks<br>(2)使用动态加载import非首屏页面</p>
 <h3 id="JS代码压缩"><a href="#JS代码压缩" class="headerlink" title="JS代码压缩"></a>JS代码压缩</h3><p>在optimization中选择开启<code>minimize:true</code>，还可以在<code>minimizer</code>中配置相应的压缩插件:<br>(1) UglyJS<br>(2) terser-webpack-plugin</p>
 <h3 id="CSS代码压缩"><a href="#CSS代码压缩" class="headerlink" title="CSS代码压缩"></a>CSS代码压缩</h3><p>使用<code>MiniCssExtractPlugin</code>插件来压缩css文件，在Plugin配置好<code>filename</code>和<code>chunkFilename</code>之后，还要在loader中添加。要注意这个插件不能和<code>style-loader</code>共用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.(sa|sc|c)ss$/</span>,</span><br><span class="line">    use: [</span><br><span class="line">        devMode ? <span class="string">'style-loader'</span> : MiniCssExtractPlugin.loader,</span><br><span class="line">        <span class="string">'css-loader'</span>,</span><br><span class="line">        <span class="string">'postcss-loader'</span>,</span><br><span class="line">        <span class="string">'sass-loader'</span>,</span><br><span class="line">    ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="使用动态polyfill"><a href="#使用动态polyfill" class="headerlink" title="使用动态polyfill"></a>使用动态polyfill</h3><p>(1) 可以通过配置<code>preset-env</code>中的<code>useBuiltIns: &quot;usage&quot;</code>来动态引入<code>transform-runtime</code>中不支持的一些API和函数方法。</p>
+<h3 id="使用动态polyfill"><a href="#使用动态polyfill" class="headerlink" title="使用动态polyfill"></a>使用动态polyfill</h3><p>(1) 默认<code>preset-env</code>只包含了语法的编译，例如箭头函数,<code>const</code>,<code>let</code>等，没有包含的一些API和函数方法，例如<code>fetch</code>,<code>Proxy</code>,<code>Array.prototype.includes</code>等。可以通过配置<code>preset-env</code>中的<code>useBuiltIns: &quot;usage&quot;</code>启动按需引入，还需要配置<code>browser</code>和<code>corejs。</code></p>
 <p>(2) 可以使用<code>polyfill service</code>，会通过传过去的userAgent来返回对应的<code>polyfill</code>文件</p>
 <h3 id="moment优化"><a href="#moment优化" class="headerlink" title="moment优化"></a>moment优化</h3><p>(1) 可以使用IgnorePlugin:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.IgnorePlugin(<span class="regexp">/^\.\/locale$/</span>, /moment$/)</span><br></pre></td></tr></table></figure></p>
 <p>将所有语言包排除，然后再在用到moment的地方按需引入语言包：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> moment = <span class="built_in">require</span>(<span class="string">'moment'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'moment/locale/ja'</span>);</span><br><span class="line"> </span><br><span class="line">moment.locale(<span class="string">'ja'</span>)</span><br></pre></td></tr></table></figure></p>
@@ -399,6 +399,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/07/deep-of-array/" rel="prev" title="【算法题】 计算数组深度">
+                【算法题】 计算数组深度 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -491,7 +495,7 @@ gitment.render(document.getElementById('gitment-comments'));
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
